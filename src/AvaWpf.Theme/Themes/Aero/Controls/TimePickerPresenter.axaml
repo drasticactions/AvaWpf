@@ -1,0 +1,119 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- TimePickerPresenter in the Aero ComboBox drop-down look: up to four columns and accept/dismiss buttons. -->
+  <ControlTheme x:Key="{x:Type TimePickerPresenter}" TargetType="TimePickerPresenter">
+    <Setter Property="Width" Value="242" />
+    <Setter Property="MinWidth" Value="242" />
+    <Setter Property="MaxHeight" Value="398" />
+    <Setter Property="Background" Value="{DynamicResource SystemColors.WindowBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource SystemColors.WindowFrameBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.WindowTextBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <wpf:SystemDropShadowChrome Name="Shdw" Classes.dropshadow="{DynamicResource SystemParameters.DropShadow}">
+          <Border Name="Background"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  MaxHeight="398">
+            <Grid Name="ContentPanel" RowDefinitions="*,Auto">
+              <Grid Name="PART_PickerContainer">
+                <Grid.Styles>
+                  <Style Selector="DateTimePickerPanel > ListBoxItem">
+                    <Setter Property="Theme" Value="{StaticResource Aero.DateTimePickerItem}" />
+                  </Style>
+                </Grid.Styles>
+                <!-- Column definitions are set in code. -->
+                <Panel Name="PART_HourHost" Grid.Column="0">
+                  <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                    <DateTimePickerPanel Name="PART_HourSelector" PanelType="Hour" ItemHeight="22" ShouldLoop="True" />
+                  </ScrollViewer>
+                  <RepeatButton Name="PART_HourUpButton" Theme="{StaticResource Aero.DateTimePickerUpButton}" />
+                  <RepeatButton Name="PART_HourDownButton" Theme="{StaticResource Aero.DateTimePickerDownButton}" />
+                </Panel>
+                <Panel Name="PART_MinuteHost" Grid.Column="2">
+                  <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                    <DateTimePickerPanel Name="PART_MinuteSelector" PanelType="Minute" ItemHeight="22" ShouldLoop="True" />
+                  </ScrollViewer>
+                  <RepeatButton Name="PART_MinuteUpButton" Theme="{StaticResource Aero.DateTimePickerUpButton}" />
+                  <RepeatButton Name="PART_MinuteDownButton" Theme="{StaticResource Aero.DateTimePickerDownButton}" />
+                </Panel>
+                <Panel Name="PART_SecondHost" Grid.Column="4">
+                  <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                    <DateTimePickerPanel Name="PART_SecondSelector" PanelType="Second" ItemHeight="22" ShouldLoop="True" />
+                  </ScrollViewer>
+                  <RepeatButton Name="PART_SecondUpButton" Theme="{StaticResource Aero.DateTimePickerUpButton}" />
+                  <RepeatButton Name="PART_SecondDownButton" Theme="{StaticResource Aero.DateTimePickerDownButton}" />
+                </Panel>
+                <Panel Name="PART_PeriodHost" Grid.Column="6">
+                  <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                    <DateTimePickerPanel Name="PART_PeriodSelector" PanelType="TimePeriod" ItemHeight="22" ShouldLoop="False" />
+                  </ScrollViewer>
+                  <RepeatButton Name="PART_PeriodUpButton" Theme="{StaticResource Aero.DateTimePickerUpButton}" />
+                  <RepeatButton Name="PART_PeriodDownButton" Theme="{StaticResource Aero.DateTimePickerDownButton}" />
+                </Panel>
+                <Rectangle Name="HighlightRect"
+                           IsHitTestVisible="False"
+                           ZIndex="-1"
+                           Fill="{DynamicResource SystemColors.HighlightBrush}"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="7"
+                           VerticalAlignment="Center"
+                           Height="22" />
+                <Rectangle Name="PART_FirstSpacer"
+                           Fill="{DynamicResource SystemColors.ControlDarkBrush}"
+                           HorizontalAlignment="Center"
+                           Width="1"
+                           Grid.Column="1" />
+                <Rectangle Name="PART_SecondSpacer"
+                           Fill="{DynamicResource SystemColors.ControlDarkBrush}"
+                           HorizontalAlignment="Center"
+                           Width="1"
+                           Grid.Column="3" />
+                <Rectangle Name="PART_ThirdSpacer"
+                           Fill="{DynamicResource SystemColors.ControlDarkBrush}"
+                           HorizontalAlignment="Center"
+                           Width="1"
+                           Grid.Column="5" />
+              </Grid>
+              <Grid Name="AcceptDismissGrid" Grid.Row="1" ColumnDefinitions="*,*">
+                <Rectangle Height="1"
+                           VerticalAlignment="Top"
+                           Fill="{DynamicResource SystemColors.ControlDarkBrush}"
+                           Grid.ColumnSpan="2" />
+                <Button Name="PART_AcceptButton"
+                        Grid.Column="0"
+                        Theme="{StaticResource Aero.DateTimePickerButton}"
+                        HorizontalAlignment="Stretch">
+                  <Path Stroke="{Binding $parent[Button].Foreground}"
+                        StrokeLineCap="Round"
+                        StrokeThickness="1.5"
+                        Data="M0.5,4.5 3.5,7.5 9.5,1.5" />
+                </Button>
+                <Button Name="PART_DismissButton"
+                        Grid.Column="1"
+                        Theme="{StaticResource Aero.DateTimePickerButton}"
+                        HorizontalAlignment="Stretch">
+                  <Path Stroke="{Binding $parent[Button].Foreground}"
+                        StrokeLineCap="Round"
+                        StrokeThickness="1.5"
+                        Data="M1,1 8,8 M1,8 8,1" />
+                </Button>
+              </Grid>
+            </Grid>
+          </Border>
+        </wpf:SystemDropShadowChrome>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^ /template/ wpf|SystemDropShadowChrome#Shdw.dropshadow">
+      <Setter Property="Margin" Value="0,0,5,5" />
+    </Style>
+    <Style Selector="^ /template/ Panel">
+      <Style Selector="^:pointerover RepeatButton">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

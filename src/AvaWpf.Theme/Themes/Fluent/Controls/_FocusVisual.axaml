@@ -1,0 +1,34 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Ported from WPF PresentationFramework.Fluent/Resources/DefaultFocusVisualStyle.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!--
+    Fluent focus rectangles: Fluent.FocusVisual outside the control and Fluent.CollectionFocusVisual inside list, tree
+    and menu items.
+  -->
+  <FocusAdornerTemplate x:Key="Fluent.FocusVisual">
+    <!-- The ring sits outside the control: the adorner must not be clipped to the control's bounds. -->
+    <Panel Margin="-3" AdornerLayer.IsClipEnabled="False">
+      <Rectangle RadiusX="4" RadiusY="4"
+                 Stroke="{DynamicResource Fluent.KeyboardFocusBorderColorBrush}"
+                 StrokeThickness="2"
+                 UseLayoutRounding="True" />
+    </Panel>
+  </FocusAdornerTemplate>
+  <FocusAdornerTemplate x:Key="Fluent.FocusVisualStyle">
+    <!-- The ring sits outside the control: the adorner must not be clipped to the control's bounds. -->
+    <Panel Margin="-3" AdornerLayer.IsClipEnabled="False">
+      <Rectangle RadiusX="4" RadiusY="4"
+                 Stroke="{DynamicResource Fluent.KeyboardFocusBorderColorBrush}"
+                 StrokeThickness="2"
+                 UseLayoutRounding="True" />
+    </Panel>
+  </FocusAdornerTemplate>
+  <FocusAdornerTemplate x:Key="Fluent.CollectionFocusVisual">
+    <Panel>
+      <Rectangle RadiusX="4" RadiusY="4"
+                 Stroke="{DynamicResource Fluent.KeyboardFocusBorderColorBrush}"
+                 StrokeThickness="2"
+                 UseLayoutRounding="True" />
+    </Panel>
+  </FocusAdornerTemplate>
+</ResourceDictionary>

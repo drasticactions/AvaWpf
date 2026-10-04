@@ -1,0 +1,56 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:aero="using:AvaWpf.Chrome.Aero">
+  <!--
+    WPF Button.xaml, [[Aero.NormalColor]]: BaseButtonStyle (_ButtonBase.axaml).
+    Class accent: the defaulted ButtonChrome look. Class toolbar: WPF ToolBar.ButtonStyleKey.
+  -->
+  <ControlTheme x:Key="{x:Type Button}" TargetType="Button" BasedOn="{StaticResource Aero.BaseButtonStyle}">
+    <Style Selector="^.accent /template/ aero|ButtonChrome#Chrome">
+      <Setter Property="RenderDefaulted" Value="True" />
+    </Style>
+    <Style Selector="^.toolbar">
+      <Setter Property="FocusAdorner" Value="{DynamicResource Aero.FocusVisualStyle}" />
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+      <Setter Property="Padding" Value="2" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderBrush" Value="Transparent" />
+      <Setter Property="HorizontalAlignment" Value="Center" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+      <Setter Property="HorizontalContentAlignment" Value="Center" />
+      <Setter Property="VerticalContentAlignment" Value="Center" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Border Name="Bd"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  Padding="{TemplateBinding Padding}"
+                  UseLayoutRounding="True">
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+          </Border>
+        </ControlTemplate>
+      </Setter>
+      <Style Selector="^:pointerover /template/ Border#Bd">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.ToolBarButtonHoverBorder}" />
+        <Setter Property="Background" Value="{DynamicResource Aero.ToolBarButtonHover}" />
+      </Style>
+      <Style Selector="^:focus /template/ Border#Bd">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.ToolBarButtonHoverBorder}" />
+        <Setter Property="Background" Value="{DynamicResource Aero.ToolBarButtonHover}" />
+      </Style>
+      <Style Selector="^:pressed /template/ Border#Bd">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.ToolBarButtonPressedBorder}" />
+        <Setter Property="Background" Value="{DynamicResource Aero.ToolBarButtonPressed}" />
+      </Style>
+      <Style Selector="^:disabled">
+        <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

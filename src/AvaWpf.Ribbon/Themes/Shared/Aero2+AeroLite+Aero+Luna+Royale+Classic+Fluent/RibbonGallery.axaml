@@ -1,0 +1,32 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF RibbonGallery.xaml, [[Generic]]. The items scroll when the drop-down is cut to fit the screen or DropDownHeight. -->
+  <ControlTheme x:Key="{x:Type wpf:RibbonGallery}" TargetType="wpf:RibbonGallery">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="ItemsPanel">
+      <ItemsPanelTemplate>
+        <StackPanel Orientation="Vertical" />
+      </ItemsPanelTemplate>
+    </Setter>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+          <DockPanel>
+            <Border Name="FilterBar"
+                    DockPanel.Dock="Top"
+                    Background="{DynamicResource $F.Invented.Ribbon.GalleryCategory.HeaderBackground}"
+                    BorderBrush="{DynamicResource $F.Invented.Ribbon.BorderBrush}"
+                    BorderThickness="0,0,0,1"
+                    IsVisible="{TemplateBinding CanUserFilter}">
+              <wpf:RibbonFilterMenuButton Name="PART_FilterMenuButton" HorizontalAlignment="Left" Label="All" />
+            </Border>
+            <ScrollViewer Name="PART_ScrollViewer" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Focusable="False">
+              <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
+            </ScrollViewer>
+          </DockPanel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

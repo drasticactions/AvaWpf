@@ -1,0 +1,44 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    WPF ListBoxItem.xaml, [[Aero.NormalColor]]. The "active" class follows the ListBox's keyboard focus (WPF IsSelectionActive).
+    Avalonia's ListBox has no content alignment, so the item uses the WPF ListBox values (Left, Center).
+  -->
+  <ControlTheme x:Key="{x:Type ListBoxItem}" TargetType="ListBoxItem">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Padding" Value="2,0,0,0" />
+    <Setter Property="FocusAdorner" Value="{DynamicResource Aero.FocusVisualStyle}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="Bd"
+                Classes.active="{Binding $parent[ListBox].IsKeyboardFocusWithin, FallbackValue=True}"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Padding="{TemplateBinding Padding}"
+                UseLayoutRounding="True">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:selected">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.HighlightTextBrush}" />
+      <Style Selector="^ /template/ Border#Bd">
+        <Setter Property="Background" Value="{DynamicResource SystemColors.HighlightBrush}" />
+      </Style>
+      <Style Selector="^ /template/ Border#Bd:not(.active)">
+        <Setter Property="Background" Value="{DynamicResource SystemColors.InactiveSelectionHighlightBrush}" />
+        <Setter Property="TextElement.Foreground" Value="{DynamicResource SystemColors.InactiveSelectionHighlightTextBrush}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

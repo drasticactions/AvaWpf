@@ -1,0 +1,7 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- AdornerLayer: no look of its own; the default focus adorner is the family's FocusVisualStyleKey rectangle. -->
+  <ControlTheme x:Key="{x:Type AdornerLayer}" TargetType="AdornerLayer">
+    <Setter Property="DefaultFocusAdorner" Value="{DynamicResource Aero.FocusVisualStyle}" />
+  </ControlTheme>
+</ResourceDictionary>

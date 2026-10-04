@@ -1,0 +1,10 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    WPF DataGridColumnHeadersPresenter. The Avalonia presenter lays out the headers and adds the filler header in
+    code, so the theme only clips the headers to their bounds.
+  -->
+  <ControlTheme x:Key="{x:Type DataGridColumnHeadersPresenter}" TargetType="DataGridColumnHeadersPresenter">
+    <Setter Property="ClipToBounds" Value="True" />
+  </ControlTheme>
+</ResourceDictionary>

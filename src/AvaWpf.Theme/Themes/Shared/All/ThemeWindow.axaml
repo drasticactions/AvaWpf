@@ -1,0 +1,46 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- ThemeWindow: a transparent surface; the family's WindowFrame draws the caption, borders and shadow. -->
+  <ControlTheme x:Key="{x:Type wpf:ThemeWindow}" TargetType="wpf:ThemeWindow">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="TransparencyBackgroundFallback" Value="{DynamicResource SystemColors.WindowBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.WindowTextBrush}" />
+    <Setter Property="FontFamily" Value="{DynamicResource SystemFonts.MessageFontFamily}" />
+    <Setter Property="FontSize" Value="{DynamicResource SystemFonts.MessageFontSize}" />
+    <Setter Property="FontWeight" Value="{DynamicResource SystemFonts.MessageFontWeight}" />
+    <Setter Property="FontStyle" Value="{DynamicResource SystemFonts.MessageFontStyle}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <Border Name="PART_TransparencyFallback" IsHitTestVisible="False" />
+          <VisualLayerManager Name="PART_VisualLayerManager">
+            <wpf:WindowFrame Name="PART_Frame"
+                             Title="{TemplateBinding Title}"
+                             Icon="{TemplateBinding FrameIcon}"
+                             ShowIcon="{TemplateBinding ShowFrameIcon}"
+                             IsActive="{TemplateBinding IsActive}"
+                             WindowState="{TemplateBinding WindowState}"
+                             Kind="{TemplateBinding FrameKind}"
+                             CanMinimize="{TemplateBinding CanMinimize}"
+                             CanMaximize="{TemplateBinding CanMaximize}"
+                             CanResize="{TemplateBinding CanResize}"
+                             MenuBar="{TemplateBinding MenuBar}"
+                             CaptionContent="{TemplateBinding CaptionContent}"
+                             CaptionOverlay="{TemplateBinding CaptionOverlay}"
+                             IsShadowVisible="{TemplateBinding IsShadowVisible}"
+                             IsBackdropVisible="{TemplateBinding IsBackdropVisible}">
+              <ContentPresenter Name="PART_ContentPresenter"
+                                Background="{DynamicResource SystemColors.WindowBrush}"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                Padding="{TemplateBinding Padding}"
+                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+            </wpf:WindowFrame>
+          </VisualLayerManager>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

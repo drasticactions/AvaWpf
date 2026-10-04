@@ -1,0 +1,78 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- DatePicker drawn as the closed family ComboBox ($F.DateTimePickerFlyoutButton) with day, month and year fields. -->
+  <ControlTheme x:Key="{x:Type DatePicker}" TargetType="DatePicker">
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.WindowTextBrush}" />
+    <Setter Property="Background" Value="{DynamicResource SystemColors.WindowBrush}"/>
+    <Setter Property="BorderBrush" Value="{DynamicResource $F.ListBorder}"/>
+    <Setter Property="BorderThickness" Value="1"/>
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="MinWidth" Value="120" />
+    <Setter Property="MaxWidth" Value="400" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DataValidationErrors>
+          <Grid Name="LayoutRoot" Margin="{TemplateBinding Padding}">
+            <Button Name="PART_FlyoutButton"
+                    Theme="{StaticResource $F.DateTimePickerFlyoutButton}"
+                    Foreground="{TemplateBinding Foreground}"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    IsEnabled="{TemplateBinding IsEnabled}"
+                    MinWidth="{TemplateBinding MinWidth}"
+                    MaxWidth="{TemplateBinding MaxWidth}"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    TemplatedControl.IsTemplateFocusTarget="True">
+              <Grid Name="PART_ButtonContentGrid" ColumnDefinitions="78*,Auto,132*,Auto,78*">
+                <TextBlock Name="PART_DayTextBlock" Text="day" HorizontalAlignment="Center"
+                           Padding="4,2" />
+                <TextBlock Name="PART_MonthTextBlock" Text="month" TextAlignment="Left"
+                           Padding="4,2" />
+                <TextBlock Name="PART_YearTextBlock" Text="year" HorizontalAlignment="Center"
+                           Padding="4,2" />
+                <Rectangle x:Name="PART_FirstSpacer"
+                      Fill="{DynamicResource SystemColors.ControlLightBrush}"
+                      HorizontalAlignment="Center"
+                      Width="1"
+                      Grid.Column="1" />
+                <Rectangle x:Name="PART_SecondSpacer"
+                      Fill="{DynamicResource SystemColors.ControlLightBrush}"
+                      HorizontalAlignment="Center"
+                      Width="1"
+                      Grid.Column="3" />
+              </Grid>
+            </Button>
+
+            <Popup Name="PART_Popup" WindowManagerAddShadowHint="False"
+                   IsLightDismissEnabled="True" PlacementTarget="{TemplateBinding}"
+                   Placement="Bottom"
+                   wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.ComboBoxPopupAnimation}">
+              <DatePickerPresenter Name="PART_PickerPresenter" />
+            </Popup>
+
+          </Grid>
+        </DataValidationErrors>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^:disabled /template/ Rectangle">
+      <Setter Property="Fill" Value="{DynamicResource SystemColors.ControlLightBrush}"/>
+    </Style>
+
+    <Style Selector="^ /template/ Button#PART_FlyoutButton TextBlock">
+      <Setter Property="VerticalAlignment" Value="{TemplateBinding VerticalContentAlignment}"/>
+    </Style>
+
+    <Style Selector="^:hasnodate /template/ Button#PART_FlyoutButton TextBlock">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}"/>
+    </Style>
+
+    <Style Selector="^:error /template/ Button#PART_FlyoutButton">
+      <Setter Property="BorderBrush" Value="{DynamicResource $F.Invented.ValidationError.Border}"/>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

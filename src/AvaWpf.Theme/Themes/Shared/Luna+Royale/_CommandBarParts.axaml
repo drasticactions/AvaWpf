@@ -1,0 +1,54 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- WPF ToolBar.xaml ToolBarThumbStyle and ToolBarHorizontalOverflowButtonStyle for CommandBar:
+       $F.ToolBarGripperThumb and $F.ToolBarOverflowButton. -->
+  <ControlTheme x:Key="$F.ToolBarGripperThumb" TargetType="Thumb">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Padding="{TemplateBinding Padding}" Background="Transparent" UseLayoutRounding="True">
+          <Rectangle Fill="{DynamicResource $F.ToolBar.ToolBarThumbStyle.Rectangle#1.Fill}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover">
+      <Setter Property="Cursor" Value="SizeAll" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="$F.ToolBarOverflowButton" TargetType="Button">
+    <Setter Property="Background" Value="{DynamicResource $F.ToolBarToggleButtonHorizontalBackground}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="Bd"
+                CornerRadius="0,3,3,0"
+                Background="{TemplateBinding Background}"
+                UseLayoutRounding="True">
+          <Canvas Width="6"
+                  Height="7"
+                  Margin="7,2,2,2"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Bottom">
+            <Path Stroke="{DynamicResource $F.ToolBar.ToolBarHorizontalOverflowButtonStyle.Path#1.Stroke}"
+                  Data="{DynamicResource $F.ToolBar.ToolBarHorizontalOverflowButtonStyle.Path#1.Data}" />
+            <Path Stroke="{TemplateBinding Foreground}"
+                  Data="{DynamicResource $F.ToolBar.ToolBarHorizontalOverflowButtonStyle.Path#2.Data}" />
+            <Path Fill="{DynamicResource $F.ToolBar.ToolBarHorizontalOverflowButtonStyle.Path#3.Fill}"
+                  Data="{DynamicResource $F.ToolBar.ToolBarHorizontalOverflowButtonStyle.Path#3.Data}" />
+            <Path Fill="{TemplateBinding Foreground}"
+                  Data="{DynamicResource $F.ToolBar.ToolBarHorizontalOverflowButtonStyle.Path#4.Data}" />
+          </Canvas>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#Bd, ^:focus /template/ Border#Bd">
+      <Setter Property="Background" Value="{DynamicResource $F.ToolBarButtonHover}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource $F.ToolBarGripper}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,221 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- WPF Slider.xaml SliderHorizontal and SliderVertical, AeroLite.NormalColor; thumbs in _SliderThumbs.axaml. -->
+  <ControlTheme x:Key="{x:Type Slider}" TargetType="Slider">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource AeroLite.SliderThumb.Static.Foreground}" />
+    <Setter Property="FocusAdorner" Value="{DynamicResource AeroLite.FocusVisualStyle}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DataValidationErrors>
+          <Border Name="border"
+                  UseLayoutRounding="True"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}">
+            <Grid>
+              <Grid.Styles>
+                <Style Selector="TickBar">
+                  <Setter Property="ReservedSpace" Value="{Binding #PART_Track.Thumb.Bounds}" />
+                </Style>
+              </Grid.Styles>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" MinHeight="{TemplateBinding MinHeight}" />
+                <RowDefinition Height="Auto" />
+              </Grid.RowDefinitions>
+              <TickBar Name="TopTick"
+                       Height="4"
+                       Placement="Top"
+                       Grid.Row="0"
+                       IsVisible="False"
+                       Margin="0,0,0,2"
+                       Fill="{TemplateBinding Foreground}"
+                       Ticks="{TemplateBinding Ticks}"
+                       TickFrequency="{TemplateBinding TickFrequency}"
+                       Orientation="Horizontal"
+                       Minimum="{TemplateBinding Minimum}"
+                       Maximum="{TemplateBinding Maximum}"
+                       IsDirectionReversed="{TemplateBinding IsDirectionReversed}" />
+              <TickBar Name="BottomTick"
+                       Height="4"
+                       Placement="Bottom"
+                       Grid.Row="2"
+                       IsVisible="False"
+                       Margin="0,2,0,0"
+                       Fill="{TemplateBinding Foreground}"
+                       Ticks="{TemplateBinding Ticks}"
+                       TickFrequency="{TemplateBinding TickFrequency}"
+                       Orientation="Horizontal"
+                       Minimum="{TemplateBinding Minimum}"
+                       Maximum="{TemplateBinding Maximum}"
+                       IsDirectionReversed="{TemplateBinding IsDirectionReversed}" />
+              <Border Name="TrackBackground"
+                      BorderThickness="1"
+                      Height="4"
+                      Margin="5,0"
+                      Grid.Row="1"
+                      VerticalAlignment="Center"
+                      BorderBrush="{DynamicResource AeroLite.SliderThumb.Track.Border}"
+                      Background="{DynamicResource AeroLite.SliderThumb.Track.Background}" />
+              <Track Name="PART_Track"
+                     Grid.Row="1"
+                     Orientation="Horizontal"
+                     Minimum="{TemplateBinding Minimum}"
+                     Maximum="{TemplateBinding Maximum}"
+                     Value="{TemplateBinding Value, Mode=TwoWay}"
+                     IsDirectionReversed="{TemplateBinding IsDirectionReversed}">
+                <Track.DecreaseButton>
+                  <RepeatButton Name="PART_DecreaseButton" Theme="{StaticResource AeroLite.ScrollBarPageButton}" />
+                </Track.DecreaseButton>
+                <Track.IncreaseButton>
+                  <RepeatButton Name="PART_IncreaseButton" Theme="{StaticResource AeroLite.ScrollBarPageButton}" />
+                </Track.IncreaseButton>
+                <Thumb Name="Thumb"
+                       Focusable="False"
+                       VerticalAlignment="Center"
+                       Width="11"
+                       Height="18"
+                       DataContext="{TemplateBinding Value}" />
+              </Track>
+            </Grid>
+          </Border>
+        </DataValidationErrors>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^ /template/ Thumb#Thumb">
+      <Setter Property="Theme" Value="{StaticResource AeroLite.SliderThumbHorizontalDefault}" />
+    </Style>
+    <Style Selector="^[TickPlacement=TopLeft]">
+      <Style Selector="^ /template/ TickBar#TopTick">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="^ /template/ Thumb#Thumb">
+        <Setter Property="Theme" Value="{StaticResource AeroLite.SliderThumbHorizontalTop}" />
+      </Style>
+      <Style Selector="^ /template/ Border#TrackBackground">
+        <Setter Property="Margin" Value="5,2,5,0" />
+      </Style>
+    </Style>
+    <Style Selector="^[TickPlacement=BottomRight]">
+      <Style Selector="^ /template/ TickBar#BottomTick">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="^ /template/ Thumb#Thumb">
+        <Setter Property="Theme" Value="{StaticResource AeroLite.SliderThumbHorizontalBottom}" />
+      </Style>
+      <Style Selector="^ /template/ Border#TrackBackground">
+        <Setter Property="Margin" Value="5,0,5,2" />
+      </Style>
+    </Style>
+    <Style Selector="^[TickPlacement=Outside]">
+      <Style Selector="^ /template/ TickBar#TopTick">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="^ /template/ TickBar#BottomTick">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+    </Style>
+
+    <Style Selector="^:vertical">
+      <Setter Property="Template">
+        <ControlTemplate>
+          <DataValidationErrors>
+            <Border Name="border"
+                    UseLayoutRounding="True"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}">
+              <Grid>
+                <Grid.Styles>
+                  <Style Selector="TickBar">
+                    <Setter Property="ReservedSpace" Value="{Binding #PART_Track.Thumb.Bounds}" />
+                  </Style>
+                </Grid.Styles>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto" />
+                  <ColumnDefinition MinWidth="{TemplateBinding MinWidth}" Width="Auto" />
+                  <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TickBar Name="TopTick"
+                         Grid.Column="0"
+                         Placement="Left"
+                         IsVisible="False"
+                         Width="4"
+                         Margin="0,0,2,0"
+                         Fill="{TemplateBinding Foreground}"
+                         Ticks="{TemplateBinding Ticks}"
+                         TickFrequency="{TemplateBinding TickFrequency}"
+                         Orientation="Vertical"
+                         Minimum="{TemplateBinding Minimum}"
+                         Maximum="{TemplateBinding Maximum}"
+                         IsDirectionReversed="{TemplateBinding IsDirectionReversed}" />
+                <TickBar Name="BottomTick"
+                         Grid.Column="2"
+                         Placement="Right"
+                         IsVisible="False"
+                         Width="4"
+                         Margin="2,0,0,0"
+                         Fill="{TemplateBinding Foreground}"
+                         Ticks="{TemplateBinding Ticks}"
+                         TickFrequency="{TemplateBinding TickFrequency}"
+                         Orientation="Vertical"
+                         Minimum="{TemplateBinding Minimum}"
+                         Maximum="{TemplateBinding Maximum}"
+                         IsDirectionReversed="{TemplateBinding IsDirectionReversed}" />
+                <Border Name="TrackBackground"
+                        BorderThickness="1"
+                        Grid.Column="1"
+                        HorizontalAlignment="Center"
+                        Margin="0,5"
+                        Width="4"
+                        BorderBrush="{DynamicResource AeroLite.SliderThumb.Track.Border}"
+                        Background="{DynamicResource AeroLite.SliderThumb.Track.Background}" />
+                <Track Name="PART_Track"
+                       Grid.Column="1"
+                       Orientation="Vertical"
+                       Minimum="{TemplateBinding Minimum}"
+                       Maximum="{TemplateBinding Maximum}"
+                       Value="{TemplateBinding Value, Mode=TwoWay}"
+                       IsDirectionReversed="{TemplateBinding IsDirectionReversed}">
+                  <Track.DecreaseButton>
+                    <RepeatButton Name="PART_DecreaseButton" Theme="{StaticResource AeroLite.ScrollBarPageButton}" />
+                  </Track.DecreaseButton>
+                  <Track.IncreaseButton>
+                    <RepeatButton Name="PART_IncreaseButton" Theme="{StaticResource AeroLite.ScrollBarPageButton}" />
+                  </Track.IncreaseButton>
+                  <Thumb Name="Thumb"
+                         Focusable="False"
+                         VerticalAlignment="Top"
+                         Width="18"
+                         Height="11"
+                         DataContext="{TemplateBinding Value}" />
+                </Track>
+              </Grid>
+            </Border>
+          </DataValidationErrors>
+        </ControlTemplate>
+      </Setter>
+      <Style Selector="^ /template/ Thumb#Thumb">
+        <Setter Property="Theme" Value="{StaticResource AeroLite.SliderThumbVerticalDefault}" />
+      </Style>
+      <Style Selector="^[TickPlacement=TopLeft]">
+        <Style Selector="^ /template/ Thumb#Thumb">
+          <Setter Property="Theme" Value="{StaticResource AeroLite.SliderThumbVerticalLeft}" />
+        </Style>
+        <Style Selector="^ /template/ Border#TrackBackground">
+          <Setter Property="Margin" Value="2,5,0,5" />
+        </Style>
+      </Style>
+      <Style Selector="^[TickPlacement=BottomRight]">
+        <Style Selector="^ /template/ Thumb#Thumb">
+          <Setter Property="Theme" Value="{StaticResource AeroLite.SliderThumbVerticalRight}" />
+        </Style>
+        <Style Selector="^ /template/ Border#TrackBackground">
+          <Setter Property="Margin" Value="0,5,2,5" />
+        </Style>
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

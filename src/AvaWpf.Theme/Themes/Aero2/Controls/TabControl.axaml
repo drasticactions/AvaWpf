@@ -1,0 +1,74 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    WPF TabControl.xaml, Aero2.NormalColor. Avalonia cannot style grid definitions, so templateRoot is a DockPanel that
+    docks the strip on the placement side. The strip wraps but does not reorder rows as WPF's TabPanel does. The Center
+    content alignment is for the tab headers, not the selected content.
+  -->
+  <ControlTheme x:Key="{x:Type TabControl}" TargetType="TabControl">
+    <Setter Property="Padding" Value="2" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Background" Value="{DynamicResource Aero2.TabItem.Selected.Background}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Aero2.TabItem.Selected.Border}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DockPanel Name="templateRoot"
+                   ClipToBounds="True"
+                   UseLayoutRounding="True"
+                   KeyboardNavigation.TabNavigation="Local">
+          <ItemsPresenter Name="PART_ItemsPresenter"
+                          ItemsPanel="{TemplateBinding ItemsPanel}"
+                          DockPanel.Dock="{TemplateBinding TabStripPlacement}"
+                          Margin="2,2,2,0"
+                          KeyboardNavigation.TabIndex="1"
+                          ZIndex="1" />
+          <Border Name="ContentPanel"
+                  KeyboardNavigation.TabNavigation="Local"
+                  KeyboardNavigation.TabIndex="2"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}">
+            <Panel ClipToBounds="True">
+              <ContentPresenter Name="PART_SelectedContentHost2"
+                                Margin="{TemplateBinding Padding}"
+                                HorizontalContentAlignment="Stretch"
+                                VerticalContentAlignment="Stretch"
+                                UseLayoutRounding="True"
+                                IsVisible="False" />
+              <ContentPresenter Name="PART_SelectedContentHost"
+                                Margin="{TemplateBinding Padding}"
+                                HorizontalContentAlignment="Stretch"
+                                VerticalContentAlignment="Stretch"
+                                UseLayoutRounding="True" />
+            </Panel>
+          </Border>
+        </DockPanel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^[TabStripPlacement=Bottom] /template/ ItemsPresenter#PART_ItemsPresenter">
+      <Setter Property="Margin" Value="2,0,2,2" />
+    </Style>
+    <Style Selector="^[TabStripPlacement=Left]">
+      <Style Selector="^ /template/ ItemsPresenter#PART_ItemsPresenter">
+        <Setter Property="Margin" Value="2,2,0,2" />
+      </Style>
+      <Style Selector="^ /template/ ItemsPresenter#PART_ItemsPresenter > WrapPanel">
+        <Setter Property="Orientation" Value="Vertical" />
+      </Style>
+    </Style>
+    <Style Selector="^[TabStripPlacement=Right]">
+      <Style Selector="^ /template/ ItemsPresenter#PART_ItemsPresenter">
+        <Setter Property="Margin" Value="0,2,2,2" />
+      </Style>
+      <Style Selector="^ /template/ ItemsPresenter#PART_ItemsPresenter > WrapPanel">
+        <Setter Property="Orientation" Value="Vertical" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled /template/ DockPanel#templateRoot">
+      <Setter Property="TextElement.Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

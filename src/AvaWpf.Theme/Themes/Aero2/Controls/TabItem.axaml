@@ -1,0 +1,206 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    WPF TabItem.xaml, Aero2.NormalColor, in WPF trigger order. States repeat per TabStripPlacement to open the border
+    toward the content.
+  -->
+  <ControlTheme x:Key="{x:Type TabItem}" TargetType="TabItem" x:DataType="TabItem">
+    <Setter Property="FocusAdorner" Value="{DynamicResource Aero2.FocusVisual}" />
+    <Setter Property="Foreground" Value="{DynamicResource Aero2.TabItem.TabItem.Setter.Self.Foreground}" />
+    <Setter Property="Background" Value="{DynamicResource Aero2.TabItem.Static.Background}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Aero2.TabItem.Static.Border}" />
+    <Setter Property="Margin" Value="0" />
+    <Setter Property="Padding" Value="6,2,6,2" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Stretch" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Name="templateRoot" UseLayoutRounding="True">
+          <Border Name="mainBorder"
+                  BorderThickness="1,1,1,0"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  Margin="0">
+            <Border Name="innerBorder"
+                    BorderThickness="1,1,1,0"
+                    Background="{DynamicResource Aero2.TabItem.Selected.Background}"
+                    BorderBrush="{DynamicResource Aero2.TabItem.Selected.Border}"
+                    Margin="-1"
+                    Opacity="0" />
+          </Border>
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Header}"
+                            ContentTemplate="{TemplateBinding HeaderTemplate}"
+                            HorizontalAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource FindAncestor, AncestorType=TabControl}, FallbackValue=Center}"
+                            VerticalAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource FindAncestor, AncestorType=TabControl}, FallbackValue=Center}"
+                            UseLayoutRounding="True"
+                            Focusable="False"
+                            Margin="{TemplateBinding Padding}"
+                            RecognizesAccessKey="True" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+
+    <!-- Hover. -->
+    <Style Selector="^[TabStripPlacement=Left]:pointerover">
+      <Style Selector="^ /template/ Border#mainBorder">
+        <Setter Property="Background" Value="{DynamicResource Aero2.TabItem.MouseOver.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.TabItem.MouseOver.Border}" />
+        <Setter Property="BorderThickness" Value="1,1,0,1" />
+      </Style>
+      <Style Selector="^ /template/ Border#innerBorder">
+        <Setter Property="BorderThickness" Value="1,1,0,1" />
+      </Style>
+    </Style>
+    <Style Selector="^[TabStripPlacement=Bottom]:pointerover">
+      <Style Selector="^ /template/ Border#mainBorder">
+        <Setter Property="Background" Value="{DynamicResource Aero2.TabItem.MouseOver.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.TabItem.MouseOver.Border}" />
+        <Setter Property="BorderThickness" Value="1,0,1,1" />
+      </Style>
+      <Style Selector="^ /template/ Border#innerBorder">
+        <Setter Property="BorderThickness" Value="1,0,1,1" />
+      </Style>
+    </Style>
+    <Style Selector="^[TabStripPlacement=Right]:pointerover">
+      <Style Selector="^ /template/ Border#mainBorder">
+        <Setter Property="Background" Value="{DynamicResource Aero2.TabItem.MouseOver.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.TabItem.MouseOver.Border}" />
+        <Setter Property="BorderThickness" Value="0,1,1,1" />
+      </Style>
+      <Style Selector="^ /template/ Border#innerBorder">
+        <Setter Property="BorderThickness" Value="0,1,1,1" />
+      </Style>
+    </Style>
+    <Style Selector="^[TabStripPlacement=Top]:pointerover">
+      <Style Selector="^ /template/ Border#mainBorder">
+        <Setter Property="Background" Value="{DynamicResource Aero2.TabItem.MouseOver.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.TabItem.MouseOver.Border}" />
+        <Setter Property="BorderThickness" Value="1,1,1,0" />
+      </Style>
+      <Style Selector="^ /template/ Border#innerBorder">
+        <Setter Property="BorderThickness" Value="1,1,1,0" />
+      </Style>
+    </Style>
+
+    <!-- Disabled. -->
+    <Style Selector="^[TabStripPlacement=Left]:disabled">
+      <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Opacity" Value="0.56" />
+      </Style>
+      <Style Selector="^ /template/ Border#mainBorder">
+        <Setter Property="Background" Value="{DynamicResource Aero2.TabItem.Disabled.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.TabItem.Disabled.Border}" />
+        <Setter Property="BorderThickness" Value="1,1,0,1" />
+      </Style>
+      <Style Selector="^ /template/ Border#innerBorder">
+        <Setter Property="BorderThickness" Value="1,1,0,1" />
+      </Style>
+    </Style>
+    <Style Selector="^[TabStripPlacement=Bottom]:disabled">
+      <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Opacity" Value="0.56" />
+      </Style>
+      <Style Selector="^ /template/ Border#mainBorder">
+        <Setter Property="Background" Value="{DynamicResource Aero2.TabItem.Disabled.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.TabItem.Disabled.Border}" />
+        <Setter Property="BorderThickness" Value="1,0,1,1" />
+      </Style>
+      <Style Selector="^ /template/ Border#innerBorder">
+        <Setter Property="BorderThickness" Value="1,0,1,1" />
+      </Style>
+    </Style>
+    <Style Selector="^[TabStripPlacement=Right]:disabled">
+      <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Opacity" Value="0.56" />
+      </Style>
+      <Style Selector="^ /template/ Border#mainBorder">
+        <Setter Property="Background" Value="{DynamicResource Aero2.TabItem.Disabled.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.TabItem.Disabled.Border}" />
+        <Setter Property="BorderThickness" Value="0,1,1,1" />
+      </Style>
+      <Style Selector="^ /template/ Border#innerBorder">
+        <Setter Property="BorderThickness" Value="0,1,1,1" />
+      </Style>
+    </Style>
+    <Style Selector="^[TabStripPlacement=Top]:disabled">
+      <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Opacity" Value="0.56" />
+      </Style>
+      <Style Selector="^ /template/ Border#mainBorder">
+        <Setter Property="Background" Value="{DynamicResource Aero2.TabItem.Disabled.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.TabItem.Disabled.Border}" />
+        <Setter Property="BorderThickness" Value="1,1,1,0" />
+      </Style>
+      <Style Selector="^ /template/ Border#innerBorder">
+        <Setter Property="BorderThickness" Value="1,1,1,0" />
+      </Style>
+    </Style>
+
+    <!-- Unselected and selected, per placement. -->
+    <Style Selector="^[TabStripPlacement=Left]:not(:selected)">
+      <Style Selector="^ /template/ Border#mainBorder, ^ /template/ Border#innerBorder">
+        <Setter Property="BorderThickness" Value="1,1,0,1" />
+      </Style>
+    </Style>
+    <Style Selector="^[TabStripPlacement=Left]:selected">
+      <Setter Property="ZIndex" Value="1" />
+      <Setter Property="Margin" Value="-2,-2,0,-2" />
+      <Style Selector="^ /template/ Border#innerBorder">
+        <Setter Property="Opacity" Value="1" />
+        <Setter Property="BorderThickness" Value="1,1,0,1" />
+      </Style>
+      <Style Selector="^ /template/ Border#mainBorder">
+        <Setter Property="BorderThickness" Value="1,1,0,1" />
+      </Style>
+    </Style>
+    <Style Selector="^[TabStripPlacement=Bottom]:not(:selected)">
+      <Style Selector="^ /template/ Border#mainBorder, ^ /template/ Border#innerBorder">
+        <Setter Property="BorderThickness" Value="1,0,1,1" />
+      </Style>
+    </Style>
+    <Style Selector="^[TabStripPlacement=Bottom]:selected">
+      <Setter Property="ZIndex" Value="1" />
+      <Setter Property="Margin" Value="-2,0,-2,-2" />
+      <Style Selector="^ /template/ Border#innerBorder">
+        <Setter Property="Opacity" Value="1" />
+        <Setter Property="BorderThickness" Value="1,0,1,1" />
+      </Style>
+      <Style Selector="^ /template/ Border#mainBorder">
+        <Setter Property="BorderThickness" Value="1,0,1,1" />
+      </Style>
+    </Style>
+    <Style Selector="^[TabStripPlacement=Right]:not(:selected)">
+      <Style Selector="^ /template/ Border#mainBorder, ^ /template/ Border#innerBorder">
+        <Setter Property="BorderThickness" Value="0,1,1,1" />
+      </Style>
+    </Style>
+    <Style Selector="^[TabStripPlacement=Right]:selected">
+      <Setter Property="ZIndex" Value="1" />
+      <Setter Property="Margin" Value="0,-2,-2,-2" />
+      <Style Selector="^ /template/ Border#innerBorder">
+        <Setter Property="Opacity" Value="1" />
+        <Setter Property="BorderThickness" Value="0,1,1,1" />
+      </Style>
+      <Style Selector="^ /template/ Border#mainBorder">
+        <Setter Property="BorderThickness" Value="0,1,1,1" />
+      </Style>
+    </Style>
+    <Style Selector="^[TabStripPlacement=Top]:not(:selected)">
+      <Style Selector="^ /template/ Border#mainBorder, ^ /template/ Border#innerBorder">
+        <Setter Property="BorderThickness" Value="1,1,1,0" />
+      </Style>
+    </Style>
+    <Style Selector="^[TabStripPlacement=Top]:selected">
+      <Setter Property="ZIndex" Value="1" />
+      <Setter Property="Margin" Value="-2,-2,-2,0" />
+      <Style Selector="^ /template/ Border#innerBorder">
+        <Setter Property="Opacity" Value="1" />
+        <Setter Property="BorderThickness" Value="1,1,1,0" />
+      </Style>
+      <Style Selector="^ /template/ Border#mainBorder">
+        <Setter Property="BorderThickness" Value="1,1,1,0" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

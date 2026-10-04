@@ -1,0 +1,7 @@
+{
+  "control": "RadioButton",
+  "width": 160,
+  "height": 50,
+  "properties": { "Content": "RadioButton" },
+  "states": ["normal", "hover", "pressed", "focused", "checked", "disabled"]
+}

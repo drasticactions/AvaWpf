@@ -1,0 +1,22 @@
+# Colors the AeroLite code-drawn chrome builds from literals in WPF
+# ($W/Themes/PresentationFramework.AeroLite/Microsoft/Windows/Themes/*.cs), for AvaWpf.Chrome.AeroLite.*.
+families = ["AeroLite"]
+
+[light]
+# ScrollChrome
+"ScrollChrome.Thumb.Fill" = "#FFDDDDDD"
+"ScrollChrome.Thumb.Hover.Fill" = "#FFBDE6FD"
+"ScrollChrome.Thumb.Pressed.Fill" = "#FFBDE6FD"
+"ScrollChrome.Thumb.Border" = "#FFA3A3A3"
+"ScrollChrome.Thumb.Hover.Border" = "#FF21A1C4"
+"ScrollChrome.Thumb.Pressed.Border" = "#FF007394"
+"ScrollChrome.Thumb.Glyph" = "#FF000000"
+
+# DataGridHeaderBorder
+"DataGridHeaderBorder.Normal.Background" = "#FFFFFFFF"
+"DataGridHeaderBorder.Pressed.Background" = "#FF85D2F5"
+"DataGridHeaderBorder.Hovered.Background" = "#FFBCECFC"
+"DataGridHeaderBorder.Normal.Sides" = "#FFDEDFE1"
+"DataGridHeaderBorder.Pressed.Sides" = "#FF4F90AE"
+"DataGridHeaderBorder.Hovered.Sides" = "#FF69BBE3"
+"DataGridHeaderBorder.Arrow.Fill" = "#FF000000"

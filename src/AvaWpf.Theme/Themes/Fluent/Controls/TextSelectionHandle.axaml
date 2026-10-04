@@ -1,0 +1,87 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Touch selection handle: the Windows 11 teardrop; the caret handle is the same drop turned 45 degrees. -->
+  <GeometryGroup x:Key="Fluent.TextSelectionHandlePath">
+    <CombinedGeometry>
+      <CombinedGeometry.Geometry1>
+        <RectangleGeometry Rect="0,0,16,16" />
+      </CombinedGeometry.Geometry1>
+      <CombinedGeometry.Geometry2>
+        <EllipseGeometry Center="16,16" RadiusX="16" RadiusY="16" />
+      </CombinedGeometry.Geometry2>
+    </CombinedGeometry>
+  </GeometryGroup>
+  <GeometryGroup x:Key="Fluent.TextCaretHandlePath">
+    <CombinedGeometry>
+      <CombinedGeometry.Geometry1>
+        <RectangleGeometry Rect="0,0,16,16">
+          <RectangleGeometry.Transform>
+            <RotateTransform CenterX="16" Angle="-45" />
+          </RectangleGeometry.Transform>
+        </RectangleGeometry>
+      </CombinedGeometry.Geometry1>
+      <CombinedGeometry.Geometry2>
+        <EllipseGeometry Center="16,22.7" RadiusX="16" RadiusY="16" />
+      </CombinedGeometry.Geometry2>
+    </CombinedGeometry>
+  </GeometryGroup>
+  <DrawingImage x:Key="Fluent.TextSelectionHandleDrawing">
+    <DrawingImage.Drawing>
+      <GeometryDrawing Geometry="{DynamicResource Fluent.TextSelectionHandlePath}"
+                       Brush="{DynamicResource Fluent.AccentFillColorSelectedTextBackgroundBrush}">
+        <GeometryDrawing.Pen>
+          <Pen Thickness="0.5" Brush="{DynamicResource Fluent.TextFillColorPrimaryBrush}" LineJoin="Round" />
+        </GeometryDrawing.Pen>
+      </GeometryDrawing>
+    </DrawingImage.Drawing>
+  </DrawingImage>
+  <DrawingImage x:Key="Fluent.TextCaretHandleDrawing">
+    <DrawingImage.Drawing>
+      <GeometryDrawing Geometry="{DynamicResource Fluent.TextCaretHandlePath}"
+                       Brush="{DynamicResource Fluent.AccentFillColorSelectedTextBackgroundBrush}">
+        <GeometryDrawing.Pen>
+          <Pen Thickness="0.5" Brush="{DynamicResource Fluent.TextFillColorPrimaryBrush}" LineJoin="Round" />
+        </GeometryDrawing.Pen>
+      </GeometryDrawing>
+    </DrawingImage.Drawing>
+  </DrawingImage>
+
+  <ControlTheme x:Key="{x:Type TextSelectionHandle}" TargetType="TextSelectionHandle">
+    <Setter Property="Background" Value="{DynamicResource Fluent.AccentFillColorSelectedTextBackgroundBrush}" />
+    <Setter Property="HorizontalAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid>
+          <Border Padding="0,0,0,10" IsHitTestVisible="True" Background="Transparent">
+            <Image Name="PART_HandlePathIcon"
+                   Stretch="Uniform"
+                   Cursor="Arrow"
+                   Height="32"
+                   Source="{DynamicResource Fluent.TextSelectionHandleDrawing}" />
+          </Border>
+          <Border Name="PART_Indicator"
+                  Background="Transparent"
+                  HorizontalAlignment="Center"
+                  Width="1"
+                  VerticalAlignment="Top"
+                  Height="5" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:caret /template/ Image#PART_HandlePathIcon">
+      <Setter Property="Source" Value="{DynamicResource Fluent.TextCaretHandleDrawing}" />
+    </Style>
+    <Style Selector="^:start /template/ Image#PART_HandlePathIcon">
+      <Setter Property="RenderTransform" Value="scale(-1, 1)" />
+    </Style>
+    <Style Selector="^:caret /template/ Border#PART_Indicator">
+      <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="^:end /template/ Border#PART_Indicator">
+      <Setter Property="HorizontalAlignment" Value="Left" />
+    </Style>
+    <Style Selector="^:start /template/ Border#PART_Indicator">
+      <Setter Property="HorizontalAlignment" Value="Right" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

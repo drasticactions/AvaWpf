@@ -1,0 +1,28 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/AvaWpf.Animations/AvaWpf.Animations.csproj" />
+    <Project Path="src/AvaWpf.Fonts/AvaWpf.Fonts.csproj" />
+    <Project Path="src/AvaWpf.Icons/AvaWpf.Icons.csproj" />
+    <Project Path="src/AvaWpf.Theme/AvaWpf.Theme.csproj" />
+    <Project Path="src/AvaWpf.Controls/AvaWpf.Controls.csproj" />
+    <Project Path="src/AvaWpf.DataGrid/AvaWpf.DataGrid.csproj" />
+    <Project Path="src/AvaWpf.Ribbon/AvaWpf.Ribbon.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/AvaWpf.Animations.Tests/AvaWpf.Animations.Tests.csproj" />
+
+    <Project Path="tests/AvaWpf.Theme.Tests/AvaWpf.Theme.Tests.csproj" />
+    <Project Path="tests/AvaWpf.Controls.Tests/AvaWpf.Controls.Tests.csproj" />
+    <Project Path="tests/AvaWpf.DataGrid.Tests/AvaWpf.DataGrid.Tests.csproj" />
+    <Project Path="tests/AvaWpf.Ribbon.Tests/AvaWpf.Ribbon.Tests.csproj" />
+
+
+
+  </Folder>
+  <Folder Name="/solution-items/">
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="global.json" />
+    <File Path="NOTICE.md" />
+  </Folder>
+</Solution>

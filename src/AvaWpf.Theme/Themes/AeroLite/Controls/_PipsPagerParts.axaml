@@ -1,0 +1,79 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Parts of the AeroLite PipsPager: AeroLite.PipsPagerNavigationButtonTheme and AeroLite.PipsPagerItemTheme. -->
+  <ControlTheme x:Key="AeroLite.PipsPagerNavigationButtonTheme" TargetType="Button">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Width" Value="20" />
+    <Setter Property="Height" Value="20" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ContentPresenter Name="PART_ContentPresenter"
+                          Background="{TemplateBinding Background}"
+                          BorderBrush="{TemplateBinding BorderBrush}"
+                          BorderThickness="{TemplateBinding BorderThickness}"
+                          Content="{TemplateBinding Content}"
+                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                          Padding="{TemplateBinding Padding}"
+                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource AeroLite.ScrollBar.MouseOver.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.ScrollBar.MouseOver.Border}" />
+    </Style>
+    <Style Selector="^:pressed /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource AeroLite.ScrollBar.Pressed.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.ScrollBar.Pressed.Border}" />
+    </Style>
+    <Style Selector="^:disabled /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Opacity" Value="0.56" />
+    </Style>
+  </ControlTheme>
+  <ControlTheme x:Key="AeroLite.PipsPagerPreviousButtonTheme" TargetType="Button" BasedOn="{StaticResource AeroLite.PipsPagerNavigationButtonTheme}" />
+  <ControlTheme x:Key="AeroLite.PipsPagerNextButtonTheme" TargetType="Button" BasedOn="{StaticResource AeroLite.PipsPagerNavigationButtonTheme}" />
+
+  <ControlTheme x:Key="AeroLite.PipsPagerItemTheme" TargetType="ListBoxItem">
+    <Setter Property="Width" Value="12" />
+    <Setter Property="Height" Value="20" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="Margin" Value="0" />
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Background="Transparent">
+          <Border Name="Pip"
+                  Width="6"
+                  Height="6"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  BorderThickness="1"
+                  BorderBrush="Transparent"
+                  Background="{DynamicResource SystemColors.ControlDarkBrush}" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#Pip">
+      <Setter Property="Width" Value="8" />
+      <Setter Property="Height" Value="8" />
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.Item.MouseOver.Border}" />
+    </Style>
+    <Style Selector="^:selected /template/ Border#Pip">
+      <Setter Property="Width" Value="8" />
+      <Setter Property="Height" Value="8" />
+      <Setter Property="Background" Value="{DynamicResource SystemColors.HighlightBrush}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Border#Pip">
+      <Setter Property="Opacity" Value="0.56" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

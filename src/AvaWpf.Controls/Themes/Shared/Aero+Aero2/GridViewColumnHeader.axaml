@@ -1,0 +1,145 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF GridViewColumnHeaderGripper, Aero.NormalColor and Aero2.NormalColor. -->
+  <ControlTheme x:Key="$F.GridViewColumnHeaderGripper" TargetType="Thumb">
+    <Setter Property="Width" Value="18" />
+    <Setter Property="HorizontalAlignment" Value="Right" />
+    <Setter Property="Margin" Value="0,0,-9,0" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="Cursor" Value="SizeWestEast" />
+    <Setter Property="Background" Value="{DynamicResource $F.GridViewColumnHeaderBorderBackground}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Padding="{TemplateBinding Padding}"
+                Background="Transparent">
+          <Rectangle HorizontalAlignment="Center"
+                     Width="1"
+                     Fill="{TemplateBinding Background}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <!--
+    WPF GridViewColumnHeader, Aero.NormalColor and Aero2.NormalColor. The 20 px minimum height applies only while
+    Height is Auto, as in WPF.
+  -->
+  <ControlTheme x:Key="{x:Type wpf:GridViewColumnHeader}" TargetType="wpf:GridViewColumnHeader">
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Background" Value="{DynamicResource $F.GridViewColumnHeaderBackground}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource $F.GridViewColumnHeaderBorderBackground}" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Padding" Value="2,0,2,0" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="MinHeight" Value="20" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid UseLayoutRounding="True">
+          <Border Name="HeaderBorder"
+                  BorderThickness="0,1,0,1"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  Background="{TemplateBinding Background}">
+            <Grid>
+              <Grid.RowDefinitions>
+                <RowDefinition MaxHeight="7" />
+                <RowDefinition />
+              </Grid.RowDefinitions>
+              <Rectangle Name="UpperHighlight"
+                         IsVisible="False"
+                         Fill="{DynamicResource $F.ListView.GridViewColumnHeader.UpperHighlight.Fill}" />
+              <Border Grid.RowSpan="2"
+                      Padding="{TemplateBinding Padding}">
+                <ContentPresenter Name="PART_ContentPresenter"
+                                  Content="{TemplateBinding Content}"
+                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                  Margin="0,0,0,1"
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  RecognizesAccessKey="True" />
+              </Border>
+            </Grid>
+          </Border>
+          <Border Name="HeaderHoverBorder"
+                  BorderThickness="1,0,1,1"
+                  Margin="1,1,0,0" />
+          <Border Name="HeaderPressBorder"
+                  BorderThickness="1,1,1,0"
+                  Margin="1,0,0,1" />
+          <Panel Name="GripperHost">
+            <Thumb Name="PART_HeaderGripper"
+                   Theme="{StaticResource $F.GridViewColumnHeaderGripper}" />
+          </Panel>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^:pointerover:not(:padding)">
+      <Style Selector="^ /template/ Border#HeaderBorder">
+        <Setter Property="Background" Value="{DynamicResource $F.GridViewColumnHeaderHoverBackground}" />
+      </Style>
+      <Style Selector="^ /template/ Border#HeaderHoverBorder">
+        <Setter Property="BorderBrush" Value="{DynamicResource $F.ListView.GridViewColumnHeader.HeaderHoverBorder.BorderBrush.IsMouseOver_true}" />
+      </Style>
+      <Style Selector="^ /template/ Rectangle#UpperHighlight">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="^ /template/ Thumb#PART_HeaderGripper">
+        <Setter Property="Background" Value="Transparent" />
+      </Style>
+    </Style>
+    <Style Selector="^:pressed:not(:padding)">
+      <Style Selector="^ /template/ Border#HeaderBorder">
+        <Setter Property="Background" Value="{DynamicResource $F.GridViewColumnHeaderPressBackground}" />
+      </Style>
+      <Style Selector="^ /template/ Border#HeaderHoverBorder">
+        <Setter Property="BorderBrush" Value="{DynamicResource $F.ListView.GridViewColumnHeader.HeaderHoverBorder.BorderBrush.IsPressed_true}" />
+      </Style>
+      <Style Selector="^ /template/ Border#HeaderPressBorder">
+        <Setter Property="BorderBrush" Value="{DynamicResource $F.ListView.GridViewColumnHeader.HeaderPressBorder.BorderBrush.IsPressed_true}" />
+      </Style>
+      <Style Selector="^ /template/ Rectangle#UpperHighlight">
+        <Setter Property="IsVisible" Value="True" />
+        <Setter Property="Fill" Value="{DynamicResource $F.ListView.GridViewColumnHeader.UpperHighlight.Fill.IsPressed_true}" />
+      </Style>
+      <Style Selector="^ /template/ Thumb#PART_HeaderGripper">
+        <Setter Property="Opacity" Value="0" />
+        <Setter Property="IsHitTestVisible" Value="False" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Margin" Value="1,1,0,0" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+
+    <!-- Role Floating: the copy of the dragged header, painted from the source into the canvas. -->
+    <Style Selector="^:floating">
+      <Setter Property="Opacity" Value="0.4082" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Canvas Name="PART_FloatingHeaderCanvas">
+            <Rectangle Opacity="0.4697"
+                       Fill="{DynamicResource $F.ListView.GridViewColumnHeader.Rectangle#1.Fill}"
+                       Width="{TemplateBinding Width}"
+                       Height="{TemplateBinding Height}" />
+          </Canvas>
+        </ControlTemplate>
+      </Setter>
+    </Style>
+
+    <!-- Role Padding: the normal header without gripper or content. -->
+    <Style Selector="^:padding">
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Border Name="HeaderBorder"
+                  BorderThickness="0,1,0,1"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  Background="{TemplateBinding Background}" />
+        </ControlTemplate>
+      </Setter>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

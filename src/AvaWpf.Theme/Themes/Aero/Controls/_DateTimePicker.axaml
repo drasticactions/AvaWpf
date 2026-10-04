@@ -1,0 +1,83 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:aero="using:AvaWpf.Chrome.Aero">
+  <!-- Parts shared by the Aero DatePicker and TimePicker, built from WPF [[Aero.NormalColor]] parts. -->
+  <ControlTheme x:Key="Aero.DateTimePickerFlyoutButton" TargetType="Button">
+    <Setter Property="FocusAdorner" Value="{DynamicResource Aero.ComboBoxFocusVisual}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <aero:ButtonChrome Name="Chrome"
+                           Background="{TemplateBinding Background}"
+                           BorderBrush="{TemplateBinding BorderBrush}"
+                           RenderMouseOver="{TemplateBinding IsPointerOver}"
+                           RenderPressed="{TemplateBinding IsPressed}"
+                           UseLayoutRounding="True">
+          <Grid ColumnDefinitions="*,Auto">
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Content="{TemplateBinding Content}"
+                              Foreground="{TemplateBinding Foreground}"
+                              HorizontalContentAlignment="Stretch"
+                              VerticalContentAlignment="Stretch" />
+            <Grid Grid.Column="1" Width="{DynamicResource SystemParameters.VerticalScrollBarWidth}">
+              <Path Name="Arrow"
+                    Margin="0,1,0,0"
+                    Fill="{DynamicResource Aero.ComboBox.ComboBoxReadonlyToggleButton.Arrow.Fill}"
+                    Data="{DynamicResource Aero.DownArrowGeometry}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center" />
+            </Grid>
+          </Grid>
+        </aero:ButtonChrome>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^.open /template/ aero|ButtonChrome#Chrome">
+      <Setter Property="RenderPressed" Value="True" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#Arrow">
+      <Setter Property="Fill" Value="{DynamicResource Aero.ComboBox.ComboBoxReadonlyToggleButton.Arrow.Fill.IsEnabled_false}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Aero.DateTimePickerItem" TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+    <Setter Property="Padding" Value="4,0" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Style Selector="^:pointerover /template/ Border#Bd">
+      <Setter Property="Background" Value="{DynamicResource Aero.ListItemHoverFill}" />
+    </Style>
+    <Style Selector="^:selected">
+      <Setter Property="IsHitTestVisible" Value="False" />
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.HighlightTextBrush}" />
+      <Style Selector="^ /template/ Border#Bd">
+        <Setter Property="Background" Value="Transparent" />
+      </Style>
+    </Style>
+    <Style Selector="^.MonthItem">
+      <Setter Property="Padding" Value="9,0" />
+      <Setter Property="HorizontalContentAlignment" Value="Left" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Aero.DateTimePickerUpButton" TargetType="RepeatButton" BasedOn="{StaticResource Aero.ScrollBarLineButton}">
+    <Setter Property="aero:ScrollChrome.ScrollGlyph" Value="UpArrow" />
+    <Setter Property="VerticalAlignment" Value="Top" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="Height" Value="{DynamicResource SystemParameters.VerticalScrollBarButtonHeight}" />
+    <Setter Property="IsVisible" Value="False" />
+  </ControlTheme>
+
+  <ControlTheme x:Key="Aero.DateTimePickerDownButton" TargetType="RepeatButton" BasedOn="{StaticResource Aero.ScrollBarLineButton}">
+    <Setter Property="aero:ScrollChrome.ScrollGlyph" Value="DownArrow" />
+    <Setter Property="VerticalAlignment" Value="Bottom" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="Height" Value="{DynamicResource SystemParameters.VerticalScrollBarButtonHeight}" />
+    <Setter Property="IsVisible" Value="False" />
+  </ControlTheme>
+
+  <ControlTheme x:Key="Aero.DateTimePickerButton" TargetType="Button" BasedOn="{StaticResource Aero.BaseButtonStyle}">
+    <Setter Property="Margin" Value="4" />
+    <Setter Property="Height" Value="23" />
+    <Setter Property="Focusable" Value="True" />
+  </ControlTheme>
+</ResourceDictionary>

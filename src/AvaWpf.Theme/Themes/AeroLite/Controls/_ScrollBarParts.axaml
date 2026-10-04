@@ -1,0 +1,99 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:chrome="using:AvaWpf.Chrome.AeroLite">
+  <!--
+    WPF ScrollBar.xaml parts, AeroLite.NormalColor: ScrollBarButton, RepeatButtonTransparent and the ScrollBarThumb
+    templates.
+  -->
+  <ControlTheme x:Key="AeroLite.ScrollBarLineButton" TargetType="RepeatButton">
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Padding" Value="1" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="border"
+                BorderThickness="1"
+                UseLayoutRounding="True"
+                Background="{DynamicResource AeroLite.ScrollBar.Static.Background}"
+                BorderBrush="{DynamicResource AeroLite.ScrollBar.Static.Border}">
+          <Panel Name="contentPresenter"
+                 Margin="{TemplateBinding Padding}"
+                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+            <Path Name="glyph"
+                  Stretch="Uniform"
+                  Margin="3,4,3,3"
+                  Fill="{TemplateBinding Foreground}" />
+          </Panel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^.up /template/ Path#glyph">
+      <Setter Property="Data" Value="{DynamicResource AeroLite.ScrollBar.ScrollBar.Path#1.Data}" />
+    </Style>
+    <Style Selector="^.down /template/ Path#glyph">
+      <Setter Property="Data" Value="{DynamicResource AeroLite.ScrollBar.ScrollBar.Path#2.Data}" />
+    </Style>
+    <Style Selector="^.left /template/ Path#glyph">
+      <Setter Property="Data" Value="{DynamicResource AeroLite.ScrollBar.ScrollBar.Path#3.Data}" />
+      <Setter Property="Margin" Value="3" />
+    </Style>
+    <Style Selector="^.right /template/ Path#glyph">
+      <Setter Property="Data" Value="{DynamicResource AeroLite.ScrollBar.ScrollBar.Path#4.Data}" />
+      <Setter Property="Margin" Value="3" />
+    </Style>
+    <!-- The spin class: the small up/down buttons of a ButtonSpinner (half a text box tall). -->
+    <Style Selector="^.spin">
+      <Setter Property="Padding" Value="0" />
+      <Style Selector="^ /template/ Path#glyph">
+        <Setter Property="Margin" Value="3,2" />
+        <Setter Property="MaxHeight" Value="4" />
+      </Style>
+    </Style>
+    <Style Selector="^:pointerover /template/ Border#border">
+      <Setter Property="Background" Value="{DynamicResource AeroLite.ScrollBar.MouseOver.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.ScrollBar.MouseOver.Border}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Border#border">
+      <Setter Property="Background" Value="{DynamicResource AeroLite.ScrollBar.Pressed.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.ScrollBar.Pressed.Border}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Panel#contentPresenter">
+      <Setter Property="Opacity" Value="0.56" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="AeroLite.ScrollBarPageButton" TargetType="RepeatButton">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Rectangle Fill="{TemplateBinding Background}" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" />
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="AeroLite.ScrollBarThumb" TargetType="Thumb">
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <chrome:ScrollChrome Name="chrome"
+                          chrome:ScrollChrome.ScrollGlyph="VerticalGripper"
+                          RenderMouseOver="{TemplateBinding IsPointerOver}"
+                          UseLayoutRounding="True" />
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^.horizontal /template/ chrome|ScrollChrome#chrome">
+      <Setter Property="chrome:ScrollChrome.ScrollGlyph" Value="HorizontalGripper" />
+    </Style>
+    <Style Selector="^:pressed /template/ chrome|ScrollChrome#chrome">
+      <Setter Property="RenderPressed" Value="True" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

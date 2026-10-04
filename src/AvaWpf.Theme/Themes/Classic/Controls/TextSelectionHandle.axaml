@@ -1,0 +1,47 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- TextSelectionHandle: a 16 x 16 Highlight handle; the caret handle is a pointed drop. -->
+  <ControlTheme x:Key="{x:Type TextSelectionHandle}" TargetType="TextSelectionHandle">
+    <Setter Property="Background" Value="{DynamicResource SystemColors.HighlightBrush}" />
+    <Setter Property="HorizontalAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid>
+          <Border Padding="0,0,0,10" IsHitTestVisible="True" Background="Transparent">
+            <Path Name="PART_HandlePathIcon"
+                  Cursor="Arrow"
+                  Width="16" Height="16"
+                  HorizontalAlignment="Left"
+                  Data="{DynamicResource Classic.TextSelectionHandleGeometry}"
+                  Fill="{TemplateBinding Background}"
+                  Stroke="{DynamicResource SystemColors.WindowTextBrush}"
+                  StrokeThickness="1" />
+          </Border>
+          <Border Name="PART_Indicator"
+                  Background="Transparent"
+                  HorizontalAlignment="Center"
+                  Width="1"
+                  VerticalAlignment="Top"
+                  Height="5" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:caret /template/ Path#PART_HandlePathIcon">
+      <Setter Property="Data" Value="{DynamicResource Classic.TextCaretHandleGeometry}" />
+    </Style>
+    <Style Selector="^:start /template/ Path#PART_HandlePathIcon">
+      <Setter Property="RenderTransform">
+        <ScaleTransform ScaleX="-1" ScaleY="1" />
+      </Setter>
+    </Style>
+    <Style Selector="^:caret /template/ Border#PART_Indicator">
+      <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="^:end /template/ Border#PART_Indicator">
+      <Setter Property="HorizontalAlignment" Value="Left" />
+    </Style>
+    <Style Selector="^:start /template/ Border#PART_Indicator">
+      <Setter Property="HorizontalAlignment" Value="Right" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

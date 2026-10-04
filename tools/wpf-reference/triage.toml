@@ -1,0 +1,173 @@
+# Hand triage of WPF vs AvaWpf diffs, read by report.py (spec section 13).
+#
+# Each [[diff]] entry matches shots by scene, family, scheme and state. "*" matches anything; a trailing "*" matches
+# a prefix ("checked*"). The first matching entry wins.
+#
+#   status = "accepted"  the difference is expected. Allowed reasons: see [accepted_reasons].
+#   status = "bug"       AvaWpf must change. Everything that is not an accepted reason is a bug.
+#
+# Optional: max_percent = 1.5 accepts the diff only while the differing pixels stay at or below that percentage.
+# Above it, the report shows the shot as a regression.
+#
+# Shots that no entry matches show as "untriaged" until somebody looks at them.
+#
+# The accepted reasons:
+#   font hinting          Text rasterization. WPF under Wine draws through Wine's DirectWrite with grayscale
+#                         smoothing and its own gamma; AvaWpf draws through Skia and HarfBuzz. Glyphs are darker and
+#                         crisper on the WPF side, and the antialiasing differs on every text pixel. Includes the 1 px
+#                         glyph advance differences that follow from it.
+#   MS Sans Serif outline WPF draws outlines only, so the bitmap MS Sans Serif of some Classic schemes becomes an
+#                         outline face (Tahoma on both sides here).
+#   ClearType artifact    WPF's own antialiasing of geometry edges (circles, rounded corners, chevrons) versus
+#                         Skia's.
+#   layout rounding       Avalonia rounds every desired size up to the device pixel (LayoutHelper.RoundLayoutSizeUp);
+#                         WPF rounds to the nearest pixel. Text-sized elements (tab headers, menu items, check box
+#                         labels) are 1 px wider, and a centered control moves by 1 px. Not fixable in the themes.
+#   animation phase       WPF captures a running theme animation at an arbitrary phase (the Aero default-button pulse,
+#                         the Aero progress glow); AvaWpf renders the scenes with motion off.
+#   font substitution     The snapshot asks for a font that neither side bundles (Times New Roman in Eggplant and Red,
+#                         White and Blue). run.py gives WPF the fc-match face (Liberation Serif); Avalonia's font manager
+#                         does not resolve the alias on the shooting host and draws its default face.
+
+[accepted_reasons]
+reasons = ["font hinting", "MS Sans Serif outline", "ClearType artifact", "layout rounding", "animation phase", "font substitution"]
+
+# --------------------------------------------------------------------------------------------------------------------
+# Known bugs. Keep these first: they win over the general acceptance at the end.
+
+[[diff]]
+scene = "menu"
+family = "Aero2"
+scheme = "*"
+state = "*"
+status = "bug"
+reason = "the WPF menu bar is 20 px high with its 18 px items 1 px down; AvaWpf's bar is 18 px (cause not found: no padding or margin in the WPF templates explains it)"
+
+[[diff]]
+scene = "menu"
+family = "Aero"
+scheme = "*"
+state = "*"
+status = "bug"
+reason = "the WPF menu bar is 23 px high with its 21 px items 1 px down; AvaWpf's bar is 21 px (same as Aero2)"
+
+[[diff]]
+scene = "menu"
+family = "AeroLite"
+scheme = "*"
+state = "*"
+status = "bug"
+reason = "the WPF menu bar is 20 px high with its 18 px items 1 px down; AvaWpf's bar is 18 px (same as Aero2)"
+
+[[diff]]
+scene = "groupbox"
+family = "Classic"
+scheme = "*"
+state = "*"
+status = "bug"
+reason = "Avalonia's Grid leaves the two Auto rows that the 11 px header spans at 6 and 5.5 px (WPF rounds both to 6) and gives the star row 63 px instead of 62, so the etched frame ends 1 px low and its bottom light line is clipped (Avalonia Grid rounding; needs a layout workaround)"
+
+[[diff]]
+scene = "groupbox"
+family = "Luna"
+scheme = "*"
+state = "*"
+status = "bug"
+reason = "the frame ends 1 px low, as in Classic (Avalonia Grid rounding of the spanned Auto header rows)"
+
+[[diff]]
+scene = "groupbox"
+family = "Royale"
+scheme = "*"
+state = "*"
+status = "bug"
+reason = "the frame ends 1 px low, as in Classic (Avalonia Grid rounding of the spanned Auto header rows)"
+
+[[diff]]
+scene = "expander*"
+family = "Fluent"
+scheme = "HighContrast"
+state = "*"
+status = "bug"
+reason = "the chevron glyph sits about 7 px too high in the high contrast header"
+
+# --------------------------------------------------------------------------------------------------------------------
+# Accepted, specific.
+
+[[diff]]
+scene = "*button"
+family = "Aero"
+scheme = "*"
+state = "focused"
+status = "accepted"
+reason = "animation phase"
+max_percent = 32.0
+
+[[diff]]
+scene = "button"
+family = "Aero"
+scheme = "*"
+state = "default"
+status = "accepted"
+reason = "animation phase"
+max_percent = 32.0
+
+[[diff]]
+scene = "progressbar"
+family = "Aero"
+scheme = "*"
+state = "*"
+status = "accepted"
+reason = "animation phase"
+max_percent = 12.0
+
+[[diff]]
+scene = "*"
+family = "Classic"
+scheme = "Eggplant"
+state = "*"
+status = "accepted"
+reason = "font substitution"
+max_percent = 20.0
+
+[[diff]]
+scene = "*"
+family = "Classic"
+scheme = "RedWhiteBlue"
+state = "*"
+status = "accepted"
+reason = "font substitution"
+max_percent = 20.0
+
+# Pumpkin uses 16 px Tahoma: the longer text makes the layout rounding of the label and its focus rectangle show more.
+[[diff]]
+scene = "*"
+family = "Classic"
+scheme = "Pumpkin"
+state = "*"
+status = "accepted"
+reason = "layout rounding"
+max_percent = 10.0
+
+# The Fluent focus ring is antialiased on both sides; on the dark fill the edge pixels differ more.
+[[diff]]
+scene = "*"
+family = "Fluent"
+scheme = "*"
+state = "focused"
+status = "accepted"
+reason = "ClearType artifact"
+max_percent = 11.0
+
+# --------------------------------------------------------------------------------------------------------------------
+# Accepted, general: what is left in every family after the fixes is text rasterization (most of the differing
+# pixels) plus 1 px layout rounding. Above 8 % a shot shows as a regression and needs a look.
+
+[[diff]]
+scene = "*"
+family = "*"
+scheme = "*"
+state = "*"
+status = "accepted"
+reason = "font hinting"
+max_percent = 8.0

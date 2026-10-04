@@ -1,0 +1,47 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!--
+    WPF ContextMenu.xaml, AeroLite.NormalColor. Avalonia hosts the ContextMenu in a popup itself, so the drop shadow is
+    drawn around the border here.
+  -->
+  <ControlTheme x:Key="{x:Type ContextMenu}" TargetType="ContextMenu">
+    <Setter Property="Background" Value="{DynamicResource SystemColors.MenuBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.Menu.Border}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.MenuTextBrush}" />
+    <Setter Property="FontFamily" Value="{DynamicResource SystemFonts.MenuFontFamily}" />
+    <Setter Property="FontSize" Value="{DynamicResource SystemFonts.MenuFontSize}" />
+    <Setter Property="FontStyle" Value="{DynamicResource SystemFonts.MenuFontStyle}" />
+    <Setter Property="FontWeight" Value="{DynamicResource SystemFonts.MenuFontWeight}" />
+    <Setter Property="Focusable" Value="True" />
+    <Setter Property="WindowManagerAddShadowHint" Value="False" />
+    <Setter Property="wpf:PopupAnimation.Kind" Value="{DynamicResource SystemParameters.MenuPopupAnimation}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <wpf:SystemDropShadowChrome Margin="0,0,5,5">
+          <Border Name="Border"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  Padding="2"
+                  UseLayoutRounding="True">
+            <ScrollViewer Name="ContextMenuScrollViewer" Theme="{StaticResource AeroLite.MenuScrollViewer}">
+              <Panel>
+                <Rectangle HorizontalAlignment="Left"
+                           Width="1"
+                           Margin="29,2,0,2"
+                           Fill="{DynamicResource SystemColors.ControlDarkBrush}" />
+                <ItemsPresenter Name="PART_ItemsPresenter"
+                                ItemsPanel="{TemplateBinding ItemsPanel}"
+                                Margin="{TemplateBinding Padding}"
+                                KeyboardNavigation.TabNavigation="Continue"
+                                Grid.IsSharedSizeScope="True" />
+              </Panel>
+            </ScrollViewer>
+          </Border>
+        </wpf:SystemDropShadowChrome>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

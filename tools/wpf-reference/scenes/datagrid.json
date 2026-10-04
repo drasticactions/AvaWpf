@@ -1,0 +1,19 @@
+{
+  "control": "DataGrid",
+  "width": 360,
+  "height": 170,
+  "properties": {
+    "Rows": [
+      ["Ada Lovelace", "Analyst", 36, true],
+      ["Alan Turing", "Architect", 39, false],
+      ["Barbara Liskov", "Designer", 37, false],
+      ["Charles Babbage", "Engineer", 48, true],
+      ["Donald Knuth", "Writer", 52, false]
+    ],
+    "SortAscending": "Name",
+    "SelectedIndex": 1,
+    "Width": 340,
+    "Height": 150
+  },
+  "states": ["normal", "disabled"]
+}

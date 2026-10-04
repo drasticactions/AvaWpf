@@ -1,0 +1,4 @@
+# Hand-tuned Dark overrides (key without the family prefix = color, or one color per gradient stop).
+
+# The navy GridView text keeps its hue under derive_dark and is unreadable on the dark list: a light blue instead.
+"ListView.GridView.GridViewStyleKey.Setter.Self.Foreground" = "#FFC3D5F0"

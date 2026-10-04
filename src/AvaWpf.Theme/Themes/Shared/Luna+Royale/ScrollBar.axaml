@@ -1,0 +1,96 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- WPF ScrollBar.xaml [[Luna.*, Royale.NormalColor]]; the family's ScrollBarLineButton, ScrollBarPageButton and
+       ScrollBarThumb draw the parts. -->
+  <ControlTheme x:Key="{x:Type ScrollBar}" TargetType="ScrollBar">
+    <Setter Property="Background" Value="{DynamicResource $F.VerticalScrollBarPageButtonNormal}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="Width" Value="{DynamicResource SystemParameters.VerticalScrollBarWidth}" />
+    <Setter Property="MinWidth" Value="{DynamicResource SystemParameters.VerticalScrollBarWidth}" />
+    <Setter Property="AllowAutoHide" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Background="{TemplateBinding Background}" UseLayoutRounding="True">
+          <Grid.RowDefinitions>
+            <RowDefinition MaxHeight="{DynamicResource SystemParameters.VerticalScrollBarButtonHeight}" />
+            <RowDefinition Height="0.00001*" />
+            <RowDefinition MaxHeight="{DynamicResource SystemParameters.VerticalScrollBarButtonHeight}" />
+          </Grid.RowDefinitions>
+          <RepeatButton Name="PART_LineUpButton"
+                        Theme="{StaticResource $F.ScrollBarLineButton}"
+                        Classes="up" />
+          <Track Name="PART_Track"
+                 Grid.Row="1"
+                 Minimum="{TemplateBinding Minimum}"
+                 Maximum="{TemplateBinding Maximum}"
+                 Value="{TemplateBinding Value, Mode=TwoWay}"
+                 DeferThumbDrag="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
+                 ViewportSize="{TemplateBinding ViewportSize}"
+                 Orientation="{TemplateBinding Orientation}"
+                 IsDirectionReversed="True">
+            <Track.DecreaseButton>
+              <RepeatButton Name="PART_PageUpButton"
+                            Theme="{StaticResource $F.ScrollBarPageButton}"
+                            Classes="vertical" />
+            </Track.DecreaseButton>
+            <Track.IncreaseButton>
+              <RepeatButton Name="PART_PageDownButton"
+                            Theme="{StaticResource $F.ScrollBarPageButton}"
+                            Classes="vertical" />
+            </Track.IncreaseButton>
+            <Thumb Theme="{StaticResource $F.ScrollBarThumb}" Classes="vertical" />
+          </Track>
+          <RepeatButton Name="PART_LineDownButton"
+                        Grid.Row="2"
+                        Theme="{StaticResource $F.ScrollBarLineButton}"
+                        Classes="down" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:horizontal">
+      <Setter Property="Width" Value="NaN" />
+      <Setter Property="MinWidth" Value="0" />
+      <Setter Property="Background" Value="{DynamicResource $F.HorizontalScrollBarPageButtonNormal}" />
+      <Setter Property="Height" Value="{DynamicResource SystemParameters.HorizontalScrollBarHeight}" />
+      <Setter Property="MinHeight" Value="{DynamicResource SystemParameters.HorizontalScrollBarHeight}" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Grid Background="{TemplateBinding Background}" UseLayoutRounding="True">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition MaxWidth="{DynamicResource SystemParameters.HorizontalScrollBarButtonWidth}" />
+              <ColumnDefinition Width="0.00001*" />
+              <ColumnDefinition MaxWidth="{DynamicResource SystemParameters.HorizontalScrollBarButtonWidth}" />
+            </Grid.ColumnDefinitions>
+            <RepeatButton Name="PART_LineUpButton"
+                          Theme="{StaticResource $F.ScrollBarLineButton}"
+                          Classes="left" />
+            <Track Name="PART_Track"
+                   Grid.Column="1"
+                   Minimum="{TemplateBinding Minimum}"
+                   Maximum="{TemplateBinding Maximum}"
+                   Value="{TemplateBinding Value, Mode=TwoWay}"
+                   DeferThumbDrag="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
+                   ViewportSize="{TemplateBinding ViewportSize}"
+                   Orientation="{TemplateBinding Orientation}">
+              <Track.DecreaseButton>
+                <RepeatButton Name="PART_PageUpButton"
+                              Theme="{StaticResource $F.ScrollBarPageButton}"
+                              Classes="horizontal" />
+              </Track.DecreaseButton>
+              <Track.IncreaseButton>
+                <RepeatButton Name="PART_PageDownButton"
+                              Theme="{StaticResource $F.ScrollBarPageButton}"
+                              Classes="horizontal" />
+              </Track.IncreaseButton>
+              <Thumb Theme="{StaticResource $F.ScrollBarThumb}" Classes="horizontal" />
+            </Track>
+            <RepeatButton Name="PART_LineDownButton"
+                          Grid.Column="2"
+                          Theme="{StaticResource $F.ScrollBarLineButton}"
+                          Classes="right" />
+          </Grid>
+        </ControlTemplate>
+      </Setter>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

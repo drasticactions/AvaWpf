@@ -1,0 +1,53 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/TextBox.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!--
+    WPF Fluent's Validation.ErrorTemplate border over the content, plus the error messages below as WinUI shows them.
+  -->
+  <ControlTheme x:Key="{x:Type DataValidationErrors}" TargetType="DataValidationErrors">
+    <Setter Property="Template">
+      <ControlTemplate TargetType="DataValidationErrors">
+        <DockPanel LastChildFill="True">
+          <ContentControl Name="InlineDataValidationContentControl"
+                          Margin="0,4,0,0"
+                          Content="{Binding (DataValidationErrors.Errors)}"
+                          ContentTemplate="{TemplateBinding ErrorTemplate}"
+                          DataContext="{TemplateBinding Owner}"
+                          DockPanel.Dock="Bottom"
+                          IsVisible="{Binding (DataValidationErrors.HasErrors)}" />
+          <Panel>
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Padding="{TemplateBinding Padding}"
+                              Background="{TemplateBinding Background}"
+                              BorderThickness="{TemplateBinding BorderThickness}"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              CornerRadius="{TemplateBinding CornerRadius}" />
+            <Border Name="ErrorBorder"
+                    Margin="-2"
+                    IsHitTestVisible="False"
+                    BorderBrush="{DynamicResource Fluent.SystemFillColorCriticalBrush}"
+                    BorderThickness="{DynamicResource Fluent.TextControlBorderThemeThickness}"
+                    CornerRadius="{DynamicResource Fluent.ControlCornerRadius}"
+                    DataContext="{TemplateBinding Owner}"
+                    IsVisible="{Binding (DataValidationErrors.HasErrors)}" />
+          </Panel>
+        </DockPanel>
+      </ControlTemplate>
+    </Setter>
+    <Setter Property="ErrorTemplate">
+      <DataTemplate>
+        <ItemsControl x:DataType="DataValidationErrors"
+                      Foreground="{DynamicResource Fluent.SystemFillColorCriticalBrush}"
+                      FontSize="12"
+                      ItemsSource="{Binding}">
+          <ItemsControl.Styles>
+            <Style Selector="TextBlock">
+              <Setter Property="TextWrapping" Value="Wrap" />
+            </Style>
+          </ItemsControl.Styles>
+        </ItemsControl>
+      </DataTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

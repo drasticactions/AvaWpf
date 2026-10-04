@@ -1,0 +1,30 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/StatusBar.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!-- WPF Fluent StatusBar style. It sets no template or font, so those of the system theme style apply. -->
+  <ControlTheme x:Key="{x:Type wpf:StatusBar}" TargetType="wpf:StatusBar">
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.StatusBar.StatusBar.Setter.Self.Foreground}" />
+    <Setter Property="Background" Value="{DynamicResource Fluent.StatusBar.StatusBar.Setter.Self.Background}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Fluent.ControlElevationBorderBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Padding" Value="12" />
+    <Setter Property="Margin" Value="0" />
+    <Setter Property="FontFamily" Value="{DynamicResource SystemFonts.StatusFontFamily}" />
+    <Setter Property="FontSize" Value="{DynamicResource SystemFonts.StatusFontSize}" />
+    <Setter Property="FontStyle" Value="{DynamicResource SystemFonts.StatusFontStyle}" />
+    <Setter Property="FontWeight" Value="{DynamicResource SystemFonts.StatusFontWeight}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Padding="{TemplateBinding Padding}"
+                UseLayoutRounding="True">
+          <ItemsPresenter Name="PART_ItemsPresenter"
+                          ItemsPanel="{TemplateBinding ItemsPanel}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

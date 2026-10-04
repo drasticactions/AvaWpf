@@ -1,0 +1,171 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!--
+    WPF ComboBox.xaml ComboBoxTemplate and ComboBoxEditableTemplate, AeroLite.NormalColor. The toolbar class is WPF
+    ToolBar.ComboBoxStyleKey.
+  -->
+  <ControlTheme x:Key="{x:Type ComboBox}" TargetType="ComboBox">
+    <Setter Property="FocusAdorner" Value="{DynamicResource AeroLite.FocusVisual}" />
+    <Setter Property="Background" Value="{DynamicResource AeroLite.ComboBox.Static.Background}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.ComboBox.Static.Border}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.WindowTextBrush}" />
+    <Setter Property="PlaceholderForeground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+    <Setter Property="Padding" Value="6,3,5,3" />
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="MaxDropDownHeight" Value="360" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DataValidationErrors>
+          <!-- Transparent: the toggle button below does not take input, so the Grid is the hit target for hover. -->
+          <Grid Name="templateRoot" UseLayoutRounding="True" Background="Transparent">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition MinWidth="{DynamicResource SystemParameters.VerticalScrollBarWidth}" Width="0" />
+            </Grid.ColumnDefinitions>
+            <Popup Name="PART_Popup"
+                   OverlayInputPassThroughElement="{Binding $parent[ComboBox]}"
+                   Grid.ColumnSpan="2"
+                   Placement="Bottom"
+                   PlacementTarget="templateRoot"
+                   IsLightDismissEnabled="True"
+                   WindowManagerAddShadowHint="False"
+                   InheritsTransform="True"
+                   IsOpen="{TemplateBinding IsDropDownOpen, Mode=TwoWay}"
+                   wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.ComboBoxPopupAnimation}">
+              <wpf:SystemDropShadowChrome Name="shadow"
+                                          Margin="0,0,5,5"
+                                          MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                          MinWidth="{Binding Bounds.Width, ElementName=templateRoot}">
+                <Border Name="DropDownBorder"
+                        BorderBrush="{DynamicResource SystemColors.WindowFrameBrush}"
+                        Background="{DynamicResource SystemColors.WindowBrush}"
+                        BorderThickness="1">
+                  <ScrollViewer Name="DropDownScrollViewer"
+                                HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                                IsScrollChainingEnabled="False">
+                    <ItemsPresenter Name="PART_ItemsPresenter"
+                                    ItemsPanel="{TemplateBinding ItemsPanel}"
+                                    KeyboardNavigation.TabNavigation="Continue" />
+                  </ScrollViewer>
+                </Border>
+              </wpf:SystemDropShadowChrome>
+            </Popup>
+            <ToggleButton Name="toggleButton"
+                          Grid.ColumnSpan="2"
+                          IsHitTestVisible="False"
+                          BorderBrush="{TemplateBinding BorderBrush}"
+                          Background="{TemplateBinding Background}"
+                          BorderThickness="{TemplateBinding BorderThickness}"
+                          IsChecked="{TemplateBinding IsDropDownOpen}" />
+            <TextBlock Name="PlaceholderTextBlock"
+                       Margin="{TemplateBinding Padding}"
+                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                       Text="{TemplateBinding PlaceholderText}"
+                       Foreground="{TemplateBinding PlaceholderForeground}"
+                       IsHitTestVisible="False">
+              <TextBlock.IsVisible>
+                <MultiBinding Converter="{x:Static BoolConverters.And}">
+                  <Binding Path="SelectionBoxItem" RelativeSource="{RelativeSource TemplatedParent}" Converter="{x:Static ObjectConverters.IsNull}" />
+                  <Binding Path="!IsEditable" RelativeSource="{RelativeSource TemplatedParent}" />
+                </MultiBinding>
+              </TextBlock.IsVisible>
+            </TextBlock>
+            <ContentPresenter Name="contentPresenter"
+                              Content="{TemplateBinding SelectionBoxItem}"
+                              ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                              IsHitTestVisible="False"
+                              Margin="{TemplateBinding Padding}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              IsVisible="{TemplateBinding IsEditable, Converter={x:Static BoolConverters.Not}}" />
+            <Border Name="Border"
+                    Margin="{TemplateBinding BorderThickness}"
+                    Background="{DynamicResource AeroLite.TextBox.Static.Background}"
+                    IsVisible="{TemplateBinding IsEditable}">
+              <TextBox Name="PART_EditableTextBox"
+                       Theme="{StaticResource AeroLite.ComboBoxEditableTextBox}"
+                       Margin="{TemplateBinding Padding}"
+                       Foreground="{TemplateBinding Foreground}"
+                       Text="{TemplateBinding Text, Mode=TwoWay}"
+                       PlaceholderText="{TemplateBinding PlaceholderText}"
+                       PlaceholderForeground="{TemplateBinding PlaceholderForeground}"
+                       HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                       VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+            </Border>
+          </Grid>
+        </DataValidationErrors>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^ /template/ ToggleButton#toggleButton">
+      <Setter Property="Theme" Value="{StaticResource AeroLite.ComboBoxToggleButton}" />
+    </Style>
+    <!-- The toggle button does not take input; the ComboBox's own state drives its hover and pressed looks. -->
+    <Style Selector="^:pointerover /template/ ToggleButton#toggleButton">
+      <Setter Property="Background" Value="{DynamicResource AeroLite.ComboBox.MouseOver.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.ComboBox.MouseOver.Border}" />
+    </Style>
+    <Style Selector="^:pressed /template/ ToggleButton#toggleButton">
+      <Setter Property="Background" Value="{DynamicResource AeroLite.ComboBox.Pressed.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.ComboBox.Pressed.Border}" />
+    </Style>
+    <Style Selector="^:disabled /template/ ContentPresenter#contentPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+    <Style Selector="^:empty /template/ Border#DropDownBorder">
+      <Setter Property="Height" Value="95" />
+    </Style>
+    <Style Selector="^[IsEditable=true]">
+      <Setter Property="IsTabStop" Value="False" />
+      <Setter Property="Padding" Value="2" />
+      <Setter Property="KeyboardNavigation.TabNavigation" Value="Local" />
+      <Style Selector="^:disabled /template/ Border#Border">
+        <Setter Property="Opacity" Value="0.56" />
+      </Style>
+      <Style Selector="^:focus-within">
+        <Setter Property="Foreground" Value="{DynamicResource AeroLite.ComboBox.ComboBoxEditableTemplate.Self.Foreground.IsKeyboardFocusWithin_true}" />
+      </Style>
+    </Style>
+
+    <!-- ToolBar.ComboBoxStyleKey. -->
+    <Style Selector="^.toolbar">
+      <Setter Property="FocusAdorner" Value="{x:Null}" />
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.WindowTextBrush}" />
+      <Setter Property="Background" Value="{DynamicResource SystemColors.WindowBrush}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource SystemColors.WindowBrush}" />
+      <Setter Property="Margin" Value="1,0" />
+      <Setter Property="Padding" Value="2,2,1,2" />
+      <Setter Property="HorizontalAlignment" Value="Center" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+      <Setter Property="MinHeight" Value="18" />
+      <Style Selector="^ /template/ ToggleButton#toggleButton">
+        <Setter Property="Theme" Value="{StaticResource AeroLite.ToolBarComboBoxToggleButton}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemColors.WindowBrush}" />
+      </Style>
+      <Style Selector="^:pointerover /template/ ToggleButton#toggleButton, ^:focus-within /template/ ToggleButton#toggleButton">
+        <Setter Property="Background" Value="{DynamicResource AeroLite.ToolBarButtonHover}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.ToolBarButtonHoverBorder}" />
+      </Style>
+      <Style Selector="^:pressed /template/ ToggleButton#toggleButton">
+        <Setter Property="Background" Value="{DynamicResource AeroLite.ToolBarButtonPressed}" />
+      </Style>
+      <Style Selector="^ /template/ Border#DropDownBorder">
+        <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.ToolBarMenuBorder}" />
+      </Style>
+      <Style Selector="^:disabled">
+        <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+        <Style Selector="^ /template/ ToggleButton#toggleButton">
+          <Setter Property="Background" Value="{DynamicResource AeroLite.ToolBarDisabledFill}" />
+          <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.ToolBarDisabledBorder}" />
+        </Style>
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

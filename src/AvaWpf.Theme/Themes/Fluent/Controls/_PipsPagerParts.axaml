@@ -1,0 +1,88 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Parts of PipsPager in the Windows 11 manner: Fluent.PipsPagerNavigationButton and Fluent.PipsPagerItem. -->
+  <ControlTheme x:Key="Fluent.PipsPagerNavigationButton" TargetType="Button">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.ControlStrongFillColorDefaultBrush}" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Width" Value="24" />
+    <Setter Property="Height" Value="24" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="CornerRadius" Value="{DynamicResource Fluent.ControlCornerRadius}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ContentPresenter Name="PART_ContentPresenter"
+                          Background="{TemplateBinding Background}"
+                          BorderBrush="{TemplateBinding BorderBrush}"
+                          BorderThickness="{TemplateBinding BorderThickness}"
+                          CornerRadius="{TemplateBinding CornerRadius}"
+                          Content="{TemplateBinding Content}"
+                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                          Foreground="{TemplateBinding Foreground}"
+                          Padding="{TemplateBinding Padding}"
+                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource Fluent.TextFillColorSecondaryBrush}" />
+    </Style>
+    <Style Selector="^:pressed /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource Fluent.TextFillColorSecondaryBrush}" />
+    </Style>
+    <Style Selector="^:disabled /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource Fluent.ControlStrongFillColorDisabledBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Fluent.PipsPagerItem" TargetType="ListBoxItem">
+    <Setter Property="Width" Value="12" />
+    <Setter Property="Height" Value="24" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="Margin" Value="0" />
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="ClipToBounds" Value="False" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Background="Transparent">
+          <Ellipse Name="Pip"
+                   Width="4" Height="4"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Fill="{DynamicResource Fluent.ControlStrongFillColorDefaultBrush}">
+            <Ellipse.Transitions>
+              <Transitions>
+                <DoubleTransition Property="Width" Duration="0:0:0.167" />
+                <DoubleTransition Property="Height" Duration="0:0:0.167" />
+                <BrushTransition Property="Fill" Duration="0:0:0.167" />
+              </Transitions>
+            </Ellipse.Transitions>
+          </Ellipse>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Ellipse#Pip">
+      <Setter Property="Width" Value="6" />
+      <Setter Property="Height" Value="6" />
+      <Setter Property="Fill" Value="{DynamicResource Fluent.TextFillColorSecondaryBrush}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Ellipse#Pip">
+      <Setter Property="Width" Value="4" />
+      <Setter Property="Height" Value="4" />
+      <Setter Property="Fill" Value="{DynamicResource Fluent.TextFillColorSecondaryBrush}" />
+    </Style>
+    <Style Selector="^:selected /template/ Ellipse#Pip">
+      <Setter Property="Width" Value="6" />
+      <Setter Property="Height" Value="6" />
+      <Setter Property="Fill" Value="{DynamicResource Fluent.TextFillColorPrimaryBrush}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Ellipse#Pip">
+      <Setter Property="Fill" Value="{DynamicResource Fluent.ControlStrongFillColorDisabledBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

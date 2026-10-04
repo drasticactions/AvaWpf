@@ -1,0 +1,7 @@
+{
+  "control": "Slider",
+  "width": 180,
+  "height": 50,
+  "properties": { "Minimum": 0, "Maximum": 10, "Value": 5, "Width": 150 },
+  "states": ["normal", "hover", "pressed", "focused", "disabled"]
+}

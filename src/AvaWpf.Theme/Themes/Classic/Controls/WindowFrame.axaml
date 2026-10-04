@@ -1,0 +1,154 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- The Windows 98/2000 window frame: raised edge, ActiveBorder band, gradient caption and Raised caption buttons.
+       Maximized, the edge and border bands go away; tool windows use the small caption metrics. -->
+  <!-- The caption button theme and the glyphs are in _WindowCaptionButton.axaml (shared with WindowDrawnDecorations). -->
+  <ControlTheme x:Key="{x:Type wpf:WindowFrame}" TargetType="wpf:WindowFrame">
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel Name="root">
+          <wpf:ClassicBorderDecorator Name="frame"
+                                      BorderStyle="AltRaised"
+                                      BorderThickness="2"
+                                      Background="{DynamicResource SystemColors.ControlBrush}"
+                                      UseLayoutRounding="True">
+            <DockPanel>
+              <!-- The sizing border band: SystemParameters.BorderWidth of ActiveBorder on each side. -->
+              <Rectangle Name="bandTop" DockPanel.Dock="Top" Height="{DynamicResource SystemParameters.BorderWidth}" Fill="{DynamicResource SystemColors.ActiveBorderBrush}" />
+              <Rectangle Name="bandBottom" DockPanel.Dock="Bottom" Height="{DynamicResource SystemParameters.BorderWidth}" Fill="{DynamicResource SystemColors.ActiveBorderBrush}" />
+              <Rectangle Name="bandLeft" DockPanel.Dock="Left" Width="{DynamicResource SystemParameters.BorderWidth}" Fill="{DynamicResource SystemColors.ActiveBorderBrush}" />
+              <Rectangle Name="bandRight" DockPanel.Dock="Right" Width="{DynamicResource SystemParameters.BorderWidth}" Fill="{DynamicResource SystemColors.ActiveBorderBrush}" />
+              <DockPanel Name="inner" Margin="1">
+                <Grid Name="PART_Caption" DockPanel.Dock="Top"
+                      Height="{DynamicResource SystemParameters.CaptionHeight}"
+                      ColumnDefinitions="Auto,Auto,Auto,*,Auto">
+                  <!-- The caption gradients: active, and inactive (shown by :inactive). -->
+                  <Border Name="captionActive" Grid.ColumnSpan="5">
+                    <Border.Background>
+                      <LinearGradientBrush StartPoint="0%,50%" EndPoint="100%,50%">
+                        <GradientStop Offset="0" Color="{DynamicResource SystemColors.ActiveCaptionColor}" />
+                        <GradientStop Offset="1" Color="{DynamicResource SystemColors.GradientActiveCaptionColor}" />
+                      </LinearGradientBrush>
+                    </Border.Background>
+                  </Border>
+                  <Border Name="captionInactive" Grid.ColumnSpan="5" IsVisible="False">
+                    <Border.Background>
+                      <LinearGradientBrush StartPoint="0%,50%" EndPoint="100%,50%">
+                        <GradientStop Offset="0" Color="{DynamicResource SystemColors.InactiveCaptionColor}" />
+                        <GradientStop Offset="1" Color="{DynamicResource SystemColors.GradientInactiveCaptionColor}" />
+                      </LinearGradientBrush>
+                    </Border.Background>
+                  </Border>
+                  <Image Name="icon" Grid.Column="0" Source="{TemplateBinding Icon}" Width="16" Height="16" Margin="2,0,0,0" VerticalAlignment="Center" />
+                  <!-- Caption slots (a RibbonWindow puts its Quick Access Toolbar and contextual tab group headers
+                       here). Empty areas are not hit, so they drag the window through PART_Caption. -->
+                  <ContentPresenter Name="PART_CaptionContentPresenter" Grid.Column="1"
+                                    Content="{TemplateBinding CaptionContent}"
+                                    VerticalAlignment="Center"
+                                    IsVisible="{TemplateBinding CaptionContent, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                  <ContentPresenter Name="PART_CaptionOverlayPresenter" Grid.Column="2"
+                                    Content="{TemplateBinding CaptionOverlay}"
+                                    VerticalAlignment="Stretch"
+                                    IsVisible="{TemplateBinding CaptionOverlay, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                  <TextBlock Name="title" Grid.Column="3"
+                             Text="{TemplateBinding Title}"
+                             Margin="3,0,0,0"
+                             VerticalAlignment="Center"
+                             TextTrimming="CharacterEllipsis"
+                             FontFamily="{DynamicResource SystemFonts.CaptionFontFamily}"
+                             FontSize="{DynamicResource SystemFonts.CaptionFontSize}"
+                             FontWeight="{DynamicResource SystemFonts.CaptionFontWeight}"
+                             FontStyle="{DynamicResource SystemFonts.CaptionFontStyle}"
+                             Foreground="{DynamicResource SystemColors.ActiveCaptionTextBrush}" />
+                  <StackPanel Grid.Column="4" Orientation="Horizontal" Margin="0,0,1,0">
+                    <Button Name="PART_MinimizeButton" Theme="{StaticResource Classic.WindowFrame.CaptionButton}"
+                            Margin="0,0,-1,0"
+                            Content="{DynamicResource Classic.WindowFrame.MinimizeGlyph}"
+                            IsVisible="{TemplateBinding IsMinimizeButtonVisible}" />
+                    <Button Name="PART_MaximizeButton" Theme="{StaticResource Classic.WindowFrame.CaptionButton}"
+                            Margin="-1,0,0,0"
+                            Content="{DynamicResource Classic.WindowFrame.MaximizeGlyph}"
+                            IsVisible="{TemplateBinding IsMaximizeButtonVisible}" />
+                    <Button Name="PART_CloseButton" Theme="{StaticResource Classic.WindowFrame.CaptionButton}" Classes="close"
+                            Content="{DynamicResource Classic.WindowFrame.CloseGlyph}" />
+                  </StackPanel>
+                </Grid>
+                <!-- The 1 px face-colored line between the caption and the menu bar or client area. -->
+                <Panel DockPanel.Dock="Top" Height="1" />
+                <ContentPresenter Name="menu" DockPanel.Dock="Top" Content="{TemplateBinding MenuBar}" IsVisible="{TemplateBinding MenuBar, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                <ContentPresenter Name="PART_ContentPresenter"
+                                  Content="{TemplateBinding Content}"
+                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                  HorizontalContentAlignment="Stretch"
+                                  VerticalContentAlignment="Stretch" />
+              </DockPanel>
+            </DockPanel>
+          </wpf:ClassicBorderDecorator>
+          <!-- Resize borders: the frame's 4 px edge and 8 px corners. -->
+          <Panel Name="resize">
+            <Border wpf:WindowFrame.ResizeEdge="North" Height="4" VerticalAlignment="Top" Background="Transparent" />
+            <Border wpf:WindowFrame.ResizeEdge="South" Height="4" VerticalAlignment="Bottom" Background="Transparent" />
+            <Border wpf:WindowFrame.ResizeEdge="West" Width="4" HorizontalAlignment="Left" Background="Transparent" />
+            <Border wpf:WindowFrame.ResizeEdge="East" Width="4" HorizontalAlignment="Right" Background="Transparent" />
+            <Border wpf:WindowFrame.ResizeEdge="NorthWest" Width="8" Height="8" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Transparent" />
+            <Border wpf:WindowFrame.ResizeEdge="NorthEast" Width="8" Height="8" HorizontalAlignment="Right" VerticalAlignment="Top" Background="Transparent" />
+            <Border wpf:WindowFrame.ResizeEdge="SouthWest" Width="8" Height="8" HorizontalAlignment="Left" VerticalAlignment="Bottom" Background="Transparent" />
+            <Border wpf:WindowFrame.ResizeEdge="SouthEast" Width="8" Height="8" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="Transparent" />
+          </Panel>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:inactive">
+      <Style Selector="^ /template/ Rectangle">
+        <Setter Property="Fill" Value="{DynamicResource SystemColors.InactiveBorderBrush}" />
+      </Style>
+      <Style Selector="^ /template/ Border#captionActive">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+      <Style Selector="^ /template/ Border#captionInactive">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="^ /template/ TextBlock#title">
+        <Setter Property="Foreground" Value="{DynamicResource SystemColors.InactiveCaptionTextBrush}" />
+      </Style>
+    </Style>
+    <Style Selector="^:noicon /template/ Image#icon">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:maximized">
+      <Style Selector="^ /template/ wpf|ClassicBorderDecorator#frame">
+        <Setter Property="BorderThickness" Value="0" />
+      </Style>
+      <Style Selector="^ /template/ Rectangle">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+      <Style Selector="^ /template/ DockPanel#inner">
+        <Setter Property="Margin" Value="0" />
+      </Style>
+      <Style Selector="^ /template/ Panel#resize">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+      <Style Selector="^ /template/ Button#PART_MaximizeButton">
+        <Setter Property="Content" Value="{DynamicResource Classic.WindowFrame.RestoreGlyph}" />
+      </Style>
+    </Style>
+    <Style Selector="^:tool">
+      <Style Selector="^ /template/ Grid#PART_Caption">
+        <Setter Property="Height" Value="{DynamicResource SystemParameters.SmallCaptionHeight}" />
+      </Style>
+      <Style Selector="^ /template/ TextBlock#title">
+        <Setter Property="FontFamily" Value="{DynamicResource SystemFonts.SmallCaptionFontFamily}" />
+        <Setter Property="FontSize" Value="{DynamicResource SystemFonts.SmallCaptionFontSize}" />
+        <Setter Property="FontWeight" Value="{DynamicResource SystemFonts.SmallCaptionFontWeight}" />
+      </Style>
+      <Style Selector="^ /template/ Button">
+        <Setter Property="Width" Value="{DynamicResource SystemParameters.SmallCaptionWidth}" />
+      </Style>
+      <Style Selector="^ /template/ Image#icon">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

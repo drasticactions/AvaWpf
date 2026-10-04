@@ -1,0 +1,54 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- WPF Separator.xaml. Class toolbar: ToolBar.SeparatorStyleKey; class statusbar: StatusBar.SeparatorStyleKey; :menu
+       (see SeparatorState): MenuItem.SeparatorStyleKey. -->
+  <ControlTheme x:Key="{x:Type Separator}" TargetType="Separator">
+    <Setter Property="Background" Value="{DynamicResource SystemColors.ControlDarkBrush}" />
+    <Setter Property="Margin" Value="0,2,0,2" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                UseLayoutRounding="True"
+                Height="1" />
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^:menu">
+      <Setter Property="MinHeight" Value="1" />
+      <Setter Property="Margin" Value="0" />
+    </Style>
+
+    <Style Selector="^.toolbar">
+      <Setter Property="Background" Value="{DynamicResource $F.ToolBarSeparatorFill}" />
+      <Setter Property="MinWidth" Value="1" />
+      <Setter Property="MinHeight" Value="1" />
+      <Setter Property="Margin" Value="2,2,2,2" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Border Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  UseLayoutRounding="True" />
+        </ControlTemplate>
+      </Setter>
+    </Style>
+
+    <Style Selector="^.statusbar">
+      <Setter Property="Background" Value="{DynamicResource $F.StatusBarSeparatorBackground}" />
+      <Setter Property="MinWidth" Value="1" />
+      <Setter Property="MinHeight" Value="1" />
+      <Setter Property="Margin" Value="2" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Border Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  UseLayoutRounding="True" />
+        </ControlTemplate>
+      </Setter>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

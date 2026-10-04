@@ -1,0 +1,37 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- MenuFlyoutPresenter in the family ContextMenu look (WPF ContextMenu.xaml). -->
+  <ControlTheme x:Key="{x:Type MenuFlyoutPresenter}" TargetType="MenuFlyoutPresenter">
+    <!-- Focusable like the ContextMenu: the flyout focuses the menu, not its first item, so no item is highlighted
+         until a key is pressed, as in WPF. -->
+    <Setter Property="Focusable" Value="True" />
+    <Setter Property="Background" Value="{DynamicResource SystemColors.MenuBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource SystemColors.ControlDarkBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Padding" Value="2" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.MenuTextBrush}" />
+    <Setter Property="FontFamily" Value="{DynamicResource SystemFonts.MenuFontFamily}" />
+    <Setter Property="FontSize" Value="{DynamicResource SystemFonts.MenuFontSize}" />
+    <Setter Property="FontStyle" Value="{DynamicResource SystemFonts.MenuFontStyle}" />
+    <Setter Property="FontWeight" Value="{DynamicResource SystemFonts.MenuFontWeight}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <wpf:SystemDropShadowChrome Name="Shdw" Margin="0,0,5,5" UseLayoutRounding="True">
+          <Border Name="LayoutRoot"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}">
+            <ScrollViewer Theme="{StaticResource $F.MenuScrollViewer}">
+              <ItemsPresenter Name="PART_ItemsPresenter"
+                              ItemsPanel="{TemplateBinding ItemsPanel}"
+                              Margin="{TemplateBinding Padding}"
+                              KeyboardNavigation.TabNavigation="Continue"
+                              Grid.IsSharedSizeScope="True" />
+            </ScrollViewer>
+          </Border>
+        </wpf:SystemDropShadowChrome>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

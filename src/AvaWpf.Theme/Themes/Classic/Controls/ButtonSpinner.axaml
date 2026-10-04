@@ -1,0 +1,62 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- ButtonSpinner: the Win32 up-down control, the TextBox frame with two stacked scroll bar line buttons inside on
+       the right (left with ButtonSpinnerLocation Left). -->
+  <ControlTheme x:Key="{x:Type ButtonSpinner}" TargetType="ButtonSpinner">
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.WindowTextBrush}" />
+    <Setter Property="Background" Value="{DynamicResource SystemColors.WindowBrush}" />
+    <Setter Property="BorderBrush" Value="{x:Static wpf:ClassicBorderDecorator.ClassicBorderBrush}" />
+    <Setter Property="BorderThickness" Value="2" />
+    <Setter Property="Padding" Value="1" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Focusable" Value="True" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DataValidationErrors>
+          <wpf:ClassicBorderDecorator Name="Bd"
+                                      BorderStyle="Sunken"
+                                      Background="{TemplateBinding Background}"
+                                      BorderBrush="{TemplateBinding BorderBrush}"
+                                      BorderThickness="{TemplateBinding BorderThickness}"
+                                      UseLayoutRounding="True">
+            <DockPanel>
+              <Grid Name="PART_SpinnerPanel"
+                    DockPanel.Dock="Right"
+                    RowDefinitions="*,*"
+                    Width="{DynamicResource SystemParameters.VerticalScrollBarWidth}"
+                    IsVisible="{TemplateBinding ShowButtonSpinner}">
+                <RepeatButton Name="PART_IncreaseButton"
+                              Grid.Row="0"
+                              Classes="up"
+                              Theme="{StaticResource Classic.ButtonSpinnerButton}"
+                              VerticalAlignment="Stretch" />
+                <RepeatButton Name="PART_DecreaseButton"
+                              Grid.Row="1"
+                              Classes="down"
+                              Theme="{StaticResource Classic.ButtonSpinnerButton}"
+                              VerticalAlignment="Stretch" />
+              </Grid>
+              <ContentPresenter Name="PART_ContentPresenter"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                Content="{TemplateBinding Content}"
+                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Padding="{TemplateBinding Padding}" />
+            </DockPanel>
+          </wpf:ClassicBorderDecorator>
+        </DataValidationErrors>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:left /template/ Grid#PART_SpinnerPanel">
+      <Setter Property="DockPanel.Dock" Value="Left" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+      <Style Selector="^ /template/ wpf|ClassicBorderDecorator#Bd">
+        <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

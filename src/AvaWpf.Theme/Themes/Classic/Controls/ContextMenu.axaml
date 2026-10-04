@@ -1,0 +1,37 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF ContextMenu.xaml [[Classic]]. No shadow: SystemParameters.DropShadow is false in Classic schemes. -->
+  <ControlTheme x:Key="{x:Type ContextMenu}" TargetType="ContextMenu">
+    <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+    <Setter Property="BorderBrush" Value="{x:Static wpf:ClassicBorderDecorator.ClassicBorderBrush}" />
+    <Setter Property="BorderThickness" Value="2" />
+    <Setter Property="FontFamily" Value="{DynamicResource SystemFonts.MenuFontFamily}" />
+    <Setter Property="FontSize" Value="{DynamicResource SystemFonts.MenuFontSize}" />
+    <Setter Property="FontStyle" Value="{DynamicResource SystemFonts.MenuFontStyle}" />
+    <Setter Property="FontWeight" Value="{DynamicResource SystemFonts.MenuFontWeight}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.MenuTextBrush}" />
+    <Setter Property="Focusable" Value="True" />
+    <Setter Property="WindowManagerAddShadowHint" Value="False" />
+    <Setter Property="wpf:PopupAnimation.Kind" Value="{DynamicResource SystemParameters.MenuPopupAnimation}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <wpf:SystemDropShadowChrome Name="Shdw" UseLayoutRounding="True">
+          <wpf:ClassicBorderDecorator Name="Border"
+                                      BorderStyle="AltRaised"
+                                      Background="{TemplateBinding Background}"
+                                      BorderBrush="{TemplateBinding BorderBrush}"
+                                      BorderThickness="{TemplateBinding BorderThickness}">
+            <ScrollViewer Name="ContextMenuScrollViewer" Theme="{StaticResource Classic.MenuScrollViewer}">
+              <ItemsPresenter Name="PART_ItemsPresenter"
+                              ItemsPanel="{TemplateBinding ItemsPanel}"
+                              Margin="{TemplateBinding Padding}"
+                              KeyboardNavigation.TabNavigation="Continue"
+                              Grid.IsSharedSizeScope="True" />
+            </ScrollViewer>
+          </wpf:ClassicBorderDecorator>
+        </wpf:SystemDropShadowChrome>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

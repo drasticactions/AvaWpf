@@ -1,0 +1,9 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Classic glyphs as Path geometry, copied unchanged from WPF ScrollBar.xaml, ComboBox.xaml and CheckBox.xaml. -->
+  <StreamGeometry x:Key="Classic.ArrowUpGeometry">M 0 4 L 7 4 L 3.5 0 Z</StreamGeometry>
+  <StreamGeometry x:Key="Classic.ArrowDownGeometry">M 0 0 L 3.5 4 L 7 0 Z</StreamGeometry>
+  <StreamGeometry x:Key="Classic.ArrowLeftGeometry">M 0 4 L 4 8 L 4 0 Z</StreamGeometry>
+  <StreamGeometry x:Key="Classic.ArrowRightGeometry">M 0 0 L 0 8 L 4 4 Z</StreamGeometry>
+  <StreamGeometry x:Key="Classic.CheckMarkGeometry">M 0 2.0 L 0 4.8 L 2.5 7.4 L 7.1 2.8 L 7.1 0 L 2.5 4.6 Z</StreamGeometry>
+</ResourceDictionary>

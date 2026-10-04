@@ -1,0 +1,36 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- TableViewRow from WPF ListViewItem.xaml (the GridView row). No hover look, as in WPF Classic. -->
+  <ControlTheme x:Key="{x:Type TableViewRow}" TargetType="TableViewRow">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Padding" Value="0,1" />
+    <Setter Property="FocusAdorner" Value="{DynamicResource Classic.FocusVisualStyle}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="Bd"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Padding="{TemplateBinding Padding}"
+                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                UseLayoutRounding="True">
+          <Panel>
+            <TableViewCellsPresenter Name="PART_CellsPresenter" />
+            <!-- The row shows its cells; this empty presenter only registers as the item's presenter. -->
+            <ContentPresenter Name="PART_ContentPresenter" IsVisible="False" />
+          </Panel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:selected">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.HighlightTextBrush}" />
+      <Style Selector="^ /template/ Border#Bd">
+        <Setter Property="Background" Value="{DynamicResource SystemColors.HighlightBrush}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

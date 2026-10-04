@@ -1,0 +1,127 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    The frame Avalonia draws when the platform draws none. It reuses the Aero2 wpf:WindowFrame tokens and caption button
+    theme. In full screen a popover caption holds the exit and close buttons.
+  -->
+  <ControlTheme x:Key="{x:Type WindowDrawnDecorations}" TargetType="WindowDrawnDecorations">
+    <Setter Property="DefaultTitleBarHeight" Value="{DynamicResource Aero2.Invented.WindowFrame.CaptionHeight}" />
+    <Setter Property="DefaultFrameThickness" Value="1" />
+    <Setter Property="DefaultShadowThickness" Value="{DynamicResource Aero2.Invented.WindowFrame.ShadowMargin}" />
+    <Setter Property="Template">
+      <WindowDrawnDecorationsTemplate>
+        <WindowDrawnDecorationsContent>
+          <WindowDrawnDecorationsContent.Underlay>
+            <Panel Name="PART_UnderlayWrapper">
+              <Border Name="PART_WindowBorder"
+                      Background="Transparent"
+                      BorderThickness="{TemplateBinding FrameThickness}"
+                      BorderBrush="{DynamicResource SystemColors.AccentColorBrush}"
+                      IsHitTestVisible="False" />
+              <Panel Name="PART_TitleBar"
+                     VerticalAlignment="Top"
+                     Height="{TemplateBinding TitleBarHeight}"
+                     Background="{DynamicResource Aero2.Invented.WindowFrame.Caption.Background}"
+                     IsVisible="{TemplateBinding HasTitleBar}"
+                     WindowDecorationProperties.ElementRole="TitleBar" />
+            </Panel>
+          </WindowDrawnDecorationsContent.Underlay>
+          <WindowDrawnDecorationsContent.Overlay>
+            <Panel Name="PART_OverlayWrapper">
+              <Panel Name="PART_TitleTextPanel"
+                     VerticalAlignment="Top"
+                     Height="{TemplateBinding TitleBarHeight}"
+                     IsHitTestVisible="False"
+                     IsVisible="{TemplateBinding HasTitleBar}">
+                <TextBlock Text="{TemplateBinding Title}"
+                           Foreground="{DynamicResource Aero2.Invented.WindowFrame.Caption.Foreground}"
+                           FontFamily="{DynamicResource SystemFonts.CaptionFontFamily}"
+                           VerticalAlignment="Center"
+                           Margin="12,0,0,0"
+                           FontSize="12" />
+              </Panel>
+              <StackPanel Name="PART_OverlayPanel"
+                          VerticalAlignment="Top"
+                          HorizontalAlignment="Right"
+                          Height="{TemplateBinding TitleBarHeight}"
+                          IsVisible="{TemplateBinding HasTitleBar}"
+                          Orientation="Horizontal">
+                <Button Name="PART_FullScreenButton"
+                        Theme="{DynamicResource Aero2.WindowFrame.CaptionButton}"
+                        Content="{DynamicResource Aero2.Invented.WindowFrame.FullScreenGlyph}"
+                        WindowDecorationProperties.ElementRole="FullScreenButton" />
+                <Button Name="PART_MinimizeButton"
+                        Theme="{DynamicResource Aero2.WindowFrame.CaptionButton}"
+                        Content="{DynamicResource Aero2.Invented.WindowFrame.MinimizeGlyph}"
+                        WindowDecorationProperties.ElementRole="MinimizeButton" />
+                <Button Name="PART_MaximizeButton"
+                        Theme="{DynamicResource Aero2.WindowFrame.CaptionButton}"
+                        Content="{DynamicResource Aero2.Invented.WindowFrame.MaximizeGlyph}"
+                        WindowDecorationProperties.ElementRole="MaximizeButton" />
+                <Button Name="PART_CloseButton"
+                        Classes="close"
+                        Theme="{DynamicResource Aero2.WindowFrame.CaptionButton}"
+                        Content="{DynamicResource Aero2.Invented.WindowFrame.CloseGlyph}"
+                        WindowDecorationProperties.ElementRole="CloseButton" />
+              </StackPanel>
+            </Panel>
+          </WindowDrawnDecorationsContent.Overlay>
+          <WindowDrawnDecorationsContent.FullscreenPopover>
+            <Panel Height="{TemplateBinding DefaultTitleBarHeight}"
+                   VerticalAlignment="Top"
+                   Background="{DynamicResource Aero2.Invented.WindowFrame.Caption.Background}"
+                   WindowDecorationProperties.ElementRole="DecorationsElement">
+              <TextBlock Text="{TemplateBinding Title}"
+                         Foreground="{DynamicResource Aero2.Invented.WindowFrame.Caption.Foreground}"
+                         FontFamily="{DynamicResource SystemFonts.CaptionFontFamily}"
+                         VerticalAlignment="Center"
+                         Margin="12,0,0,0"
+                         FontSize="12" />
+              <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button Name="PART_PopoverFullScreenButton"
+                        Theme="{DynamicResource Aero2.WindowFrame.CaptionButton}"
+                        Content="{DynamicResource Aero2.Invented.WindowFrame.ExitFullScreenGlyph}"
+                        WindowDecorationProperties.ElementRole="FullScreenButton" />
+                <Button Name="PART_PopoverCloseButton"
+                        Classes="close"
+                        Theme="{DynamicResource Aero2.WindowFrame.CaptionButton}"
+                        Content="{DynamicResource Aero2.Invented.WindowFrame.CloseGlyph}"
+                        WindowDecorationProperties.ElementRole="CloseButton" />
+              </StackPanel>
+            </Panel>
+          </WindowDrawnDecorationsContent.FullscreenPopover>
+        </WindowDrawnDecorationsContent>
+      </WindowDrawnDecorationsTemplate>
+    </Setter>
+    <Style Selector="^:has-shadow /template/ Panel#PART_UnderlayWrapper">
+      <Setter Property="Margin" Value="{TemplateBinding ShadowThickness}" />
+    </Style>
+    <Style Selector="^:has-shadow /template/ Panel#PART_OverlayWrapper">
+      <Setter Property="Margin" Value="{TemplateBinding ShadowThickness}" />
+    </Style>
+    <Style Selector="^:has-shadow /template/ Border#PART_WindowBorder">
+      <Setter Property="BoxShadow" Value="{DynamicResource Aero2.Invented.WindowFrame.Shadow}" />
+    </Style>
+    <Style Selector="^:has-border /template/ Panel#PART_TitleTextPanel, ^:has-border /template/ Panel#PART_TitleBar">
+      <Setter Property="Margin" Value="1,1,1,0" />
+    </Style>
+    <Style Selector="^:has-border /template/ StackPanel#PART_OverlayPanel">
+      <Setter Property="Margin" Value="0,1,1,0" />
+    </Style>
+    <Style Selector="^:maximized /template/ Button#PART_MaximizeButton">
+      <Setter Property="Content" Value="{DynamicResource Aero2.Invented.WindowFrame.RestoreGlyph}" />
+    </Style>
+    <Style Selector="^:not(:has-minimize) /template/ Button#PART_MinimizeButton">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:not(:has-maximize) /template/ Button#PART_MaximizeButton">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:not(:has-fullscreen) /template/ Button#PART_FullScreenButton, ^:not(:has-fullscreen) /template/ Button#PART_PopoverFullScreenButton">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:fullscreen /template/ Panel#PART_TitleTextPanel, ^:fullscreen /template/ StackPanel#PART_OverlayPanel, ^:fullscreen /template/ Panel#PART_TitleBar">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

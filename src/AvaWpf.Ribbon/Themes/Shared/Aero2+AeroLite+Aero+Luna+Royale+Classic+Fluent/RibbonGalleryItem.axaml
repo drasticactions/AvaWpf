@@ -1,0 +1,58 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF RibbonGalleryItem.xaml, [[Generic]]. -->
+  <ControlTheme x:Key="{x:Type wpf:RibbonGalleryItem}" TargetType="wpf:RibbonGalleryItem">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Focusable" Value="True" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel Name="MainGrid">
+          <Border Name="OuterBorder"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  Padding="{TemplateBinding Padding}"
+                  CornerRadius="{DynamicResource $F.Invented.Ribbon.GalleryItem.CornerRadius}">
+            <Border Name="InnerBorder" Background="Transparent" BorderBrush="Transparent" BorderThickness="{TemplateBinding BorderThickness}">
+              <ContentPresenter Name="PART_ContentPresenter"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                Margin="2"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+            </Border>
+          </Border>
+          <Border Name="PressedStateOverlay" IsHitTestVisible="False" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0.5" />
+    </Style>
+    <Style Selector="^:highlighted /template/ Border#OuterBorder">
+      <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.MouseOver.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource $F.Invented.Ribbon.MouseOver.BorderBrush}" />
+    </Style>
+    <Style Selector="^:pressed">
+      <Style Selector="^ /template/ Border#OuterBorder">
+        <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.Pressed.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource $F.Invented.Ribbon.Pressed.BorderBrush}" />
+      </Style>
+      <Style Selector="^ /template/ Border#PressedStateOverlay">
+        <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.GalleryItem.PressedOverlay}" />
+      </Style>
+    </Style>
+    <Style Selector="^:selected /template/ Border#OuterBorder">
+      <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.Checked.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource $F.Invented.Ribbon.Checked.BorderBrush}" />
+    </Style>
+    <Style Selector="^:selected:highlighted /template/ Border#InnerBorder">
+      <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.HighlightedSelected.Background}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

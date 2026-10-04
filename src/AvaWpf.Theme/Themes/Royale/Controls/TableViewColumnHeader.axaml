@@ -1,0 +1,58 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- TableViewColumnHeader from WPF ListView.xaml GridViewColumnHeader [[Royale.NormalColor]]. The gripper is the
+       column resizer. -->
+  <ControlTemplate x:Key="Royale.GridViewColumnHeaderGripperTemplate" TargetType="Thumb">
+    <Border Padding="0,3,0,3" Background="Transparent">
+      <Rectangle HorizontalAlignment="Center" Width="1" Fill="{TemplateBinding Background}" />
+    </Border>
+  </ControlTemplate>
+
+  <ControlTheme x:Key="{x:Type TableViewColumnHeader}" TargetType="TableViewColumnHeader">
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Background" Value="{DynamicResource Royale.GridViewColumnHeaderBackground}" />
+    <Setter Property="BorderThickness" Value="0,0,0,1" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Royale.GridViewColumnHeaderBorder}" />
+    <Setter Property="Padding" Value="2,0,2,0" />
+    <Setter Property="MinHeight" Value="20" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="ClipToBounds" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid UseLayoutRounding="True">
+          <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+            <Grid Background="{TemplateBinding Background}">
+              <Border Name="HighlightBorder" VerticalAlignment="Bottom" Height="3" BorderThickness="0" />
+              <Border Padding="{TemplateBinding Padding}">
+                <ContentPresenter Name="PART_ContentPresenter"
+                                  Margin="0,0,0,1"
+                                  Content="{TemplateBinding Content}"
+                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                  RecognizesAccessKey="True" />
+              </Border>
+            </Grid>
+          </Border>
+          <Thumb Name="PART_Resizer"
+                 Template="{StaticResource Royale.GridViewColumnHeaderGripperTemplate}"
+                 Background="{DynamicResource Royale.ListView.GridViewColumnHeaderGripper.Setter.Self.Background}"
+                 Width="18"
+                 Margin="0,0,-9,0"
+                 HorizontalAlignment="Right"
+                 Cursor="SizeWestEast"
+                 IsEnabled="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Column?.CanUserEffectivelyResize, FallbackValue=False}" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#HighlightBorder">
+      <Setter Property="BorderBrush" Value="{DynamicResource Royale.ListView.GridViewColumnHeader.HighlightBorder.BorderBrush.IsMouseOver_true}" />
+      <Setter Property="Background" Value="{DynamicResource Royale.ListView.GridViewColumnHeader.HighlightBorder.Background.IsMouseOver_true}" />
+      <Setter Property="BorderThickness" Value="0,1,0,1" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

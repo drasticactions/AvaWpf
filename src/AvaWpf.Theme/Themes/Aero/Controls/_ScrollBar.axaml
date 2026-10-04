@@ -1,0 +1,62 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:aero="using:AvaWpf.Chrome.Aero">
+  <!-- WPF ScrollBar.xaml, [[Aero.NormalColor]]: ScrollBarButton, ScrollBarThumb and the page buttons. -->
+  <ControlTheme x:Key="Aero.ScrollBarLineButton" TargetType="RepeatButton">
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <aero:ScrollChrome Name="Chrome"
+                           aero:ScrollChrome.ScrollGlyph="{TemplateBinding aero:ScrollChrome.ScrollGlyph}"
+                           RenderMouseOver="{TemplateBinding IsPointerOver}"
+                           RenderPressed="{TemplateBinding IsPressed}"
+                           UseLayoutRounding="True" />
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^.up">
+      <Setter Property="aero:ScrollChrome.ScrollGlyph" Value="UpArrow" />
+    </Style>
+    <Style Selector="^.down">
+      <Setter Property="aero:ScrollChrome.ScrollGlyph" Value="DownArrow" />
+    </Style>
+    <Style Selector="^.left">
+      <Setter Property="aero:ScrollChrome.ScrollGlyph" Value="LeftArrow" />
+    </Style>
+    <Style Selector="^.right">
+      <Setter Property="aero:ScrollChrome.ScrollGlyph" Value="RightArrow" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Aero.ScrollBarThumb" TargetType="Thumb">
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <aero:ScrollChrome Name="Chrome"
+                           aero:ScrollChrome.ScrollGlyph="{TemplateBinding aero:ScrollChrome.ScrollGlyph}"
+                           RenderMouseOver="{TemplateBinding IsPointerOver}"
+                           UseLayoutRounding="True" />
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pressed /template/ aero|ScrollChrome#Chrome">
+      <Setter Property="RenderPressed" Value="True" />
+    </Style>
+    <Style Selector="^.vertical">
+      <Setter Property="aero:ScrollChrome.ScrollGlyph" Value="VerticalGripper" />
+    </Style>
+    <Style Selector="^.horizontal">
+      <Setter Property="aero:ScrollChrome.ScrollGlyph" Value="HorizontalGripper" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Aero.ScrollBarPageButton" TargetType="RepeatButton">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Rectangle Fill="{TemplateBinding Background}" />
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

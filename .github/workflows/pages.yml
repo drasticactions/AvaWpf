@@ -1,0 +1,51 @@
+name: Deploy samples to GitHub Pages
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - name: Install wasm-tools workload
+        run: dotnet workload install wasm-tools
+      - name: Publish browser heads
+        run: |
+          dotnet publish samples/AvaWpf.Gallery.Browser -c Release -o publish/gallery
+          dotnet publish samples/Demos/AvaWpf.Explorer.Browser -c Release -o publish/explorer
+          dotnet publish samples/Demos/AvaWpf.WordPad.Browser -c Release -o publish/wordpad
+      - name: Prepare Pages site
+        run: |
+          mkdir site
+          cp -r publish/gallery/wwwroot/. site/
+          mkdir -p site/explorer site/wordpad
+          cp -r publish/explorer/wwwroot/. site/explorer/
+          cp -r publish/wordpad/wwwroot/. site/wordpad/
+          # Skip Jekyll so folders starting with "_" (e.g. _framework) are served.
+          touch site/.nojekyll
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

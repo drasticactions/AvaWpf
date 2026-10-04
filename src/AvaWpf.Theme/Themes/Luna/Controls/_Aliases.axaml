@@ -1,0 +1,10 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- Luna brushes that WPF takes from SystemColors (Royale uses literals), so the shared Luna+Royale templates use one
+       key. StatusBar.xaml: Control background, ControlDark separator. -->
+  <wpf:ResourceAlias x:Key="Luna.StatusBarBackground" Target="SystemColors.ControlBrush" />
+  <wpf:ResourceAlias x:Key="Luna.StatusBarSeparatorBackground" Target="SystemColors.ControlDarkBrush" />
+  <!-- ProgressBar.xaml [[Luna.*]] borders the bar ControlDarkDark. -->
+  <wpf:ResourceAlias x:Key="Luna.ProgressBarBorderBrush" Target="SystemColors.ControlDarkDarkBrush" />
+</ResourceDictionary>

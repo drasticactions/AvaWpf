@@ -1,0 +1,94 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF Expander.xaml [[Classic]]: the header toggle docked on the side the Expander opens from, the content filling
+       the rest. -->
+  <FocusAdornerTemplate x:Key="Classic.ExpanderHeaderFocusVisual">
+    <Rectangle Name="ExpanderHeaderFocusVisualRectangle"
+               StrokeThickness="1"
+               Stroke="{DynamicResource Classic.Expander.ExpanderHeaderFocusVisual.ExpanderHeaderFocusVisualRectangle.Stroke}"
+               StrokeDashArray="1,2"
+               UseLayoutRounding="True" />
+  </FocusAdornerTemplate>
+
+  <ControlTheme x:Key="{x:Type Expander}" TargetType="Expander">
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.WindowTextBrush}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Stretch" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="1" />
+    <!-- WPF Expander: IsTabStop false but Focusable; Keyboard.Focus shows the default focus visual around it. -->
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="Focusable" Value="True" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Background="{TemplateBinding Background}"
+                CornerRadius="3"
+                UseLayoutRounding="True">
+          <DockPanel>
+            <ToggleButton Name="HeaderSite"
+                          DockPanel.Dock="Top"
+                          Margin="1"
+                          MinWidth="0"
+                          MinHeight="0"
+                          Theme="{StaticResource Classic.ExpanderToggleButton}"
+                          FocusAdorner="{StaticResource Classic.ExpanderHeaderFocusVisual}"
+                          IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}"
+                          Content="{TemplateBinding Header}"
+                          ContentTemplate="{TemplateBinding HeaderTemplate}"
+                          Foreground="{TemplateBinding Foreground}"
+                          Padding="{TemplateBinding Padding}"
+                          FontFamily="{TemplateBinding FontFamily}"
+                          FontSize="{TemplateBinding FontSize}"
+                          FontStyle="{TemplateBinding FontStyle}"
+                          FontWeight="{TemplateBinding FontWeight}"
+                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+            <ContentPresenter Name="PART_ContentPresenter"
+                              DockPanel.Dock="Bottom"
+                              IsVisible="{TemplateBinding IsExpanded}"
+                              Focusable="False"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              Margin="{TemplateBinding Padding}" />
+          </DockPanel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:right">
+      <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="DockPanel.Dock" Value="Right" />
+      </Style>
+      <Style Selector="^ /template/ ToggleButton#HeaderSite">
+        <Setter Property="DockPanel.Dock" Value="Left" />
+        <Setter Property="Theme" Value="{StaticResource Classic.ExpanderRightHeaderStyle}" />
+      </Style>
+    </Style>
+    <Style Selector="^:up">
+      <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="DockPanel.Dock" Value="Top" />
+      </Style>
+      <Style Selector="^ /template/ ToggleButton#HeaderSite">
+        <Setter Property="DockPanel.Dock" Value="Bottom" />
+        <Setter Property="Theme" Value="{StaticResource Classic.ExpanderUpHeaderStyle}" />
+      </Style>
+    </Style>
+    <Style Selector="^:left">
+      <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="DockPanel.Dock" Value="Left" />
+      </Style>
+      <Style Selector="^ /template/ ToggleButton#HeaderSite">
+        <Setter Property="DockPanel.Dock" Value="Right" />
+        <Setter Property="Theme" Value="{StaticResource Classic.ExpanderLeftHeaderStyle}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

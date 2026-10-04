@@ -1,0 +1,17 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:wpf="https://github.com/avawpf"
+             x:Class="AvaWpf.Gallery.Pages.RangePage">
+  <StackPanel Spacing="12" Width="360" HorizontalAlignment="Left">
+    <TextBlock Classes="Subtitle" Text="Progress bars" />
+    <ProgressBar Value="35" Height="18" />
+    <ProgressBar IsIndeterminate="True" Height="18" />
+    <ProgressBar Value="70" Height="18" IsEnabled="False" />
+    <ProgressBar Value="60" Orientation="Vertical" Width="18" Height="100" HorizontalAlignment="Left" />
+    <TextBlock Classes="Subtitle" Text="Sliders" />
+    <Slider Value="30" />
+    <Slider Value="50" TickPlacement="BottomRight" TickFrequency="10" IsSnapToTickEnabled="True" />
+    <Slider Value="60" IsEnabled="False" />
+    <Slider Value="40" Orientation="Vertical" Height="120" HorizontalAlignment="Left" TickPlacement="Outside" TickFrequency="20" />
+  </StackPanel>
+</UserControl>

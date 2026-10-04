@@ -1,0 +1,55 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    AutoCompleteBox as the Windows 11 AutoSuggestBox: a Fluent TextBox with a suggestion list in a Fluent.PopupPanel, at
+    least as wide as the box.
+  -->
+  <ControlTheme x:Key="{x:Type AutoCompleteBox}" TargetType="AutoCompleteBox">
+    <Setter Property="VerticalAlignment" Value="Top" />
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.TextControlForeground}" />
+    <Setter Property="Background" Value="{DynamicResource Fluent.TextControlBackground}" />
+    <Setter Property="PlaceholderForeground" Value="{DynamicResource Fluent.TextControlPlaceholderForeground}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Fluent.TextControlElevationBorderBrush}" />
+    <Setter Property="BorderThickness" Value="{DynamicResource Fluent.TextControlBorderThemeThickness}" />
+    <Setter Property="CornerRadius" Value="{DynamicResource Fluent.ControlCornerRadius}" />
+    <Setter Property="Padding" Value="{DynamicResource Fluent.TextControlThemePadding}" />
+    <Setter Property="MaxDropDownHeight" Value="300" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Name="PART_LayoutRoot">
+          <TextBox Name="PART_TextBox"
+                   PlaceholderText="{TemplateBinding PlaceholderText}"
+                   PlaceholderForeground="{TemplateBinding PlaceholderForeground}"
+                   Width="{TemplateBinding Width}"
+                   Foreground="{TemplateBinding Foreground}"
+                   Background="{TemplateBinding Background}"
+                   BorderBrush="{TemplateBinding BorderBrush}"
+                   BorderThickness="{TemplateBinding BorderThickness}"
+                   CornerRadius="{TemplateBinding CornerRadius}"
+                   CaretIndex="{TemplateBinding CaretIndex, Mode=TwoWay}"
+                   ClearSelectionOnLostFocus="{TemplateBinding ClearSelectionOnLostFocus}"
+                   Padding="{TemplateBinding Padding}"
+                   Margin="0"
+                   DataValidationErrors.Errors="{TemplateBinding (DataValidationErrors.Errors)}"
+                   MaxLength="{TemplateBinding MaxLength}"
+                   InnerLeftContent="{TemplateBinding InnerLeftContent}"
+                   InnerRightContent="{TemplateBinding InnerRightContent}" />
+          <Popup Name="PART_Popup"
+                 WindowManagerAddShadowHint="False"
+                 MinWidth="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}"
+                 MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                 IsLightDismissEnabled="True"
+                 PlacementTarget="{TemplateBinding}">
+            <ContentControl Name="PART_SuggestionsContainer" Theme="{StaticResource Fluent.PopupPanel}">
+              <ListBox Name="PART_SelectingItemsControl"
+                       BorderThickness="0"
+                       Background="Transparent"
+                       ItemTemplate="{TemplateBinding ItemTemplate}"
+                       ScrollViewer.IsScrollChainingEnabled="False" />
+            </ContentControl>
+          </Popup>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

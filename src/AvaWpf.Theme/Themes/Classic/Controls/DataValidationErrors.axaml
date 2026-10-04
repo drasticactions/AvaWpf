@@ -1,0 +1,39 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- WPF's default Validation.ErrorTemplate: a 1 px red frame over the control while it has errors, no text.
+       ErrorTemplate (red text) is for templates that show the messages. -->
+  <ControlTheme x:Key="{x:Type DataValidationErrors}" TargetType="DataValidationErrors">
+    <Setter Property="Template">
+      <ControlTemplate TargetType="DataValidationErrors">
+        <Panel>
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Padding="{TemplateBinding Padding}"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}" />
+          <Border Name="ErrorAdorner"
+                  BorderBrush="{DynamicResource Classic.Invented.Validation.Error}"
+                  BorderThickness="1"
+                  IsHitTestVisible="False"
+                  UseLayoutRounding="True"
+                  DataContext="{TemplateBinding Owner}"
+                  IsVisible="{Binding (DataValidationErrors.HasErrors)}" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <Setter Property="ErrorTemplate">
+      <DataTemplate>
+        <ItemsControl x:DataType="DataValidationErrors"
+                      Foreground="{DynamicResource Classic.Invented.Validation.Error}"
+                      ItemsSource="{Binding}">
+          <ItemsControl.Styles>
+            <Style Selector="TextBlock">
+              <Setter Property="TextWrapping" Value="Wrap" />
+            </Style>
+          </ItemsControl.Styles>
+        </ItemsControl>
+      </DataTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

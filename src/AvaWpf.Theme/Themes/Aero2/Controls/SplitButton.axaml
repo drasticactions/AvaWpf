@@ -1,0 +1,100 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    A button with a drop-down part, also used by ToggleSplitButton. The arrow part overlaps the primary part by 1 px and
+    the hovered part comes to the front, so its hover border shows whole. The content presenter sits in the primary part
+    so the content stays a logical child of the split button.
+  -->
+  <ControlTheme x:Key="Aero2.SplitButtonComponent" TargetType="Button" BasedOn="{StaticResource Aero2.BaseButtonStyle}">
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="KeyboardNavigation.IsTabStop" Value="False" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Style Selector="^:pointerover">
+      <Setter Property="ZIndex" Value="1" />
+    </Style>
+    <Style Selector="^[Tag=flyout-open] /template/ Border#border">
+      <Setter Property="Background" Value="{DynamicResource Aero2.Button.Pressed.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero2.Button.Pressed.Border}" />
+    </Style>
+    <Style Selector="^[Tag=checked] /template/ Border#border, ^[Tag=checked-flyout-open] /template/ Border#border">
+      <Setter Property="Background" Value="{DynamicResource Aero2.Button.Checked.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero2.Button.Checked.Border}" />
+    </Style>
+    <Style Selector="^[Tag=checked]:pointerover /template/ Border#border">
+      <Setter Property="Background" Value="{DynamicResource Aero2.Button.MouseOver.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero2.Button.MouseOver.Border}" />
+    </Style>
+    <Style Selector="^[Tag=checked]:pressed /template/ Border#border, ^[Tag=checked-flyout-open] /template/ Border#border">
+      <Setter Property="Background" Value="{DynamicResource Aero2.Button.Pressed.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero2.Button.Pressed.Border}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Border#border">
+      <Setter Property="Background" Value="{DynamicResource Aero2.Button.Disabled.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero2.Button.Disabled.Border}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type SplitButton}" TargetType="SplitButton">
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Padding" Value="1" />
+    <Setter Property="KeyboardNavigation.IsTabStop" Value="True" />
+    <Setter Property="Focusable" Value="True" />
+    <Setter Property="FocusAdorner" Value="{DynamicResource Aero2.FocusVisual}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid ColumnDefinitions="*,Auto">
+          <Button Name="PART_PrimaryButton"
+                  Grid.Column="0"
+                  Theme="{StaticResource Aero2.SplitButtonComponent}"
+                  Foreground="{TemplateBinding Foreground}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  Command="{TemplateBinding Command}"
+                  CommandParameter="{TemplateBinding CommandParameter}"
+                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                  Padding="{TemplateBinding Padding}">
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              RecognizesAccessKey="True" />
+          </Button>
+          <Button Name="PART_SecondaryButton"
+                  Grid.Column="1"
+                  Theme="{StaticResource Aero2.SplitButtonComponent}"
+                  Foreground="{DynamicResource Aero2.ComboBox.Static.Glyph}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  Margin="-1,0,0,0"
+                  Width="15"
+                  Padding="0"
+                  HorizontalContentAlignment="Stretch"
+                  VerticalContentAlignment="Stretch">
+            <Path Width="5.3334"
+                  Height="4.44833"
+                  UseLayoutRounding="False"
+                  Data="{DynamicResource Aero2.DropDownArrowGeometry}"
+                  Fill="{Binding $parent[Button].Foreground}"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center" />
+          </Button>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:flyout-open /template/ Button">
+      <Setter Property="Tag" Value="flyout-open" />
+    </Style>
+    <Style Selector="^:checked /template/ Button">
+      <Setter Property="Tag" Value="checked" />
+    </Style>
+    <Style Selector="^:checked:flyout-open /template/ Button">
+      <Setter Property="Tag" Value="checked-flyout-open" />
+    </Style>
+    <Style Selector="^:disabled /template/ Button#PART_SecondaryButton">
+      <Setter Property="Foreground" Value="{DynamicResource Aero2.ComboBox.Disabled.Glyph}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

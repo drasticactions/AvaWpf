@@ -1,0 +1,50 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF DataGridCell; the current cell of a focused grid gets the DataGrid.FocusBorderBrushKey border. -->
+  <ControlTheme x:Key="{x:Type DataGridCell}" TargetType="DataGridCell">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Stretch" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <!-- The grid line runs the cell's full height beside the border, as WPF draws it. -->
+        <Grid x:Name="PART_CellRoot" ColumnDefinitions="*,Auto" UseLayoutRounding="True">
+          <Border x:Name="Bd"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}">
+            <ContentPresenter x:Name="PART_ContentPresenter"
+                              Margin="{TemplateBinding Padding}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Foreground="{TemplateBinding Foreground}" />
+          </Border>
+          <Rectangle x:Name="PART_RightGridLine" Grid.Column="1" Width="1" VerticalAlignment="Stretch" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^[(wpf|DataGridState.IsRowSelected)=True]">
+      <Setter Property="Background" Value="{DynamicResource SystemColors.HighlightBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.HighlightTextBrush}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource SystemColors.HighlightBrush}" />
+    </Style>
+    <Style Selector="^:focus">
+      <Setter Property="BorderBrush" Value="{DynamicResource $F.DataGrid.FocusBorderBrushKey}" />
+    </Style>
+    <Style Selector="^[(wpf|DataGridState.IsSelectionActive)=False]">
+      <Style Selector="^[(wpf|DataGridState.IsRowSelected)=True]">
+        <Setter Property="Background" Value="{DynamicResource SystemColors.InactiveSelectionHighlightBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemColors.InactiveSelectionHighlightBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource SystemColors.InactiveSelectionHighlightTextBrush}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

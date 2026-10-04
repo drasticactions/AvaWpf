@@ -1,0 +1,44 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:wpf="https://github.com/avawpf"
+             x:Class="AvaWpf.Gallery.Pages.MenusPage">
+  <StackPanel Spacing="12">
+    <TextBlock Classes="Subtitle" Text="Menu" />
+    <Menu HorizontalAlignment="Left">
+      <MenuItem Header="_File">
+        <MenuItem Header="_New" InputGesture="Ctrl+N" />
+        <MenuItem Header="_Open..." InputGesture="Ctrl+O" />
+        <MenuItem Header="_Save" InputGesture="Ctrl+S" />
+        <Separator />
+        <MenuItem Header="Recent files">
+          <MenuItem Header="1 report.txt" />
+          <MenuItem Header="2 letter.txt" />
+        </MenuItem>
+        <Separator />
+        <MenuItem Header="E_xit" />
+      </MenuItem>
+      <MenuItem Header="_Edit">
+        <MenuItem Header="_Undo" InputGesture="Ctrl+Z" IsEnabled="False" />
+        <MenuItem Header="Word _wrap" ToggleType="CheckBox" IsChecked="True" />
+        <MenuItem Header="Status _bar" ToggleType="CheckBox" />
+      </MenuItem>
+      <MenuItem Header="_View">
+        <MenuItem Header="Lar_ge icons" ToggleType="Radio" GroupName="v" IsChecked="True" />
+        <MenuItem Header="S_mall icons" ToggleType="Radio" GroupName="v" />
+      </MenuItem>
+    </Menu>
+    <TextBlock Classes="Subtitle" Text="Context menu (right-click)" />
+    <Border BorderThickness="1" BorderBrush="{DynamicResource WpfBorderBrush}" Width="240" Height="80" HorizontalAlignment="Left" Background="{DynamicResource WpfWindowBackgroundBrush}">
+      <Border.ContextMenu>
+        <ContextMenu>
+          <MenuItem Header="Cu_t" InputGesture="Ctrl+X" />
+          <MenuItem Header="_Copy" InputGesture="Ctrl+C" />
+          <MenuItem Header="_Paste" InputGesture="Ctrl+V" IsEnabled="False" />
+          <Separator />
+          <MenuItem Header="P_roperties" />
+        </ContextMenu>
+      </Border.ContextMenu>
+      <TextBlock Text="Right-click here" HorizontalAlignment="Center" VerticalAlignment="Center" />
+    </Border>
+  </StackPanel>
+</UserControl>

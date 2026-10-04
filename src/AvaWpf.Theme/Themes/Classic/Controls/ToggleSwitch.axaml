@@ -1,0 +1,88 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- ToggleSwitch: a sunken track with a scroll-bar-button knob that slides with a 100 ms linear transition. -->
+  <ControlTheme x:Key="{x:Type ToggleSwitch}" TargetType="ToggleSwitch">
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="FocusAdorner" Value="{DynamicResource Classic.FocusVisualStyle}" />
+    <Setter Property="KnobTransitions">
+      <Transitions>
+        <DoubleTransition Property="Canvas.Left" Duration="0:0:0.1" />
+      </Transitions>
+    </Setter>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Background="{TemplateBinding Background}" RowDefinitions="Auto,*" UseLayoutRounding="True">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Grid.Row="0"
+                            Margin="0,0,0,4"
+                            VerticalAlignment="Top"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            RecognizesAccessKey="True" />
+          <Grid Grid.Row="1" ColumnDefinitions="Auto,6,Auto" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <wpf:ClassicBorderDecorator Name="Track"
+                                        Width="36"
+                                        Height="18"
+                                        BorderStyle="Sunken"
+                                        BorderThickness="2"
+                                        Background="{DynamicResource SystemColors.WindowBrush}" />
+            <Canvas Name="PART_SwitchKnob"
+                    Width="16"
+                    Height="14"
+                    Margin="2"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top">
+              <Grid Name="PART_MovingKnobs" Width="16" Height="14">
+                <wpf:ClassicBorderDecorator Name="Knob"
+                                            BorderStyle="AltRaised"
+                                            BorderThickness="2"
+                                            Background="{DynamicResource SystemColors.ControlBrush}" />
+              </Grid>
+            </Canvas>
+            <ContentPresenter Name="PART_OffContentPresenter"
+                              Grid.Column="2"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              Content="{TemplateBinding OffContent}"
+                              ContentTemplate="{TemplateBinding OffContentTemplate}" />
+            <ContentPresenter Name="PART_OnContentPresenter"
+                              Grid.Column="2"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              Content="{TemplateBinding OnContent}"
+                              ContentTemplate="{TemplateBinding OnContentTemplate}" />
+          </Grid>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter:empty">
+      <Setter Property="Margin" Value="0" />
+    </Style>
+    <Style Selector="^:checked">
+      <Style Selector="^ /template/ wpf|ClassicBorderDecorator#Track">
+        <Setter Property="Background" Value="{DynamicResource SystemColors.HighlightBrush}" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#PART_OffContentPresenter">
+        <Setter Property="Opacity" Value="0" />
+      </Style>
+    </Style>
+    <Style Selector="^:unchecked /template/ ContentPresenter#PART_OnContentPresenter">
+      <Setter Property="Opacity" Value="0" />
+    </Style>
+    <Style Selector="^:pressed /template/ wpf|ClassicBorderDecorator#Knob">
+      <Setter Property="BorderStyle" Value="AltPressed" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+      <Style Selector="^ /template/ wpf|ClassicBorderDecorator#Track">
+        <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

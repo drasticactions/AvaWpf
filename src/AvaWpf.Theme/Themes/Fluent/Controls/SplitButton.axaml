@@ -1,0 +1,86 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- The Windows 11 split button, also used by ToggleSplitButton (its style key is SplitButton). -->
+  <ControlTheme x:Key="{x:Type SplitButton}" TargetType="SplitButton">
+    <Setter Property="FocusAdorner" Value="{DynamicResource Fluent.FocusVisual}" />
+    <Setter Property="Background" Value="{DynamicResource Fluent.ButtonBackground}" />
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.ButtonForeground}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Fluent.ButtonBorderBrush}" />
+    <Setter Property="BorderThickness" Value="{DynamicResource Fluent.ButtonBorderThemeThickness}" />
+    <Setter Property="MinHeight" Value="32" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Focusable" Value="True" />
+    <Setter Property="Padding" Value="{DynamicResource Fluent.ButtonPadding}" />
+    <Setter Property="CornerRadius" Value="{DynamicResource Fluent.ControlCornerRadius}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid ColumnDefinitions="*,Auto,Auto">
+          <Button Name="PART_PrimaryButton"
+                  Grid.Column="0"
+                  Theme="{StaticResource Fluent.SplitButtonComponent}"
+                  MinWidth="32"
+                  Foreground="{TemplateBinding Foreground}"
+                  Background="{TemplateBinding Background}"
+                  BorderThickness="{TemplateBinding BorderThickness, Converter={StaticResource Fluent.SplitButton.PrimaryBorderMultiplier}}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  Command="{TemplateBinding Command}"
+                  CommandParameter="{TemplateBinding CommandParameter}"
+                  CornerRadius="{TemplateBinding CornerRadius, Converter={StaticResource Fluent.SplitButton.LeftCornerRadiusFilter}}"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                  Padding="{TemplateBinding Padding}"
+                  Focusable="False"
+                  KeyboardNavigation.IsTabStop="False">
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              RecognizesAccessKey="True" />
+          </Button>
+          <Border Name="SeparatorBorder"
+                  Grid.Column="1"
+                  Background="Transparent"
+                  Width="1"
+                  BorderThickness="{TemplateBinding BorderThickness, Converter={StaticResource Fluent.SplitButton.SeparatorBorderMultiplier}}"
+                  BorderBrush="{TemplateBinding BorderBrush}">
+            <Rectangle Width="1" Fill="{DynamicResource Fluent.ControlStrokeColorDefaultBrush}" />
+          </Border>
+          <Button Name="PART_SecondaryButton"
+                  Grid.Column="2"
+                  Theme="{StaticResource Fluent.SplitButtonComponent}"
+                  MinWidth="32"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  Foreground="{TemplateBinding Foreground}"
+                  Background="{TemplateBinding Background}"
+                  BorderThickness="{TemplateBinding BorderThickness, Converter={StaticResource Fluent.SplitButton.SecondaryBorderMultiplier}}"
+                  CornerRadius="{TemplateBinding CornerRadius, Converter={StaticResource Fluent.SplitButton.RightCornerRadiusFilter}}"
+                  Padding="0"
+                  HorizontalContentAlignment="Center"
+                  VerticalContentAlignment="Center"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  Focusable="False"
+                  KeyboardNavigation.IsTabStop="False">
+            <TextBlock FontFamily="{DynamicResource Fluent.SymbolThemeFontFamily}"
+                       FontSize="12"
+                       Text="{x:Static wpf:FluentGlyph.ChevronDown}" />
+          </Button>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:flyout-open /template/ Button">
+      <Setter Property="Tag" Value="flyout-open" />
+    </Style>
+    <Style Selector="^:checked /template/ Button">
+      <Setter Property="Tag" Value="checked" />
+    </Style>
+    <Style Selector="^:checked:flyout-open /template/ Button">
+      <Setter Property="Tag" Value="checked-flyout-open" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

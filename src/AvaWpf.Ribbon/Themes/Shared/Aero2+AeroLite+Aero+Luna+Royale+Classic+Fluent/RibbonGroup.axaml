@@ -1,0 +1,120 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf"
+                    xmlns:primitives="clr-namespace:AvaWpf.Ribbon.Primitives;assembly=AvaWpf.Ribbon">
+  <!-- WPF RibbonGroup.xaml, [[Generic]]: the expanded and collapsed templates. WPF swaps templates; here both parts are in one template and the items move between them. -->
+  <ControlTheme x:Key="{x:Type wpf:RibbonGroup}" TargetType="wpf:RibbonGroup">
+    <Setter Property="Margin" Value="1" />
+    <Setter Property="Padding" Value="3,0,3,0" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="{DynamicResource $F.Invented.Ribbon.BorderBrush}" />
+    <Setter Property="ItemsPanel">
+      <ItemsPanelTemplate>
+        <primitives:RibbonGroupItemsPanel />
+      </ItemsPanelTemplate>
+    </Setter>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <Border Name="GroupBorder" Background="{TemplateBinding Background}" Margin="1,2,0,0">
+            <Grid Name="MainGrid" RowDefinitions="*,Auto,Auto" ColumnDefinitions="*,Auto">
+              <Border Name="PART_HotBackground"
+                      Background="{DynamicResource $F.Invented.Ribbon.Group.MouseOver.Background}"
+                      Opacity="0"
+                      Grid.RowSpan="3"
+                      CornerRadius="2"
+                      BorderThickness="1" />
+              <Border Name="SeparatorBorder"
+                      Background="{TemplateBinding BorderBrush}"
+                      Grid.Column="1"
+                      Grid.RowSpan="3"
+                      Height="75"
+                      Width="1"
+                      VerticalAlignment="Center" />
+              <Border Margin="2,1,2,0" Padding="{TemplateBinding Padding}">
+                <Panel>
+                  <Decorator Name="PART_ItemsHost">
+                    <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
+                  </Decorator>
+                  <ContentControl Name="PART_TemplateContentControl" IsVisible="False" Focusable="False" />
+                </Panel>
+              </Border>
+              <Border Name="LabelSeparatorBorder" Grid.Row="1" Height="1" Margin="5,1,5,-1" />
+              <Panel Margin="2,0,2,0" Grid.Row="2" MinHeight="16">
+                <ContentPresenter Name="PART_Header"
+                                  Foreground="{DynamicResource $F.Invented.Ribbon.Group.Header.Foreground}"
+                                  Content="{TemplateBinding Header}"
+                                  ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                  Margin="2,0,2,0"
+                                  MaxHeight="16"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center" />
+              </Panel>
+            </Grid>
+          </Border>
+          <Panel Name="CollapsedRoot" IsVisible="False">
+            <wpf:RibbonToggleButton Name="PART_ToggleButton"
+                                    Margin="0,3,0,0"
+                                    Theme="{StaticResource $F.Ribbon.CollapsedGroupToggleButton}"
+                                    LargeImageSource="{TemplateBinding LargeImageSource}"
+                                    SmallImageSource="{TemplateBinding SmallImageSource}"
+                                    IsChecked="{TemplateBinding IsDropDownOpen, Mode=TwoWay}" />
+            <Popup Name="PART_Popup"
+                   Placement="BottomEdgeAlignedLeft"
+                   PlacementTarget="{Binding #PART_ToggleButton}"
+                   IsLightDismissEnabled="True"
+                   IsOpen="{TemplateBinding IsDropDownOpen, Mode=TwoWay}"
+                   wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.MenuPopupAnimation}">
+              <wpf:SystemDropShadowChrome Name="Shdw" CornerRadius="2" Margin="0,0,5,5">
+                <Grid Name="PART_PopupGrid" Height="88" Margin="0,1.5,0,0" RowDefinitions="*,Auto">
+                  <Border Name="PopupBorder"
+                          Grid.RowSpan="2"
+                          Background="{DynamicResource $F.Invented.Ribbon.Background}"
+                          BorderBrush="{DynamicResource $F.Invented.Ribbon.BorderBrush}"
+                          BorderThickness="1" />
+                  <Border Name="PopupOverlay" Grid.RowSpan="2" Margin="1" Background="{DynamicResource $F.Invented.Ribbon.OverlayBackground}" />
+                  <Border Margin="2,3.5,2,0" Padding="3,0,3,0">
+                    <Decorator Name="PART_PopupItemsHost" />
+                  </Border>
+                  <Panel Margin="2,0,2,1" Grid.Row="1" MinHeight="16">
+                    <ContentPresenter Name="PART_PopupHeader"
+                                      Foreground="{DynamicResource $F.Invented.Ribbon.Group.Header.Foreground}"
+                                      Content="{TemplateBinding Header}"
+                                      ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                      Margin="2,0,2,0"
+                                      MaxHeight="15"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center" />
+                  </Panel>
+                </Grid>
+              </wpf:SystemDropShadowChrome>
+            </Popup>
+          </Panel>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^:pointerover /template/ Border#PART_HotBackground">
+      <Setter Property="Opacity" Value="1" />
+    </Style>
+    <Style Selector="^:templated">
+      <Style Selector="^ /template/ Decorator#PART_ItemsHost">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+      <Style Selector="^ /template/ ContentControl#PART_TemplateContentControl">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+    </Style>
+    <Style Selector="^:collapsed">
+      <Style Selector="^ /template/ Border#GroupBorder">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+      <Style Selector="^ /template/ Panel#CollapsedRoot">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource $F.Invented.Ribbon.Disabled.Foreground}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

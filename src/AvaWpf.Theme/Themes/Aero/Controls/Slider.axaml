@@ -1,0 +1,527 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    WPF Slider.xaml, [[Aero.NormalColor]]. WPF marks keyboard focus by setting the thumb Foreground to Blue;
+    here the thumb canvas gets the "focused" class. Avalonia's Slider has no selection range, so PART_SelectionRange is not ported.
+  -->
+  <ControlTheme x:Key="Aero.SliderRepeatButtonStyle" TargetType="RepeatButton">
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Rectangle Fill="Transparent" />
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Aero.SliderThumbBase" TargetType="Thumb">
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Canvas Name="Canvas"
+                RenderTransformOrigin="0,0"
+                UseLayoutRounding="True"
+                Background="Transparent"
+                Classes.focused="{Binding $parent[Slider].IsFocused, FallbackValue=False}">
+          <Path Name="Background" />
+          <Path Name="InnerBorder" StrokeThickness="1" />
+          <Path Name="OuterBorder" StrokeThickness="1" />
+        </Canvas>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Aero.HorizontalSliderThumbStyle" TargetType="Thumb" BasedOn="{StaticResource Aero.SliderThumbBase}">
+    <Setter Property="Height" Value="22" />
+    <Setter Property="Width" Value="11" />
+    <Setter Property="Foreground" Value="{DynamicResource Aero.Slider.HorizontalSliderThumbStyle.Setter.Self.Foreground}" />
+    <Style Selector="^ /template/ Canvas#Canvas">
+      <Setter Property="RenderTransform">
+        <TransformGroup>
+            <TranslateTransform X="5.5" Y="11" />
+        </TransformGroup>
+      </Setter>
+    </Style>
+    <Style Selector="^ /template/ Path#Background">
+      <Setter Property="Fill" Value="{DynamicResource Aero.HorizontalSliderThumbNormalBackground}" />
+      <Setter Property="Data" Value="{DynamicResource Aero.SliderThumbOuterBorderGeometry}" />
+    </Style>
+    <Style Selector="^ /template/ Path#InnerBorder">
+      <Setter Property="Stroke" Value="{DynamicResource Aero.Slider.HorizontalSliderThumbStyle.InnerBorder.Stroke}" />
+      <Setter Property="Data" Value="{DynamicResource Aero.SliderThumbMiddleBorderGeometry}" />
+    </Style>
+    <Style Selector="^ /template/ Path#OuterBorder">
+      <Setter Property="Stroke" Value="{DynamicResource Aero.Slider.HorizontalSliderThumbStyle.OuterBorder.Stroke}" />
+      <Setter Property="Data" Value="{DynamicResource Aero.SliderThumbOuterBorderGeometry}" />
+    </Style>
+    <Style Selector="^:pointerover /template/ Path#Background, ^ /template/ Canvas#Canvas.focused > Path#Background">
+      <Setter Property="Fill" Value="{DynamicResource Aero.HorizontalSliderThumbHoverBackground}" />
+    </Style>
+    <Style Selector="^:pointerover /template/ Path#OuterBorder, ^ /template/ Canvas#Canvas.focused > Path#OuterBorder">
+      <Setter Property="Stroke" Value="{DynamicResource Aero.HorizontalSliderThumbHoverBorder}" />
+    </Style>
+    <Style Selector="^:pressed">
+      <Style Selector="^ /template/ Path#Background">
+        <Setter Property="Fill" Value="{DynamicResource Aero.HorizontalSliderThumbPressedBackground}" />
+      </Style>
+      <Style Selector="^ /template/ Path#OuterBorder">
+        <Setter Property="Stroke" Value="{DynamicResource Aero.HorizontalSliderThumbPressedBorder}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Style Selector="^ /template/ Path#Background">
+        <Setter Property="Fill" Value="{DynamicResource Aero.Slider.HorizontalSliderThumbStyle.Background.Fill.IsEnabled_false}" />
+      </Style>
+      <Style Selector="^ /template/ Path#InnerBorder">
+        <Setter Property="Stroke" Value="{x:Null}" />
+      </Style>
+      <Style Selector="^ /template/ Path#OuterBorder">
+        <Setter Property="Data" Value="{DynamicResource Aero.SliderThumbDisabledGeometry}" />
+        <Setter Property="Stroke" Value="{DynamicResource Aero.Slider.HorizontalSliderThumbStyle.OuterBorder.Stroke.IsEnabled_false}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Aero.HorizontalSliderUpThumbStyle" TargetType="Thumb" BasedOn="{StaticResource Aero.SliderThumbBase}">
+    <Setter Property="Height" Value="18" />
+    <Setter Property="Width" Value="10" />
+    <Setter Property="Foreground" Value="{DynamicResource Aero.Slider.HorizontalSliderUpThumbStyle.Setter.Self.Foreground}" />
+    <Style Selector="^ /template/ Canvas#Canvas">
+      <Setter Property="RenderTransform">
+        <TransformGroup>
+            <RotateTransform Angle="180" />
+            <TranslateTransform X="5" Y="9" />
+        </TransformGroup>
+      </Setter>
+    </Style>
+    <Style Selector="^ /template/ Path#Background">
+      <Setter Property="Fill" Value="{DynamicResource Aero.HorizontalSliderThumbNormalBackgroundInverted}" />
+      <Setter Property="Data" Value="{DynamicResource Aero.SliderPointedThumbOuterBorderGeometry}" />
+    </Style>
+    <Style Selector="^ /template/ Path#InnerBorder">
+      <Setter Property="Stroke" Value="{DynamicResource Aero.Slider.HorizontalSliderUpThumbStyle.InnerBorder.Stroke}" />
+      <Setter Property="Data" Value="{DynamicResource Aero.SliderPointedThumbMiddleBorderGeometry}" />
+    </Style>
+    <Style Selector="^ /template/ Path#OuterBorder">
+      <Setter Property="Stroke" Value="{DynamicResource Aero.Slider.HorizontalSliderUpThumbStyle.OuterBorder.Stroke}" />
+      <Setter Property="Data" Value="{DynamicResource Aero.SliderPointedThumbOuterBorderGeometry}" />
+    </Style>
+    <Style Selector="^:pointerover /template/ Path#Background, ^ /template/ Canvas#Canvas.focused > Path#Background">
+      <Setter Property="Fill" Value="{DynamicResource Aero.HorizontalSliderThumbHoverBackgroundInverted}" />
+    </Style>
+    <Style Selector="^:pointerover /template/ Path#OuterBorder, ^ /template/ Canvas#Canvas.focused > Path#OuterBorder">
+      <Setter Property="Stroke" Value="{DynamicResource Aero.HorizontalSliderThumbHoverBorder}" />
+    </Style>
+    <Style Selector="^:pressed">
+      <Style Selector="^ /template/ Path#Background">
+        <Setter Property="Fill" Value="{DynamicResource Aero.HorizontalSliderThumbPressedBackgroundInverted}" />
+      </Style>
+      <Style Selector="^ /template/ Path#OuterBorder">
+        <Setter Property="Stroke" Value="{DynamicResource Aero.HorizontalSliderThumbPressedBorder}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Style Selector="^ /template/ Path#Background">
+        <Setter Property="Fill" Value="{DynamicResource Aero.Slider.HorizontalSliderUpThumbStyle.Background.Fill.IsEnabled_false}" />
+      </Style>
+      <Style Selector="^ /template/ Path#InnerBorder">
+        <Setter Property="Stroke" Value="{x:Null}" />
+      </Style>
+      <Style Selector="^ /template/ Path#OuterBorder">
+        <Setter Property="Data" Value="{DynamicResource Aero.SliderPointedThumbDisabledGeometry}" />
+        <Setter Property="Stroke" Value="{DynamicResource Aero.Slider.HorizontalSliderUpThumbStyle.OuterBorder.Stroke.IsEnabled_false}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Aero.HorizontalSliderDownThumbStyle" TargetType="Thumb" BasedOn="{StaticResource Aero.SliderThumbBase}">
+    <Setter Property="Height" Value="18" />
+    <Setter Property="Width" Value="10" />
+    <Setter Property="Foreground" Value="{DynamicResource Aero.Slider.HorizontalSliderDownThumbStyle.Setter.Self.Foreground}" />
+    <Style Selector="^ /template/ Canvas#Canvas">
+      <Setter Property="RenderTransform">
+        <TransformGroup>
+            <TranslateTransform X="5" Y="9" />
+        </TransformGroup>
+      </Setter>
+    </Style>
+    <Style Selector="^ /template/ Path#Background">
+      <Setter Property="Fill" Value="{DynamicResource Aero.HorizontalSliderThumbNormalBackground}" />
+      <Setter Property="Data" Value="{DynamicResource Aero.SliderPointedThumbOuterBorderGeometry}" />
+    </Style>
+    <Style Selector="^ /template/ Path#InnerBorder">
+      <Setter Property="Stroke" Value="{DynamicResource Aero.Slider.HorizontalSliderDownThumbStyle.InnerBorder.Stroke}" />
+      <Setter Property="Data" Value="{DynamicResource Aero.SliderPointedThumbMiddleBorderGeometry}" />
+    </Style>
+    <Style Selector="^ /template/ Path#OuterBorder">
+      <Setter Property="Stroke" Value="{DynamicResource Aero.Slider.HorizontalSliderDownThumbStyle.OuterBorder.Stroke}" />
+      <Setter Property="Data" Value="{DynamicResource Aero.SliderPointedThumbOuterBorderGeometry}" />
+    </Style>
+    <Style Selector="^:pointerover /template/ Path#Background, ^ /template/ Canvas#Canvas.focused > Path#Background">
+      <Setter Property="Fill" Value="{DynamicResource Aero.HorizontalSliderThumbHoverBackground}" />
+    </Style>
+    <Style Selector="^:pointerover /template/ Path#OuterBorder, ^ /template/ Canvas#Canvas.focused > Path#OuterBorder">
+      <Setter Property="Stroke" Value="{DynamicResource Aero.HorizontalSliderThumbHoverBorder}" />
+    </Style>
+    <Style Selector="^:pressed">
+      <Style Selector="^ /template/ Path#Background">
+        <Setter Property="Fill" Value="{DynamicResource Aero.HorizontalSliderThumbPressedBackground}" />
+      </Style>
+      <Style Selector="^ /template/ Path#OuterBorder">
+        <Setter Property="Stroke" Value="{DynamicResource Aero.HorizontalSliderThumbPressedBorder}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Style Selector="^ /template/ Path#Background">
+        <Setter Property="Fill" Value="{DynamicResource Aero.Slider.HorizontalSliderDownThumbStyle.Background.Fill.IsEnabled_false}" />
+      </Style>
+      <Style Selector="^ /template/ Path#InnerBorder">
+        <Setter Property="Stroke" Value="{x:Null}" />
+      </Style>
+      <Style Selector="^ /template/ Path#OuterBorder">
+        <Setter Property="Data" Value="{DynamicResource Aero.SliderPointedThumbDisabledGeometry}" />
+        <Setter Property="Stroke" Value="{DynamicResource Aero.Slider.HorizontalSliderDownThumbStyle.OuterBorder.Stroke.IsEnabled_false}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Aero.VerticalSliderThumbStyle" TargetType="Thumb" BasedOn="{StaticResource Aero.SliderThumbBase}">
+    <Setter Property="Height" Value="11" />
+    <Setter Property="Width" Value="22" />
+    <Setter Property="Foreground" Value="{DynamicResource Aero.Slider.VerticalSliderThumbStyle.Setter.Self.Foreground}" />
+    <Style Selector="^ /template/ Canvas#Canvas">
+      <Setter Property="RenderTransform">
+        <TransformGroup>
+            <RotateTransform Angle="90" />
+            <TranslateTransform X="11" Y="5.5" />
+        </TransformGroup>
+      </Setter>
+    </Style>
+    <Style Selector="^ /template/ Path#Background">
+      <Setter Property="Fill" Value="{DynamicResource Aero.VerticalSliderThumbNormalBackground}" />
+      <Setter Property="Data" Value="{DynamicResource Aero.SliderThumbOuterBorderGeometry}" />
+    </Style>
+    <Style Selector="^ /template/ Path#InnerBorder">
+      <Setter Property="Stroke" Value="{DynamicResource Aero.Slider.VerticalSliderThumbStyle.InnerBorder.Stroke}" />
+      <Setter Property="Data" Value="{DynamicResource Aero.SliderThumbMiddleBorderGeometry}" />
+    </Style>
+    <Style Selector="^ /template/ Path#OuterBorder">
+      <Setter Property="Stroke" Value="{DynamicResource Aero.Slider.VerticalSliderThumbStyle.OuterBorder.Stroke}" />
+      <Setter Property="Data" Value="{DynamicResource Aero.SliderThumbOuterBorderGeometry}" />
+    </Style>
+    <Style Selector="^:pointerover /template/ Path#Background, ^ /template/ Canvas#Canvas.focused > Path#Background">
+      <Setter Property="Fill" Value="{DynamicResource Aero.VerticalSliderThumbHoverBackground}" />
+    </Style>
+    <Style Selector="^:pointerover /template/ Path#OuterBorder, ^ /template/ Canvas#Canvas.focused > Path#OuterBorder">
+      <Setter Property="Stroke" Value="{DynamicResource Aero.HorizontalSliderThumbHoverBorder}" />
+    </Style>
+    <Style Selector="^:pressed">
+      <Style Selector="^ /template/ Path#Background">
+        <Setter Property="Fill" Value="{DynamicResource Aero.VerticalSliderThumbPressedBackground}" />
+      </Style>
+      <Style Selector="^ /template/ Path#OuterBorder">
+        <Setter Property="Stroke" Value="{DynamicResource Aero.HorizontalSliderThumbPressedBorder}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Style Selector="^ /template/ Path#Background">
+        <Setter Property="Fill" Value="{DynamicResource Aero.Slider.VerticalSliderThumbStyle.Background.Fill.IsEnabled_false}" />
+      </Style>
+      <Style Selector="^ /template/ Path#InnerBorder">
+        <Setter Property="Stroke" Value="{x:Null}" />
+      </Style>
+      <Style Selector="^ /template/ Path#OuterBorder">
+        <Setter Property="Data" Value="{DynamicResource Aero.SliderThumbDisabledGeometry}" />
+        <Setter Property="Stroke" Value="{DynamicResource Aero.Slider.VerticalSliderThumbStyle.OuterBorder.Stroke.IsEnabled_false}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Aero.VerticalSliderLeftThumbStyle" TargetType="Thumb" BasedOn="{StaticResource Aero.SliderThumbBase}">
+    <Setter Property="Height" Value="10" />
+    <Setter Property="Width" Value="18" />
+    <Setter Property="Foreground" Value="{DynamicResource Aero.Slider.VerticalSliderLeftThumbStyle.Setter.Self.Foreground}" />
+    <Style Selector="^ /template/ Canvas#Canvas">
+      <Setter Property="RenderTransform">
+        <TransformGroup>
+            <RotateTransform Angle="90" />
+            <TranslateTransform X="9" Y="5" />
+        </TransformGroup>
+      </Setter>
+    </Style>
+    <Style Selector="^ /template/ Path#Background">
+      <Setter Property="Fill" Value="{DynamicResource Aero.VerticalSliderThumbNormalBackground}" />
+      <Setter Property="Data" Value="{DynamicResource Aero.SliderPointedThumbOuterBorderGeometry}" />
+    </Style>
+    <Style Selector="^ /template/ Path#InnerBorder">
+      <Setter Property="Stroke" Value="{DynamicResource Aero.Slider.VerticalSliderLeftThumbStyle.InnerBorder.Stroke}" />
+      <Setter Property="Data" Value="{DynamicResource Aero.SliderPointedThumbMiddleBorderGeometry}" />
+    </Style>
+    <Style Selector="^ /template/ Path#OuterBorder">
+      <Setter Property="Stroke" Value="{DynamicResource Aero.Slider.VerticalSliderLeftThumbStyle.OuterBorder.Stroke}" />
+      <Setter Property="Data" Value="{DynamicResource Aero.SliderPointedThumbOuterBorderGeometry}" />
+    </Style>
+    <Style Selector="^:pointerover /template/ Path#Background, ^ /template/ Canvas#Canvas.focused > Path#Background">
+      <Setter Property="Fill" Value="{DynamicResource Aero.VerticalSliderThumbHoverBackground}" />
+    </Style>
+    <Style Selector="^:pointerover /template/ Path#OuterBorder, ^ /template/ Canvas#Canvas.focused > Path#OuterBorder">
+      <Setter Property="Stroke" Value="{DynamicResource Aero.HorizontalSliderThumbHoverBorder}" />
+    </Style>
+    <Style Selector="^:pressed">
+      <Style Selector="^ /template/ Path#Background">
+        <Setter Property="Fill" Value="{DynamicResource Aero.VerticalSliderThumbPressedBackground}" />
+      </Style>
+      <Style Selector="^ /template/ Path#OuterBorder">
+        <Setter Property="Stroke" Value="{DynamicResource Aero.HorizontalSliderThumbPressedBorder}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Style Selector="^ /template/ Path#Background">
+        <Setter Property="Fill" Value="{DynamicResource Aero.Slider.VerticalSliderLeftThumbStyle.Background.Fill.IsEnabled_false}" />
+      </Style>
+      <Style Selector="^ /template/ Path#InnerBorder">
+        <Setter Property="Stroke" Value="{x:Null}" />
+      </Style>
+      <Style Selector="^ /template/ Path#OuterBorder">
+        <Setter Property="Data" Value="{DynamicResource Aero.SliderPointedThumbDisabledGeometry}" />
+        <Setter Property="Stroke" Value="{DynamicResource Aero.Slider.VerticalSliderLeftThumbStyle.OuterBorder.Stroke.IsEnabled_false}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Aero.VerticalSliderRightThumbStyle" TargetType="Thumb" BasedOn="{StaticResource Aero.SliderThumbBase}">
+    <Setter Property="Height" Value="10" />
+    <Setter Property="Width" Value="18" />
+    <Setter Property="Foreground" Value="{DynamicResource Aero.Slider.VerticalSliderRightThumbStyle.Setter.Self.Foreground}" />
+    <Style Selector="^ /template/ Canvas#Canvas">
+      <Setter Property="RenderTransform">
+        <TransformGroup>
+            <RotateTransform Angle="-90" />
+            <TranslateTransform X="9" Y="5" />
+        </TransformGroup>
+      </Setter>
+    </Style>
+    <Style Selector="^ /template/ Path#Background">
+      <Setter Property="Fill" Value="{DynamicResource Aero.VerticalSliderThumbNormalBackgroundInverted}" />
+      <Setter Property="Data" Value="{DynamicResource Aero.SliderPointedThumbOuterBorderGeometry}" />
+    </Style>
+    <Style Selector="^ /template/ Path#InnerBorder">
+      <Setter Property="Stroke" Value="{DynamicResource Aero.Slider.VerticalSliderRightThumbStyle.InnerBorder.Stroke}" />
+      <Setter Property="Data" Value="{DynamicResource Aero.SliderPointedThumbMiddleBorderGeometry}" />
+    </Style>
+    <Style Selector="^ /template/ Path#OuterBorder">
+      <Setter Property="Stroke" Value="{DynamicResource Aero.Slider.VerticalSliderRightThumbStyle.OuterBorder.Stroke}" />
+      <Setter Property="Data" Value="{DynamicResource Aero.SliderPointedThumbOuterBorderGeometry}" />
+    </Style>
+    <Style Selector="^:pointerover /template/ Path#Background, ^ /template/ Canvas#Canvas.focused > Path#Background">
+      <Setter Property="Fill" Value="{DynamicResource Aero.VerticalSliderThumbHoverBackgroundInverted}" />
+    </Style>
+    <Style Selector="^:pointerover /template/ Path#OuterBorder, ^ /template/ Canvas#Canvas.focused > Path#OuterBorder">
+      <Setter Property="Stroke" Value="{DynamicResource Aero.HorizontalSliderThumbHoverBorder}" />
+    </Style>
+    <Style Selector="^:pressed">
+      <Style Selector="^ /template/ Path#Background">
+        <Setter Property="Fill" Value="{DynamicResource Aero.VerticalSliderThumbPressedBackgroundInverted}" />
+      </Style>
+      <Style Selector="^ /template/ Path#OuterBorder">
+        <Setter Property="Stroke" Value="{DynamicResource Aero.HorizontalSliderThumbPressedBorder}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Style Selector="^ /template/ Path#Background">
+        <Setter Property="Fill" Value="{DynamicResource Aero.Slider.VerticalSliderRightThumbStyle.Background.Fill.IsEnabled_false}" />
+      </Style>
+      <Style Selector="^ /template/ Path#InnerBorder">
+        <Setter Property="Stroke" Value="{x:Null}" />
+      </Style>
+      <Style Selector="^ /template/ Path#OuterBorder">
+        <Setter Property="Data" Value="{DynamicResource Aero.SliderPointedThumbDisabledGeometry}" />
+        <Setter Property="Stroke" Value="{DynamicResource Aero.Slider.VerticalSliderRightThumbStyle.OuterBorder.Stroke.IsEnabled_false}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type Slider}" TargetType="Slider">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource Aero.Slider.Slider.Setter.Self.Foreground}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                UseLayoutRounding="True">
+          <Grid RowDefinitions="Auto,Auto,Auto">
+            <Grid.Styles>
+              <Style Selector="TickBar">
+                <Setter Property="ReservedSpace" Value="{Binding #PART_Track.Thumb.Bounds}" />
+              </Style>
+            </Grid.Styles>
+            <TickBar Name="TopTick"
+                     Grid.Row="0"
+                     IsVisible="False"
+                     Placement="Top"
+                     Fill="{TemplateBinding Foreground}"
+                     Height="4"
+                     Ticks="{TemplateBinding Ticks}"
+                     TickFrequency="{TemplateBinding TickFrequency}"
+                     Orientation="{TemplateBinding Orientation}"
+                     Minimum="{TemplateBinding Minimum}"
+                     Maximum="{TemplateBinding Maximum}"
+                     IsDirectionReversed="{TemplateBinding IsDirectionReversed}" />
+            <TickBar Name="BottomTick"
+                     Grid.Row="2"
+                     IsVisible="False"
+                     Placement="Bottom"
+                     Fill="{TemplateBinding Foreground}"
+                     Height="4"
+                     Ticks="{TemplateBinding Ticks}"
+                     TickFrequency="{TemplateBinding TickFrequency}"
+                     Orientation="{TemplateBinding Orientation}"
+                     Minimum="{TemplateBinding Minimum}"
+                     Maximum="{TemplateBinding Maximum}"
+                     IsDirectionReversed="{TemplateBinding IsDirectionReversed}" />
+            <Border Name="TrackBackground"
+                    Grid.Row="1"
+                    Margin="5,0"
+                    VerticalAlignment="Center"
+                    BorderBrush="{DynamicResource Aero.HorizontalSliderTrackNormalBorder}"
+                    BorderThickness="1"
+                    CornerRadius="1"
+                    Background="{DynamicResource Aero.HorizontalSliderTrackNormalBackground}"
+                    Height="4" />
+            <Track Name="PART_Track"
+                   Grid.Row="1"
+                   MinHeight="{TemplateBinding MinHeight}"
+                   Minimum="{TemplateBinding Minimum}"
+                   Maximum="{TemplateBinding Maximum}"
+                   Value="{TemplateBinding Value, Mode=TwoWay}"
+                   IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
+                   Orientation="Horizontal">
+              <Track.DecreaseButton>
+                <RepeatButton Name="PART_DecreaseButton" Theme="{StaticResource Aero.SliderRepeatButtonStyle}" />
+              </Track.DecreaseButton>
+              <Track.IncreaseButton>
+                <RepeatButton Name="PART_IncreaseButton" Theme="{StaticResource Aero.SliderRepeatButtonStyle}" />
+              </Track.IncreaseButton>
+              <Thumb Name="Thumb" Theme="{StaticResource Aero.HorizontalSliderThumbStyle}" />
+            </Track>
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^[TickPlacement=TopLeft]">
+      <Style Selector="^ /template/ TickBar#TopTick">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="^ /template/ Thumb#Thumb">
+        <Setter Property="Theme" Value="{StaticResource Aero.HorizontalSliderUpThumbStyle}" />
+      </Style>
+      <Style Selector="^ /template/ Border#TrackBackground">
+        <Setter Property="Margin" Value="5,2,5,0" />
+      </Style>
+    </Style>
+    <Style Selector="^[TickPlacement=BottomRight]">
+      <Style Selector="^ /template/ TickBar#BottomTick">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="^ /template/ Thumb#Thumb">
+        <Setter Property="Theme" Value="{StaticResource Aero.HorizontalSliderDownThumbStyle}" />
+      </Style>
+      <Style Selector="^ /template/ Border#TrackBackground">
+        <Setter Property="Margin" Value="5,0,5,2" />
+      </Style>
+    </Style>
+    <Style Selector="^[TickPlacement=Outside]">
+      <Style Selector="^ /template/ TickBar#TopTick">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="^ /template/ TickBar#BottomTick">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+    </Style>
+
+    <Style Selector="^:vertical">
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Border Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  UseLayoutRounding="True">
+            <Grid ColumnDefinitions="Auto,Auto,Auto">
+              <Grid.Styles>
+                <Style Selector="TickBar">
+                  <Setter Property="ReservedSpace" Value="{Binding #PART_Track.Thumb.Bounds}" />
+                </Style>
+              </Grid.Styles>
+              <TickBar Name="TopTick"
+                       Grid.Column="0"
+                       IsVisible="False"
+                       Placement="Left"
+                       Fill="{TemplateBinding Foreground}"
+                       Width="4"
+                       Ticks="{TemplateBinding Ticks}"
+                       TickFrequency="{TemplateBinding TickFrequency}"
+                       Orientation="{TemplateBinding Orientation}"
+                       Minimum="{TemplateBinding Minimum}"
+                       Maximum="{TemplateBinding Maximum}"
+                       IsDirectionReversed="{TemplateBinding IsDirectionReversed}" />
+              <TickBar Name="BottomTick"
+                       Grid.Column="2"
+                       IsVisible="False"
+                       Placement="Right"
+                       Fill="{TemplateBinding Foreground}"
+                       Width="4"
+                       Ticks="{TemplateBinding Ticks}"
+                       TickFrequency="{TemplateBinding TickFrequency}"
+                       Orientation="{TemplateBinding Orientation}"
+                       Minimum="{TemplateBinding Minimum}"
+                       Maximum="{TemplateBinding Maximum}"
+                       IsDirectionReversed="{TemplateBinding IsDirectionReversed}" />
+              <Border Name="TrackBackground"
+                      Grid.Column="1"
+                      Margin="0,5"
+                      HorizontalAlignment="Center"
+                      BorderBrush="{DynamicResource Aero.VerticalSliderTrackNormalBorder}"
+                      BorderThickness="1"
+                      CornerRadius="1"
+                      Background="{DynamicResource Aero.HorizontalSliderTrackNormalBackground}"
+                      Width="4" />
+              <Track Name="PART_Track"
+                     Grid.Column="1"
+                     MinWidth="{TemplateBinding MinWidth}"
+                     Minimum="{TemplateBinding Minimum}"
+                     Maximum="{TemplateBinding Maximum}"
+                     Value="{TemplateBinding Value, Mode=TwoWay}"
+                     IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
+                     Orientation="Vertical">
+                <Track.DecreaseButton>
+                  <RepeatButton Name="PART_DecreaseButton" Theme="{StaticResource Aero.SliderRepeatButtonStyle}" />
+                </Track.DecreaseButton>
+                <Track.IncreaseButton>
+                  <RepeatButton Name="PART_IncreaseButton" Theme="{StaticResource Aero.SliderRepeatButtonStyle}" />
+                </Track.IncreaseButton>
+                <Thumb Name="Thumb" Theme="{StaticResource Aero.VerticalSliderThumbStyle}" />
+              </Track>
+            </Grid>
+          </Border>
+        </ControlTemplate>
+      </Setter>
+      <Style Selector="^[TickPlacement=TopLeft]">
+        <Style Selector="^ /template/ Thumb#Thumb">
+          <Setter Property="Theme" Value="{StaticResource Aero.VerticalSliderLeftThumbStyle}" />
+        </Style>
+        <Style Selector="^ /template/ Border#TrackBackground">
+          <Setter Property="Margin" Value="2,5,0,5" />
+        </Style>
+      </Style>
+      <Style Selector="^[TickPlacement=BottomRight]">
+        <Style Selector="^ /template/ Thumb#Thumb">
+          <Setter Property="Theme" Value="{StaticResource Aero.VerticalSliderRightThumbStyle}" />
+        </Style>
+        <Style Selector="^ /template/ Border#TrackBackground">
+          <Setter Property="Margin" Value="0,5,2,5" />
+        </Style>
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,101 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    WPF ComboBox.xaml ComboBoxToggleButton, Aero2.NormalColor, in WPF trigger order. WPF reads the ComboBox's IsEditable
+    through a MultiDataTrigger; here the ComboBox template sets the editable class.
+  -->
+  <ControlTheme x:Key="Aero2.ComboBoxToggleButton" TargetType="ToggleButton">
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="Focusable" Value="False" />
+    <!--
+      Release, not WPF's Press: Avalonia's ComboBox closes an open drop-down on any press, so a press-mode toggle would
+      reopen and close in one click.
+    -->
+    <Setter Property="ClickMode" Value="Release" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="templateRoot"
+                UseLayoutRounding="True"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                BorderBrush="{DynamicResource Aero2.ComboBox.Static.Border}"
+                Background="{DynamicResource Aero2.ComboBox.Static.Background}">
+          <Border Name="splitBorder"
+                  UseLayoutRounding="True"
+                  HorizontalAlignment="Right"
+                  Width="{DynamicResource SystemParameters.VerticalScrollBarWidth}"
+                  BorderThickness="1"
+                  BorderBrush="Transparent"
+                  Margin="0">
+            <Path Name="Arrow"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  Fill="{DynamicResource Aero2.ComboBox.Static.Glyph}"
+                  Data="{DynamicResource Aero2.ComboBox.ComboBoxToggleButton.Arrow.Data}"
+                  Margin="0" />
+          </Border>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^.editable:not(:pointerover):not(:pressed):not(:disabled)">
+      <Style Selector="^ /template/ Border#templateRoot">
+        <Setter Property="Background" Value="{DynamicResource Aero2.ComboBox.Static.Editable.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ComboBox.Static.Editable.Border}" />
+      </Style>
+      <Style Selector="^ /template/ Border#splitBorder">
+        <Setter Property="Background" Value="{DynamicResource Aero2.ComboBox.Static.Editable.Button.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ComboBox.Static.Editable.Button.Border}" />
+      </Style>
+    </Style>
+    <Style Selector="^:pointerover /template/ Path#Arrow">
+      <Setter Property="Fill" Value="{DynamicResource Aero2.ComboBox.MouseOver.Glyph}" />
+    </Style>
+    <Style Selector="^:pointerover:not(.editable) /template/ Border#templateRoot">
+      <Setter Property="Background" Value="{DynamicResource Aero2.ComboBox.MouseOver.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ComboBox.MouseOver.Border}" />
+    </Style>
+    <Style Selector="^:pointerover.editable">
+      <Style Selector="^ /template/ Border#templateRoot">
+        <Setter Property="Background" Value="{DynamicResource Aero2.ComboBox.MouseOver.Editable.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ComboBox.MouseOver.Editable.Border}" />
+      </Style>
+      <Style Selector="^ /template/ Border#splitBorder">
+        <Setter Property="Background" Value="{DynamicResource Aero2.ComboBox.MouseOver.Editable.Button.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ComboBox.MouseOver.Editable.Button.Border}" />
+      </Style>
+    </Style>
+    <Style Selector="^:pressed /template/ Path#Arrow">
+      <Setter Property="Fill" Value="{DynamicResource Aero2.ComboBox.Pressed.Glyph}" />
+    </Style>
+    <Style Selector="^:pressed:not(.editable) /template/ Border#templateRoot">
+      <Setter Property="Background" Value="{DynamicResource Aero2.ComboBox.Pressed.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ComboBox.Pressed.Border}" />
+    </Style>
+    <Style Selector="^:pressed.editable">
+      <Style Selector="^ /template/ Border#templateRoot">
+        <Setter Property="Background" Value="{DynamicResource Aero2.ComboBox.Pressed.Editable.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ComboBox.Pressed.Editable.Border}" />
+      </Style>
+      <Style Selector="^ /template/ Border#splitBorder">
+        <Setter Property="Background" Value="{DynamicResource Aero2.ComboBox.Pressed.Editable.Button.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ComboBox.Pressed.Editable.Button.Border}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled /template/ Path#Arrow">
+      <Setter Property="Fill" Value="{DynamicResource Aero2.ComboBox.Disabled.Glyph}" />
+    </Style>
+    <Style Selector="^:disabled:not(.editable) /template/ Border#templateRoot">
+      <Setter Property="Background" Value="{DynamicResource Aero2.ComboBox.Disabled.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ComboBox.Disabled.Border}" />
+    </Style>
+    <Style Selector="^:disabled.editable">
+      <Style Selector="^ /template/ Border#templateRoot">
+        <Setter Property="Background" Value="{DynamicResource Aero2.ComboBox.Disabled.Editable.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ComboBox.Disabled.Editable.Border}" />
+      </Style>
+      <Style Selector="^ /template/ Border#splitBorder">
+        <Setter Property="Background" Value="{DynamicResource Aero2.ComboBox.Disabled.Editable.Button.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ComboBox.Disabled.Editable.Button.Border}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

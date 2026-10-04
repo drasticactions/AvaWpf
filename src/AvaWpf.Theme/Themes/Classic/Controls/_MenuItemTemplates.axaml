@@ -1,0 +1,516 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf"
+                    xmlns:conv="using:Avalonia.Controls.Converters">
+  <!-- WPF MenuItem.xaml [[Classic]]: the four MenuItem role templates and their named themes. Avalonia picks the role
+       by theme (Menu.ItemContainerTheme is TopLevelHeader) and by :empty. Classic.MenuItem.ToolBarTopLevelHeader /
+       ToolBarSubmenuItem are the ToolBar.xaml MenuStyleKey items used by Menu.toolbar. -->
+  <conv:PlatformKeyGestureConverter x:Key="Classic.KeyGestureConverter" />
+  <!-- WPF has no radio menu item; Avalonia's :radio items get the Win9x menu bullet, a 6 px dot in the check column. -->
+  <StreamGeometry x:Key="Classic.MenuItem.RadioGlyph">M 0.5 3.5 A 3 3 0 1 1 6.5 3.5 A 3 3 0 1 1 0.5 3.5 Z</StreamGeometry>
+
+  <ControlTemplate x:Key="Classic.MenuItem.SeparatorTemplate" TargetType="MenuItem">
+    <wpf:ClassicBorderDecorator BorderStyle="HorizontalLine"
+                                BorderBrush="{x:Static wpf:ClassicBorderDecorator.ClassicBorderBrush}"
+                                BorderThickness="1"
+                                MinHeight="2"
+                                Margin="2,4,2,3" />
+  </ControlTemplate>
+
+  <ControlTemplate x:Key="Classic.MenuItem.TopLevelItemTemplate" TargetType="MenuItem">
+    <wpf:ClassicBorderDecorator Name="ClassicBorder"
+                                BorderStyle="None"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{x:Static wpf:ClassicBorderDecorator.ClassicBorderBrush}"
+                                BorderThickness="1">
+      <DockPanel Name="ContentPanel">
+        <ContentPresenter Name="Icon"
+                          Margin="4,0,6,0"
+                          VerticalAlignment="Center"
+                          IsVisible="False"
+                          Content="{TemplateBinding Icon}" />
+        <Path Name="GlyphPanel"
+              Margin="4,0,6,0"
+              IsVisible="False"
+              VerticalAlignment="Center"
+              Fill="{TemplateBinding Foreground}"
+              FlowDirection="LeftToRight"
+              Data="{DynamicResource Classic.Checkmark}" />
+        <ContentPresenter Name="PART_HeaderPresenter"
+                          Content="{TemplateBinding Header}"
+                          ContentTemplate="{TemplateBinding HeaderTemplate}"
+                          Margin="{TemplateBinding Padding}"
+                          VerticalAlignment="Center"
+                          RecognizesAccessKey="True" />
+      </DockPanel>
+    </wpf:ClassicBorderDecorator>
+  </ControlTemplate>
+
+  <ControlTemplate x:Key="Classic.MenuItem.TopLevelHeaderTemplate" TargetType="MenuItem">
+    <wpf:ClassicBorderDecorator Name="ClassicBorder"
+                                BorderStyle="None"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{x:Static wpf:ClassicBorderDecorator.ClassicBorderBrush}"
+                                BorderThickness="1">
+      <DockPanel>
+        <ContentPresenter Name="Icon"
+                          Margin="4,0,6,0"
+                          VerticalAlignment="Center"
+                          IsVisible="False"
+                          Content="{TemplateBinding Icon}" />
+        <Path Name="GlyphPanel"
+              Margin="4,0,6,0"
+              IsVisible="False"
+              VerticalAlignment="Center"
+              Fill="{TemplateBinding Foreground}"
+              FlowDirection="LeftToRight"
+              Data="{DynamicResource Classic.Checkmark}" />
+        <ContentPresenter Name="PART_HeaderPresenter"
+                          Content="{TemplateBinding Header}"
+                          ContentTemplate="{TemplateBinding HeaderTemplate}"
+                          Margin="{TemplateBinding Padding}"
+                          VerticalAlignment="Center"
+                          RecognizesAccessKey="True" />
+        <Popup Name="PART_Popup"
+               WindowManagerAddShadowHint="False"
+               Placement="BottomEdgeAlignedLeft"
+               HorizontalOffset="-2"
+               IsLightDismissEnabled="True"
+               IsOpen="{TemplateBinding IsSubMenuOpen, Mode=TwoWay}"
+               OverlayInputPassThroughElement="{Binding $parent[Menu]}"
+               wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.MenuPopupAnimation}">
+          <wpf:SystemDropShadowChrome Name="Shdw">
+            <wpf:ClassicBorderDecorator Name="SubMenuBorder"
+                                        BorderStyle="AltRaised"
+                                        Background="{DynamicResource SystemColors.ControlBrush}"
+                                        BorderBrush="{x:Static wpf:ClassicBorderDecorator.ClassicBorderBrush}"
+                                        BorderThickness="2">
+              <ScrollViewer Name="SubMenuScrollViewer" Theme="{StaticResource Classic.MenuScrollViewer}">
+                <ItemsPresenter Name="PART_ItemsPresenter"
+                                ItemsPanel="{TemplateBinding ItemsPanel}"
+                                KeyboardNavigation.TabNavigation="Cycle"
+                                Grid.IsSharedSizeScope="True" />
+              </ScrollViewer>
+            </wpf:ClassicBorderDecorator>
+          </wpf:SystemDropShadowChrome>
+        </Popup>
+      </DockPanel>
+    </wpf:ClassicBorderDecorator>
+  </ControlTemplate>
+
+  <ControlTemplate x:Key="Classic.MenuItem.SubmenuItemTemplate" TargetType="MenuItem">
+    <Border Name="Bd"
+            Background="{TemplateBinding Background}"
+            BorderThickness="{TemplateBinding BorderThickness}"
+            BorderBrush="{TemplateBinding BorderBrush}">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition MinWidth="17" Width="Auto" SharedSizeGroup="MenuItemIconColumnGroup" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="Auto" SharedSizeGroup="MenuItemIGTColumnGroup" />
+          <ColumnDefinition Width="14" />
+        </Grid.ColumnDefinitions>
+        <ContentPresenter Name="Icon"
+                          Margin="4,0,6,0"
+                          VerticalAlignment="Center"
+                          IsVisible="False"
+                          Content="{TemplateBinding Icon}" />
+        <Path Name="GlyphPanel"
+              Margin="4,0,6,0"
+              Opacity="0"
+              VerticalAlignment="Center"
+              Fill="{TemplateBinding Foreground}"
+              FlowDirection="LeftToRight"
+              Data="{DynamicResource Classic.Checkmark}" />
+        <ContentPresenter Name="PART_HeaderPresenter"
+                          Grid.Column="1"
+                          Content="{TemplateBinding Header}"
+                          ContentTemplate="{TemplateBinding HeaderTemplate}"
+                          Margin="{TemplateBinding Padding}"
+                          VerticalAlignment="Center"
+                          RecognizesAccessKey="True" />
+        <TextBlock Name="InputGestureText"
+                   Grid.Column="2"
+                   Text="{TemplateBinding InputGesture, Converter={StaticResource Classic.KeyGestureConverter}}"
+                   Margin="5,2,0,2"
+                   VerticalAlignment="Center" />
+        <Popup Name="PART_Popup"
+               WindowManagerAddShadowHint="False"
+               Placement="RightEdgeAlignedTop"
+               VerticalOffset="-2"
+               IsLightDismissEnabled="False"
+               IsOpen="{TemplateBinding IsSubMenuOpen, Mode=TwoWay}"
+               wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.MenuPopupAnimation}">
+          <wpf:SystemDropShadowChrome Name="Shdw">
+            <wpf:ClassicBorderDecorator Name="SubMenuBorder"
+                                        BorderStyle="AltRaised"
+                                        Background="{DynamicResource SystemColors.ControlBrush}"
+                                        BorderBrush="{x:Static wpf:ClassicBorderDecorator.ClassicBorderBrush}"
+                                        BorderThickness="2">
+              <ScrollViewer Name="SubMenuScrollViewer" Theme="{StaticResource Classic.MenuScrollViewer}">
+                <ItemsPresenter Name="PART_ItemsPresenter"
+                                ItemsPanel="{TemplateBinding ItemsPanel}"
+                                KeyboardNavigation.TabNavigation="Cycle"
+                                Grid.IsSharedSizeScope="True" />
+              </ScrollViewer>
+            </wpf:ClassicBorderDecorator>
+          </wpf:SystemDropShadowChrome>
+        </Popup>
+      </Grid>
+    </Border>
+  </ControlTemplate>
+
+  <ControlTemplate x:Key="Classic.MenuItem.SubmenuHeaderTemplate" TargetType="MenuItem">
+    <Border Name="Bd"
+            Background="{TemplateBinding Background}"
+            BorderThickness="{TemplateBinding BorderThickness}"
+            BorderBrush="{TemplateBinding BorderBrush}">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition MinWidth="17" Width="Auto" SharedSizeGroup="MenuItemIconColumnGroup" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="Auto" SharedSizeGroup="MenuItemIGTColumnGroup" />
+          <ColumnDefinition Width="14" />
+        </Grid.ColumnDefinitions>
+        <ContentPresenter Name="Icon"
+                          Margin="4,0,6,0"
+                          VerticalAlignment="Center"
+                          IsVisible="False"
+                          Content="{TemplateBinding Icon}" />
+        <Path Name="GlyphPanel"
+              Margin="4,0,6,0"
+              Opacity="0"
+              VerticalAlignment="Center"
+              Fill="{TemplateBinding Foreground}"
+              FlowDirection="LeftToRight"
+              Data="{DynamicResource Classic.Checkmark}" />
+        <ContentPresenter Name="PART_HeaderPresenter"
+                          Grid.Column="1"
+                          Content="{TemplateBinding Header}"
+                          ContentTemplate="{TemplateBinding HeaderTemplate}"
+                          Margin="{TemplateBinding Padding}"
+                          VerticalAlignment="Center"
+                          RecognizesAccessKey="True" />
+        <Path Name="ArrowPanel"
+              Grid.Column="3"
+              VerticalAlignment="Center"
+              Margin="4,0,6,0"
+              Fill="{TemplateBinding Foreground}"
+              Data="{DynamicResource Classic.RightArrow}" />
+        <Popup Name="PART_Popup"
+               WindowManagerAddShadowHint="False"
+               Placement="RightEdgeAlignedTop"
+               VerticalOffset="-2"
+               IsLightDismissEnabled="False"
+               IsOpen="{TemplateBinding IsSubMenuOpen, Mode=TwoWay}"
+               wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.MenuPopupAnimation}">
+          <wpf:SystemDropShadowChrome Name="Shdw">
+            <wpf:ClassicBorderDecorator Name="SubMenuBorder"
+                                        BorderStyle="AltRaised"
+                                        Background="{DynamicResource SystemColors.ControlBrush}"
+                                        BorderBrush="{x:Static wpf:ClassicBorderDecorator.ClassicBorderBrush}"
+                                        BorderThickness="2">
+              <ScrollViewer Name="SubMenuScrollViewer" Theme="{StaticResource Classic.MenuScrollViewer}">
+                <ItemsPresenter Name="PART_ItemsPresenter"
+                                ItemsPanel="{TemplateBinding ItemsPanel}"
+                                KeyboardNavigation.TabNavigation="Cycle"
+                                Grid.IsSharedSizeScope="True" />
+              </ScrollViewer>
+            </wpf:ClassicBorderDecorator>
+          </wpf:SystemDropShadowChrome>
+        </Popup>
+      </Grid>
+    </Border>
+  </ControlTemplate>
+
+  <!-- The submenu roles: SubmenuItem, and SubmenuHeader for an item with sub-items. -->
+  <ControlTheme x:Key="Classic.MenuItem.SubmenuItem" TargetType="MenuItem">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.MenuTextBrush}" />
+    <Setter Property="Padding" Value="0,2,0,2" />
+    <Setter Property="Template" Value="{StaticResource Classic.MenuItem.SubmenuItemTemplate}" />
+    <Style Selector="^:icon /template/ ContentPresenter#Icon">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:checked">
+      <Style Selector="^ /template/ Path#GlyphPanel">
+        <Setter Property="Opacity" Value="1" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#Icon">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+    </Style>
+    <Style Selector="^:checked:radio /template/ Path#GlyphPanel">
+      <Setter Property="Data" Value="{DynamicResource Classic.MenuItem.RadioGlyph}" />
+    </Style>
+    <Style Selector="^:selected">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.HighlightTextBrush}" />
+      <Style Selector="^ /template/ Border#Bd">
+        <Setter Property="Background" Value="{DynamicResource SystemColors.HighlightBrush}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+    <Style Selector="^:separator">
+      <Setter Property="Template" Value="{StaticResource Classic.MenuItem.SeparatorTemplate}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Classic.MenuItem.SubmenuHeader" TargetType="MenuItem" BasedOn="{StaticResource Classic.MenuItem.SubmenuItem}">
+    <Setter Property="Template" Value="{StaticResource Classic.MenuItem.SubmenuHeaderTemplate}" />
+  </ControlTheme>
+
+  <!-- The top-level roles: TopLevelHeader, which becomes TopLevelItem when it has no sub-items. -->
+  <ControlTheme x:Key="Classic.MenuItem.TopLevelItem" TargetType="MenuItem">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.MenuTextBrush}" />
+    <Setter Property="Margin" Value="0,1,0,1" />
+    <Setter Property="Padding" Value="4,1,5,2" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="Template" Value="{StaticResource Classic.MenuItem.TopLevelItemTemplate}" />
+    <Style Selector="^:icon /template/ ContentPresenter#Icon">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:checked">
+      <Style Selector="^ /template/ Path#GlyphPanel">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#Icon">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+    </Style>
+    <Style Selector="^:selected /template/ wpf|ClassicBorderDecorator#ClassicBorder">
+      <Setter Property="BorderStyle" Value="ThinRaised" />
+    </Style>
+    <Style Selector="^:focus /template/ wpf|ClassicBorderDecorator#ClassicBorder">
+      <Setter Property="BorderStyle" Value="ThinPressed" />
+    </Style>
+    <Style Selector="^:open /template/ wpf|ClassicBorderDecorator#ClassicBorder">
+      <Setter Property="BorderStyle" Value="ThinPressed" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Classic.MenuItem.TopLevelHeader" TargetType="MenuItem" BasedOn="{StaticResource Classic.MenuItem.TopLevelItem}">
+    <Setter Property="Template" Value="{StaticResource Classic.MenuItem.TopLevelHeaderTemplate}" />
+    <Style Selector="^:empty">
+      <Setter Property="Template" Value="{StaticResource Classic.MenuItem.TopLevelItemTemplate}" />
+    </Style>
+  </ControlTheme>
+
+  <!-- WPF ToolBar.xaml [[Classic]] MenuStyleKey: the MenuItem style of a menu on a tool bar. -->
+  <ControlTemplate x:Key="Classic.MenuItem.ToolBarSubmenuTemplate" TargetType="MenuItem">
+    <Grid Background="Transparent">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition MinWidth="24" Width="Auto" SharedSizeGroup="MenuItemIconColumnGroup" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="Auto" SharedSizeGroup="MenuItemIGTColumnGroup" />
+        <ColumnDefinition Width="14" />
+      </Grid.ColumnDefinitions>
+      <Border Name="Border"
+              Background="{TemplateBinding Background}"
+              BorderThickness="{TemplateBinding BorderThickness}"
+              BorderBrush="{TemplateBinding BorderBrush}"
+              Grid.ColumnSpan="4"
+              Margin="1,0" />
+      <ContentPresenter Name="Icon" Margin="3" VerticalAlignment="Center" IsVisible="False" Content="{TemplateBinding Icon}" />
+      <Border Name="GlyphPanel"
+              Margin="0,1"
+              Width="20"
+              Height="20"
+              Opacity="0"
+              BorderBrush="{DynamicResource Classic.ToolBarButtonHoverBorder}"
+              Background="{DynamicResource Classic.ToolBarMenuCheckFill}"
+              BorderThickness="1">
+        <Path VerticalAlignment="Center"
+              HorizontalAlignment="Center"
+              FlowDirection="LeftToRight"
+              Stroke="{TemplateBinding Foreground}"
+              StrokeThickness="1.2"
+              Data="{DynamicResource Classic.ToolBarCheckmark}" />
+      </Border>
+      <ContentPresenter Name="PART_HeaderPresenter"
+                        Grid.Column="1"
+                        Content="{TemplateBinding Header}"
+                        ContentTemplate="{TemplateBinding HeaderTemplate}"
+                        Margin="{TemplateBinding Padding}"
+                        VerticalAlignment="Center"
+                        RecognizesAccessKey="True" />
+      <TextBlock Name="InputGestureText"
+                 Grid.Column="2"
+                 Text="{TemplateBinding InputGesture, Converter={StaticResource Classic.KeyGestureConverter}}"
+                 Margin="4,3,2,3"
+                 HorizontalAlignment="Right"
+                 VerticalAlignment="Center" />
+      <Path Name="ArrowPanel"
+            Grid.Column="3"
+            IsVisible="False"
+            VerticalAlignment="Center"
+            Margin="4,0,6,0"
+            Fill="{TemplateBinding Foreground}"
+            Data="{DynamicResource Classic.RightArrow}" />
+      <Popup Name="PART_Popup"
+             WindowManagerAddShadowHint="False"
+             Placement="RightEdgeAlignedTop"
+             IsLightDismissEnabled="False"
+             IsOpen="{TemplateBinding IsSubMenuOpen, Mode=TwoWay}"
+             wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.MenuPopupAnimation}">
+        <wpf:SystemDropShadowChrome Name="Shdw">
+          <Border Name="SubMenuBorder"
+                  Background="{DynamicResource Classic.ToolBarSubMenuBackground}"
+                  BorderBrush="{DynamicResource Classic.ToolBarMenuBorder}"
+                  BorderThickness="1">
+            <ScrollViewer Theme="{StaticResource Classic.MenuScrollViewer}">
+              <Grid ColumnDefinitions="Auto,*" Grid.IsSharedSizeScope="True">
+                <Rectangle Width="24" Fill="{DynamicResource Classic.ToolBarVerticalBackground}" Margin="0,1" HorizontalAlignment="Left" />
+                <ItemsPresenter Name="PART_ItemsPresenter"
+                                Grid.ColumnSpan="2"
+                                Margin="0,0,0,1"
+                                ItemsPanel="{TemplateBinding ItemsPanel}"
+                                KeyboardNavigation.TabNavigation="Cycle" />
+              </Grid>
+            </ScrollViewer>
+          </Border>
+        </wpf:SystemDropShadowChrome>
+      </Popup>
+    </Grid>
+  </ControlTemplate>
+
+  <ControlTheme x:Key="Classic.MenuItem.ToolBarSubmenuItem" TargetType="MenuItem">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.MenuTextBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Margin" Value="0,1,0,0" />
+    <Setter Property="Padding" Value="8,3,8,3" />
+    <Setter Property="ItemContainerTheme" Value="{DynamicResource Classic.MenuItem.ToolBarSubmenuItem}" />
+    <Setter Property="Template" Value="{StaticResource Classic.MenuItem.ToolBarSubmenuTemplate}" />
+    <Style Selector="^:not(:empty) /template/ Path#ArrowPanel">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:icon /template/ ContentPresenter#Icon">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:checked">
+      <Style Selector="^ /template/ Border#GlyphPanel">
+        <Setter Property="Opacity" Value="1" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#Icon">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+    </Style>
+    <Style Selector="^:selected">
+      <Style Selector="^ /template/ Border#Border">
+        <Setter Property="BorderBrush" Value="{DynamicResource Classic.ToolBarButtonHoverBorder}" />
+        <Setter Property="Background" Value="{DynamicResource Classic.ToolBarButtonHover}" />
+      </Style>
+      <Style Selector="^ /template/ Border#GlyphPanel">
+        <Setter Property="BorderBrush" Value="{DynamicResource Classic.ToolBarButtonPressedBorder}" />
+        <Setter Property="Background" Value="{DynamicResource Classic.ToolBarDarkFill}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+    <Style Selector="^:separator">
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Grid ColumnDefinitions="Auto,*" Height="1" Margin="0,1,0,0">
+            <Border Grid.Column="0" MinWidth="24" />
+            <Border Grid.Column="1" Margin="8,0,0,0" Background="{DynamicResource Classic.ToolBarSeparatorFill}" />
+          </Grid>
+        </ControlTemplate>
+      </Setter>
+    </Style>
+  </ControlTheme>
+
+  <ControlTemplate x:Key="Classic.MenuItem.ToolBarTopLevelTemplate" TargetType="MenuItem">
+    <Border Name="Border"
+            Background="{TemplateBinding Background}"
+            BorderBrush="{TemplateBinding BorderBrush}"
+            BorderThickness="1">
+      <DockPanel Name="Header">
+        <ContentPresenter Name="Icon" Margin="4,0,6,0" VerticalAlignment="Center" IsVisible="False" Content="{TemplateBinding Icon}" />
+        <Path Name="GlyphPanel"
+              Margin="4,0,6,0"
+              IsVisible="False"
+              VerticalAlignment="Center"
+              FlowDirection="LeftToRight"
+              Stroke="{TemplateBinding Foreground}"
+              StrokeThickness="1.2"
+              Data="{DynamicResource Classic.ToolBarCheckmark}" />
+        <ContentPresenter Name="PART_HeaderPresenter"
+                          Content="{TemplateBinding Header}"
+                          ContentTemplate="{TemplateBinding HeaderTemplate}"
+                          Margin="{TemplateBinding Padding}"
+                          VerticalAlignment="Center"
+                          RecognizesAccessKey="True" />
+        <Popup Name="PART_Popup"
+               WindowManagerAddShadowHint="False"
+               Placement="BottomEdgeAlignedLeft"
+               HorizontalOffset="-1"
+               IsLightDismissEnabled="True"
+               IsOpen="{TemplateBinding IsSubMenuOpen, Mode=TwoWay}"
+               OverlayInputPassThroughElement="{Binding $parent[Menu]}"
+               wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.MenuPopupAnimation}">
+          <wpf:SystemDropShadowChrome Name="Shdw">
+            <Border Name="SubMenuBorder"
+                    Background="{DynamicResource Classic.ToolBarSubMenuBackground}"
+                    BorderBrush="{DynamicResource Classic.ToolBarMenuBorder}"
+                    BorderThickness="1">
+              <ScrollViewer Theme="{StaticResource Classic.MenuScrollViewer}">
+                <Grid ColumnDefinitions="Auto,*" Grid.IsSharedSizeScope="True">
+                  <Rectangle Width="24" Fill="{DynamicResource Classic.ToolBarVerticalBackground}" Margin="0,1" HorizontalAlignment="Left" />
+                  <ItemsPresenter Name="PART_ItemsPresenter"
+                                  Grid.ColumnSpan="2"
+                                  Margin="0,0,0,1"
+                                  ItemsPanel="{TemplateBinding ItemsPanel}"
+                                  KeyboardNavigation.TabNavigation="Cycle" />
+                </Grid>
+              </ScrollViewer>
+            </Border>
+          </wpf:SystemDropShadowChrome>
+        </Popup>
+      </DockPanel>
+    </Border>
+  </ControlTemplate>
+
+  <ControlTheme x:Key="Classic.MenuItem.ToolBarTopLevelHeader" TargetType="MenuItem">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.MenuTextBrush}" />
+    <Setter Property="Padding" Value="6,2,7,2" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="ItemContainerTheme" Value="{StaticResource Classic.MenuItem.ToolBarSubmenuItem}" />
+    <Setter Property="Template" Value="{StaticResource Classic.MenuItem.ToolBarTopLevelTemplate}" />
+    <Style Selector="^:empty">
+      <Setter Property="Margin" Value="0,1,0,1" />
+      <Setter Property="Padding" Value="7,1,8,2" />
+    </Style>
+    <Style Selector="^:icon /template/ ContentPresenter#Icon">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:checked">
+      <Style Selector="^ /template/ Path#GlyphPanel">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#Icon">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+    </Style>
+    <Style Selector="^:selected /template/ Border#Border">
+      <Setter Property="BorderBrush" Value="{DynamicResource Classic.ToolBarButtonHoverBorder}" />
+      <Setter Property="Background" Value="{DynamicResource Classic.ToolBarButtonHover}" />
+    </Style>
+    <Style Selector="^:open /template/ Border#Border">
+      <Setter Property="BorderBrush" Value="{DynamicResource Classic.ToolBarMenuBorder}" />
+      <Setter Property="Background" Value="{DynamicResource Classic.ToolBarOpenHeaderBackground}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

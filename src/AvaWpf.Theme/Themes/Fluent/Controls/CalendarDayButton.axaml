@@ -1,0 +1,87 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/Calendar.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!--
+    WPF DefaultCalendarDayButtonStyle. WPF uses Rectangles with RadiusX 99; Avalonia does not clamp that to a pill, so
+    fully rounded Borders stand in.
+  -->
+  <ControlTheme x:Key="{x:Type CalendarDayButton}" TargetType="CalendarDayButton">
+    <Setter Property="MinWidth" Value="40" />
+    <Setter Property="MinHeight" Value="40" />
+    <Setter Property="MaxWidth" Value="60" />
+    <Setter Property="MaxHeight" Value="60" />
+    <Setter Property="Margin" Value="1" />
+    <Setter Property="FontSize" Value="14" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid>
+          <Border Name="TodayBackground"
+                     Background="{DynamicResource Fluent.CalendarViewTodayBackground}"
+                     Opacity="0"
+                     CornerRadius="99" />
+          <Border Name="SelectedBackground"
+                     Opacity="0"
+                     CornerRadius="99"
+                     BorderBrush="{DynamicResource Fluent.CalendarViewSelectedBorderBrush}"
+                     BorderThickness="1" />
+          <Border Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}" />
+          <Border Name="HighlightBackground"
+                     Background="{DynamicResource Fluent.CalendarViewItemBackgroundPointerOver}"
+                     Opacity="0"
+                     CornerRadius="99">
+            <Border.Transitions>
+              <Transitions>
+                <DoubleTransition Property="Opacity" Duration="0:0:0.1" />
+              </Transitions>
+            </Border.Transitions>
+          </Border>
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Margin="5,1,5,1"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Foreground="{DynamicResource Fluent.CalendarViewForeground}" />
+          <Rectangle Name="DayButtonFocusVisual"
+                     IsHitTestVisible="False"
+                     RadiusX="1" RadiusY="1"
+                     IsVisible="False"
+                     Stroke="{DynamicResource Fluent.Calendar.DefaultCalendarDayButtonStyle.DayButtonFocusVisual.Stroke}" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+
+    <!-- CommonStates -->
+    <Style Selector="^:pointerover /template/ Border#HighlightBackground">
+      <Setter Property="Opacity" Value="1" />
+    </Style>
+    <Style Selector="^:pressed /template/ Border#HighlightBackground">
+      <Setter Property="Opacity" Value="1" />
+    </Style>
+    <Style Selector="^:disabled /template/ Border#HighlightBackground">
+      <Setter Property="Opacity" Value="0" />
+    </Style>
+    <!-- SelectionStates -->
+    <Style Selector="^:selected /template/ Border#SelectedBackground">
+      <Setter Property="Opacity" Value="1" />
+    </Style>
+    <!-- CalendarButtonFocusStates -->
+    <Style Selector="^:dayfocused /template/ Rectangle#DayButtonFocusVisual">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <!-- DayStates -->
+    <Style Selector="^:today">
+      <Style Selector="^ /template/ Border#TodayBackground">
+        <Setter Property="Opacity" Value="1" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.CalendarViewTodayForeground}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

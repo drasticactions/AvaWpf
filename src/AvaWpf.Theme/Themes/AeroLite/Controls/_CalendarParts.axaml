@@ -1,0 +1,92 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    WPF Calendar.xaml CalendarItem button templates, AeroLite.NormalColor: PreviousButtonTemplate, NextButtonTemplate
+    and HeaderButtonTemplate.
+  -->
+  <ControlTheme x:Key="AeroLite.CalendarPreviousButton" TargetType="Button">
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Cursor" Value="Hand" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid>
+          <Rectangle Fill="{DynamicResource AeroLite.Calendar.CalendarItem.Rectangle#1.Fill}" Stretch="Fill" Opacity="1" />
+          <Grid>
+            <Path Name="path"
+                  Margin="14,-6,0,0"
+                  Height="10"
+                  Width="6"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Left"
+                  Stretch="Fill"
+                  Data="{DynamicResource AeroLite.Calendar.CalendarItem.path.Data}"
+                  Fill="{DynamicResource AeroLite.Calendar.CalendarItem.path.Fill}" />
+          </Grid>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Path#path">
+      <Setter Property="Fill" Value="{DynamicResource AeroLite.Invented.Calendar.MouseOver.Glyph}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#path">
+      <Setter Property="Opacity" Value="0.5" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="AeroLite.CalendarNextButton" TargetType="Button">
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Cursor" Value="Hand" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid>
+          <Rectangle Fill="{DynamicResource AeroLite.Calendar.CalendarItem.Rectangle#2.Fill}" Stretch="Fill" Opacity="1" />
+          <Grid>
+            <Path Name="path"
+                  Margin="0,-6,14,0"
+                  Height="10"
+                  Width="6"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Right"
+                  Stretch="Fill"
+                  Data="{DynamicResource AeroLite.Calendar.CalendarItem.path.Data#2}"
+                  Fill="{DynamicResource AeroLite.Calendar.CalendarItem.path.Fill#2}" />
+          </Grid>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Path#path">
+      <Setter Property="Fill" Value="{DynamicResource AeroLite.Invented.Calendar.MouseOver.Glyph}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#path">
+      <Setter Property="Opacity" Value="0.5" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="AeroLite.CalendarHeaderButton" TargetType="Button">
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Cursor" Value="Hand" />
+    <Setter Property="FontWeight" Value="Bold" />
+    <Setter Property="FontSize" Value="10.5" />
+    <Setter Property="HorizontalAlignment" Value="Center" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Background="Transparent">
+          <ContentPresenter Name="buttonContent"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Margin="1,4,1,9"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Foreground="{DynamicResource AeroLite.Calendar.CalendarItem.path.Fill}" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ ContentPresenter#buttonContent">
+      <Setter Property="Foreground" Value="{DynamicResource AeroLite.Invented.Calendar.MouseOver.Glyph}" />
+    </Style>
+    <Style Selector="^:disabled /template/ ContentPresenter#buttonContent">
+      <Setter Property="Opacity" Value="0.5" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

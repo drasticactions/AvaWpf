@@ -1,0 +1,10 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    WPF DataGridDetailsPresenter: no fill, so the row background shows through. The transparent fill makes the details
+    area take pointer input.
+  -->
+  <ControlTheme x:Key="{x:Type DataGridDetailsPresenter}" TargetType="DataGridDetailsPresenter">
+    <Setter Property="Background" Value="Transparent" />
+  </ControlTheme>
+</ResourceDictionary>

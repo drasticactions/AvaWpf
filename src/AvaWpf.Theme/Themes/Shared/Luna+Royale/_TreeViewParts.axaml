@@ -1,0 +1,32 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- WPF TreeViewItem.xaml ExpandCollapseToggleStyle [[Luna.*, Royale.NormalColor]]: the plus/minus box. Not
+       focusable; opens on press. -->
+  <ControlTheme x:Key="$F.TreeViewExpandCollapseToggle" TargetType="ToggleButton">
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Width" Value="19" />
+    <Setter Property="Height" Value="13" />
+    <Setter Property="ClickMode" Value="Press" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Width="19" Height="13" Background="Transparent">
+          <Border Width="9"
+                  Height="9"
+                  BorderThickness="1"
+                  BorderBrush="{DynamicResource $F.TreeViewItem.ExpandCollapseToggleStyle.Border#2.BorderBrush}"
+                  Background="{DynamicResource $F.TreeViewItem.ExpandCollapseToggleStyle.Border#2.Background}"
+                  CornerRadius="1"
+                  UseLayoutRounding="True">
+            <Path Name="ExpandPath"
+                  Margin="1,1,1,1"
+                  Fill="{DynamicResource $F.TreeViewItem.ExpandCollapseToggleStyle.ExpandPath.Fill}"
+                  Data="{DynamicResource $F.TreeViewItem.ExpandCollapseToggleStyle.ExpandPath.Data}" />
+          </Border>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:checked /template/ Path#ExpandPath">
+      <Setter Property="Data" Value="{DynamicResource $F.TreeViewItem.ExpandCollapseToggleStyle.ExpandPath.Data.IsChecked_True}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

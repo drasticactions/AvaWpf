@@ -1,0 +1,51 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- Caption buttons of the Classic window frame (WindowFrame.axaml, WindowDrawnDecorations.axaml), with Marlett-style
+       glyphs as pixel paths. -->
+  <StreamGeometry x:Key="Classic.WindowFrame.MinimizeGlyph">M 4,9 h 6 v 2 h -6 Z</StreamGeometry>
+  <StreamGeometry x:Key="Classic.WindowFrame.MaximizeGlyph">M 3,2 h 9 v 2 h -9 Z M 3,4 h 1 v 6 h -1 Z M 11,4 h 1 v 6 h -1 Z M 3,10 h 9 v 1 h -9 Z</StreamGeometry>
+  <StreamGeometry x:Key="Classic.WindowFrame.RestoreGlyph">M 5,1 h 6 v 2 h -6 Z M 10,3 h 1 v 3 h -1 Z M 9,6 h 2 v 1 h -2 Z M 3,4 h 6 v 2 h -6 Z M 3,6 h 1 v 3 h -1 Z M 8,6 h 1 v 3 h -1 Z M 3,9 h 6 v 1 h -6 Z</StreamGeometry>
+  <StreamGeometry x:Key="Classic.WindowFrame.CloseGlyph">M 4,3 h 2 v 1 h -2 Z M 10,3 h 2 v 1 h -2 Z M 5,4 h 2 v 1 h -2 Z M 9,4 h 2 v 1 h -2 Z M 6,5 h 4 v 1 h -4 Z M 7,6 h 2 v 1 h -2 Z M 6,7 h 4 v 1 h -4 Z M 5,8 h 2 v 1 h -2 Z M 9,8 h 2 v 1 h -2 Z M 4,9 h 2 v 1 h -2 Z M 10,9 h 2 v 1 h -2 Z</StreamGeometry>
+
+  <!-- A caption button: the Raised bevel is inset 1 px left and right and 2 px top and bottom; the glyph is centered in
+       a 16 x 14 box. -->
+  <ControlTheme x:Key="Classic.WindowFrame.CaptionButton" TargetType="Button">
+    <Setter Property="Width" Value="{DynamicResource SystemParameters.CaptionWidth}" />
+    <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel Background="Transparent">
+          <wpf:ClassicBorderDecorator Name="ContentContainer"
+                                      Margin="1,2"
+                                      BorderStyle="Raised"
+                                      BorderThickness="3"
+                                      Background="{TemplateBinding Background}"
+                                      UseLayoutRounding="True" />
+          <Path Name="glyph"
+                Margin="1,2"
+                Data="{TemplateBinding Content}"
+                Fill="{TemplateBinding Foreground}"
+                Width="16" Height="14"
+                Stretch="None"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                UseLayoutRounding="True" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pressed /template/ wpf|ClassicBorderDecorator#ContentContainer">
+      <Setter Property="BorderStyle" Value="RaisedPressed" />
+    </Style>
+    <Style Selector="^:pressed /template/ Path#glyph">
+      <Setter Property="RenderTransform" Value="translate(1px, 1px)" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+  </ControlTheme>
+
+</ResourceDictionary>

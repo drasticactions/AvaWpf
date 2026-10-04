@@ -1,0 +1,108 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!--
+    The DatePicker flyout in the Windows 11 manner: looping month / day / year selector columns and an accept / dismiss
+    footer.
+  -->
+  <ControlTheme x:Key="{x:Type DatePickerPresenter}" TargetType="DatePickerPresenter">
+    <Setter Property="Width" Value="296" />
+    <Setter Property="MinWidth" Value="296" />
+    <Setter Property="MaxHeight" Value="398" />
+    <Setter Property="Background" Value="{DynamicResource Fluent.FlyoutBackground}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Fluent.FlyoutBorderBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="{DynamicResource Fluent.OverlayCornerRadius}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="Background"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                MaxHeight="398"
+                ClipToBounds="True">
+          <Grid Name="ContentRoot" RowDefinitions="*,Auto">
+            <Grid Name="PART_PickerContainer">
+              <Grid.Styles>
+                <Style Selector="DateTimePickerPanel > ListBoxItem">
+                  <Setter Property="Theme" Value="{StaticResource Fluent.DateTimePickerItem}" />
+                </Style>
+              </Grid.Styles>
+              <!-- Column definitions are set in code. -->
+              <Panel Name="PART_MonthHost">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                  <DateTimePickerPanel Name="PART_MonthSelector" PanelType="Month" ItemHeight="40" ShouldLoop="True" />
+                </ScrollViewer>
+                <RepeatButton Name="PART_MonthUpButton" Theme="{StaticResource Fluent.DateTimePickerUpButton}" />
+                <RepeatButton Name="PART_MonthDownButton" Theme="{StaticResource Fluent.DateTimePickerDownButton}" />
+              </Panel>
+              <Panel Name="PART_DayHost">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                  <DateTimePickerPanel Name="PART_DaySelector" PanelType="Day" ItemHeight="40" ShouldLoop="True" />
+                </ScrollViewer>
+                <RepeatButton Name="PART_DayUpButton" Theme="{StaticResource Fluent.DateTimePickerUpButton}" />
+                <RepeatButton Name="PART_DayDownButton" Theme="{StaticResource Fluent.DateTimePickerDownButton}" />
+              </Panel>
+              <Panel Name="PART_YearHost">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                  <DateTimePickerPanel Name="PART_YearSelector" PanelType="Year" ItemHeight="40" ShouldLoop="False" />
+                </ScrollViewer>
+                <RepeatButton Name="PART_YearUpButton" Theme="{StaticResource Fluent.DateTimePickerUpButton}" />
+                <RepeatButton Name="PART_YearDownButton" Theme="{StaticResource Fluent.DateTimePickerDownButton}" />
+              </Panel>
+              <Border Name="HighlightRect"
+                      IsHitTestVisible="False"
+                      ZIndex="-1"
+                      Margin="4,0"
+                      CornerRadius="{DynamicResource Fluent.ControlCornerRadius}"
+                      Background="{DynamicResource Fluent.AccentFillColorDefaultBrush}"
+                      Grid.Column="0" Grid.ColumnSpan="5"
+                      VerticalAlignment="Center"
+                      Height="36" />
+              <Rectangle Name="PART_FirstSpacer"
+                         Fill="{DynamicResource Fluent.DividerStrokeColorDefaultBrush}"
+                         HorizontalAlignment="Center"
+                         Width="1"
+                         Grid.Column="1" />
+              <Rectangle Name="PART_SecondSpacer"
+                         Fill="{DynamicResource Fluent.DividerStrokeColorDefaultBrush}"
+                         HorizontalAlignment="Center"
+                         Width="1"
+                         Grid.Column="3" />
+            </Grid>
+            <Grid Name="AcceptDismissGrid" Grid.Row="1" ColumnDefinitions="*,*">
+              <Rectangle Height="1"
+                         VerticalAlignment="Top"
+                         Fill="{DynamicResource Fluent.DividerStrokeColorDefaultBrush}"
+                         Grid.ColumnSpan="2" />
+              <Button Name="PART_AcceptButton"
+                      Grid.Column="0"
+                      Height="40"
+                      Padding="4"
+                      Theme="{StaticResource Fluent.DateTimePickerButton}"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch">
+                <TextBlock FontFamily="{DynamicResource Fluent.SymbolThemeFontFamily}" FontSize="16"
+                           Text="{x:Static wpf:FluentGlyph.CheckMark}" />
+              </Button>
+              <Button Name="PART_DismissButton"
+                      Grid.Column="1"
+                      Height="40"
+                      Padding="4"
+                      Theme="{StaticResource Fluent.DateTimePickerButton}"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch">
+                <TextBlock FontFamily="{DynamicResource Fluent.SymbolThemeFontFamily}" FontSize="16"
+                           Text="{x:Static wpf:FluentGlyph.Clear}" />
+              </Button>
+            </Grid>
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^ /template/ Panel:pointerover > RepeatButton">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

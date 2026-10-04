@@ -1,0 +1,47 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf"
+                    xmlns:aero="using:AvaWpf.Chrome.Aero">
+  <!--
+    WPF Button.xaml BaseButtonStyle, [[Aero.NormalColor]]: an Aero ButtonChrome. Trigger order is kept.
+    Button, ToggleButton and RepeatButton are BasedOn this theme.
+  -->
+  <ControlTheme x:Key="Aero.BaseButtonStyle" TargetType="Button">
+    <Setter Property="FocusAdorner" Value="{DynamicResource Aero.FocusVisual}" />
+    <Setter Property="Background" Value="{DynamicResource Aero.ButtonNormalBackground}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Aero.ButtonNormalBorder}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Padding" Value="1" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <aero:ButtonChrome Name="Chrome"
+                           Background="{TemplateBinding Background}"
+                           BorderBrush="{TemplateBinding BorderBrush}"
+                           RenderDefaulted="{TemplateBinding wpf:ButtonState.IsDefaulted}"
+                           RenderMouseOver="{TemplateBinding IsPointerOver}"
+                           RenderPressed="{TemplateBinding IsPressed}"
+                           UseLayoutRounding="True">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Margin="{TemplateBinding Padding}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            RecognizesAccessKey="True" />
+        </aero:ButtonChrome>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:focus /template/ aero|ButtonChrome#Chrome">
+      <Setter Property="RenderDefaulted" Value="True" />
+    </Style>
+    <Style Selector="^:checked /template/ aero|ButtonChrome#Chrome">
+      <Setter Property="RenderPressed" Value="True" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource Aero.Button.BaseButtonStyle.Self.Foreground.IsEnabled_false}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

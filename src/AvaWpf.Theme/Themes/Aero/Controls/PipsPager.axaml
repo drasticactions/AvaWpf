@@ -1,0 +1,123 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- PipsPager: Aero glass arrow buttons around a row of dots; previous/next hide on the first/last page. -->
+  <ControlTheme x:Key="Aero.PipsPagerNavigationButton" TargetType="Button" BasedOn="{StaticResource Aero.BaseButtonStyle}">
+    <Setter Property="Width" Value="18" />
+    <Setter Property="Height" Value="18" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="Focusable" Value="False" />
+  </ControlTheme>
+
+  <ControlTheme x:Key="Aero.PipsPagerItem" TargetType="ListBoxItem">
+    <Setter Property="Width" Value="13" />
+    <Setter Property="Height" Value="18" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="Margin" Value="0" />
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Background="Transparent">
+          <Ellipse Name="Pip"
+                   Width="7"
+                   Height="7"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Fill="{DynamicResource SystemColors.ControlDarkBrush}"
+                   Stroke="{DynamicResource SystemColors.ControlDarkDarkBrush}"
+                   StrokeThickness="1" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Ellipse#Pip">
+      <Setter Property="Fill" Value="{DynamicResource SystemColors.HotTrackBrush}" />
+    </Style>
+    <Style Selector="^:selected /template/ Ellipse#Pip">
+      <Setter Property="Fill" Value="{DynamicResource SystemColors.HighlightBrush}" />
+      <Setter Property="Stroke" Value="{DynamicResource SystemColors.HotTrackBrush}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Ellipse#Pip">
+      <Setter Property="Fill" Value="{DynamicResource SystemColors.ControlLightBrush}" />
+      <Setter Property="Stroke" Value="{DynamicResource SystemColors.ControlDarkBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type PipsPager}" TargetType="PipsPager">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Top" />
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="PreviousButtonTheme" Value="{StaticResource Aero.PipsPagerNavigationButton}" />
+    <Setter Property="NextButtonTheme" Value="{StaticResource Aero.PipsPagerNavigationButton}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <StackPanel Name="PART_RootPanel"
+                    Orientation="{TemplateBinding Orientation}"
+                    Background="{TemplateBinding Background}"
+                    Spacing="2">
+          <Button Name="PART_PreviousButton"
+                  Theme="{TemplateBinding PreviousButtonTheme}"
+                  IsVisible="{TemplateBinding IsPreviousButtonVisible}"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Center">
+            <Path Name="PreviousButtonIcon" Fill="{DynamicResource SystemColors.ControlTextBrush}" Data="{DynamicResource Aero.ArrowLeftGeometry}" />
+          </Button>
+          <ListBox Name="PART_PipsPagerList"
+                   Background="Transparent"
+                   BorderThickness="0"
+                   Padding="0"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                   ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                   ItemsSource="{Binding TemplateSettings.Pips, RelativeSource={RelativeSource TemplatedParent}}"
+                   SelectedIndex="{Binding SelectedPageIndex, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                   AutoScrollToSelectedItem="False"
+                   ItemContainerTheme="{StaticResource Aero.PipsPagerItem}">
+            <ListBox.Template>
+              <ControlTemplate>
+                <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
+              </ControlTemplate>
+            </ListBox.Template>
+            <ListBox.ItemsPanel>
+              <ItemsPanelTemplate>
+                <StackPanel Orientation="{Binding Orientation, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=PipsPager}}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center" />
+              </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+          </ListBox>
+          <Button Name="PART_NextButton"
+                  Theme="{TemplateBinding NextButtonTheme}"
+                  IsVisible="{TemplateBinding IsNextButtonVisible}"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Center">
+            <Path Name="NextButtonIcon" Fill="{DynamicResource SystemColors.ControlTextBrush}" Data="{DynamicResource Aero.ArrowRightGeometry}" />
+          </Button>
+        </StackPanel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:vertical /template/ ListBoxItem">
+      <Setter Property="Width" Value="18" />
+      <Setter Property="Height" Value="13" />
+    </Style>
+    <Style Selector="^:vertical /template/ StackPanel#PART_RootPanel">
+      <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="^:vertical /template/ Path#PreviousButtonIcon">
+      <Setter Property="Data" Value="{DynamicResource Aero.ArrowUpGeometry}" />
+    </Style>
+    <Style Selector="^:vertical /template/ Path#NextButtonIcon">
+      <Setter Property="Data" Value="{DynamicResource Aero.ArrowDownGeometry}" />
+    </Style>
+    <Style Selector="^:first-page /template/ Button#PART_PreviousButton">
+      <Setter Property="Opacity" Value="0" />
+      <Setter Property="IsHitTestVisible" Value="False" />
+    </Style>
+    <Style Selector="^:last-page /template/ Button#PART_NextButton">
+      <Setter Property="Opacity" Value="0" />
+      <Setter Property="IsHitTestVisible" Value="False" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

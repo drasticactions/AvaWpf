@@ -1,0 +1,42 @@
+# Segoe Fluent Icons codepoint -> Fluent UI System Icons name (without the ic_fluent_ prefix).
+# Written by hand from the Segoe Fluent Icons and Fluent UI System Icons catalogs.
+# [wpf] glyphs are the ones WPF PresentationFramework.Fluent/Styles uses (spec Appendix D).
+# [extra] glyphs are used by the invented AvaWpf templates and the caption buttons.
+# Each entry: codepoint = { name = "<constant name>", icon = "<fluent icon>" }
+# An optional scale enlarges the outline: Segoe's *Solid8 carets are drawn to fill the em at 8 px, while the
+# Fluent UI 12 px carets fill half of it, so they are drawn twice as large. style = "filled" takes the outline from
+# the Filled font, for Segoe's solid glyphs.
+
+[wpf]
+E70D = { name = "ChevronDown", icon = "chevron_down_16_regular" }
+E70E = { name = "ChevronUp", icon = "chevron_up_16_regular" }
+E73E = { name = "CheckMark", icon = "checkmark_16_regular" }
+E76B = { name = "ChevronLeft", icon = "chevron_left_16_regular" }
+E76C = { name = "ChevronRight", icon = "chevron_right_16_regular" }
+E787 = { name = "Calendar", icon = "calendar_ltr_16_regular" }
+E894 = { name = "Clear", icon = "dismiss_16_regular" }
+E9AE = { name = "CheckboxIndeterminate", icon = "subtract_16_regular" }
+EDD9 = { name = "CaretLeftSolid8", icon = "caret_left_12_regular", style = "filled", scale = 2.0 }
+EDDA = { name = "CaretRightSolid8", icon = "caret_right_12_regular", style = "filled", scale = 2.0 }
+EDDB = { name = "CaretUpSolid8", icon = "caret_up_12_regular", style = "filled", scale = 2.0 }
+EDDC = { name = "CaretDownSolid8", icon = "caret_down_12_regular", style = "filled", scale = 2.0 }
+F08E = { name = "SortUp", icon = "arrow_sort_up_16_regular" }
+F090 = { name = "SortDown", icon = "arrow_sort_down_16_regular" }
+F169 = { name = "ResizeGrip", icon = "resize_small_16_regular" }
+
+[extra]
+E921 = { name = "ChromeMinimize", icon = "line_horizontal_1_16_regular" }
+E922 = { name = "ChromeMaximize", icon = "square_16_regular" }
+E923 = { name = "ChromeRestore", icon = "square_multiple_16_regular" }
+E8BB = { name = "ChromeClose", icon = "dismiss_16_regular" }
+E710 = { name = "Add", icon = "add_16_regular" }
+E738 = { name = "Remove", icon = "subtract_16_regular" }
+E712 = { name = "More", icon = "more_horizontal_16_regular" }
+E7B3 = { name = "RevealPassword", icon = "eye_16_regular" }
+E823 = { name = "Clock", icon = "clock_16_regular" }
+E946 = { name = "Info", icon = "info_16_regular" }
+E7BA = { name = "Warning", icon = "warning_16_regular" }
+EA39 = { name = "ErrorBadge", icon = "error_circle_16_regular" }
+E72C = { name = "Refresh", icon = "arrow_clockwise_16_regular" }
+E700 = { name = "GlobalNavigationButton", icon = "navigation_16_regular" }
+E72B = { name = "Back", icon = "arrow_left_16_regular" }

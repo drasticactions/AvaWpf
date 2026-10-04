@@ -1,0 +1,45 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    Parts of the AeroLite TableView from WPF ListView.xaml GridView styles: the scroll viewer and the column header
+    gripper.
+  -->
+  <ControlTheme x:Key="AeroLite.TableViewScrollViewer" TargetType="ScrollViewer">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="AllowAutoHide" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid ColumnDefinitions="*,Auto" RowDefinitions="*,Auto">
+          <DockPanel Name="ContentPanel">
+            <Border DockPanel.Dock="Top" Background="{DynamicResource AeroLite.ListView.GridViewColumnHeader.Setter.Self.Background}">
+              <TableViewColumnHeadersPresenter />
+            </Border>
+            <ScrollContentPresenter Name="PART_ContentPresenter"
+                                    Background="{TemplateBinding Background}"
+                                    HorizontalSnapPointsType="{TemplateBinding HorizontalSnapPointsType}"
+                                    VerticalSnapPointsType="{TemplateBinding VerticalSnapPointsType}"
+                                    HorizontalSnapPointsAlignment="{TemplateBinding HorizontalSnapPointsAlignment}"
+                                    VerticalSnapPointsAlignment="{TemplateBinding VerticalSnapPointsAlignment}"
+                                    Padding="{TemplateBinding Padding}"
+                                    ScrollViewer.IsScrollInertiaEnabled="{TemplateBinding IsScrollInertiaEnabled}">
+              <ScrollContentPresenter.GestureRecognizers>
+                <ScrollGestureRecognizer CanHorizontallyScroll="{Binding CanHorizontallyScroll, ElementName=PART_ContentPresenter}"
+                                         CanVerticallyScroll="{Binding CanVerticallyScroll, ElementName=PART_ContentPresenter}"
+                                         IsScrollInertiaEnabled="{Binding (ScrollViewer.IsScrollInertiaEnabled), ElementName=PART_ContentPresenter}" />
+              </ScrollContentPresenter.GestureRecognizers>
+            </ScrollContentPresenter>
+          </DockPanel>
+          <ScrollBar Name="PART_HorizontalScrollBar" Orientation="Horizontal" Grid.Column="0" Grid.Row="1" />
+          <ScrollBar Name="PART_VerticalScrollBar" Orientation="Vertical" Grid.Column="1" Grid.Row="0" />
+          <Panel Name="PART_ScrollBarsSeparator" Grid.Row="1" Grid.Column="1" Background="{DynamicResource SystemColors.ControlBrush}" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTemplate x:Key="AeroLite.TableViewColumnHeaderGripper" TargetType="Thumb">
+    <Border Padding="0,3,0,4" Background="Transparent">
+      <Rectangle HorizontalAlignment="Center" Width="1" Fill="{TemplateBinding Background}" />
+    </Border>
+  </ControlTemplate>
+</ResourceDictionary>

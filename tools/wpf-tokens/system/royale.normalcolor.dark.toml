@@ -1,0 +1,17 @@
+name = "Royale.NormalColor.Dark"
+base = "xp-dark"
+
+[colors]
+Control = "#34353A"
+MenuBar = "#34353A"
+ActiveBorder = "#34353A"
+InactiveBorder = "#34353A"
+ControlLightLight = "#5A5C63"
+ControlLight = "#45474D"
+Highlight = "#335EA8"
+MenuHighlight = "#335EA8"
+ActiveCaption = "#24467F"
+GradientActiveCaption = "#3C6FB0"
+InactiveCaption = "#36506E"
+GradientInactiveCaption = "#3F5B7A"
+HotTrack = "#8FB4F0"

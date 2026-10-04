@@ -1,0 +1,101 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF ScrollBar.xaml [[Classic]]. Never auto-hides. WPF's Viewbox that shrinks the line buttons on a very short bar
+       is left out. -->
+  <ControlTheme x:Key="{x:Type ScrollBar}" TargetType="ScrollBar">
+    <Setter Property="Background" Value="{DynamicResource SystemColors.ControlLightBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="AllowAutoHide" Value="False" />
+
+    <Style Selector="^:vertical">
+      <Setter Property="Width" Value="{DynamicResource SystemParameters.VerticalScrollBarWidth}" />
+      <Setter Property="MinWidth" Value="{DynamicResource SystemParameters.VerticalScrollBarWidth}" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Grid Background="{TemplateBinding Background}">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto" />
+              <RowDefinition Height="*" />
+              <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+              <RepeatButton Name="PART_LineUpButton"
+                            Classes="up"
+                            Theme="{StaticResource Classic.ScrollBarLineButton}"
+                            Height="{DynamicResource SystemParameters.VerticalScrollBarButtonHeight}"
+                            MinWidth="{DynamicResource SystemParameters.VerticalScrollBarWidth}" />
+            <Rectangle Grid.Row="1" Fill="{DynamicResource Classic.ScrollBarPageButtonBrush}" />
+            <Track Name="PART_Track"
+                   Grid.Row="1"
+                   Minimum="{TemplateBinding Minimum}"
+                   Maximum="{TemplateBinding Maximum}"
+                   Value="{TemplateBinding Value, Mode=TwoWay}"
+                   ViewportSize="{TemplateBinding ViewportSize}"
+                   Orientation="{TemplateBinding Orientation}"
+                   DeferThumbDrag="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
+                   IsDirectionReversed="True">
+              <Track.DecreaseButton>
+                <RepeatButton Name="PART_PageUpButton" Theme="{StaticResource Classic.ScrollBarPageButton}" />
+              </Track.DecreaseButton>
+              <Track.IncreaseButton>
+                <RepeatButton Name="PART_PageDownButton" Theme="{StaticResource Classic.ScrollBarPageButton}" />
+              </Track.IncreaseButton>
+              <Thumb Theme="{StaticResource Classic.ScrollBarThumb}" MinHeight="8" />
+            </Track>
+              <RepeatButton Name="PART_LineDownButton"
+                            Grid.Row="2"
+                            Classes="down"
+                            Theme="{StaticResource Classic.ScrollBarLineButton}"
+                            Height="{DynamicResource SystemParameters.VerticalScrollBarButtonHeight}"
+                            MinWidth="{DynamicResource SystemParameters.VerticalScrollBarWidth}" />
+          </Grid>
+        </ControlTemplate>
+      </Setter>
+    </Style>
+
+    <Style Selector="^:horizontal">
+      <Setter Property="Height" Value="{DynamicResource SystemParameters.HorizontalScrollBarHeight}" />
+      <Setter Property="MinHeight" Value="{DynamicResource SystemParameters.HorizontalScrollBarHeight}" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Grid Background="{TemplateBinding Background}">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+              <RepeatButton Name="PART_LineUpButton"
+                            Classes="left"
+                            Theme="{StaticResource Classic.ScrollBarLineButton}"
+                            Width="{DynamicResource SystemParameters.HorizontalScrollBarButtonWidth}"
+                            MinHeight="{DynamicResource SystemParameters.HorizontalScrollBarHeight}" />
+            <Rectangle Grid.Column="1" Fill="{DynamicResource Classic.ScrollBarPageButtonBrush}" />
+            <Track Name="PART_Track"
+                   Grid.Column="1"
+                   Minimum="{TemplateBinding Minimum}"
+                   Maximum="{TemplateBinding Maximum}"
+                   Value="{TemplateBinding Value, Mode=TwoWay}"
+                   ViewportSize="{TemplateBinding ViewportSize}"
+                   Orientation="{TemplateBinding Orientation}"
+                   DeferThumbDrag="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}">
+              <Track.DecreaseButton>
+                <RepeatButton Name="PART_PageUpButton" Theme="{StaticResource Classic.ScrollBarPageButton}" />
+              </Track.DecreaseButton>
+              <Track.IncreaseButton>
+                <RepeatButton Name="PART_PageDownButton" Theme="{StaticResource Classic.ScrollBarPageButton}" />
+              </Track.IncreaseButton>
+              <Thumb Theme="{StaticResource Classic.ScrollBarThumb}" MinWidth="8" />
+            </Track>
+              <RepeatButton Name="PART_LineDownButton"
+                            Grid.Column="2"
+                            Classes="right"
+                            Theme="{StaticResource Classic.ScrollBarLineButton}"
+                            Width="{DynamicResource SystemParameters.HorizontalScrollBarButtonWidth}"
+                            MinHeight="{DynamicResource SystemParameters.HorizontalScrollBarHeight}" />
+          </Grid>
+        </ControlTemplate>
+      </Setter>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

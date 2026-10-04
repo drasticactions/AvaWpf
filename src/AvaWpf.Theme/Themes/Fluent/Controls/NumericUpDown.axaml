@@ -1,0 +1,48 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- NumericUpDown as a Windows 11 NumberBox: a ButtonSpinner around a borderless Fluent.DatePickerTextBox. -->
+  <ControlTheme x:Key="{x:Type NumericUpDown}" TargetType="NumericUpDown">
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.TextControlForeground}" />
+    <Setter Property="Background" Value="{DynamicResource Fluent.TextControlBackground}" />
+    <Setter Property="PlaceholderForeground" Value="{DynamicResource Fluent.TextControlPlaceholderForeground}" />
+    <Setter Property="BorderThickness" Value="{DynamicResource Fluent.TextControlBorderThemeThickness}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Fluent.TextControlElevationBorderBrush}" />
+    <Setter Property="MinHeight" Value="{DynamicResource Fluent.TextControlThemeMinHeight}" />
+    <Setter Property="Padding" Value="{DynamicResource Fluent.TextControlThemePadding}" />
+    <Setter Property="CornerRadius" Value="{DynamicResource Fluent.ControlCornerRadius}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DataValidationErrors>
+          <ButtonSpinner Name="PART_Spinner"
+                         Background="{TemplateBinding Background}"
+                         BorderThickness="{TemplateBinding BorderThickness}"
+                         BorderBrush="{TemplateBinding BorderBrush}"
+                         CornerRadius="{TemplateBinding CornerRadius}"
+                         MinHeight="{TemplateBinding MinHeight}"
+                         IsTabStop="False"
+                         Padding="0"
+                         HorizontalContentAlignment="Stretch"
+                         VerticalContentAlignment="Stretch"
+                         AllowSpin="{TemplateBinding AllowSpin}"
+                         ShowButtonSpinner="{TemplateBinding ShowButtonSpinner}"
+                         ButtonSpinnerLocation="{TemplateBinding ButtonSpinnerLocation}">
+            <TextBox Name="PART_TextBox"
+                     Theme="{StaticResource Fluent.DatePickerTextBox}"
+                     Padding="{TemplateBinding Padding}"
+                     Foreground="{TemplateBinding Foreground}"
+                     PlaceholderText="{TemplateBinding PlaceholderText}"
+                     PlaceholderForeground="{TemplateBinding PlaceholderForeground}"
+                     IsReadOnly="{TemplateBinding IsReadOnly}"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                     Text="{TemplateBinding Text}"
+                     TextAlignment="{TemplateBinding TextAlignment}"
+                     AcceptsReturn="False"
+                     TextWrapping="NoWrap" />
+          </ButtonSpinner>
+        </DataValidationErrors>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

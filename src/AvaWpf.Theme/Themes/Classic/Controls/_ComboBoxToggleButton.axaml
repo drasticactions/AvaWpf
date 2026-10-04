@@ -1,0 +1,39 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF ComboBox.xaml ComboBoxTransparentButtonStyle [[Classic]]; AltPressed while the drop-down is open. -->
+  <ControlTheme x:Key="Classic.ComboBoxToggleButton" TargetType="ToggleButton">
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="BorderBrush" Value="{x:Static wpf:ClassicBorderDecorator.ClassicBorderBrush}" />
+    <Setter Property="BorderThickness" Value="2" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="ClickMode" Value="Press" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DockPanel Background="{TemplateBinding Background}" LastChildFill="False" UseLayoutRounding="True">
+          <wpf:ClassicBorderDecorator Name="Border"
+                                      BorderStyle="AltRaised"
+                                      DockPanel.Dock="Right"
+                                      Width="{DynamicResource SystemParameters.VerticalScrollBarWidth}"
+                                      Background="{DynamicResource SystemColors.ControlBrush}"
+                                      BorderThickness="{TemplateBinding BorderThickness}"
+                                      BorderBrush="{TemplateBinding BorderBrush}">
+            <Path Fill="{TemplateBinding Foreground}"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  Data="{DynamicResource Classic.DownArrowGeometry}" />
+          </wpf:ClassicBorderDecorator>
+        </DockPanel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:checked /template/ wpf|ClassicBorderDecorator#Border">
+      <Setter Property="BorderStyle" Value="AltPressed" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlDarkBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

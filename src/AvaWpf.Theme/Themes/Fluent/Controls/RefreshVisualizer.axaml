@@ -1,0 +1,35 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- Pull-to-refresh indicator; the control rotates and fades the glyph as the pull progresses. -->
+  <ControlTheme x:Key="{x:Type RefreshVisualizer}" TargetType="RefreshVisualizer">
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="IsHitTestVisible" Value="False" />
+    <Setter Property="Height" Value="100" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.TextFillColorPrimaryBrush}" />
+    <Setter Property="Content">
+      <Template>
+        <TextBlock Name="PART_Icon"
+                   FontFamily="{DynamicResource Fluent.SymbolThemeFontFamily}"
+                   FontSize="24"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Text="{x:Static wpf:FluentGlyph.Refresh}" />
+      </Template>
+    </Setter>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <!--
+          The control inserts the indicator into PART_Root itself; the empty presenter only fills the ContentControl
+          contract.
+        -->
+        <Grid Name="PART_Root"
+              MinHeight="80"
+              Background="{TemplateBinding Background}">
+          <ContentPresenter Name="PART_ContentPresenter" IsVisible="False" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

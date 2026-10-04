@@ -1,0 +1,56 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    WPF TabItem.xaml, AeroLite.NormalColor. The selected tab grows 2 px on every side and draws above its neighbours.
+  -->
+  <ControlTheme x:Key="{x:Type TabItem}" TargetType="TabItem">
+    <Setter Property="FocusAdorner" Value="{DynamicResource AeroLite.FocusVisual}" />
+    <Setter Property="Foreground" Value="{DynamicResource AeroLite.TabItem.TabItem.Setter.Self.Foreground}" />
+    <Setter Property="Background" Value="{DynamicResource AeroLite.TabItem.Static.Background}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.TabItem.Static.Border}" />
+    <Setter Property="Margin" Value="0" />
+    <Setter Property="Padding" Value="6,2" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Name="templateRoot" UseLayoutRounding="True">
+          <Border Name="mainBorder"
+                  BorderThickness="1"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  Margin="0">
+            <Border Name="innerBorder"
+                    BorderThickness="1"
+                    Background="{DynamicResource AeroLite.TabItem.Selected.Background}"
+                    BorderBrush="{DynamicResource AeroLite.TabItem.Selected.Border}"
+                    Margin="-1"
+                    Opacity="0" />
+          </Border>
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Header}"
+                            ContentTemplate="{TemplateBinding HeaderTemplate}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Focusable="False"
+                            Margin="{TemplateBinding Padding}"
+                            RecognizesAccessKey="True" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#mainBorder">
+      <Setter Property="Background" Value="{DynamicResource AeroLite.TabItem.MouseOver.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.TabItem.MouseOver.Border}" />
+    </Style>
+    <Style Selector="^:disabled /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Opacity" Value="0.56" />
+    </Style>
+    <Style Selector="^:selected">
+      <Setter Property="ZIndex" Value="1" />
+      <Setter Property="Margin" Value="-2" />
+      <Style Selector="^ /template/ Border#innerBorder">
+        <Setter Property="Opacity" Value="1" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

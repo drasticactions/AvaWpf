@@ -1,0 +1,224 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- Windows XP Royale window frame: a vector redraw of the XP Media Center (Energy Blue) frame. -->
+  <ControlTheme x:Key="Royale.WindowFrame.CaptionButton" TargetType="Button">
+    <Setter Property="Width" Value="{DynamicResource Royale.Invented.WindowFrame.ButtonSize}" />
+    <Setter Property="Height" Value="{DynamicResource Royale.Invented.WindowFrame.ButtonSize}" />
+    <Setter Property="Margin" Value="0,0,3,0" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="border"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{DynamicResource Royale.Invented.WindowFrame.ButtonCornerRadius}"
+                UseLayoutRounding="True">
+          <Path Name="glyph"
+                Data="{TemplateBinding Content}"
+                Fill="{TemplateBinding Foreground}"
+                Stretch="None"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type wpf:WindowFrame}" TargetType="wpf:WindowFrame">
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Royale.Invented.WindowFrame.Edge.Active}" />
+    <Setter Property="Background" Value="{DynamicResource Royale.Invented.WindowFrame.Face.Active}" />
+    <Setter Property="CornerRadius" Value="{DynamicResource Royale.Invented.WindowFrame.CornerRadius}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.WindowTextBrush}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel Name="root" Tag="{DynamicResource AvaWpf.ColorScheme}">
+          <Border Name="frame"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{TemplateBinding CornerRadius}"
+                  UseLayoutRounding="True">
+            <DockPanel>
+              <Border Name="caption" DockPanel.Dock="Top"
+                      Background="{DynamicResource Royale.Invented.WindowFrame.Caption.Active}"
+                      CornerRadius="{DynamicResource Royale.Invented.WindowFrame.CaptionCornerRadius}">
+                <Grid Name="PART_Caption"
+                      Height="{DynamicResource Royale.Invented.WindowFrame.CaptionHeight}"
+                      Background="Transparent"
+                      ColumnDefinitions="Auto,Auto,Auto,*,Auto">
+                  <Image Name="icon" Grid.Column="0" Source="{TemplateBinding Icon}" Width="16" Height="16" Margin="4,0,0,0" VerticalAlignment="Center" />
+                  <!-- Caption slots (a RibbonWindow puts its Quick Access Toolbar and contextual tab group headers
+                       here). Empty areas are not hit, so they drag the window through PART_Caption. -->
+                  <ContentPresenter Name="PART_CaptionContentPresenter" Grid.Column="1"
+                                    Content="{TemplateBinding CaptionContent}"
+                                    VerticalAlignment="Center"
+                                    IsVisible="{TemplateBinding CaptionContent, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                  <ContentPresenter Name="PART_CaptionOverlayPresenter" Grid.Column="2"
+                                    Content="{TemplateBinding CaptionOverlay}"
+                                    VerticalAlignment="Stretch"
+                                    IsVisible="{TemplateBinding CaptionOverlay, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                  <Panel Name="titlePanel" Grid.Column="3" Margin="4,0,4,0" VerticalAlignment="Center" ClipToBounds="True">
+                    <TextBlock Name="titleShadow"
+                               Text="{TemplateBinding Title}"
+                               Margin="1,1,0,0"
+                               TextTrimming="CharacterEllipsis"
+                               FontFamily="{DynamicResource SystemFonts.CaptionFontFamily}"
+                               FontSize="{DynamicResource SystemFonts.CaptionFontSize}"
+                               FontWeight="{DynamicResource SystemFonts.CaptionFontWeight}"
+                               Foreground="{DynamicResource Royale.Invented.WindowFrame.Title.Shadow}" />
+                    <TextBlock Name="title"
+                               Text="{TemplateBinding Title}"
+                               Margin="0,0,1,1"
+                               TextTrimming="CharacterEllipsis"
+                               FontFamily="{DynamicResource SystemFonts.CaptionFontFamily}"
+                               FontSize="{DynamicResource SystemFonts.CaptionFontSize}"
+                               FontWeight="{DynamicResource SystemFonts.CaptionFontWeight}"
+                               Foreground="{DynamicResource Royale.Invented.WindowFrame.Title.Active}" />
+                  </Panel>
+                  <StackPanel Grid.Column="4" Orientation="Horizontal" Margin="0,0,0,0">
+                    <Button Name="PART_MinimizeButton" Theme="{StaticResource Royale.WindowFrame.CaptionButton}" Classes="caption"
+                            Content="{DynamicResource Royale.Invented.WindowFrame.MinimizeGlyph}"
+                            IsVisible="{TemplateBinding IsMinimizeButtonVisible}" />
+                    <Button Name="PART_MaximizeButton" Theme="{StaticResource Royale.WindowFrame.CaptionButton}" Classes="caption"
+                            Content="{DynamicResource Royale.Invented.WindowFrame.MaximizeGlyph}"
+                            IsVisible="{TemplateBinding IsMaximizeButtonVisible}" />
+                    <Button Name="PART_CloseButton" Theme="{StaticResource Royale.WindowFrame.CaptionButton}" Classes="close"
+                            Content="{DynamicResource Royale.Invented.WindowFrame.CloseGlyph}" />
+                  </StackPanel>
+                </Grid>
+              </Border>
+              <Border Name="client"
+                      Background="{DynamicResource SystemColors.ControlBrush}"
+                      Margin="2,0,2,2"
+                      BorderThickness="1"
+                      BorderBrush="{DynamicResource Royale.Invented.WindowFrame.InnerEdge.Active}">
+                <DockPanel>
+                  <ContentPresenter Name="menu" DockPanel.Dock="Top" Content="{TemplateBinding MenuBar}" IsVisible="{TemplateBinding MenuBar, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                  <ContentPresenter Name="PART_ContentPresenter"
+                                    Content="{TemplateBinding Content}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    HorizontalContentAlignment="Stretch"
+                                    VerticalContentAlignment="Stretch" />
+                </DockPanel>
+              </Border>
+            </DockPanel>
+          </Border>
+          <!-- Resize borders: 4 px edges and 8 px corners over the frame. -->
+          <Panel Name="resize">
+            <Border wpf:WindowFrame.ResizeEdge="North" Height="4" VerticalAlignment="Top" Background="Transparent" />
+            <Border wpf:WindowFrame.ResizeEdge="South" Height="4" VerticalAlignment="Bottom" Background="Transparent" />
+            <Border wpf:WindowFrame.ResizeEdge="West" Width="4" HorizontalAlignment="Left" Background="Transparent" />
+            <Border wpf:WindowFrame.ResizeEdge="East" Width="4" HorizontalAlignment="Right" Background="Transparent" />
+            <Border wpf:WindowFrame.ResizeEdge="NorthWest" Width="8" Height="8" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Transparent" />
+            <Border wpf:WindowFrame.ResizeEdge="NorthEast" Width="8" Height="8" HorizontalAlignment="Right" VerticalAlignment="Top" Background="Transparent" />
+            <Border wpf:WindowFrame.ResizeEdge="SouthWest" Width="8" Height="8" HorizontalAlignment="Left" VerticalAlignment="Bottom" Background="Transparent" />
+            <Border wpf:WindowFrame.ResizeEdge="SouthEast" Width="8" Height="8" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="Transparent" />
+          </Panel>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+
+    <!-- Active window: the scheme colors (the first scheme is the template default). -->
+    <!-- Inactive window. -->
+    <Style Selector="^:inactive /template/ Panel#root Border#frame">
+      <Setter Property="Background" Value="{DynamicResource Royale.Invented.WindowFrame.Face.Inactive}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Royale.Invented.WindowFrame.Edge.Inactive}" />
+    </Style>
+    <Style Selector="^:inactive /template/ Panel#root Border#caption">
+      <Setter Property="Background" Value="{DynamicResource Royale.Invented.WindowFrame.Caption.Inactive}" />
+    </Style>
+    <Style Selector="^:inactive /template/ Panel#root Border#client">
+      <Setter Property="BorderBrush" Value="{DynamicResource Royale.Invented.WindowFrame.InnerEdge.Inactive}" />
+    </Style>
+    <Style Selector="^:inactive /template/ Panel#root TextBlock#title">
+      <Setter Property="Foreground" Value="{DynamicResource Royale.Invented.WindowFrame.Title.Inactive}" />
+    </Style>
+    <Style Selector="^:inactive /template/ Panel#root TextBlock#titleShadow">
+      <Setter Property="Foreground" Value="{DynamicResource Royale.Invented.WindowFrame.Title.InactiveShadow}" />
+    </Style>
+    <!-- Caption buttons: normal, inactive window, hot, pressed (a later state wins). -->
+    <Style Selector="^ /template/ Panel#root Button.caption">
+      <Setter Property="Background" Value="{DynamicResource Royale.Invented.WindowFrame.Button.Normal}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Royale.Invented.WindowFrame.Button.Border}" />
+      <Setter Property="Foreground" Value="{DynamicResource Royale.Invented.WindowFrame.Button.Glyph}" />
+    </Style>
+    <Style Selector="^ /template/ Panel#root Button.close">
+      <Setter Property="Background" Value="{DynamicResource Royale.Invented.WindowFrame.Close.Normal}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Royale.Invented.WindowFrame.Button.Border}" />
+      <Setter Property="Foreground" Value="{DynamicResource Royale.Invented.WindowFrame.Close.Glyph}" />
+    </Style>
+    <Style Selector="^:inactive /template/ Panel#root Button.caption">
+      <Setter Property="Background" Value="{DynamicResource Royale.Invented.WindowFrame.Button.Inactive}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Royale.Invented.WindowFrame.Button.InactiveBorder}" />
+    </Style>
+    <Style Selector="^:inactive /template/ Panel#root Button.close">
+      <Setter Property="Background" Value="{DynamicResource Royale.Invented.WindowFrame.Close.Inactive}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Royale.Invented.WindowFrame.Button.InactiveBorder}" />
+    </Style>
+    <Style Selector="^ /template/ Panel#root Button.caption:pointerover">
+      <Setter Property="Background" Value="{DynamicResource Royale.Invented.WindowFrame.Button.Hot}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Royale.Invented.WindowFrame.Button.Border}" />
+    </Style>
+    <Style Selector="^ /template/ Panel#root Button.close:pointerover">
+      <Setter Property="Background" Value="{DynamicResource Royale.Invented.WindowFrame.Close.Hot}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Royale.Invented.WindowFrame.Button.Border}" />
+    </Style>
+    <Style Selector="^ /template/ Panel#root Button.caption:pressed">
+      <Setter Property="Background" Value="{DynamicResource Royale.Invented.WindowFrame.Button.Pressed}" />
+    </Style>
+    <Style Selector="^ /template/ Panel#root Button.close:pressed">
+      <Setter Property="Background" Value="{DynamicResource Royale.Invented.WindowFrame.Close.Pressed}" />
+    </Style>
+    <Style Selector="^ /template/ Button:disabled">
+      <Setter Property="Opacity" Value="0.6" />
+    </Style>
+
+    <Style Selector="^:noicon /template/ Image#icon">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <!-- Maximized: the caption fills the top edge; no outer edge, no rounded corners, no resize borders. -->
+    <Style Selector="^:maximized">
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="CornerRadius" Value="0" />
+    </Style>
+    <Style Selector="^:maximized /template/ Border#caption">
+      <Setter Property="CornerRadius" Value="0" />
+    </Style>
+    <Style Selector="^:maximized /template/ Border#client">
+      <Setter Property="Margin" Value="0" />
+      <Setter Property="BorderThickness" Value="0" />
+    </Style>
+    <Style Selector="^:maximized /template/ Panel#resize">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:maximized /template/ Button#PART_MaximizeButton">
+      <Setter Property="Content" Value="{DynamicResource Royale.Invented.WindowFrame.RestoreGlyph}" />
+    </Style>
+    <!-- Tool window: the small caption, small buttons and the small caption font. -->
+    <Style Selector="^:tool /template/ Grid#PART_Caption">
+      <Setter Property="Height" Value="{DynamicResource Royale.Invented.WindowFrame.ToolCaptionHeight}" />
+    </Style>
+    <Style Selector="^:tool /template/ Button">
+      <Setter Property="Width" Value="{DynamicResource Royale.Invented.WindowFrame.ToolButtonSize}" />
+      <Setter Property="Height" Value="{DynamicResource Royale.Invented.WindowFrame.ToolButtonSize}" />
+      <Setter Property="Margin" Value="0,0,2,0" />
+    </Style>
+    <!-- XP tool windows have only the close button. -->
+    <Style Selector="^:tool /template/ Button.caption">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:tool /template/ Image#icon">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:tool /template/ TextBlock">
+      <Setter Property="FontFamily" Value="{DynamicResource SystemFonts.SmallCaptionFontFamily}" />
+      <Setter Property="FontSize" Value="{DynamicResource SystemFonts.SmallCaptionFontSize}" />
+      <Setter Property="FontWeight" Value="{DynamicResource SystemFonts.SmallCaptionFontWeight}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

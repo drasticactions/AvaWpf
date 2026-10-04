@@ -1,0 +1,7 @@
+{
+  "control": "ProgressBar",
+  "width": 180,
+  "height": 40,
+  "properties": { "Minimum": 0, "Maximum": 100, "Value": 40, "Width": 160, "Height": 18 },
+  "states": ["normal", "disabled"]
+}

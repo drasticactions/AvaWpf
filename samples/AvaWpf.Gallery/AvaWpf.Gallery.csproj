@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <RootNamespace>AvaWpf.Gallery</RootNamespace>
+    <IsAotCompatible>true</IsAotCompatible>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\AvaWpf.Theme\AvaWpf.Theme.csproj" />
+    <ProjectReference Include="..\..\src\AvaWpf.DataGrid\AvaWpf.DataGrid.csproj" />
+    <ProjectReference Include="..\..\src\AvaWpf.Controls\AvaWpf.Controls.csproj" />
+    <ProjectReference Include="..\..\src\AvaWpf.Ribbon\AvaWpf.Ribbon.csproj" />
+    <ProjectReference Include="..\..\src\AvaWpf.Fonts\AvaWpf.Fonts.csproj" />
+    <ProjectReference Include="..\AvaWpf.Samples.Common\AvaWpf.Samples.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Include="Assets\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="AvaWpf.Gallery.Desktop" />
+    <InternalsVisibleTo Include="AvaWpf.Gallery.Browser" />
+  </ItemGroup>
+
+</Project>

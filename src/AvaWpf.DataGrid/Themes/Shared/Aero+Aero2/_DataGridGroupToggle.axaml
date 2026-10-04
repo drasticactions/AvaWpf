@@ -1,0 +1,60 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- The group header glyph, from WPF ExpanderDownHeaderStyle, Aero.NormalColor and Aero2.NormalColor. -->
+  <ControlTheme x:Key="$F.DataGridRowGroupExpanderButton" TargetType="ToggleButton">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Width="19" Height="19" Background="Transparent">
+          <Ellipse x:Name="circle"
+                   StrokeThickness="1"
+                   Width="19"
+                   Height="19"
+                   Stroke="{DynamicResource $F.Expander.Static.Circle.Stroke}"
+                   Fill="{DynamicResource $F.Expander.Static.Circle.Fill}" />
+          <Path x:Name="arrow"
+                Width="8.71"
+                Height="6.41"
+                UseLayoutRounding="False"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Stroke="{DynamicResource $F.Expander.Static.Arrow.Stroke}"
+                StrokeThickness="2"
+                Data="{DynamicResource $F.Expander.ExpanderDownHeaderStyle.arrow.Data}" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:checked /template/ Path#arrow">
+      <Setter Property="Data" Value="{DynamicResource $F.Expander.ExpanderDownHeaderStyle.arrow.Data.IsChecked_true}" />
+      <Setter Property="Height" Value="5.21" />
+    </Style>
+    <Style Selector="^:pointerover">
+      <Style Selector="^ /template/ Ellipse#circle">
+        <Setter Property="Stroke" Value="{DynamicResource $F.Expander.MouseOver.Circle.Stroke}" />
+        <Setter Property="Fill" Value="{DynamicResource $F.Expander.MouseOver.Circle.Fill}" />
+      </Style>
+      <Style Selector="^ /template/ Path#arrow">
+        <Setter Property="Stroke" Value="{DynamicResource $F.Expander.MouseOver.Arrow.Stroke}" />
+      </Style>
+    </Style>
+    <Style Selector="^:pressed">
+      <Style Selector="^ /template/ Ellipse#circle">
+        <Setter Property="Stroke" Value="{DynamicResource $F.Expander.Pressed.Circle.Stroke}" />
+        <Setter Property="StrokeThickness" Value="1.5" />
+        <Setter Property="Fill" Value="{DynamicResource $F.Expander.Pressed.Circle.Fill}" />
+      </Style>
+      <Style Selector="^ /template/ Path#arrow">
+        <Setter Property="Stroke" Value="{DynamicResource $F.Expander.Pressed.Arrow.Stroke}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Style Selector="^ /template/ Ellipse#circle">
+        <Setter Property="Stroke" Value="{DynamicResource $F.Expander.Disabled.Circle.Stroke}" />
+        <Setter Property="Fill" Value="{DynamicResource $F.Expander.Disabled.Circle.Fill}" />
+      </Style>
+      <Style Selector="^ /template/ Path#arrow">
+        <Setter Property="Stroke" Value="{DynamicResource $F.Expander.Disabled.Arrow.Stroke}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

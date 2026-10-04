@@ -1,0 +1,62 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/ComboBox.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!--
+    WPF DefaultComboBoxItemStyle. WPF binds the item's Margin onto its inner Border, which doubles it in Avalonia, so it
+    is applied once.
+  -->
+  <ControlTheme x:Key="{x:Type ComboBoxItem}" TargetType="ComboBoxItem">
+    <Setter Property="FocusAdorner" Value="{DynamicResource Fluent.FocusVisual}" />
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.ComboBoxForeground}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Margin" Value="{DynamicResource Fluent.ComboBoxItemMargin}" />
+    <Setter Property="Padding" Value="{DynamicResource Fluent.ComboBoxItemContentMargin}" />
+    <Setter Property="CornerRadius" Value="{DynamicResource Fluent.ControlCornerRadius}" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid>
+          <Border Name="ContentBorder"
+                  Padding="0"
+                  VerticalAlignment="Stretch"
+                  Background="{TemplateBinding Background}"
+                  CornerRadius="{TemplateBinding CornerRadius}"
+                  UseLayoutRounding="True">
+            <Grid>
+              <ContentPresenter Name="PART_ContentPresenter"
+                                Margin="{TemplateBinding Padding}"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}" />
+              <Rectangle Name="ActiveRectangle"
+                         Width="3"
+                         Height="16"
+                         Margin="0"
+                         HorizontalAlignment="Left"
+                         VerticalAlignment="Center"
+                         Fill="{DynamicResource Fluent.ComboBoxItemPillFillBrush}"
+                         RadiusX="2"
+                         RadiusY="2"
+                         IsVisible="False" />
+            </Grid>
+          </Border>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#ContentBorder, ^:focus /template/ Border#ContentBorder">
+      <Setter Property="Background" Value="{DynamicResource Fluent.ComboBoxItemBackgroundSelected}" />
+    </Style>
+    <Style Selector="^:selected">
+      <Style Selector="^ /template/ Rectangle#ActiveRectangle">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.ComboBoxItemForegroundSelected}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource Fluent.ComboBoxForegroundDisabled}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

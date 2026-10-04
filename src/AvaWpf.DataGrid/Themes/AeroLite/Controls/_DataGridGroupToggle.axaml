@@ -1,0 +1,32 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- The group header glyph, from WPF ExpanderDownHeaderStyle, AeroLite.NormalColor. -->
+  <ControlTheme x:Key="AeroLite.DataGridRowGroupExpanderButton" TargetType="ToggleButton">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Width="19" Height="19" Background="Transparent">
+          <Path x:Name="arrow"
+                Width="8.71"
+                Height="6.41"
+                UseLayoutRounding="False"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Stroke="{DynamicResource AeroLite.Expander.Static.Glyph}"
+                StrokeThickness="2"
+                Data="{DynamicResource AeroLite.Expander.ExpanderDownHeaderStyle.arrow.Data}" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:checked /template/ Path#arrow">
+      <Setter Property="Data" Value="{DynamicResource AeroLite.Expander.ExpanderDownHeaderStyle.arrow.Data.IsChecked_true}" />
+      <Setter Property="Height" Value="5.21" />
+    </Style>
+    <Style Selector="^:pointerover /template/ Path#arrow">
+      <Setter Property="Stroke" Value="{DynamicResource AeroLite.Expander.MouseOver.Glyph}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Path#arrow">
+      <Setter Property="Stroke" Value="{DynamicResource AeroLite.Expander.Pressed.Glyph}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

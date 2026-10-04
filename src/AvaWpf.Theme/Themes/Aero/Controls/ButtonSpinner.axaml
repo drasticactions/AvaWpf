@@ -1,0 +1,60 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:aero="using:AvaWpf.Chrome.Aero">
+  <!-- ButtonSpinner: the Aero TextBox frame with two stacked ScrollBar line buttons in a 17 px column. -->
+  <ControlTheme x:Key="{x:Type ButtonSpinner}" TargetType="ButtonSpinner">
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="Background" Value="{DynamicResource SystemColors.WindowBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Aero.TextBoxBorder}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Padding" Value="1" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Focusable" Value="True" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <aero:ListBoxChrome Name="Bd"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            RenderMouseOver="{TemplateBinding IsPointerOver}"
+                            RenderFocused="{TemplateBinding IsKeyboardFocusWithin}"
+                            UseLayoutRounding="True">
+          <DockPanel>
+            <Grid Name="PART_SpinnerPanel"
+                  DockPanel.Dock="Right"
+                  RowDefinitions="*,*"
+                  Width="{DynamicResource SystemParameters.VerticalScrollBarWidth}"
+                  IsVisible="{TemplateBinding ShowButtonSpinner}">
+              <RepeatButton Name="PART_IncreaseButton"
+                            Grid.Row="0"
+                            Theme="{StaticResource Aero.ScrollBarLineButton}"
+                            Classes="up"
+                            IsTabStop="False" />
+              <RepeatButton Name="PART_DecreaseButton"
+                            Grid.Row="1"
+                            Theme="{StaticResource Aero.ScrollBarLineButton}"
+                            Classes="down"
+                            IsTabStop="False" />
+            </Grid>
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Padding="{TemplateBinding Padding}"
+                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+          </DockPanel>
+        </aero:ListBoxChrome>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:left /template/ Grid#PART_SpinnerPanel">
+      <Setter Property="DockPanel.Dock" Value="Left" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+      <Style Selector="^ /template/ aero|ListBoxChrome#Bd">
+        <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

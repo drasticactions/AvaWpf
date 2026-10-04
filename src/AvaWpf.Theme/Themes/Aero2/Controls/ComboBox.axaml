@@ -1,0 +1,391 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!--
+    WPF ComboBox.xaml, Aero2.NormalColor; class toolbar: WPF ToolBar.ComboBoxStyleKey. WPF's OpaqueRect is omitted: it
+    only affects ClearType in layered popups, which Avalonia does not render.
+  -->
+
+  <!-- WPF ComboBox.xaml ComboBoxEditableTextBox: a bare scroll host, no border or background. -->
+  <ControlTheme x:Key="Aero2.ComboBoxEditableTextBox" TargetType="TextBox">
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="SelectionBrush" Value="{DynamicResource SystemColors.HighlightBrush}" />
+    <Setter Property="SelectionForegroundBrush" Value="{DynamicResource SystemColors.HighlightTextBrush}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ScrollViewer Name="PART_ScrollViewer"
+                      Focusable="False"
+                      HorizontalScrollBarVisibility="Hidden"
+                      VerticalScrollBarVisibility="Hidden"
+                      Background="Transparent">
+          <TextPresenter Name="PART_TextPresenter"
+                         Text="{TemplateBinding Text, Mode=TwoWay}"
+                         CaretBlinkInterval="{TemplateBinding CaretBlinkInterval}"
+                         CaretIndex="{TemplateBinding CaretIndex}"
+                         SelectionStart="{TemplateBinding SelectionStart}"
+                         SelectionEnd="{TemplateBinding SelectionEnd}"
+                         TextAlignment="{TemplateBinding TextAlignment}"
+                         TextWrapping="{TemplateBinding TextWrapping}"
+                         LineHeight="{TemplateBinding LineHeight}"
+                         LetterSpacing="{TemplateBinding LetterSpacing}"
+                         PasswordChar="{TemplateBinding PasswordChar}"
+                         RevealPassword="{TemplateBinding RevealPassword}"
+                         SelectionBrush="{TemplateBinding SelectionBrush}"
+                         SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
+                         CaretBrush="{TemplateBinding CaretBrush}"
+                         HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                         VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+        </ScrollViewer>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <!-- WPF ToolBar.xaml ToolBarComboBoxTransparentButtonStyle: a 13 px arrow column in the toolbar hover colors. -->
+  <ControlTheme x:Key="Aero2.ToolBarComboBoxTransparentButtonStyle" TargetType="ToggleButton">
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="Width" Value="NaN" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Focusable" Value="False" />
+    <!-- Release, not WPF's Press: see Aero2.ComboBoxToggleButton. -->
+    <Setter Property="ClickMode" Value="Release" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Background="Transparent">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" SharedSizeGroup="ComboBoxButton" />
+          </Grid.ColumnDefinitions>
+          <Border Name="Chrome"
+                  Grid.Column="1"
+                  Width="13"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  UseLayoutRounding="True">
+            <Path Name="ArrowDownPath"
+                  Data="{DynamicResource Aero2.ToolBar.ToolBarComboBoxTransparentButtonStyle.ArrowDownPath.Data}"
+                  Fill="{DynamicResource Aero2.ToolBar.ToolBarComboBoxTransparentButtonStyle.ArrowDownPath.Fill}"
+                  VerticalAlignment="Center" />
+          </Border>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:disabled /template/ Border#Chrome">
+      <Setter Property="BorderBrush" Value="{x:Null}" />
+    </Style>
+    <Style Selector="^:pointerover:not(:checked) /template/ Border#Chrome">
+      <Setter Property="Background" Value="{DynamicResource Aero2.ToolBarButtonHover}" />
+    </Style>
+    <Style Selector="^:checked /template/ Border#Chrome">
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ToolBarButtonPressedBorder}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Border#Chrome">
+      <Setter Property="Background" Value="{DynamicResource Aero2.ToolBarButtonPressed}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#ArrowDownPath">
+      <Setter Property="Fill" Value="{DynamicResource Aero2.ToolBarDisabledBorder}" />
+    </Style>
+  </ControlTheme>
+
+  <!-- WPF ComboBox.xaml ComboBoxTemplate. -->
+  <ControlTemplate x:Key="Aero2.ComboBoxTemplate" TargetType="ComboBox">
+    <Grid Name="templateRoot" UseLayoutRounding="True">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition MinWidth="{DynamicResource SystemParameters.VerticalScrollBarWidth}" Width="0" />
+      </Grid.ColumnDefinitions>
+      <Popup Name="PART_Popup"
+             OverlayInputPassThroughElement="{Binding $parent[ComboBox]}"
+             Margin="1"
+             Placement="Bottom"
+             Grid.ColumnSpan="2"
+             PlacementTarget="templateRoot"
+             IsLightDismissEnabled="True"
+             InheritsTransform="True"
+             WindowManagerAddShadowHint="False"
+             IsOpen="{TemplateBinding IsDropDownOpen, Mode=TwoWay}"
+             wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.ComboBoxPopupAnimation}">
+        <wpf:SystemDropShadowChrome Name="shadow"
+                                    Classes.dropshadow="{DynamicResource SystemParameters.DropShadow}"
+                                    MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                    MinWidth="{Binding #templateRoot.Bounds.Width}">
+          <Border Name="DropDownBorder"
+                  BorderBrush="{DynamicResource SystemColors.WindowFrameBrush}"
+                  Background="{DynamicResource SystemColors.WindowBrush}"
+                  BorderThickness="1">
+            <ScrollViewer Name="DropDownScrollViewer"
+                          HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                          VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                          IsScrollChainingEnabled="False">
+              <Grid Name="grid">
+                <ItemsPresenter Name="PART_ItemsPresenter"
+                                ItemsPanel="{TemplateBinding ItemsPanel}"
+                                KeyboardNavigation.TabNavigation="Continue"
+                                UseLayoutRounding="True" />
+              </Grid>
+            </ScrollViewer>
+          </Border>
+        </wpf:SystemDropShadowChrome>
+      </Popup>
+      <ToggleButton Name="toggleButton"
+                    Theme="{StaticResource Aero2.ComboBoxToggleButton}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    Background="{TemplateBinding Background}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    IsChecked="{TemplateBinding IsDropDownOpen, Mode=TwoWay}"
+                    Grid.ColumnSpan="2" />
+      <ContentPresenter Name="contentPresenter"
+                        Content="{TemplateBinding SelectionBoxItem}"
+                        ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                        IsHitTestVisible="False"
+                        Margin="{TemplateBinding Padding}"
+                        UseLayoutRounding="True"
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+      <!-- Not in WPF: Avalonia's ComboBox.PlaceholderText, shown while nothing is selected. -->
+      <TextBlock Name="PlaceholderTextBlock"
+                 IsHitTestVisible="False"
+                 Margin="{TemplateBinding Padding}"
+                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                 Text="{TemplateBinding PlaceholderText}"
+                 Foreground="{TemplateBinding PlaceholderForeground}"
+                 IsVisible="{TemplateBinding SelectionBoxItem, Converter={x:Static ObjectConverters.IsNull}}" />
+    </Grid>
+  </ControlTemplate>
+
+  <!-- WPF ComboBox.xaml ComboBoxEditableTemplate. -->
+  <ControlTemplate x:Key="Aero2.ComboBoxEditableTemplate" TargetType="ComboBox">
+    <Grid Name="templateRoot" UseLayoutRounding="True">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition MinWidth="{DynamicResource SystemParameters.VerticalScrollBarWidth}" Width="0" />
+      </Grid.ColumnDefinitions>
+      <Popup Name="PART_Popup"
+             OverlayInputPassThroughElement="{Binding $parent[ComboBox]}"
+             Placement="Bottom"
+             Grid.ColumnSpan="2"
+             PlacementTarget="templateRoot"
+             IsLightDismissEnabled="True"
+             InheritsTransform="True"
+             WindowManagerAddShadowHint="False"
+             IsOpen="{TemplateBinding IsDropDownOpen, Mode=TwoWay}"
+             wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.ComboBoxPopupAnimation}">
+        <wpf:SystemDropShadowChrome Name="shadow"
+                                    Classes.dropshadow="{DynamicResource SystemParameters.DropShadow}"
+                                    MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                    MinWidth="{Binding #templateRoot.Bounds.Width}">
+          <Border Name="DropDownBorder"
+                  BorderBrush="{DynamicResource SystemColors.WindowFrameBrush}"
+                  Background="{DynamicResource SystemColors.WindowBrush}"
+                  BorderThickness="1">
+            <ScrollViewer Name="DropDownScrollViewer"
+                          HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                          VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                          IsScrollChainingEnabled="False">
+              <Grid Name="grid">
+                <ItemsPresenter Name="PART_ItemsPresenter"
+                                ItemsPanel="{TemplateBinding ItemsPanel}"
+                                KeyboardNavigation.TabNavigation="Continue"
+                                UseLayoutRounding="True" />
+              </Grid>
+            </ScrollViewer>
+          </Border>
+        </wpf:SystemDropShadowChrome>
+      </Popup>
+      <ToggleButton Name="toggleButton"
+                    Theme="{StaticResource Aero2.ComboBoxToggleButton}"
+                    Classes="editable"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    Background="{TemplateBinding Background}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    IsChecked="{TemplateBinding IsDropDownOpen, Mode=TwoWay}"
+                    Grid.ColumnSpan="2" />
+      <Border Name="Border"
+              Margin="{TemplateBinding BorderThickness}"
+              Background="{DynamicResource Aero2.TextBox.Static.Background}">
+        <TextBox Name="PART_EditableTextBox"
+                 Theme="{StaticResource Aero2.ComboBoxEditableTextBox}"
+                 Text="{TemplateBinding Text, Mode=TwoWay}"
+                 PlaceholderText="{TemplateBinding PlaceholderText}"
+                 PlaceholderForeground="{TemplateBinding PlaceholderForeground}"
+                 Foreground="{TemplateBinding Foreground}"
+                 Margin="{TemplateBinding Padding}"
+                 HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                 VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+      </Border>
+    </Grid>
+  </ControlTemplate>
+
+  <!-- WPF ToolBar.xaml ToolBar.ComboBoxStyleKey template. -->
+  <ControlTemplate x:Key="Aero2.ToolBarComboBoxTemplate" TargetType="ComboBox">
+    <Grid UseLayoutRounding="True">
+      <Grid Grid.IsSharedSizeScope="True">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="Auto" SharedSizeGroup="ComboBoxButton" />
+        </Grid.ColumnDefinitions>
+        <Border Name="Background" Background="{TemplateBinding Background}" />
+        <Border Name="SelectedContentBorder" Margin="2,2,1,2">
+          <ContentPresenter Name="ContentSite"
+                            Content="{TemplateBinding SelectionBoxItem}"
+                            ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                            Margin="{TemplateBinding Padding}"
+                            VerticalAlignment="Center"
+                            UseLayoutRounding="True" />
+        </Border>
+        <Border Name="Border"
+                Grid.ColumnSpan="2"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                BorderBrush="{TemplateBinding BorderBrush}" />
+        <ToggleButton Name="DropDownButton"
+                      Theme="{StaticResource Aero2.ToolBarComboBoxTransparentButtonStyle}"
+                      BorderBrush="{DynamicResource Aero2.ToolBar.ToolBar.ComboBoxStyleKey.DropDownButton.BorderBrush}"
+                      BorderThickness="1"
+                      Grid.ColumnSpan="2"
+                      IsChecked="{TemplateBinding IsDropDownOpen, Mode=TwoWay}" />
+        <TextBox Name="PART_EditableTextBox"
+                 Theme="{StaticResource Aero2.ComboBoxEditableTextBox}"
+                 Text="{TemplateBinding Text, Mode=TwoWay}"
+                 Foreground="{TemplateBinding Foreground}"
+                 Padding="{TemplateBinding Padding}"
+                 Margin="1,1,0,1"
+                 MinHeight="18"
+                 IsVisible="False"
+                 VerticalAlignment="Center" />
+      </Grid>
+      <Popup Name="PART_Popup"
+             OverlayInputPassThroughElement="{Binding $parent[ComboBox]}"
+             Placement="Bottom"
+             IsLightDismissEnabled="True"
+             InheritsTransform="True"
+             WindowManagerAddShadowHint="False"
+             IsOpen="{TemplateBinding IsDropDownOpen, Mode=TwoWay}"
+             Focusable="False"
+             wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.ComboBoxPopupAnimation}">
+        <wpf:SystemDropShadowChrome Name="Shdw"
+                                    Classes.dropshadow="{DynamicResource SystemParameters.DropShadow}"
+                                    MinWidth="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}"
+                                    MaxHeight="{TemplateBinding MaxDropDownHeight}">
+          <Border Name="DropDownBorder"
+                  Background="{TemplateBinding Background}"
+                  BorderThickness="1"
+                  BorderBrush="{DynamicResource Aero2.ToolBarMenuBorder}">
+            <ScrollViewer Name="DropDownScrollViewer"
+                          HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                          VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                          IsScrollChainingEnabled="False">
+              <Grid>
+                <ItemsPresenter Name="PART_ItemsPresenter"
+                                ItemsPanel="{TemplateBinding ItemsPanel}"
+                                KeyboardNavigation.TabNavigation="Continue" />
+              </Grid>
+            </ScrollViewer>
+          </Border>
+        </wpf:SystemDropShadowChrome>
+      </Popup>
+    </Grid>
+  </ControlTemplate>
+
+  <ControlTheme x:Key="{x:Type ComboBox}" TargetType="ComboBox">
+    <Setter Property="FocusAdorner" Value="{DynamicResource Aero2.FocusVisual}" />
+    <Setter Property="Background" Value="{DynamicResource Aero2.ComboBox.Static.Background}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ComboBox.Static.Border}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.WindowTextBrush}" />
+    <Setter Property="PlaceholderForeground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+    <Setter Property="Padding" Value="6,3,5,3" />
+    <!-- WPF Control defaults: content at the top left. -->
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+    <Setter Property="VerticalContentAlignment" Value="Top" />
+    <Setter Property="Template" Value="{StaticResource Aero2.ComboBoxTemplate}" />
+
+    <!-- WPF ComboBoxTemplate / ComboBoxEditableTemplate triggers. -->
+    <Style Selector="^ /template/ wpf|SystemDropShadowChrome#shadow.dropshadow">
+      <Setter Property="Margin" Value="0,0,5,5" />
+    </Style>
+    <Style Selector="^:empty:not(.toolbar) /template/ Border#DropDownBorder">
+      <Setter Property="Height" Value="95" />
+    </Style>
+
+    <Style Selector="^[IsEditable=True]:not(.toolbar)">
+      <Setter Property="IsTabStop" Value="False" />
+      <Setter Property="Padding" Value="2" />
+      <Setter Property="Template" Value="{StaticResource Aero2.ComboBoxEditableTemplate}" />
+      <Style Selector="^:disabled /template/ Border#Border">
+        <Setter Property="Opacity" Value="0.56" />
+      </Style>
+      <Style Selector="^:focus-within">
+        <Setter Property="Foreground" Value="{DynamicResource Aero2.ComboBox.ComboBoxEditableTemplate.Self.Foreground.IsKeyboardFocusWithin_true}" />
+      </Style>
+    </Style>
+
+    <!-- WPF ToolBar.xaml ToolBar.ComboBoxStyleKey. -->
+    <Style Selector="^.toolbar">
+      <Setter Property="FocusAdorner" Value="{x:Null}" />
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.WindowTextBrush}" />
+      <Setter Property="Background" Value="{DynamicResource SystemColors.WindowBrush}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource SystemColors.WindowBrush}" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="Margin" Value="1,0" />
+      <Setter Property="Padding" Value="0" />
+      <Setter Property="HorizontalAlignment" Value="Center" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+      <Setter Property="MinHeight" Value="18" />
+      <Setter Property="Template" Value="{StaticResource Aero2.ToolBarComboBoxTemplate}" />
+
+      <Style Selector="^:disabled">
+        <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+        <Style Selector="^ /template/ Border#Background">
+          <Setter Property="Background" Value="{DynamicResource Aero2.ToolBarDisabledFill}" />
+          <Setter Property="Grid.ColumnSpan" Value="2" />
+        </Style>
+        <Style Selector="^ /template/ Border#Border">
+          <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ToolBarDisabledBorder}" />
+        </Style>
+      </Style>
+      <Style Selector="^[IsEditable=False]:focus-within:not(:dropdownopen) /template/ Border#SelectedContentBorder">
+        <Setter Property="Background" Value="{DynamicResource SystemColors.HighlightBrush}" />
+      </Style>
+      <Style Selector="^[IsEditable=True]">
+        <Style Selector="^ /template/ ToggleButton#DropDownButton">
+          <Setter Property="Background" Value="{x:Null}" />
+        </Style>
+        <Style Selector="^ /template/ ContentPresenter#ContentSite">
+          <Setter Property="IsVisible" Value="False" />
+        </Style>
+        <Style Selector="^ /template/ TextBox#PART_EditableTextBox">
+          <Setter Property="IsVisible" Value="True" />
+        </Style>
+      </Style>
+      <Style Selector="^:pointerover, ^:focus-within">
+        <Style Selector="^ /template/ ToggleButton#DropDownButton">
+          <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ToolBarButtonHoverBorder}" />
+          <Setter Property="Background" Value="{DynamicResource Aero2.ToolBarButtonHover}" />
+        </Style>
+        <Style Selector="^ /template/ Border#Border">
+          <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ToolBarButtonHoverBorder}" />
+        </Style>
+      </Style>
+      <Style Selector="^ /template/ wpf|SystemDropShadowChrome#Shdw.dropshadow">
+        <Setter Property="Margin" Value="0,0,5,5" />
+      </Style>
+      <Style Selector="^:empty /template/ Border#DropDownBorder">
+        <Setter Property="MinHeight" Value="95" />
+      </Style>
+      <Style Selector="^[IsEditable=False]:focus-within:not(:dropdownopen)">
+        <Setter Property="Foreground" Value="{DynamicResource SystemColors.HighlightTextBrush}" />
+      </Style>
+      <Style Selector="^[IsEditable=True]">
+        <Setter Property="Padding" Value="2" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="Template" Value="{StaticResource Aero2.ToolBarComboBoxTemplate}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

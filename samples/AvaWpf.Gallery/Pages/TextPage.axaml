@@ -1,0 +1,18 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:wpf="https://github.com/avawpf"
+             x:Class="AvaWpf.Gallery.Pages.TextPage">
+  <StackPanel Spacing="12" Width="360" HorizontalAlignment="Left">
+    <TextBlock Classes="Subtitle" Text="Text input" />
+    <TextBox Text="Text box" />
+    <TextBox PlaceholderText="PlaceholderText" />
+    <TextBox Classes="password" PasswordChar="●" Text="secret" />
+    <TextBox Text="Read only" IsReadOnly="True" />
+    <TextBox Text="Disabled" IsEnabled="False" />
+    <TextBox AcceptsReturn="True" TextWrapping="Wrap" Height="80" Text="Multi-line text box. The quick brown fox jumps over the lazy dog." />
+    <AutoCompleteBox Name="Auto" PlaceholderText="Auto-complete (try A)" />
+    <NumericUpDown Value="42" Minimum="0" Maximum="100" FormatString="0" />
+    <SelectableTextBlock Text="Selectable text block: drag to select." />
+    <Label Content="_Label with an access key" />
+  </StackPanel>
+</UserControl>

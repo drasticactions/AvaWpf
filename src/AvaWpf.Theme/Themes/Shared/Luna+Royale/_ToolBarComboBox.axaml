@@ -1,0 +1,102 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF ToolBar.xaml ToolBarComboBoxTransparentButtonStyle and the ToolBar.ComboBoxStyleKey template, for the
+       ComboBox .toolbar class. -->
+  <ControlTheme x:Key="$F.ToolBarComboBoxToggleButton" TargetType="ToggleButton">
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="ClickMode" Value="Press" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Background="Transparent" ColumnDefinitions="*,Auto">
+          <Border Name="Chrome"
+                  Grid.Column="1"
+                  Width="13"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  UseLayoutRounding="True">
+            <Path Name="ArrowDownPath"
+                  Data="{DynamicResource $F.ToolBar.ToolBarComboBoxTransparentButtonStyle.ArrowDownPath.Data}"
+                  Fill="{DynamicResource $F.ToolBar.ToolBarComboBoxTransparentButtonStyle.ArrowDownPath.Fill}"
+                  VerticalAlignment="Center" />
+          </Border>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:disabled /template/ Border#Chrome">
+      <Setter Property="BorderBrush" Value="{x:Null}" />
+    </Style>
+    <Style Selector="^:pointerover:unchecked /template/ Border#Chrome">
+      <Setter Property="Background" Value="{DynamicResource $F.ToolBarButtonHover}" />
+    </Style>
+    <Style Selector="^:checked /template/ Border#Chrome">
+      <Setter Property="BorderBrush" Value="{DynamicResource $F.ToolBarButtonPressedBorder}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Border#Chrome">
+      <Setter Property="Background" Value="{DynamicResource $F.ToolBarButtonPressed}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#ArrowDownPath">
+      <Setter Property="Fill" Value="{DynamicResource $F.ToolBarDisabledBorder}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTemplate x:Key="$F.ToolBarComboBoxTemplate" TargetType="ComboBox">
+    <Grid UseLayoutRounding="True">
+      <Grid ColumnDefinitions="*,Auto">
+        <Border Name="Background" Background="{TemplateBinding Background}" />
+        <Border Name="SelectedContentBorder" Margin="2,2,1,2">
+          <ContentPresenter Name="ContentSite"
+                            Content="{TemplateBinding SelectionBoxItem}"
+                            ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                            Margin="{TemplateBinding Padding}"
+                            VerticalAlignment="Center"
+                            IsVisible="{TemplateBinding IsEditable, Converter={x:Static BoolConverters.Not}}" />
+        </Border>
+        <Border Name="Border"
+                Grid.ColumnSpan="2"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                BorderBrush="{TemplateBinding BorderBrush}" />
+        <ToggleButton Name="DropDownButton"
+                      Grid.ColumnSpan="2"
+                      BorderBrush="{DynamicResource $F.ToolBar.ToolBar.ComboBoxStyleKey.DropDownButton.BorderBrush}"
+                      BorderThickness="1"
+                      Theme="{StaticResource $F.ToolBarComboBoxToggleButton}"
+                      IsChecked="{TemplateBinding IsDropDownOpen, Mode=TwoWay}" />
+        <TextBox Name="PART_EditableTextBox"
+                 Padding="{TemplateBinding Padding}"
+                 Margin="1,1,0,1"
+                 MinHeight="18"
+                 Theme="{StaticResource $F.ComboBoxEditableTextBox}"
+                 Text="{TemplateBinding Text, Mode=TwoWay}"
+                 IsVisible="{TemplateBinding IsEditable}"
+                 VerticalAlignment="Center" />
+      </Grid>
+      <Popup Name="PART_Popup"
+             OverlayInputPassThroughElement="{Binding $parent[ComboBox]}"
+             WindowManagerAddShadowHint="False"
+             Placement="BottomEdgeAlignedLeft"
+             IsLightDismissEnabled="True"
+             InheritsTransform="True"
+             IsOpen="{TemplateBinding IsDropDownOpen, Mode=TwoWay}"
+             wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.ComboBoxPopupAnimation}">
+        <wpf:SystemDropShadowChrome Name="Shdw"
+                                    Margin="0,0,5,5"
+                                    MinWidth="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}"
+                                    MaxHeight="{TemplateBinding MaxDropDownHeight}">
+          <Border Name="DropDownBorder"
+                  Background="{TemplateBinding Background}"
+                  BorderThickness="1"
+                  BorderBrush="{DynamicResource $F.ToolBarMenuBorder}">
+            <ScrollViewer Name="DropDownScrollViewer" AllowAutoHide="False">
+              <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
+            </ScrollViewer>
+          </Border>
+        </wpf:SystemDropShadowChrome>
+      </Popup>
+    </Grid>
+  </ControlTemplate>
+</ResourceDictionary>

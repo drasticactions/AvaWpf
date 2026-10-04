@@ -1,0 +1,48 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- WPF TreeViewItem.xaml TreeViewItemToggleButton_Style, AeroLite.NormalColor. -->
+  <ControlTheme x:Key="AeroLite.TreeViewExpandCollapseToggle" TargetType="ToggleButton">
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="ClickMode" Value="Press" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Width="15" Height="13" Background="Transparent" Margin="0,1,0,0">
+          <Path Name="Collapsed"
+                Width="5"
+                Height="9"
+                Data="{DynamicResource AeroLite.TreeViewItem.TreeViewItemToggleButton_Style.Collapsed.Data}"
+                Stretch="Fill"
+                Stroke="{TemplateBinding Foreground}"
+                StrokeThickness="1"
+                Margin="2,1,1,1"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Opacity="0.4"
+                UseLayoutRounding="True" />
+          <Path Name="Expanded"
+                Width="6"
+                Height="6"
+                Data="{DynamicResource AeroLite.TreeViewItem.TreeViewItemToggleButton_Style.Expanded.Data}"
+                Fill="{DynamicResource AeroLite.TreeViewItem.TreeViewItemToggleButton_Style.Expanded.Fill}"
+                Stroke="{TemplateBinding Foreground}"
+                StrokeThickness="1"
+                Stretch="Fill"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                UseLayoutRounding="True"
+                IsVisible="False"
+                Margin="1,2,1,1" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:checked">
+      <Style Selector="^ /template/ Path#Collapsed">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+      <Style Selector="^ /template/ Path#Expanded">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

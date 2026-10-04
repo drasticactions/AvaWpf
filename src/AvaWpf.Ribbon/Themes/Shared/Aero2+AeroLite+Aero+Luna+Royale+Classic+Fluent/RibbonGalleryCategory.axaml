@@ -1,0 +1,45 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf"
+                    xmlns:primitives="clr-namespace:AvaWpf.Ribbon.Primitives;assembly=AvaWpf.Ribbon">
+  <!-- WPF RibbonGalleryCategory.xaml, [[Generic]]. In an InRibbonGallery row (:inribbon) the title hides. -->
+  <ControlTheme x:Key="{x:Type wpf:RibbonGalleryCategory}" TargetType="wpf:RibbonGalleryCategory">
+    <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.GalleryCategory.HeaderBackground}" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="ItemsPanel">
+      <ItemsPanelTemplate>
+        <primitives:RibbonGalleryItemsPanel />
+      </ItemsPanelTemplate>
+    </Setter>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DockPanel Name="MainGrid">
+          <Border Name="HeaderBorder"
+                  DockPanel.Dock="Top"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  Padding="{TemplateBinding Padding}"
+                  IsVisible="{TemplateBinding IsHeaderVisible}">
+            <ContentPresenter Name="PART_HeaderPresenter"
+                              Content="{TemplateBinding Header}"
+                              ContentTemplate="{TemplateBinding HeaderTemplate}"
+                              FontWeight="Bold"
+                              Margin="4,1,4,1" />
+          </Border>
+          <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
+        </DockPanel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^[Header={x:Null}] /template/ Border#HeaderBorder">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:inribbon /template/ Border#HeaderBorder">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource $F.Invented.Ribbon.Disabled.Foreground}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

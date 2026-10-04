@@ -1,0 +1,67 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- SplitButton and ToggleSplitButton: two family button faces side by side; both draw pressed while the flyout is
+       open or the toggle is checked. -->
+  <ControlTheme x:Key="{x:Type SplitButton}" TargetType="SplitButton">
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="Background" Value="{DynamicResource $F.ButtonNormalBackgroundFill}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource $F.ButtonBorder}" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="KeyboardNavigation.IsTabStop" Value="True" />
+    <Setter Property="Focusable" Value="True" />
+    <Setter Property="FocusAdorner" Value="{DynamicResource $F.FocusVisualStyle}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid ColumnDefinitions="*,Auto">
+          <!-- The content is shown by the primary button; this empty presenter only registers. -->
+          <ContentPresenter Name="PART_ContentPresenter" IsVisible="False" />
+          <Button Name="PART_PrimaryButton"
+                  Theme="{StaticResource $F.SplitButtonPart}"
+                  Foreground="{TemplateBinding Foreground}"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  Content="{TemplateBinding Content}"
+                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                  Command="{TemplateBinding Command}"
+                  CommandParameter="{TemplateBinding CommandParameter}"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                  Padding="{TemplateBinding Padding}"
+                  KeyboardNavigation.IsTabStop="False" />
+          <Button Name="PART_SecondaryButton"
+                  Grid.Column="1"
+                  Theme="{StaticResource $F.SplitButtonPart}"
+                  Width="15"
+                  Foreground="{TemplateBinding Foreground}"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  Padding="0"
+                  HorizontalContentAlignment="Center"
+                  VerticalContentAlignment="Center"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  KeyboardNavigation.IsTabStop="False">
+            <Path Fill="{Binding $parent[Button].Foreground}" Data="{DynamicResource $F.DownArrow}" />
+          </Button>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:flyout-open /template/ Button">
+      <Setter Property="Tag" Value="flyout-open" />
+    </Style>
+    <Style Selector="^:checked /template/ Button">
+      <Setter Property="Tag" Value="checked" />
+    </Style>
+    <Style Selector="^:checked:flyout-open /template/ Button">
+      <Setter Property="Tag" Value="checked-flyout-open" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

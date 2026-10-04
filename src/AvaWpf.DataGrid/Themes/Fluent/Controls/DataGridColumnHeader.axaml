@@ -1,0 +1,75 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/DataGrid.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!-- WPF Fluent DefaultDataGridColumnHeaderStyle; :sortascending and :sortdescending map WPF SortDirection. -->
+  <ControlTheme x:Key="{x:Type DataGridColumnHeader}" TargetType="DataGridColumnHeader">
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.DataGridColumnHeaderForeground}" />
+    <Setter Property="Background" Value="{DynamicResource Fluent.DataGridColumnHeaderBackground}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Fluent.DataGridHeaderBorderBrush}" />
+    <Setter Property="MinHeight" Value="{DynamicResource Fluent.DataGridColumnHeaderMinHeight}" />
+    <Setter Property="Padding" Value="{DynamicResource Fluent.DataGridColumnHeaderPadding}" />
+    <Setter Property="SeparatorBrush" Value="{DynamicResource Fluent.DataGridHeaderSeparatorBrush}" />
+    <Setter Property="AreSeparatorsVisible" Value="True" />
+    <Setter Property="BorderThickness" Value="0,0,0,1" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid x:Name="RootGrid">
+          <Border x:Name="SeparatorBorder"
+                  BorderBrush="{TemplateBinding SeparatorBrush}"
+                  IsVisible="{TemplateBinding AreSeparatorsVisible}"
+                  BorderThickness="0,0,1,0" />
+          <Border x:Name="HeaderBorder"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  Padding="{TemplateBinding Padding}">
+            <Grid ColumnDefinitions="*,Auto">
+              <ContentPresenter x:Name="PART_ContentPresenter"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+              <TextBlock x:Name="SortIndicator"
+                         Grid.Column="1"
+                         VerticalAlignment="Top"
+                         Opacity="0"
+                         Margin="{DynamicResource Fluent.DataGridSortIndicatorIconMargin}"
+                         FontFamily="{DynamicResource Fluent.SymbolThemeFontFamily}"
+                         FontSize="{DynamicResource Fluent.DataGridSortIndicatorIconFontSize}"
+                         FontWeight="Normal"
+                         Text="{x:Static wpf:FluentGlyph.SortDown}" />
+            </Grid>
+          </Border>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover">
+      <Setter Property="Background" Value="{DynamicResource Fluent.DataGridHeaderBackgroundPointerOver}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Fluent.DataGridHeaderBorderBrushPointerOver}" />
+    </Style>
+    <Style Selector="^:pressed">
+      <Setter Property="Background" Value="{DynamicResource Fluent.DataGridHeaderBackgroundPressed}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Fluent.DataGridHeaderBorderBrushPressed}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Background" Value="{DynamicResource Fluent.DataGridHeaderBackgroundDisabled}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Fluent.DataGridHeaderBorderBrushDisabled}" />
+    </Style>
+    <Style Selector="^:sortascending /template/ TextBlock#SortIndicator">
+      <Setter Property="Opacity" Value="1" />
+      <Setter Property="Text" Value="{x:Static wpf:FluentGlyph.SortDown}" />
+    </Style>
+    <Style Selector="^:sortdescending /template/ TextBlock#SortIndicator">
+      <Setter Property="Opacity" Value="1" />
+      <Setter Property="Text" Value="{x:Static wpf:FluentGlyph.SortUp}" />
+    </Style>
+    <!-- WPF Fluent DefaultDataGridColumnFloatingHeaderStyle. -->
+    <Style Selector="^:dragIndicator">
+      <Setter Property="Opacity" Value="{DynamicResource Fluent.DataGridColumnFloatingHeaderOpacity}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,74 @@
+
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:sys="using:System">
+  <!-- Avalonia's spinner DatePicker drawn as an AeroLite ComboBox; WPF's DatePicker maps to CalendarDatePicker. -->
+  <ControlTheme x:Key="{x:Type DatePicker}" TargetType="DatePicker">
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.WindowTextBrush}" />
+    <Setter Property="Background" Value="{DynamicResource AeroLite.ComboBox.Static.Background}"/>
+    <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.ComboBox.Static.Border}"/>
+    <Setter Property="BorderThickness" Value="1"/>
+    <Setter Property="CornerRadius" Value="0" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="MinWidth" Value="{DynamicResource AeroLite.DatePickerThemeMinWidth}" />
+    <Setter Property="MaxWidth" Value="{DynamicResource AeroLite.DatePickerThemeMaxWidth}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DataValidationErrors>
+          <Grid Name="LayoutRoot" Margin="{TemplateBinding Padding}">
+            <Button Name="PART_FlyoutButton"
+                    Theme="{StaticResource AeroLite.FluentDatePickerFlyoutButton}"
+                    Foreground="{TemplateBinding Foreground}"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="{TemplateBinding CornerRadius}"
+                    IsEnabled="{TemplateBinding IsEnabled}"
+                    MinWidth="{TemplateBinding MinWidth}"
+                    MaxWidth="{TemplateBinding MaxWidth}"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    TemplatedControl.IsTemplateFocusTarget="True">
+              <Grid Name="PART_ButtonContentGrid" ColumnDefinitions="78*,Auto,132*,Auto,78*">
+                <TextBlock Name="PART_DayTextBlock" Text="day" HorizontalAlignment="Center"
+                           Padding="{DynamicResource AeroLite.DatePickerHostPadding}" />
+                <TextBlock Name="PART_MonthTextBlock" Text="month" TextAlignment="Left"
+                           Padding="{DynamicResource AeroLite.DatePickerHostMonthPadding}" />
+                <TextBlock Name="PART_YearTextBlock" Text="year" HorizontalAlignment="Center"
+                           Padding="{DynamicResource AeroLite.DatePickerHostPadding}" />
+                <Rectangle x:Name="PART_FirstSpacer"
+                      Fill="{DynamicResource AeroLite.ComboBox.Static.Border}"
+                      HorizontalAlignment="Center"
+                      Width="1"
+                      Grid.Column="1" />
+                <Rectangle x:Name="PART_SecondSpacer"
+                      Fill="{DynamicResource AeroLite.ComboBox.Static.Border}"
+                      HorizontalAlignment="Center"
+                      Width="1"
+                      Grid.Column="3" />
+              </Grid>
+            </Button>
+            <Popup Name="PART_Popup" WindowManagerAddShadowHint="False"
+                   IsLightDismissEnabled="True" PlacementTarget="{TemplateBinding}"
+                   Placement="Bottom">
+              <DatePickerPresenter Name="PART_PickerPresenter" />
+            </Popup>
+          </Grid>
+        </DataValidationErrors>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:disabled /template/ Rectangle">
+      <Setter Property="Fill" Value="{DynamicResource AeroLite.ComboBox.Disabled.Border}"/>
+    </Style>
+    <Style Selector="^ /template/ Button#PART_FlyoutButton TextBlock">
+      <Setter Property="VerticalAlignment" Value="{TemplateBinding VerticalContentAlignment}"/>
+    </Style>
+    <Style Selector="^:hasnodate /template/ Button#PART_FlyoutButton TextBlock">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}"/>
+    </Style>
+    <Style Selector="^:error /template/ Button#PART_FlyoutButton">
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.Invented.Validation.Error.Foreground}"/>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

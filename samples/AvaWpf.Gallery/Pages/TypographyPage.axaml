@@ -1,0 +1,24 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:wpf="https://github.com/avawpf"
+             x:Class="AvaWpf.Gallery.Pages.TypographyPage">
+  <StackPanel Spacing="8">
+    <TextBlock Classes="Subtitle" Text="System fonts" />
+    <TextBlock Text="Message font: The quick brown fox jumps over the lazy dog." FontFamily="{DynamicResource SystemFonts.MessageFontFamily}" FontSize="{DynamicResource SystemFonts.MessageFontSize}" />
+    <TextBlock Text="Menu font: File Edit View Help" FontFamily="{DynamicResource SystemFonts.MenuFontFamily}" FontSize="{DynamicResource SystemFonts.MenuFontSize}" />
+    <TextBlock Text="Status font: Ready" FontFamily="{DynamicResource SystemFonts.StatusFontFamily}" FontSize="{DynamicResource SystemFonts.StatusFontSize}" />
+    <TextBlock Text="Caption font: Untitled - Notepad" FontFamily="{DynamicResource SystemFonts.CaptionFontFamily}" FontSize="{DynamicResource SystemFonts.CaptionFontSize}" FontWeight="{DynamicResource SystemFonts.CaptionFontWeight}" />
+    <TextBlock Classes="Subtitle" Text="Fluent type ramp" />
+    <TextBlock Classes="Caption" Text="Caption" />
+    <TextBlock Classes="Body" Text="Body" />
+    <TextBlock Classes="BodyStrong" Text="Body strong" />
+    <TextBlock Classes="Subtitle" Text="Subtitle" />
+    <TextBlock Classes="Title" Text="Title" />
+    <TextBlock Classes="TitleLarge" Text="Title large" />
+    <TextBlock Classes="Display" Text="Display" />
+    <TextBlock Classes="Subtitle" Text="Bundled substitutes" />
+    <TextBlock Text="Tahoma (Wine)" FontFamily="fonts:AvaWpf#Tahoma" FontSize="11" />
+    <TextBlock Text="MS Sans Serif (Wine)" FontFamily="fonts:AvaWpf#MS Sans Serif" FontSize="11" />
+    <TextBlock Text="Selawik (Segoe UI substitute)" FontFamily="fonts:AvaWpf#Selawik" FontSize="12" />
+  </StackPanel>
+</UserControl>

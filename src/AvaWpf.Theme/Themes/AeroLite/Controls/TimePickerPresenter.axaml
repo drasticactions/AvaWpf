@@ -1,0 +1,140 @@
+
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:sys="using:System">
+  <!--
+    The TimePicker drop-down: looping columns with the current row in the selection color, and accept and dismiss
+    buttons.
+  -->
+  <ControlTheme x:Key="{x:Type TimePickerPresenter}" TargetType="TimePickerPresenter">
+    <Setter Property="Width" Value="242" />
+    <Setter Property="MinWidth" Value="242" />
+    <Setter Property="MaxHeight" Value="398" />
+    <Setter Property="Background" Value="{DynamicResource SystemColors.WindowBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource SystemColors.WindowFrameBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="0" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="Background"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                Padding="0"
+                MaxHeight="398">
+          <Grid Name="ContentPanel" RowDefinitions="*,Auto">
+            <Grid Name="PART_PickerContainer">
+              <Grid.Styles>
+                <Style Selector="DateTimePickerPanel > ListBoxItem">
+                  <Setter Property="Theme" Value="{StaticResource AeroLite.DateTimePickerItem}" />
+                </Style>
+              </Grid.Styles>
+              <Panel Name="PART_HourHost" Grid.Column="0">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                              VerticalScrollBarVisibility="Hidden">
+                  <DateTimePickerPanel Name="PART_HourSelector"
+                                       PanelType="Hour"
+                                       ShouldLoop="True"
+                                       ItemHeight="{DynamicResource AeroLite.TimePickerFlyoutPresenterItemHeight}"/>
+                </ScrollViewer>
+                <RepeatButton Name="PART_HourUpButton" Theme="{StaticResource AeroLite.DateTimePickerUpButton}"/>
+                <RepeatButton Name="PART_HourDownButton" Theme="{StaticResource AeroLite.DateTimePickerDownButton}"/>
+              </Panel>
+              <Panel Name="PART_MinuteHost" Grid.Column="2">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                              VerticalScrollBarVisibility="Hidden">
+                  <DateTimePickerPanel Name="PART_MinuteSelector"
+                                       PanelType="Minute"
+                                       ShouldLoop="True"
+                                       ItemHeight="{DynamicResource AeroLite.TimePickerFlyoutPresenterItemHeight}"/>
+                </ScrollViewer>
+                <RepeatButton Name="PART_MinuteUpButton" Theme="{StaticResource AeroLite.DateTimePickerUpButton}"/>
+                <RepeatButton Name="PART_MinuteDownButton" Theme="{StaticResource AeroLite.DateTimePickerDownButton}"/>
+              </Panel>
+              <Panel Name="PART_SecondHost" Grid.Column="4">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                              VerticalScrollBarVisibility="Hidden">
+                  <DateTimePickerPanel Name="PART_SecondSelector"
+                                       PanelType="Second"
+                                       ShouldLoop="True"
+                                       ItemHeight="{DynamicResource AeroLite.TimePickerFlyoutPresenterItemHeight}"/>
+                </ScrollViewer>
+                <RepeatButton Name="PART_SecondUpButton" Theme="{StaticResource AeroLite.DateTimePickerUpButton}"/>
+                <RepeatButton Name="PART_SecondDownButton" Theme="{StaticResource AeroLite.DateTimePickerDownButton}"/>
+              </Panel>
+              <Panel Name="PART_PeriodHost" Grid.Column="6">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                              VerticalScrollBarVisibility="Hidden">
+                  <DateTimePickerPanel Name="PART_PeriodSelector"
+                                       PanelType="TimePeriod"
+                                       ShouldLoop="False"
+                                       ItemHeight="{DynamicResource AeroLite.TimePickerFlyoutPresenterItemHeight}"/>
+                </ScrollViewer>
+                <RepeatButton Name="PART_PeriodUpButton" Theme="{StaticResource AeroLite.DateTimePickerUpButton}"/>
+                <RepeatButton Name="PART_PeriodDownButton" Theme="{StaticResource AeroLite.DateTimePickerDownButton}"/>
+              </Panel>
+              <Rectangle x:Name="HighlightRect" ZIndex="-1"
+                         Fill="{DynamicResource AeroLite.Item.SelectedActive.Background}"
+                         Grid.Column="0"
+                         Grid.ColumnSpan="7"
+                         VerticalAlignment="Center"
+                         Height="{DynamicResource AeroLite.TimePickerFlyoutPresenterHighlightHeight}" />
+              <Rectangle Name="PART_FirstSpacer"
+                         Fill="{DynamicResource SystemColors.ControlLightBrush}"
+                         HorizontalAlignment="Center"
+                         Width="{DynamicResource AeroLite.TimePickerSpacerThemeWidth}"
+                         Grid.Column="1" />
+              <Rectangle Name="PART_SecondSpacer"
+                         Fill="{DynamicResource SystemColors.ControlLightBrush}"
+                         HorizontalAlignment="Center"
+                         Width="{DynamicResource AeroLite.TimePickerSpacerThemeWidth}"
+                         Grid.Column="3" />
+              <Rectangle Name="PART_ThirdSpacer"
+                         Fill="{DynamicResource SystemColors.ControlLightBrush}"
+                         HorizontalAlignment="Center"
+                         Width="{DynamicResource AeroLite.TimePickerSpacerThemeWidth}"
+                         Grid.Column="5" />
+            </Grid>
+            <Grid Name="AcceptDismissGrid"
+                  Grid.Row="1"
+                  ColumnDefinitions="*,*">
+              <Rectangle Height="{DynamicResource AeroLite.TimePickerSpacerThemeWidth}" 
+                         VerticalAlignment="Top"
+                         Fill="{DynamicResource SystemColors.ControlLightBrush}"
+                         Grid.ColumnSpan="2"/>
+              <Button Name="PART_AcceptButton"
+                      Grid.Column="0"
+                      Theme="{StaticResource AeroLite.DateTimePickerButton}"
+                      Height="{DynamicResource AeroLite.TimePickerFlyoutPresenterAcceptDismissHostGridHeight}"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch">
+                <Path Stroke="{Binding $parent[Button].Foreground}"
+                      StrokeLineCap="Round"
+                      StrokeThickness="0.75"
+                      Data="M0.5,8.5 5,13.5 15.5,3" />
+              </Button>
+              <Button Name="PART_DismissButton"
+                      Grid.Column="1"
+                      Theme="{StaticResource AeroLite.DateTimePickerButton}"
+                      Height="{DynamicResource AeroLite.TimePickerFlyoutPresenterAcceptDismissHostGridHeight}"
+                      FontSize="16" 
+                      HorizontalAlignment="Stretch" 
+                      VerticalAlignment="Stretch">
+                <Path Stroke="{Binding $parent[Button].Foreground}" 
+                      StrokeLineCap="Round"
+                      StrokeThickness="0.75" 
+                      Data="M2,2 14,14 M2,14 14 2" />
+              </Button>
+            </Grid>
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^ /template/ Panel">
+      <Style Selector="^:pointerover RepeatButton">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

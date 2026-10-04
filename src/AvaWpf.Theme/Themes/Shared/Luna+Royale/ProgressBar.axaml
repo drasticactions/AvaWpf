@@ -1,0 +1,90 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF ProgressBar.xaml [[Luna.*, Royale.NormalColor]]: blocks as ProgressBarBrushConverter draws them. Vertical
+       fills from the bottom with the block brush turned -90 degrees (WPF turns the whole template). -->
+  <wpf:ProgressBarBrushConverter x:Key="$F.ProgressBarBrushConverter" />
+
+  <ControlTheme x:Key="{x:Type ProgressBar}" TargetType="ProgressBar">
+    <Setter Property="Foreground" Value="{DynamicResource $F.ProgressBarFill}" />
+    <Setter Property="Background" Value="{DynamicResource SystemColors.WindowBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource $F.ProgressBarBorderBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="MinHeight" Value="10" />
+    <Setter Property="MinWidth" Value="10" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="TemplateRoot"
+                Background="{TemplateBinding Background}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                CornerRadius="3"
+                UseLayoutRounding="True">
+          <Border BorderThickness="1,1,1,0"
+                  BorderBrush="{DynamicResource $F.ProgressBar.ProgressBar.Border#1.BorderBrush}"
+                  CornerRadius="2">
+            <Border BorderThickness="1"
+                    BorderBrush="{DynamicResource $F.ProgressBar.ProgressBar.Border#2.BorderBrush}"
+                    CornerRadius="1">
+              <Panel Name="PART_Track" Margin="1,0,0,1">
+                <Border Name="PART_Indicator" HorizontalAlignment="Left">
+                  <Border.Background>
+                    <MultiBinding Converter="{StaticResource $F.ProgressBarBrushConverter}">
+                      <Binding Path="Foreground" RelativeSource="{RelativeSource TemplatedParent}" />
+                      <Binding Path="IsIndeterminate" RelativeSource="{RelativeSource TemplatedParent}" />
+                      <Binding Path="Bounds.Width" ElementName="PART_Indicator" />
+                      <Binding Path="Bounds.Height" ElementName="PART_Indicator" />
+                      <Binding Path="Bounds.Width" ElementName="PART_Track" />
+                    </MultiBinding>
+                  </Border.Background>
+                </Border>
+              </Panel>
+            </Border>
+          </Border>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:indeterminate /template/ Border#PART_Indicator">
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+      <Setter Property="VerticalAlignment" Value="Stretch" />
+    </Style>
+    <Style Selector="^:vertical">
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Border Name="TemplateRoot"
+                  Background="{TemplateBinding Background}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  CornerRadius="3"
+                  UseLayoutRounding="True">
+            <Border BorderThickness="1,1,0,1"
+                    BorderBrush="{DynamicResource $F.ProgressBar.ProgressBar.Border#1.BorderBrush}"
+                    CornerRadius="2">
+              <Border BorderThickness="1"
+                      BorderBrush="{DynamicResource $F.ProgressBar.ProgressBar.Border#2.BorderBrush}"
+                      CornerRadius="1">
+                <Panel Name="PART_Track" Margin="0,0,1,1">
+                  <Border Name="PART_Indicator" VerticalAlignment="Bottom">
+                    <LayoutTransformControl LayoutTransform="rotate(-90deg)">
+                      <Rectangle Name="IndicatorFill">
+                        <Rectangle.Fill>
+                          <MultiBinding Converter="{StaticResource $F.ProgressBarBrushConverter}">
+                            <Binding Path="Foreground" RelativeSource="{RelativeSource TemplatedParent}" />
+                            <Binding Path="IsIndeterminate" RelativeSource="{RelativeSource TemplatedParent}" />
+                            <Binding Path="Bounds.Width" ElementName="IndicatorFill" />
+                            <Binding Path="Bounds.Height" ElementName="IndicatorFill" />
+                            <Binding Path="Bounds.Height" ElementName="PART_Track" />
+                          </MultiBinding>
+                        </Rectangle.Fill>
+                      </Rectangle>
+                    </LayoutTransformControl>
+                  </Border>
+                </Panel>
+              </Border>
+            </Border>
+          </Border>
+        </ControlTemplate>
+      </Setter>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

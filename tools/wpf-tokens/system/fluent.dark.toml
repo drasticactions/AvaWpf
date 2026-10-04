@@ -1,0 +1,23 @@
+# Windows 11 Dark: invented from the Windows 11 dark surfaces; WPF Fluent's own Dark dictionary carries the rest.
+name = "Fluent.Dark"
+base = "aero2.dark"
+
+[colors]
+Highlight = "#0078D4"
+MenuHighlight = "#0078D4"
+Window = "#202020"
+Control = "#2D2D2D"
+
+[parameters]
+CaptionHeight = 32
+SmallCaptionHeight = 32
+
+[fonts]
+MessageFontFamily = "Segoe UI Variable"
+MessageFontSize = 14
+MenuFontFamily = "Segoe UI Variable"
+MenuFontSize = 14
+StatusFontFamily = "Segoe UI Variable"
+StatusFontSize = 12
+CaptionFontFamily = "Segoe UI Variable"
+CaptionFontSize = 12

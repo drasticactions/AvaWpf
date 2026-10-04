@@ -1,0 +1,95 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- An in-window notification, drawn as a Windows 10 toast; the severity shows as a strip down the left edge. -->
+  <ControlTheme x:Key="{x:Type NotificationCard}" TargetType="NotificationCard">
+    <Setter Property="UseLayoutRounding" Value="True" />
+    <Setter Property="Width" Value="364" />
+    <Setter Property="Foreground" Value="{DynamicResource Aero2.Invented.Toast.Foreground}" />
+    <Setter Property="Background" Value="{DynamicResource Aero2.Invented.Toast.Background}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Aero2.Invented.Toast.Border}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="FontFamily" Value="{DynamicResource SystemFonts.MessageFontFamily}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <LayoutTransformControl Name="PART_LayoutTransformControl" UseRenderTransform="True">
+          <Border Name="Shadow"
+                  BoxShadow="{DynamicResource Aero2.Invented.Toast.Shadow}"
+                  Margin="8,4,8,8">
+            <Border Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    ClipToBounds="True">
+              <DockPanel>
+                <Panel Name="PART_HeaderBar" Width="4" DockPanel.Dock="Left" IsVisible="False" />
+                <ContentPresenter Name="PART_ContentPresenter"
+                                  MinHeight="64"
+                                  VerticalContentAlignment="Center"
+                                  Content="{TemplateBinding Content}"
+                                  ContentTemplate="{TemplateBinding ContentTemplate}" />
+              </DockPanel>
+            </Border>
+          </Border>
+        </LayoutTransformControl>
+      </ControlTemplate>
+    </Setter>
+    <ControlTheme.Animations>
+      <Animation Duration="0:0:0.3" Easing="CubicEaseOut" FillMode="Forward">
+        <KeyFrame Cue="0%">
+          <Setter Property="Opacity" Value="0" />
+          <Setter Property="TranslateTransform.X" Value="120" />
+        </KeyFrame>
+        <KeyFrame Cue="100%">
+          <Setter Property="Opacity" Value="1" />
+          <Setter Property="TranslateTransform.X" Value="0" />
+        </KeyFrame>
+      </Animation>
+    </ControlTheme.Animations>
+    <Style Selector="^[IsClosing=true] /template/ LayoutTransformControl#PART_LayoutTransformControl">
+      <Setter Property="RenderTransformOrigin" Value="50%,0%" />
+      <Style.Animations>
+        <Animation Duration="0:0:0.3" Easing="CubicEaseIn" FillMode="Forward">
+          <KeyFrame Cue="0%">
+            <Setter Property="Opacity" Value="1" />
+            <Setter Property="TranslateTransform.X" Value="0" />
+            <Setter Property="ScaleTransform.ScaleY" Value="1" />
+          </KeyFrame>
+          <KeyFrame Cue="67%">
+            <Setter Property="Opacity" Value="0" />
+            <Setter Property="TranslateTransform.X" Value="120" />
+            <Setter Property="ScaleTransform.ScaleY" Value="1" />
+          </KeyFrame>
+          <KeyFrame Cue="100%">
+            <Setter Property="Opacity" Value="0" />
+            <Setter Property="TranslateTransform.X" Value="120" />
+            <Setter Property="ScaleTransform.ScaleY" Value="0" />
+          </KeyFrame>
+        </Animation>
+      </Style.Animations>
+    </Style>
+    <Style Selector="^[IsClosing=true]">
+      <Style.Animations>
+        <Animation Duration="0:0:0.35" FillMode="Forward">
+          <KeyFrame Cue="100%">
+            <Setter Property="IsClosed" Value="True" />
+          </KeyFrame>
+        </Animation>
+      </Style.Animations>
+    </Style>
+    <Style Selector="^:information /template/ Panel#PART_HeaderBar">
+      <Setter Property="IsVisible" Value="True" />
+      <Setter Property="Background" Value="{DynamicResource Aero2.Invented.Toast.Information}" />
+    </Style>
+    <Style Selector="^:success /template/ Panel#PART_HeaderBar">
+      <Setter Property="IsVisible" Value="True" />
+      <Setter Property="Background" Value="{DynamicResource Aero2.Invented.Toast.Success}" />
+    </Style>
+    <Style Selector="^:warning /template/ Panel#PART_HeaderBar">
+      <Setter Property="IsVisible" Value="True" />
+      <Setter Property="Background" Value="{DynamicResource Aero2.Invented.Toast.Warning}" />
+    </Style>
+    <Style Selector="^:error /template/ Panel#PART_HeaderBar">
+      <Setter Property="IsVisible" Value="True" />
+      <Setter Property="Background" Value="{DynamicResource Aero2.Invented.Toast.Error}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,144 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:dialogs="using:Avalonia.Dialogs"
+                    xmlns:internal="using:Avalonia.Dialogs.Internal">
+  <!-- ManagedFileChooser: a simplified Windows XP common file dialog. -->
+  <ControlTheme x:Key="{x:Type dialogs:ManagedFileChooser}" TargetType="dialogs:ManagedFileChooser">
+    <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="Padding" Value="8" />
+    <Setter Property="Template" x:DataType="internal:ManagedFileChooserViewModel">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Padding="{TemplateBinding Padding}">
+          <DockPanel>
+            <DockPanel Name="NavBar" DockPanel.Dock="Top" Margin="0,0,0,6">
+              <TextBlock DockPanel.Dock="Left" Text="Look in:" VerticalAlignment="Center" Margin="0,0,6,0" />
+              <Button DockPanel.Dock="Right" Classes="toolbar" Command="{Binding Refresh}" Margin="2,0,0,0" Width="23" Height="22">
+                <Path Data="{DynamicResource $F.Invented.RefreshVisualizer.Arrow}"
+                      Fill="{Binding $parent[Button].Foreground}"
+                      Stretch="Uniform"
+                      Width="14"
+                      Height="14" />
+              </Button>
+              <Button DockPanel.Dock="Right" Classes="toolbar" Command="{Binding GoUp}" Margin="4,0,0,0" Width="23" Height="22">
+                <Path Data="{DynamicResource $F.ArrowUpGeometry}" Fill="{Binding $parent[Button].Foreground}" />
+              </Button>
+              <TextBox Name="Location" Text="{Binding Location}" VerticalContentAlignment="Center">
+                <TextBox.KeyBindings>
+                  <KeyBinding Command="{Binding EnterPressed}" Gesture="Enter" />
+                </TextBox.KeyBindings>
+              </TextBox>
+            </DockPanel>
+            <Grid DockPanel.Dock="Bottom" Margin="0,6,0,0" ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto">
+              <TextBlock Text="File name:" VerticalAlignment="Center" Margin="0,0,6,4" IsVisible="{Binding !SelectingFolder}" />
+              <TextBox Grid.Column="1" Margin="0,0,0,4" Text="{Binding FileName}" IsVisible="{Binding !SelectingFolder}" />
+              <ComboBox Grid.Column="1" Grid.Row="1"
+                        HorizontalAlignment="Stretch"
+                        IsVisible="{Binding ShowFilters}"
+                        ItemsSource="{Binding Filters}"
+                        SelectedItem="{Binding SelectedFilter}" />
+              <CheckBox Grid.Row="1" Margin="0,0,6,0" IsChecked="{Binding ShowHiddenFiles}" Content="Show hidden files" />
+              <StackPanel Name="Finalize" Grid.Column="2" Grid.RowSpan="2" Margin="6,0,0,0" VerticalAlignment="Top">
+                <Button Command="{Binding Ok}" Content="OK" Width="75" Height="23" Margin="0,0,0,4" />
+                <Button Command="{Binding Cancel}" Content="Cancel" Width="75" Height="23" />
+              </StackPanel>
+            </Grid>
+            <ListBox Name="PART_QuickLinks"
+                     DockPanel.Dock="Left"
+                     Width="110"
+                     Margin="0,0,6,0"
+                     ItemsSource="{Binding QuickLinks}"
+                     SelectedIndex="{Binding QuickLinksSelectedIndex}"
+                     Focusable="False">
+              <ListBox.ItemTemplate>
+                <DataTemplate x:DataType="internal:ManagedFileChooserItemViewModel">
+                  <StackPanel Spacing="4" Orientation="Horizontal" Background="Transparent" Margin="0,2">
+                    <ContentControl Content="{Binding}" ContentTemplate="{StaticResource $F.FileChooserIcon}" />
+                    <TextBlock Text="{Binding DisplayName}" VerticalAlignment="Center" />
+                  </StackPanel>
+                </DataTemplate>
+              </ListBox.ItemTemplate>
+            </ListBox>
+            <Border BorderBrush="{DynamicResource $F.ListBorder}" BorderThickness="1" Background="{DynamicResource SystemColors.WindowBrush}">
+              <DockPanel Grid.IsSharedSizeScope="True">
+                <Grid DockPanel.Dock="Top" Margin="20,0,0,0" Background="{DynamicResource SystemColors.ControlBrush}">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20" SharedSizeGroup="Icon" />
+                    <ColumnDefinition Width="200" SharedSizeGroup="Name" />
+                    <ColumnDefinition Width="9" SharedSizeGroup="Splitter" />
+                    <ColumnDefinition Width="130" SharedSizeGroup="Modified" />
+                    <ColumnDefinition Width="9" SharedSizeGroup="Splitter" />
+                    <ColumnDefinition Width="100" SharedSizeGroup="Type" />
+                    <ColumnDefinition Width="9" SharedSizeGroup="Splitter" />
+                    <ColumnDefinition Width="80" SharedSizeGroup="Size" />
+                    <ColumnDefinition Width="9" SharedSizeGroup="Splitter" />
+                  </Grid.ColumnDefinitions>
+                  <Grid.Styles>
+                    <Style Selector="GridSplitter">
+                      <Setter Property="Template">
+                        <ControlTemplate>
+                          <Border Background="Transparent">
+                            <Rectangle Width="1" Fill="{DynamicResource SystemColors.ControlDarkBrush}" />
+                          </Border>
+                        </ControlTemplate>
+                      </Setter>
+                    </Style>
+                  </Grid.Styles>
+                  <TextBlock Grid.Column="1" Text="Name" Margin="0,3" />
+                  <GridSplitter Grid.Column="2" />
+                  <TextBlock Grid.Column="3" Text="Date Modified" Margin="0,3" />
+                  <GridSplitter Grid.Column="4" />
+                  <TextBlock Grid.Column="5" Text="Type" Margin="0,3" />
+                  <GridSplitter Grid.Column="6" />
+                  <TextBlock Grid.Column="7" Text="Size" Margin="0,3" />
+                  <GridSplitter Grid.Column="8" />
+                </Grid>
+                <ListBox Name="PART_Files"
+                         ItemsSource="{Binding Items}"
+                         BorderThickness="0"
+                         SelectionMode="{Binding SelectionMode}"
+                         SelectedItems="{Binding SelectedItems}"
+                         Background="Transparent"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                  <ListBox.ItemTemplate>
+                    <DataTemplate x:DataType="internal:ManagedFileChooserItemViewModel">
+                      <Grid Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                          <ColumnDefinition SharedSizeGroup="Icon" />
+                          <ColumnDefinition SharedSizeGroup="Name" />
+                          <ColumnDefinition SharedSizeGroup="Splitter" />
+                          <ColumnDefinition SharedSizeGroup="Modified" />
+                          <ColumnDefinition SharedSizeGroup="Splitter" />
+                          <ColumnDefinition SharedSizeGroup="Type" />
+                          <ColumnDefinition SharedSizeGroup="Splitter" />
+                          <ColumnDefinition SharedSizeGroup="Size" />
+                          <ColumnDefinition SharedSizeGroup="Splitter" />
+                        </Grid.ColumnDefinitions>
+                        <ContentControl Content="{Binding}" ContentTemplate="{StaticResource $F.FileChooserIcon}" />
+                        <TextBlock Grid.Column="1" Text="{Binding DisplayName}" TextTrimming="CharacterEllipsis" />
+                        <TextBlock Grid.Column="3" Text="{Binding Modified}" />
+                        <TextBlock Grid.Column="5" Text="{Binding Type}" />
+                        <TextBlock Grid.Column="7" HorizontalAlignment="Right">
+                          <TextBlock.Text>
+                            <Binding Path="Size">
+                              <Binding.Converter>
+                                <internal:FileSizeStringConverter />
+                              </Binding.Converter>
+                            </Binding>
+                          </TextBlock.Text>
+                        </TextBlock>
+                      </Grid>
+                    </DataTemplate>
+                  </ListBox.ItemTemplate>
+                </ListBox>
+              </DockPanel>
+            </Border>
+          </DockPanel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,188 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- WPF Slider.xaml [[Luna.*, Royale.NormalColor]] with the thumbs of _SliderThumbs.axaml. Ticks on one side give the
+       thumb a point. Avalonia has no selection range, so it is left out. -->
+  <ControlTheme x:Key="{x:Type Slider}" TargetType="Slider">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource $F.Slider.Slider.Setter.Self.Foreground}" />
+    <Setter Property="FocusAdorner" Value="{DynamicResource $F.FocusVisualStyle}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DataValidationErrors>
+          <Border Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  UseLayoutRounding="True">
+            <Grid RowDefinitions="Auto,Auto,Auto">
+              <TickBar Name="TopTick"
+                       Grid.Row="0"
+                       IsVisible="False"
+                       Placement="Top"
+                       Fill="{TemplateBinding Foreground}"
+                       Height="4"
+                       Ticks="{TemplateBinding Ticks}"
+                       TickFrequency="{TemplateBinding TickFrequency}"
+                       Orientation="Horizontal"
+                       Minimum="{TemplateBinding Minimum}"
+                       Maximum="{TemplateBinding Maximum}"
+                       IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
+                       ReservedSpace="{Binding #PART_Track.Thumb.Bounds}" />
+              <TickBar Name="BottomTick"
+                       Grid.Row="2"
+                       IsVisible="False"
+                       Placement="Bottom"
+                       Fill="{TemplateBinding Foreground}"
+                       Height="4"
+                       Ticks="{TemplateBinding Ticks}"
+                       TickFrequency="{TemplateBinding TickFrequency}"
+                       Orientation="Horizontal"
+                       Minimum="{TemplateBinding Minimum}"
+                       Maximum="{TemplateBinding Maximum}"
+                       IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
+                       ReservedSpace="{Binding #PART_Track.Thumb.Bounds}" />
+              <Border Grid.Row="1"
+                      Margin="5,0"
+                      VerticalAlignment="Center"
+                      BorderBrush="{DynamicResource $F.HorizontalSliderTrackNormalBorder}"
+                      BorderThickness="1"
+                      CornerRadius="1"
+                      Background="{DynamicResource $F.HorizontalSliderTrackNormalBackground}"
+                      Height="4.0" />
+              <Track Name="PART_Track"
+                     Grid.Row="1"
+                     Minimum="{TemplateBinding Minimum}"
+                     Maximum="{TemplateBinding Maximum}"
+                     Value="{TemplateBinding Value, Mode=TwoWay}"
+                     IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
+                     Orientation="Horizontal">
+                <Track.DecreaseButton>
+                  <RepeatButton Name="PART_DecreaseButton" Theme="{StaticResource $F.SliderRepeatButton}" />
+                </Track.DecreaseButton>
+                <Track.IncreaseButton>
+                  <RepeatButton Name="PART_IncreaseButton" Theme="{StaticResource $F.SliderRepeatButton}" />
+                </Track.IncreaseButton>
+                <Thumb Name="Thumb" Theme="{StaticResource $F.SliderThumb.Horizontal}" />
+              </Track>
+            </Grid>
+          </Border>
+        </DataValidationErrors>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^[TickPlacement=TopLeft]">
+      <Style Selector="^ /template/ TickBar#TopTick">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="^ /template/ Thumb#Thumb">
+        <Setter Property="Theme" Value="{StaticResource $F.SliderThumb.HorizontalUp}" />
+      </Style>
+    </Style>
+    <Style Selector="^[TickPlacement=BottomRight]">
+      <Style Selector="^ /template/ TickBar#BottomTick">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="^ /template/ Thumb#Thumb">
+        <Setter Property="Theme" Value="{StaticResource $F.SliderThumb.HorizontalDown}" />
+      </Style>
+    </Style>
+    <Style Selector="^[TickPlacement=Outside]">
+      <Style Selector="^ /template/ TickBar#TopTick">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="^ /template/ TickBar#BottomTick">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+    </Style>
+    <Style Selector="^:focus /template/ Thumb#Thumb">
+      <Setter Property="Tag" Value="Focused" />
+    </Style>
+
+    <Style Selector="^:vertical">
+      <Setter Property="Template">
+        <ControlTemplate>
+          <DataValidationErrors>
+            <Border Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    UseLayoutRounding="True">
+              <Grid ColumnDefinitions="Auto,Auto,Auto">
+                <TickBar Name="LeftTick"
+                         Grid.Column="0"
+                         IsVisible="False"
+                         Placement="Left"
+                         Fill="{TemplateBinding Foreground}"
+                         Width="4"
+                         Ticks="{TemplateBinding Ticks}"
+                         TickFrequency="{TemplateBinding TickFrequency}"
+                         Orientation="Vertical"
+                         Minimum="{TemplateBinding Minimum}"
+                         Maximum="{TemplateBinding Maximum}"
+                         IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
+                         ReservedSpace="{Binding #PART_Track.Thumb.Bounds}" />
+                <TickBar Name="RightTick"
+                         Grid.Column="2"
+                         IsVisible="False"
+                         Placement="Right"
+                         Fill="{TemplateBinding Foreground}"
+                         Width="4"
+                         Ticks="{TemplateBinding Ticks}"
+                         TickFrequency="{TemplateBinding TickFrequency}"
+                         Orientation="Vertical"
+                         Minimum="{TemplateBinding Minimum}"
+                         Maximum="{TemplateBinding Maximum}"
+                         IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
+                         ReservedSpace="{Binding #PART_Track.Thumb.Bounds}" />
+                <Border Grid.Column="1"
+                        Margin="0,5"
+                        HorizontalAlignment="Center"
+                        BorderBrush="{DynamicResource $F.VerticalSliderTrackNormalBorder}"
+                        BorderThickness="1"
+                        CornerRadius="1"
+                        Background="{DynamicResource $F.VerticalSliderTrackNormalBackground}"
+                        Width="4.0" />
+                <Track Name="PART_Track"
+                       Grid.Column="1"
+                       Minimum="{TemplateBinding Minimum}"
+                       Maximum="{TemplateBinding Maximum}"
+                       Value="{TemplateBinding Value, Mode=TwoWay}"
+                       IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
+                       Orientation="Vertical">
+                  <Track.DecreaseButton>
+                    <RepeatButton Name="PART_DecreaseButton" Theme="{StaticResource $F.SliderRepeatButton}" />
+                  </Track.DecreaseButton>
+                  <Track.IncreaseButton>
+                    <RepeatButton Name="PART_IncreaseButton" Theme="{StaticResource $F.SliderRepeatButton}" />
+                  </Track.IncreaseButton>
+                  <Thumb Name="Thumb" Theme="{StaticResource $F.SliderThumb.Vertical}" />
+                </Track>
+              </Grid>
+            </Border>
+          </DataValidationErrors>
+        </ControlTemplate>
+      </Setter>
+    </Style>
+    <Style Selector="^:vertical[TickPlacement=TopLeft]">
+      <Style Selector="^ /template/ TickBar#LeftTick">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="^ /template/ Thumb#Thumb">
+        <Setter Property="Theme" Value="{StaticResource $F.SliderThumb.VerticalLeft}" />
+      </Style>
+    </Style>
+    <Style Selector="^:vertical[TickPlacement=BottomRight]">
+      <Style Selector="^ /template/ TickBar#RightTick">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="^ /template/ Thumb#Thumb">
+        <Setter Property="Theme" Value="{StaticResource $F.SliderThumb.VerticalRight}" />
+      </Style>
+    </Style>
+    <Style Selector="^:vertical[TickPlacement=Outside]">
+      <Style Selector="^ /template/ TickBar#LeftTick">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="^ /template/ TickBar#RightTick">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,70 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:luna="using:AvaWpf.Chrome.Luna">
+  <!-- WPF CheckBox.xaml [[Luna.*, Royale.NormalColor]]: a BulletChrome beside the content, centered vertically (WPF's
+       BulletDecorator centers it on the first text line). Class toolbar: WPF ToolBar.CheckBoxStyleKey. -->
+  <ControlTheme x:Key="{x:Type CheckBox}" TargetType="CheckBox">
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="Background" Value="{DynamicResource $F.CheckRadioFillNormal}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource $F.CheckRadioStrokeNormal}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="FocusAdorner" Value="{DynamicResource $F.EmptyOptionMarkFocusVisual}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Background="Transparent" ColumnDefinitions="Auto,*" UseLayoutRounding="True">
+          <luna:BulletChrome Name="Bullet"
+                             VerticalAlignment="Center"
+                             Background="{TemplateBinding Background}"
+                             BorderBrush="{TemplateBinding BorderBrush}"
+                             BorderThickness="{TemplateBinding BorderThickness}"
+                             IsChecked="{TemplateBinding IsChecked}"
+                             RenderMouseOver="{TemplateBinding IsPointerOver}"
+                             RenderPressed="{TemplateBinding IsPressed}" />
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Grid.Column="1"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Margin="{TemplateBinding Padding}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            RecognizesAccessKey="True" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:not(:empty)">
+      <Setter Property="FocusAdorner" Value="{DynamicResource $F.OptionMarkFocusVisual}" />
+      <Setter Property="Padding" Value="2,0,0,0" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+    <Style Selector="^.toolbar">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+      <Setter Property="Padding" Value="2" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderBrush" Value="Transparent" />
+      <Setter Property="HorizontalAlignment" Value="Center" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+      <Setter Property="HorizontalContentAlignment" Value="Center" />
+      <Setter Property="VerticalContentAlignment" Value="Center" />
+      <Setter Property="FocusAdorner" Value="{DynamicResource $F.FocusVisualStyle}" />
+      <Setter Property="Template" Value="{StaticResource $F.ToolBarButtonTemplate}" />
+      <Style Selector="^:checked">
+        <Setter Property="BorderBrush" Value="{DynamicResource $F.ToolBarButtonHoverBorder}" />
+        <Setter Property="Background" Value="{DynamicResource $F.ToolBarButtonChecked}" />
+      </Style>
+      <Style Selector="^:pointerover, ^:focus">
+        <Setter Property="BorderBrush" Value="{DynamicResource $F.ToolBarButtonHoverBorder}" />
+        <Setter Property="Background" Value="{DynamicResource $F.ToolBarButtonHover}" />
+      </Style>
+      <Style Selector="^:pointerover:checked, ^:focus:checked, ^:pressed">
+        <Setter Property="BorderBrush" Value="{DynamicResource $F.ToolBarButtonPressedBorder}" />
+        <Setter Property="Background" Value="{DynamicResource $F.ToolBarButtonPressed}" />
+      </Style>
+      <Style Selector="^:disabled">
+        <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

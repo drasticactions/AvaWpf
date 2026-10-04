@@ -1,0 +1,8 @@
+# Windows 8 "Aero Lite" SystemColors, Light: the Windows 7 table plus the Windows 8 deltas. Windows 8 keeps the
+# Windows 7 [Control Panel\Colors] defaults (aero.theme / aerolite.theme ship the same table); the frame colors
+# come from the accent, which AvaWpf draws in the WindowFrame tokens instead.
+name = "AeroLite"
+base = "aero"
+
+[colors]
+InactiveCaptionText = { value = "#000000", source = "Win8 aerolite.theme InactiveTitleText 0 0 0" }

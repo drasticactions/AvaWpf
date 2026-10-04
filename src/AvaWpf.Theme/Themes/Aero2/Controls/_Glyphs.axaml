@@ -1,0 +1,16 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- Aero2 glyphs that forward to the geometry tokens: the WPF ScrollBar arrows and the CheckBox check path. -->
+  <wpf:ResourceAlias x:Key="Aero2.ArrowUpGeometry" Target="Aero2.ScrollBar.ScrollBar.ArrowTop.Data" />
+  <wpf:ResourceAlias x:Key="Aero2.ArrowDownGeometry" Target="Aero2.ScrollBar.ScrollBar.ArrowBottom.Data" />
+  <wpf:ResourceAlias x:Key="Aero2.ArrowLeftGeometry" Target="Aero2.ScrollBar.ScrollBar.ArrowLeft.Data" />
+  <wpf:ResourceAlias x:Key="Aero2.ArrowRightGeometry" Target="Aero2.ScrollBar.ScrollBar.ArrowRight.Data" />
+  <wpf:ResourceAlias x:Key="Aero2.CheckMarkGeometry" Target="Aero2.CheckBox.CheckBox.optionMark.Data" />
+  <!--
+    The ComboBox drop-down chevron moved down 1.78 px to start at 0,0: the WPF figure reaches above its origin, and a
+    Path is sized and centred from the origin. Templates that centre it use its exact, unrounded size so it lands on the
+    centre line.
+  -->
+  <StreamGeometry x:Key="Aero2.DropDownArrowGeometry">F1 M 0,1.78168 L 2.667,4.44833 L 5.3334,1.78168 L 5.3334,0 L 2.6667,2.66669 L 0,0 Z</StreamGeometry>
+</ResourceDictionary>

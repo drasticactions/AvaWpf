@@ -1,0 +1,32 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- The embedded top level, drawn as the Fluent window client area. -->
+  <ControlTheme x:Key="{x:Type EmbeddableControlRoot}" TargetType="EmbeddableControlRoot">
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.WindowForeground}" />
+    <Setter Property="Background" Value="{DynamicResource Fluent.WindowBackground}" />
+    <Setter Property="TopLevel.SystemBarColor" Value="{DynamicResource Fluent.WindowBackground}" />
+    <!--
+      WPF Fluent sets no window font: text takes the system message font (14 px Segoe UI Variable; 11 px Tahoma in high
+      contrast).
+    -->
+    <Setter Property="FontSize" Value="{DynamicResource SystemFonts.MessageFontSize}" />
+    <Setter Property="FontWeight" Value="{DynamicResource SystemFonts.MessageFontWeight}" />
+    <Setter Property="FontStyle" Value="{DynamicResource SystemFonts.MessageFontStyle}" />
+    <Setter Property="FontFamily" Value="{DynamicResource SystemFonts.MessageFontFamily}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <Border Name="PART_TransparencyFallback" IsHitTestVisible="False" />
+          <Border Background="{TemplateBinding Background}">
+            <VisualLayerManager Name="PART_VisualLayerManager">
+              <ContentPresenter Name="PART_ContentPresenter"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                Content="{TemplateBinding Content}"
+                                Margin="{TemplateBinding Padding}" />
+            </VisualLayerManager>
+          </Border>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

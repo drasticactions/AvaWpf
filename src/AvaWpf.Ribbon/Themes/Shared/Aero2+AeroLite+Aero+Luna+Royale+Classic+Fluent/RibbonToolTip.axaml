@@ -1,0 +1,68 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF RibbonToolTip.xaml, [[Generic]]. An empty description takes no room, because an empty Avalonia TextBlock still measures a line. -->
+  <ControlTheme x:Key="{x:Type wpf:RibbonToolTip}" TargetType="wpf:RibbonToolTip">
+    <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.Background}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource $F.Invented.Ribbon.BorderBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="FontSize" Value="{DynamicResource SystemFonts.StatusFontSize}" />
+    <Setter Property="FontFamily" Value="{DynamicResource SystemFonts.StatusFontFamily}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlDarkDarkBrush}" />
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+    <Setter Property="Padding" Value="5,5,5,4" />
+    <Setter Property="MaxWidth" Value="318" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <wpf:SystemDropShadowChrome Name="Shadow" CornerRadius="2" Margin="0,0,5,5">
+          <Border Name="Border"
+                  Background="{TemplateBinding Background}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  CornerRadius="2">
+            <Border Name="InnerBorder"
+                    Background="{DynamicResource $F.Invented.Ribbon.ToolTip.Overlay}"
+                    Padding="{TemplateBinding Padding}"
+                    CornerRadius="2">
+              <StackPanel>
+                <Grid Name="Header" ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto" IsVisible="False">
+                  <TextBlock Name="Title" Text="{TemplateBinding Title}" FontWeight="Bold" TextWrapping="Wrap" Grid.ColumnSpan="2" />
+                  <Image Name="Image" Margin="7,9,6,4" Source="{TemplateBinding ImageSource}" Grid.Row="1" Stretch="None" IsVisible="False" />
+                  <TextBlock Name="Description" Margin="8,8,0,0" Text="{TemplateBinding Description}" IsVisible="{TemplateBinding Description, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" TextWrapping="Wrap" />
+                </Grid>
+                <ContentPresenter Name="PART_ContentPresenter" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" />
+                <wpf:RibbonSeparator Name="Separator" Margin="0,6,0,0" BorderBrush="{TemplateBinding BorderBrush}" IsVisible="False" />
+                <Grid Name="Footer" Margin="0,4,0,0" ColumnDefinitions="Auto,*" RowDefinitions="Auto,*" IsVisible="False">
+                  <Image Name="FooterImage" Margin="0,0,7,0" Stretch="None" Source="{TemplateBinding FooterImageSource}" />
+                  <TextBlock Name="FooterTitle" Text="{TemplateBinding FooterTitle}" FontWeight="Bold" TextWrapping="Wrap" Grid.Column="1" />
+                  <TextBlock Name="FooterDescription" Margin="0,0,6,0" Text="{TemplateBinding FooterDescription}" IsVisible="{TemplateBinding FooterDescription, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" TextWrapping="Wrap" Grid.Column="1" Grid.Row="1" />
+                </Grid>
+              </StackPanel>
+            </Border>
+          </Border>
+        </wpf:SystemDropShadowChrome>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:hasheader /template/ Grid#Header">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:hasimage">
+      <Setter Property="Width" Value="318" />
+      <Style Selector="^ /template/ Image#Image">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="^ /template/ TextBlock#Description">
+        <Setter Property="Grid.Column" Value="1" />
+        <Setter Property="Grid.ColumnSpan" Value="1" />
+      </Style>
+    </Style>
+    <Style Selector="^:hasfooter">
+      <Style Selector="^ /template/ wpf|RibbonSeparator#Separator">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="^ /template/ Grid#Footer">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,71 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- WPF Calendar.xaml CalendarItem, AeroLite.NormalColor. -->
+  <ControlTheme x:Key="{x:Type CalendarItem}" TargetType="CalendarItem">
+    <Setter Property="Margin" Value="0,3,0,3" />
+    <Setter Property="DayTitleTemplate">
+      <Template x:DataType="x:String">
+        <TextBlock FontWeight="Bold"
+                   FontFamily="Verdana, DejaVu Sans, sans-serif"
+                   FontSize="9.5"
+                   Foreground="{DynamicResource AeroLite.Calendar.CalendarItem.TextBlock#1.Foreground}"
+                   HorizontalAlignment="Center"
+                   Text="{Binding}"
+                   Margin="0,6,0,6"
+                   VerticalAlignment="Center" />
+      </Template>
+    </Setter>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Name="PART_Root">
+          <Border BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  Background="{TemplateBinding Background}">
+            <Border BorderBrush="{DynamicResource AeroLite.Calendar.CalendarItem.Border#2.BorderBrush}" BorderThickness="2">
+              <Grid RowDefinitions="Auto,*" ColumnDefinitions="Auto,Auto,Auto">
+                <Button Name="PART_PreviousButton"
+                        Grid.Row="0" Grid.Column="0"
+                        Theme="{StaticResource AeroLite.CalendarPreviousButton}"
+                        Height="20" Width="28"
+                        HorizontalAlignment="Left" />
+                <Button Name="PART_HeaderButton"
+                        Grid.Row="0" Grid.Column="1"
+                        Theme="{StaticResource AeroLite.CalendarHeaderButton}" />
+                <Button Name="PART_NextButton"
+                        Grid.Row="0" Grid.Column="2"
+                        Theme="{StaticResource AeroLite.CalendarNextButton}"
+                        Height="20" Width="28"
+                        HorizontalAlignment="Right" />
+                <Grid Name="PART_MonthView"
+                      Grid.Row="1"
+                      Grid.ColumnSpan="3"
+                      IsVisible="False"
+                      Margin="6,-1,6,6"
+                      HorizontalAlignment="Center"
+                      RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+                      ColumnDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto" />
+                <Grid Name="PART_YearView"
+                      Grid.Row="1"
+                      Grid.ColumnSpan="3"
+                      IsVisible="False"
+                      Margin="6,-3,7,6"
+                      HorizontalAlignment="Center"
+                      RowDefinitions="Auto,Auto,Auto"
+                      ColumnDefinitions="Auto,Auto,Auto,Auto" />
+              </Grid>
+            </Border>
+          </Border>
+          <Rectangle Name="PART_DisabledVisual"
+                     IsVisible="False"
+                     Stretch="Fill"
+                     StrokeThickness="1"
+                     Stroke="{DynamicResource AeroLite.DisabledColor}"
+                     Fill="{DynamicResource AeroLite.DisabledColor}" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:calendardisabled /template/ Rectangle#PART_DisabledVisual">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

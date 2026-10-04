@@ -1,0 +1,81 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/ToolBar.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!-- WPF Fluent ToolBar.xaml: the helper themes of the ToolBar template. -->
+
+  <!-- ToolBarThumbStyle: the gripper. -->
+  <ControlTheme x:Key="Fluent.ToolBarThumbStyle" TargetType="Thumb">
+    <Setter Property="Cursor" Value="SizeAll" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="Transparent"
+                UseLayoutRounding="True">
+          <Rectangle Name="Dots"
+                     Margin="0,2"
+                     Fill="{DynamicResource Fluent.ToolBar.ToolBarThumbStyle.Rectangle#1.Fill}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <!-- ToolBarOverflowButtonStyle; without overflow items (disabled) it collapses to no width. -->
+  <ControlTheme x:Key="Fluent.ToolBarOverflowButtonStyle" TargetType="ToggleButton">
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.ToolBar.ToolBarOverflowButtonStyle.Setter.Self.Foreground}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="Border"
+                Background="{TemplateBinding Background}"
+                CornerRadius="0,3,3,0"
+                UseLayoutRounding="True">
+          <Panel>
+            <TextBlock Name="Glyph"
+                       Margin="0"
+                       VerticalAlignment="Bottom"
+                       Foreground="{TemplateBinding Foreground}"
+                       FontFamily="{DynamicResource Fluent.SymbolThemeFontFamily}"
+                       Text="{x:Static wpf:FluentGlyph.ChevronDown}" />
+            <ContentPresenter Content="{TemplateBinding Content}" />
+          </Panel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:disabled">
+      <Setter Property="Width" Value="0" />
+    </Style>
+  </ControlTheme>
+
+  <!--
+    The overflow button of a vertical bar, which WPF Fluent does not have; without overflow items it collapses to no
+    height.
+  -->
+  <ControlTheme x:Key="Fluent.ToolBarVerticalOverflowButtonStyle" TargetType="ToggleButton">
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.ToolBar.ToolBarOverflowButtonStyle.Setter.Self.Foreground}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="Border"
+                Background="{TemplateBinding Background}"
+                CornerRadius="0,0,3,3"
+                UseLayoutRounding="True">
+          <Panel>
+            <TextBlock Name="Glyph"
+                       Margin="0"
+                       HorizontalAlignment="Right"
+                       Foreground="{TemplateBinding Foreground}"
+                       FontFamily="{DynamicResource Fluent.SymbolThemeFontFamily}"
+                       Text="{x:Static wpf:FluentGlyph.ChevronRight}" />
+            <ContentPresenter Content="{TemplateBinding Content}" />
+          </Panel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:disabled">
+      <Setter Property="Height" Value="0" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

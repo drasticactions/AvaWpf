@@ -1,0 +1,61 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- Office 365 style tab header: flat text, a 3 px accent underline on the selected tab, a contextual tab tinted with its group's color. -->
+  <ControlTheme x:Key="{x:Type wpf:RibbonTabHeader}" TargetType="wpf:RibbonTabHeader">
+    <Setter Property="Margin" Value="0,1,0,0" />
+    <Setter Property="Padding" Value="10,4,10,6" />
+    <Setter Property="MinHeight" Value="28" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.TextFillColorPrimaryBrush}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel Name="MainGrid">
+          <Border Name="ContextualTint"
+                  Background="{TemplateBinding ContextualTabGroupBackground}"
+                  Opacity="0.35"
+                  CornerRadius="4,4,0,0"
+                  Margin="2,0,2,0"
+                  IsVisible="False" />
+          <Border Name="PART_OuterBorder"
+                  Background="{TemplateBinding Background}"
+                  CornerRadius="4"
+                  Margin="2,0,2,0">
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Padding="{TemplateBinding Padding}"
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="Center" />
+          </Border>
+          <Border Name="SelectionIndicator"
+                  Height="3"
+                  CornerRadius="1.5"
+                  Margin="10,0,10,1"
+                  VerticalAlignment="Bottom"
+                  Background="{DynamicResource Fluent.AccentFillColorDefaultBrush}"
+                  IsVisible="False" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:contextual /template/ Border#ContextualTint">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:pointerover /template/ Border#PART_OuterBorder">
+      <Setter Property="Background" Value="{DynamicResource Fluent.Invented.Ribbon.MouseOver.Background}" />
+    </Style>
+    <Style Selector="^:selected:not(:minimized), ^:selected:dropdownopen">
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Style Selector="^ /template/ Border#SelectionIndicator">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+    </Style>
+    <Style Selector="^:focus-visible /template/ Border#PART_OuterBorder">
+      <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Invented.Ribbon.Focused.BorderBrush}" />
+      <Setter Property="BorderThickness" Value="1" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource Fluent.Invented.Ribbon.Disabled.Foreground}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

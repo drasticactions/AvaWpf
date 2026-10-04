@@ -1,0 +1,41 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/DataGrid.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!--
+    WPF Fluent DataGridSelectAllButtonStyle. The Avalonia corner is a DataGridColumnHeader (PART_TopLeftCornerHeader),
+    so this theme targets that type.
+  -->
+  <ControlTheme x:Key="Fluent.DataGridSelectAllButtonStyle" TargetType="DataGridColumnHeader">
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid>
+          <Rectangle x:Name="Border" StrokeThickness="1" Fill="Transparent" Stroke="Transparent" UseLayoutRounding="True" />
+          <Polygon x:Name="Arrow"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Bottom"
+                   Margin="8,8,3,3"
+                   Opacity="0.15"
+                   Fill="{DynamicResource Fluent.DataGrid.DataGridSelectAllButtonStyle.Arrow.Fill}"
+                   Stretch="Uniform"
+                   wpf:DataGridState.Points="{DynamicResource Fluent.DataGrid.DataGridSelectAllButtonStyle.Arrow.Points}" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Rectangle#Border">
+      <Setter Property="Fill">
+        <SolidColorBrush Color="{DynamicResource Fluent.ControlMouseOverColor}" />
+      </Setter>
+    </Style>
+  </ControlTheme>
+
+  <!--
+    WPF DataGridTextColumn.DefaultElementStyle, which Avalonia DataGridTextColumn looks up. The text is centered in
+    the 32 px Fluent cell.
+  -->
+  <ControlTheme x:Key="DataGridCellTextBlockTheme" TargetType="TextBlock">
+    <Setter Property="Margin" Value="2,0,2,0" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+  </ControlTheme>
+</ResourceDictionary>

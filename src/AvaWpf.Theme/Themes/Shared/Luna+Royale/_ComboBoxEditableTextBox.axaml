@@ -1,0 +1,44 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- WPF ComboBox.xaml ComboBoxEditableTextBox: the bare text box of an editable ComboBox. -->
+  <ControlTheme x:Key="$F.ComboBoxEditableTextBox" TargetType="TextBox">
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="CaretBrush" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="SelectionBrush" Value="{DynamicResource SystemColors.HighlightBrush}" />
+    <Setter Property="SelectionForegroundBrush" Value="{DynamicResource SystemColors.HighlightTextBrush}" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden" />
+    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ScrollViewer Name="PART_ScrollViewer"
+                      Focusable="False"
+                      Background="Transparent"
+                      HorizontalScrollBarVisibility="Hidden"
+                      VerticalScrollBarVisibility="Hidden">
+          <TextPresenter Name="PART_TextPresenter"
+                         Text="{TemplateBinding Text, Mode=TwoWay}"
+                         CaretBlinkInterval="{TemplateBinding CaretBlinkInterval}"
+                         CaretIndex="{TemplateBinding CaretIndex}"
+                         SelectionStart="{TemplateBinding SelectionStart}"
+                         SelectionEnd="{TemplateBinding SelectionEnd}"
+                         TextAlignment="{TemplateBinding TextAlignment}"
+                         TextWrapping="{TemplateBinding TextWrapping}"
+                         PasswordChar="{TemplateBinding PasswordChar}"
+                         SelectionBrush="{TemplateBinding SelectionBrush}"
+                         SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
+                         CaretBrush="{TemplateBinding CaretBrush}"
+                         HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                         VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+          <ScrollViewer.Styles>
+            <Style Selector="ScrollContentPresenter#PART_ContentPresenter">
+              <Setter Property="Cursor" Value="IBeam" />
+            </Style>
+          </ScrollViewer.Styles>
+        </ScrollViewer>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,163 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- Avalonia's drawn window decorations in the Classic frame of WindowFrame.axaml. Inactive colors are not tracked:
+       Avalonia does not expose the window's active state to this template. -->
+  <ControlTheme x:Key="Classic.WindowDrawnDecorations.CaptionButton" TargetType="Button" BasedOn="{StaticResource Classic.WindowFrame.CaptionButton}">
+    <Setter Property="Height" Value="{DynamicResource SystemParameters.CaptionHeight}" />
+    <Setter Property="(WindowDecorationProperties.ElementRole)" Value="DecorationsElement" />
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type WindowDrawnDecorations}" TargetType="WindowDrawnDecorations">
+    <Setter Property="DefaultTitleBarHeight" Value="{DynamicResource SystemParameters.CaptionHeight}" />
+    <Setter Property="DefaultFrameThickness" Value="4" />
+    <Setter Property="DefaultShadowThickness" Value="0" />
+    <Setter Property="Template">
+      <WindowDrawnDecorationsTemplate>
+        <WindowDrawnDecorationsContent>
+          <WindowDrawnDecorationsContent.Underlay>
+            <Panel x:Name="PART_UnderlayWrapper">
+              <wpf:ClassicBorderDecorator x:Name="PART_WindowBorder"
+                                          BorderStyle="AltRaised"
+                                          BorderThickness="2"
+                                          Background="{DynamicResource SystemColors.ControlBrush}"
+                                          IsHitTestVisible="False"
+                                          UseLayoutRounding="True">
+                <Border BorderThickness="1" BorderBrush="{DynamicResource SystemColors.ActiveBorderBrush}" />
+              </wpf:ClassicBorderDecorator>
+              <Panel x:Name="PART_TitleBar"
+                     VerticalAlignment="Top"
+                     Height="{TemplateBinding TitleBarHeight}"
+                     IsVisible="{TemplateBinding HasTitleBar}"
+                     WindowDecorationProperties.ElementRole="TitleBar">
+                <Panel.Background>
+                  <LinearGradientBrush StartPoint="0%,50%" EndPoint="100%,50%">
+                    <GradientStop Offset="0" Color="{DynamicResource SystemColors.ActiveCaptionColor}" />
+                    <GradientStop Offset="1" Color="{DynamicResource SystemColors.GradientActiveCaptionColor}" />
+                  </LinearGradientBrush>
+                </Panel.Background>
+              </Panel>
+            </Panel>
+          </WindowDrawnDecorationsContent.Underlay>
+
+          <WindowDrawnDecorationsContent.Overlay>
+            <Panel x:Name="PART_OverlayWrapper">
+              <Panel x:Name="PART_TitleTextPanel"
+                     VerticalAlignment="Top"
+                     Height="{TemplateBinding TitleBarHeight}"
+                     IsHitTestVisible="False"
+                     IsVisible="{TemplateBinding HasTitleBar}">
+                <TextBlock Text="{TemplateBinding Title}"
+                           VerticalAlignment="Center"
+                           Margin="3,0,0,0"
+                           TextTrimming="CharacterEllipsis"
+                           FontFamily="{DynamicResource SystemFonts.CaptionFontFamily}"
+                           FontSize="{DynamicResource SystemFonts.CaptionFontSize}"
+                           FontWeight="{DynamicResource SystemFonts.CaptionFontWeight}"
+                           Foreground="{DynamicResource SystemColors.ActiveCaptionTextBrush}" />
+              </Panel>
+              <StackPanel x:Name="PART_OverlayPanel"
+                          VerticalAlignment="Top"
+                          HorizontalAlignment="Right"
+                          Height="{TemplateBinding TitleBarHeight}"
+                          IsVisible="{TemplateBinding HasTitleBar}"
+                          Orientation="Horizontal"
+                          Margin="0,0,1,0">
+                <Button x:Name="PART_FullScreenButton"
+                        Theme="{StaticResource Classic.WindowDrawnDecorations.CaptionButton}"
+                        Content="{DynamicResource Classic.WindowFrame.MaximizeGlyph}"
+                        Margin="0,0,2,0"
+                        WindowDecorationProperties.ElementRole="FullScreenButton" />
+                <Button x:Name="PART_MinimizeButton"
+                        Theme="{StaticResource Classic.WindowDrawnDecorations.CaptionButton}"
+                        Content="{DynamicResource Classic.WindowFrame.MinimizeGlyph}"
+                        Margin="0,0,-1,0"
+                        WindowDecorationProperties.ElementRole="MinimizeButton" />
+                <Button x:Name="PART_MaximizeButton"
+                        Theme="{StaticResource Classic.WindowDrawnDecorations.CaptionButton}"
+                        Content="{DynamicResource Classic.WindowFrame.MaximizeGlyph}"
+                        Margin="-1,0,0,0"
+                        WindowDecorationProperties.ElementRole="MaximizeButton" />
+                <Button x:Name="PART_CloseButton"
+                        Theme="{StaticResource Classic.WindowDrawnDecorations.CaptionButton}"
+                        Content="{DynamicResource Classic.WindowFrame.CloseGlyph}"
+                        WindowDecorationProperties.ElementRole="CloseButton" />
+              </StackPanel>
+            </Panel>
+          </WindowDrawnDecorationsContent.Overlay>
+
+          <WindowDrawnDecorationsContent.FullscreenPopover>
+            <Panel Height="{TemplateBinding DefaultTitleBarHeight}"
+                   VerticalAlignment="Top"
+                   WindowDecorationProperties.ElementRole="DecorationsElement">
+              <Panel.Background>
+                <LinearGradientBrush StartPoint="0%,50%" EndPoint="100%,50%">
+                  <GradientStop Offset="0" Color="{DynamicResource SystemColors.ActiveCaptionColor}" />
+                  <GradientStop Offset="1" Color="{DynamicResource SystemColors.GradientActiveCaptionColor}" />
+                </LinearGradientBrush>
+              </Panel.Background>
+              <TextBlock Text="{TemplateBinding Title}"
+                         VerticalAlignment="Center"
+                         Margin="3,0,0,0"
+                         FontFamily="{DynamicResource SystemFonts.CaptionFontFamily}"
+                         FontSize="{DynamicResource SystemFonts.CaptionFontSize}"
+                         FontWeight="{DynamicResource SystemFonts.CaptionFontWeight}"
+                         Foreground="{DynamicResource SystemColors.ActiveCaptionTextBrush}" />
+              <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,1,0">
+                <Button x:Name="PART_PopoverFullScreenButton"
+                        Theme="{StaticResource Classic.WindowDrawnDecorations.CaptionButton}"
+                        Content="{DynamicResource Classic.WindowFrame.RestoreGlyph}"
+                        Margin="0,0,2,0"
+                        WindowDecorationProperties.ElementRole="FullScreenButton" />
+                <Button x:Name="PART_PopoverCloseButton"
+                        Theme="{StaticResource Classic.WindowDrawnDecorations.CaptionButton}"
+                        Content="{DynamicResource Classic.WindowFrame.CloseGlyph}"
+                        WindowDecorationProperties.ElementRole="CloseButton" />
+              </StackPanel>
+            </Panel>
+          </WindowDrawnDecorationsContent.FullscreenPopover>
+        </WindowDrawnDecorationsContent>
+      </WindowDrawnDecorationsTemplate>
+    </Setter>
+
+    <Style Selector="^:has-border /template/ Panel#PART_TitleTextPanel">
+      <Setter Property="Margin" Value="4,4,4,0" />
+    </Style>
+    <Style Selector="^:has-border /template/ Panel#PART_TitleBar">
+      <Setter Property="Margin" Value="4,4,4,0" />
+    </Style>
+    <Style Selector="^:has-border /template/ StackPanel#PART_OverlayPanel">
+      <Setter Property="Margin" Value="0,4,5,0" />
+    </Style>
+    <Style Selector="^:not(:has-border) /template/ wpf|ClassicBorderDecorator#PART_WindowBorder">
+      <Setter Property="BorderThickness" Value="0" />
+    </Style>
+    <Style Selector="^:not(:has-border) /template/ wpf|ClassicBorderDecorator#PART_WindowBorder > Border">
+      <Setter Property="BorderThickness" Value="0" />
+    </Style>
+    <Style Selector="^:maximized /template/ Button#PART_MaximizeButton">
+      <Setter Property="Content" Value="{DynamicResource Classic.WindowFrame.RestoreGlyph}" />
+    </Style>
+    <Style Selector="^:not(:has-minimize) /template/ Button#PART_MinimizeButton">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:not(:has-maximize) /template/ Button#PART_MaximizeButton">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:not(:has-fullscreen) /template/ Button#PART_FullScreenButton">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:not(:has-fullscreen) /template/ Button#PART_PopoverFullScreenButton">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:fullscreen /template/ Panel#PART_TitleTextPanel">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:fullscreen /template/ StackPanel#PART_OverlayPanel">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:fullscreen /template/ Panel#PART_TitleBar">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

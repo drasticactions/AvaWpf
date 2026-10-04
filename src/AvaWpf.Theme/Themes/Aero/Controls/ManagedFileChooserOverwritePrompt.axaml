@@ -1,0 +1,46 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:dialogs="using:Avalonia.Dialogs">
+  <!-- Overwrite prompt: a simplified Windows 7 "Confirm Save As" message box. -->
+  <ControlTheme x:Key="{x:Type dialogs:ManagedFileChooserOverwritePrompt}" TargetType="dialogs:ManagedFileChooserOverwritePrompt">
+    <Setter Property="MinWidth" Value="270" />
+    <Setter Property="MaxWidth" Value="400" />
+    <Setter Property="Background" Value="{DynamicResource SystemColors.WindowBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}">
+          <DockPanel>
+            <Border DockPanel.Dock="Bottom"
+                    Background="{DynamicResource SystemColors.ControlBrush}"
+                    BorderBrush="{DynamicResource SystemColors.ControlLightBrush}"
+                    BorderThickness="0,1,0,0"
+                    Padding="12,10">
+              <StackPanel HorizontalAlignment="Right" Spacing="8" Orientation="Horizontal">
+                <Button Classes="accent"
+                        Content="Yes"
+                        MinWidth="75"
+                        MinHeight="23"
+                        HorizontalContentAlignment="Center"
+                        IsDefault="True"
+                        Command="{Binding Confirm, RelativeSource={RelativeSource TemplatedParent}}" />
+                <Button Content="No"
+                        MinWidth="75"
+                        MinHeight="23"
+                        IsCancel="True"
+                        HorizontalContentAlignment="Center"
+                        Command="{Binding Cancel, RelativeSource={RelativeSource TemplatedParent}}" />
+              </StackPanel>
+            </Border>
+            <TextBlock TextWrapping="Wrap" Margin="12">
+              <Run Text="{Binding FileName, RelativeSource={RelativeSource TemplatedParent}}" />
+              <Run Text="already exists. Do you want to replace it?" />
+            </TextBlock>
+          </DockPanel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

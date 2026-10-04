@@ -1,0 +1,31 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dialogs="using:Avalonia.Dialogs"
+        xmlns:internal="using:Avalonia.Dialogs.Internal"
+        xmlns:converters="clr-namespace:Avalonia.Controls.Converters;assembly=Avalonia.Controls">
+  <!-- Icons of the AeroLite ManagedFileChooser, picked by icon key. -->
+  <DrawingGroup x:Key="AeroLite.LevelUp">
+    <GeometryDrawing Brush="Transparent" Geometry="F1M16,16L0,16 0,0 16,0z" />
+    <GeometryDrawing Brush="{DynamicResource AeroLite.Invented.FileChooser.Folder.Edge}" Geometry="M 2,3 L 6,3 L 7,2 L 14,2 L 14,12 L 9,12 L 9,10.5 L 5,6.5 L 2,9.5 Z" />
+    <GeometryDrawing Brush="{DynamicResource SystemColors.HighlightBrush}" Geometry="F1M8,11L5,8 2,11 2,13 4,11 4,15 6,15 6,11 8,13z" />
+  </DrawingGroup>
+  <internal:ResourceSelectorConverter x:Key="AeroLite.Icons">
+    <DrawingGroup x:Key="Icon_Folder">
+      <GeometryDrawing Geometry="M 0 0 L 16 16" />
+      <GeometryDrawing Brush="{DynamicResource AeroLite.Invented.FileChooser.Folder.Edge}" Geometry="M 0,2 L 6,2 L 7.5,3.5 L 16,3.5 L 16,14 L 0,14 Z" />
+      <GeometryDrawing Brush="{DynamicResource AeroLite.Invented.FileChooser.Folder}" Geometry="M 1,5 L 15,5 L 15,13 L 1,13 Z" />
+    </DrawingGroup>
+    <DrawingGroup x:Key="Icon_File">
+      <GeometryDrawing Geometry="M 0 0 L 16 16" />
+      <GeometryDrawing Brush="{DynamicResource AeroLite.Invented.FileChooser.File.Edge}" Geometry="M 2 0 L 10 0 L 14 4 L 14 16 L 2 16 Z" />
+      <GeometryDrawing Brush="{DynamicResource AeroLite.Invented.FileChooser.File}" Geometry="M 3 1 L 9.7 1 L 13 4.3 L 13 15 L 3 15 Z" />
+      <GeometryDrawing Brush="{DynamicResource AeroLite.Invented.FileChooser.File.Edge}" Geometry="M 9 1 L 9 5 L 14 5 L 14 4 L 10 4 L 10 1 Z" />
+    </DrawingGroup>
+    <DrawingGroup x:Key="Icon_Volume">
+      <GeometryDrawing Geometry="M 0 0 L 16 16" />
+      <GeometryDrawing Brush="{DynamicResource AeroLite.Invented.FileChooser.Volume}" Geometry="M 4 5 L 12 5 L 15 8 L 1 8 Z" />
+      <GeometryDrawing Brush="{DynamicResource AeroLite.Invented.FileChooser.Volume.Edge}" Geometry="M 1 8 L 15 8 L 15 12 L 1 12 Z" />
+      <GeometryDrawing Brush="{DynamicResource AeroLite.Invented.FileChooser.Volume.Light}" Geometry="M 3 9.5 L 4.5 9.5 L 4.5 10.5 L 3 10.5 Z" />
+    </DrawingGroup>
+  </internal:ResourceSelectorConverter>
+</ResourceDictionary>

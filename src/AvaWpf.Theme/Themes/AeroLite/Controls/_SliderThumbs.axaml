@@ -1,0 +1,64 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- WPF Slider.xaml thumb templates, AeroLite.NormalColor, pointed toward the ticks when they are on one side. -->
+  <ControlTheme x:Key="AeroLite.SliderThumb" TargetType="Thumb">
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" UseLayoutRounding="True">
+          <Path Name="grip"
+                StrokeThickness="1"
+                VerticalAlignment="Center"
+                UseLayoutRounding="True"
+                Stretch="Fill"
+                Width="{TemplateBinding Width}"
+                Height="{TemplateBinding Height}"
+                Fill="{DynamicResource AeroLite.SliderThumb.Static.Background}"
+                Stroke="{DynamicResource AeroLite.SliderThumb.Static.Border}" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^ /template/ Path#grip">
+      <Setter Property="Data" Value="{DynamicResource AeroLite.Slider.SliderThumbHorizontalDefault.grip.Data}" />
+    </Style>
+    <Style Selector="^:pointerover /template/ Path#grip">
+      <Setter Property="Fill" Value="{DynamicResource AeroLite.SliderThumb.MouseOver.Background}" />
+      <Setter Property="Stroke" Value="{DynamicResource AeroLite.SliderThumb.MouseOver.Border}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Path#grip">
+      <Setter Property="Fill" Value="{DynamicResource AeroLite.SliderThumb.Pressed.Background}" />
+      <Setter Property="Stroke" Value="{DynamicResource AeroLite.SliderThumb.Pressed.Border}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#grip">
+      <Setter Property="Fill" Value="{DynamicResource AeroLite.SliderThumb.Disabled.Background}" />
+      <Setter Property="Stroke" Value="{DynamicResource AeroLite.SliderThumb.Disabled.Border}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="AeroLite.SliderThumbHorizontalDefault" TargetType="Thumb" BasedOn="{StaticResource AeroLite.SliderThumb}" />
+  <ControlTheme x:Key="AeroLite.SliderThumbHorizontalTop" TargetType="Thumb" BasedOn="{StaticResource AeroLite.SliderThumb}">
+    <Style Selector="^ /template/ Path#grip">
+      <Setter Property="Data" Value="{DynamicResource AeroLite.Slider.SliderThumbHorizontalTop.grip.Data}" />
+    </Style>
+  </ControlTheme>
+  <ControlTheme x:Key="AeroLite.SliderThumbHorizontalBottom" TargetType="Thumb" BasedOn="{StaticResource AeroLite.SliderThumb}">
+    <Style Selector="^ /template/ Path#grip">
+      <Setter Property="Data" Value="{DynamicResource AeroLite.Slider.SliderThumbHorizontalBottom.grip.Data}" />
+    </Style>
+  </ControlTheme>
+  <ControlTheme x:Key="AeroLite.SliderThumbVerticalDefault" TargetType="Thumb" BasedOn="{StaticResource AeroLite.SliderThumb}">
+    <Style Selector="^ /template/ Path#grip">
+      <Setter Property="Data" Value="{DynamicResource AeroLite.Slider.SliderThumbVerticalDefault.grip.Data}" />
+    </Style>
+  </ControlTheme>
+  <ControlTheme x:Key="AeroLite.SliderThumbVerticalLeft" TargetType="Thumb" BasedOn="{StaticResource AeroLite.SliderThumb}">
+    <Style Selector="^ /template/ Path#grip">
+      <Setter Property="Data" Value="{DynamicResource AeroLite.Slider.SliderThumbVerticalLeft.grip.Data}" />
+    </Style>
+  </ControlTheme>
+  <ControlTheme x:Key="AeroLite.SliderThumbVerticalRight" TargetType="Thumb" BasedOn="{StaticResource AeroLite.SliderThumb}">
+    <Style Selector="^ /template/ Path#grip">
+      <Setter Property="Data" Value="{DynamicResource AeroLite.Slider.SliderThumbVerticalRight.grip.Data}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

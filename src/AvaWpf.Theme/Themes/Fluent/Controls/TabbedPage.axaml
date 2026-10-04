@@ -1,0 +1,251 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!--
+    TabbedPage in the WPF Fluent window and TabControl manner. Structure and parts follow Avalonia's Fluent TabbedPage
+    (see NOTICE.md).
+  -->
+
+  <!-- Backgrounds -->
+  <SolidColorBrush x:Key="Fluent.TabbedPageTabItemHeaderBackgroundUnselected" Color="Transparent" />
+  <SolidColorBrush x:Key="Fluent.TabbedPageTabItemHeaderBackgroundSelected" Color="Transparent" />
+  <SolidColorBrush x:Key="Fluent.TabbedPageTabItemHeaderBackgroundUnselectedPointerOver" Color="{DynamicResource Fluent.SubtleFillColorSecondary}" />
+  <SolidColorBrush x:Key="Fluent.TabbedPageTabItemHeaderBackgroundSelectedPointerOver" Color="Transparent" />
+  <SolidColorBrush x:Key="Fluent.TabbedPageTabItemHeaderBackgroundUnselectedPressed" Color="{DynamicResource Fluent.SubtleFillColorTertiary}" />
+  <SolidColorBrush x:Key="Fluent.TabbedPageTabItemHeaderBackgroundSelectedPressed" Color="Transparent" />
+  <SolidColorBrush x:Key="Fluent.TabbedPageTabItemHeaderBackgroundDisabled" Color="Transparent" />
+  <!-- Foregrounds -->
+  <SolidColorBrush x:Key="Fluent.TabbedPageTabItemHeaderForegroundUnselected" Color="{DynamicResource Fluent.TextFillColorSecondary}" />
+  <SolidColorBrush x:Key="Fluent.TabbedPageTabItemHeaderForegroundSelected" Color="{DynamicResource Fluent.TextFillColorPrimary}" />
+  <SolidColorBrush x:Key="Fluent.TabbedPageTabItemHeaderForegroundDisabled" Color="{DynamicResource Fluent.TextFillColorDisabled}" />
+  <x:Double x:Key="Fluent.TabbedPageTabItemHeaderPipeThickness">3</x:Double>
+  <x:Double x:Key="Fluent.TabbedPageTabItemHeaderVerticalPipeHeight">16</x:Double>
+
+  <CornerRadius x:Key="Fluent.TabbedPageTabItemHeaderIndicatorCornerRadius">2</CornerRadius>
+  <Thickness x:Key="Fluent.TabbedPageTabItemHeaderIndicatorMargin">0</Thickness>
+
+  <!-- Tab item sizing & shape -->
+  <x:Double x:Key="Fluent.TabbedPageTabItemHeaderMinHeight">48</x:Double>
+  <CornerRadius x:Key="Fluent.TabbedPageTabItemHeaderCornerRadius">4</CornerRadius>
+  <Thickness x:Key="Fluent.TabbedPageTabItemHeaderPadding">8,4</Thickness>
+  <Thickness x:Key="Fluent.TabbedPageTabItemHeaderMargin">0</Thickness>
+
+  <!-- Icon + text header layout -->
+  <x:Double x:Key="Fluent.TabbedPageTabItemHeaderIconSize">20</x:Double>
+  <x:Double x:Key="Fluent.TabbedPageTabItemHeaderFontSize">14</x:Double>
+  <x:Double x:Key="Fluent.TabbedPageTabItemHeaderSpacing">4</x:Double>
+
+  <!-- Tab strip (bar) styling -->
+  <SolidColorBrush x:Key="Fluent.TabbedPageTabStripBackground" Color="Transparent" />
+  <CornerRadius x:Key="Fluent.TabbedPageTabStripCornerRadius">0</CornerRadius>
+  <Thickness x:Key="Fluent.TabbedPageTabStripBorderThickness">0</Thickness>
+  <SolidColorBrush x:Key="Fluent.TabbedPageTabStripBorderBrush" Color="Transparent" />
+  <Thickness x:Key="Fluent.TabbedPageTabStripMargin">0</Thickness>
+  <Thickness x:Key="Fluent.TabbedPageTabStripPadding">0</Thickness>
+
+  <!-- TabbedPage TabControl theme -->
+  <ControlTheme x:Key="Fluent.TabbedPageTabControlTheme" TargetType="TabControl">
+    <Setter Property="Background" Value="{DynamicResource Fluent.TabbedPageTabStripBackground}" />
+    <Setter Property="CornerRadius" Value="{DynamicResource Fluent.TabbedPageTabStripCornerRadius}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Fluent.TabbedPageTabStripBorderBrush}" />
+    <Setter Property="BorderThickness" Value="{DynamicResource Fluent.TabbedPageTabStripBorderThickness}" />
+    <Setter Property="Padding" Value="{DynamicResource Fluent.TabbedPageTabStripPadding}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DockPanel>
+          <Border Name="PART_TabStrip"
+                  Background="{TemplateBinding Background}"
+                  CornerRadius="{TemplateBinding CornerRadius}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  Margin="{DynamicResource Fluent.TabbedPageTabStripMargin}"
+                  Padding="{TemplateBinding Padding}"
+                  DockPanel.Dock="{TemplateBinding TabStripPlacement}">
+            <ItemsPresenter Name="PART_ItemsPresenter">
+              <ItemsPresenter.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <UniformGrid Rows="1" />
+                </ItemsPanelTemplate>
+              </ItemsPresenter.ItemsPanel>
+            </ItemsPresenter>
+          </Border>
+          <Panel ClipToBounds="True">
+            <ContentPresenter Name="PART_SelectedContentHost2"
+                              HorizontalContentAlignment="Stretch"
+                              VerticalContentAlignment="Stretch"
+                              IsVisible="False" />
+            <ContentPresenter Name="PART_SelectedContentHost"
+                              HorizontalContentAlignment="Stretch"
+                              VerticalContentAlignment="Stretch" />
+          </Panel>
+        </DockPanel>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^[TabStripPlacement=Left] /template/ ItemsPresenter#PART_ItemsPresenter > UniformGrid,
+           ^[TabStripPlacement=Right] /template/ ItemsPresenter#PART_ItemsPresenter > UniformGrid">
+      <Setter Property="Rows" Value="0" />
+      <Setter Property="Columns" Value="1" />
+    </Style>
+  </ControlTheme>
+
+  <!-- TabbedPage TabItem theme -->
+  <ControlTheme x:Key="Fluent.TabbedPageTabItemTheme" TargetType="TabItem">
+    <Setter Property="FontSize" Value="{DynamicResource Fluent.ControlContentThemeFontSize}" />
+    <Setter Property="FontWeight" Value="Normal" />
+    <Setter Property="Background" Value="{DynamicResource Fluent.TabbedPageTabItemHeaderBackgroundUnselected}" />
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.TabbedPageTabItemHeaderForegroundUnselected}" />
+    <Setter Property="Padding" Value="{DynamicResource Fluent.TabbedPageTabItemHeaderPadding}" />
+    <Setter Property="Margin" Value="{DynamicResource Fluent.TabbedPageTabItemHeaderMargin}" />
+    <Setter Property="MinHeight" Value="{DynamicResource Fluent.TabbedPageTabItemHeaderMinHeight}" />
+    <Setter Property="CornerRadius" Value="{DynamicResource Fluent.TabbedPageTabItemHeaderCornerRadius}" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="IndicatorTemplate">
+      <DataTemplate>
+        <Border Background="{DynamicResource Fluent.AccentFillColorDefaultBrush}"
+                CornerRadius="{DynamicResource Fluent.TabbedPageTabItemHeaderIndicatorCornerRadius}"
+                Margin="{DynamicResource Fluent.TabbedPageTabItemHeaderIndicatorMargin}"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch" />
+      </DataTemplate>
+    </Setter>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <Border Name="PART_LayoutRoot"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{TemplateBinding CornerRadius}"
+                  Padding="{TemplateBinding Padding}">
+            <StackPanel Name="PART_HeaderPanel"
+                        Spacing="{DynamicResource Fluent.TabbedPageTabItemHeaderSpacing}"
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+              <ContentPresenter Name="PART_IconPresenter"
+                                Content="{TemplateBinding Icon}"
+                                ContentTemplate="{TemplateBinding IconTemplate}"
+                                HorizontalAlignment="Center"
+                                IsVisible="{TemplateBinding Icon, Converter={x:Static ObjectConverters.IsNotNull}}"
+                                Width="{DynamicResource Fluent.TabbedPageTabItemHeaderIconSize}"
+                                Height="{DynamicResource Fluent.TabbedPageTabItemHeaderIconSize}" />
+              <ContentPresenter Name="PART_ContentPresenter"
+                                HorizontalAlignment="Center"
+                                HorizontalContentAlignment="Center"
+                                Content="{TemplateBinding Header}"
+                                ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                FontFamily="{TemplateBinding FontFamily}"
+                                FontSize="{DynamicResource Fluent.TabbedPageTabItemHeaderFontSize}"
+                                FontWeight="{TemplateBinding FontWeight}" />
+            </StackPanel>
+          </Border>
+          <ContentPresenter Name="PART_SelectedPipe"
+                            VerticalAlignment="Bottom"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch"
+                            Content="{TemplateBinding DataContext}"
+                            ContentTemplate="{TemplateBinding IndicatorTemplate}"
+                            IsVisible="False" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+
+    <!-- Selected state -->
+    <Style Selector="^:selected">
+      <Setter Property="Background" Value="{DynamicResource Fluent.TabbedPageTabItemHeaderBackgroundSelected}" />
+      <Setter Property="Foreground" Value="{DynamicResource Fluent.TabbedPageTabItemHeaderForegroundSelected}" />
+    </Style>
+    <Style Selector="^:selected /template/ ContentPresenter#PART_SelectedPipe">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+
+    <!-- Placement-specific pipe positioning -->
+    <Style Selector="^[TabStripPlacement=Top] /template/ ContentPresenter#PART_SelectedPipe">
+      <Setter Property="VerticalAlignment" Value="Bottom" />
+      <Setter Property="Height" Value="{DynamicResource Fluent.TabbedPageTabItemHeaderPipeThickness}" />
+    </Style>
+    <Style Selector="^[TabStripPlacement=Bottom] /template/ ContentPresenter#PART_SelectedPipe">
+      <Setter Property="VerticalAlignment" Value="Top" />
+      <Setter Property="Height" Value="{DynamicResource Fluent.TabbedPageTabItemHeaderPipeThickness}" />
+    </Style>
+    <Style Selector="^[TabStripPlacement=Right]">
+      <Setter Property="IndicatorTemplate">
+        <DataTemplate>
+          <Border Background="{DynamicResource Fluent.AccentFillColorDefaultBrush}"
+                  CornerRadius="{DynamicResource Fluent.TabbedPageTabItemHeaderIndicatorCornerRadius}"
+                  Margin="{DynamicResource Fluent.TabbedPageTabItemHeaderIndicatorMargin}"
+                  Width="{DynamicResource Fluent.TabbedPageTabItemHeaderPipeThickness}"
+                  Height="{DynamicResource Fluent.TabbedPageTabItemHeaderVerticalPipeHeight}" />
+        </DataTemplate>
+      </Setter>
+    </Style>
+    <Style Selector="^[TabStripPlacement=Right] /template/ ContentPresenter#PART_SelectedPipe">
+      <Setter Property="HorizontalAlignment" Value="Right" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="^[TabStripPlacement=Left]">
+      <Setter Property="IndicatorTemplate">
+        <DataTemplate>
+          <Border Background="{DynamicResource Fluent.AccentFillColorDefaultBrush}"
+                  CornerRadius="{DynamicResource Fluent.TabbedPageTabItemHeaderIndicatorCornerRadius}"
+                  Margin="{DynamicResource Fluent.TabbedPageTabItemHeaderIndicatorMargin}"
+                  Width="{DynamicResource Fluent.TabbedPageTabItemHeaderPipeThickness}"
+                  Height="{DynamicResource Fluent.TabbedPageTabItemHeaderVerticalPipeHeight}" />
+        </DataTemplate>
+      </Setter>
+    </Style>
+    <Style Selector="^[TabStripPlacement=Left] /template/ ContentPresenter#PART_SelectedPipe">
+      <Setter Property="HorizontalAlignment" Value="Left" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
+    <!-- Pointer-over -->
+    <Style Selector="^:pointerover /template/ Border#PART_LayoutRoot">
+      <Setter Property="Background" Value="{DynamicResource Fluent.TabbedPageTabItemHeaderBackgroundUnselectedPointerOver}" />
+    </Style>
+
+    <!-- Selected + pointer-over -->
+    <Style Selector="^:selected:pointerover /template/ Border#PART_LayoutRoot">
+      <Setter Property="Background" Value="{DynamicResource Fluent.TabbedPageTabItemHeaderBackgroundSelectedPointerOver}" />
+    </Style>
+
+    <!-- Pressed -->
+    <Style Selector="^:pressed /template/ Border#PART_LayoutRoot">
+      <Setter Property="Background" Value="{DynamicResource Fluent.TabbedPageTabItemHeaderBackgroundUnselectedPressed}" />
+    </Style>
+
+    <!-- Selected + pressed -->
+    <Style Selector="^:selected:pressed /template/ Border#PART_LayoutRoot">
+      <Setter Property="Background" Value="{DynamicResource Fluent.TabbedPageTabItemHeaderBackgroundSelectedPressed}" />
+    </Style>
+
+    <!-- Disabled -->
+    <Style Selector="^:disabled /template/ Border#PART_LayoutRoot">
+      <Setter Property="Background" Value="{DynamicResource Fluent.TabbedPageTabItemHeaderBackgroundDisabled}" />
+      <Setter Property="TextElement.Foreground" Value="{DynamicResource Fluent.TabbedPageTabItemHeaderForegroundDisabled}" />
+    </Style>
+
+    <!-- Focus visible -->
+    <Style Selector="^:focus-visible /template/ Border#PART_LayoutRoot">
+      <Setter Property="BorderBrush" Value="{DynamicResource Fluent.TextFillColorPrimaryBrush}" />
+      <Setter Property="BorderThickness" Value="2" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type TabbedPage}" TargetType="TabbedPage">
+    <Setter Property="Background" Value="{DynamicResource Fluent.WindowBackground}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel Background="{TemplateBinding Background}">
+          <TabControl Name="PART_TabControl"
+                      Theme="{StaticResource Fluent.TabbedPageTabControlTheme}"
+                      ItemContainerTheme="{StaticResource Fluent.TabbedPageTabItemTheme}"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

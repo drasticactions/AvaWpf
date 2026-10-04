@@ -1,0 +1,24 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:internal="using:Avalonia.Dialogs.Internal">
+  <!-- $F.FileChooserIcon: the 16 x 16 file chooser item icon (folder, file or drive), picked by IconKey. -->
+  <DataTemplate x:Key="$F.FileChooserIcon" x:DataType="internal:ManagedFileChooserItemViewModel">
+    <Panel Width="16" Height="16">
+      <Path Data="{DynamicResource $F.Invented.FileChooser.FolderIcon}"
+            Fill="{DynamicResource $F.Invented.FileChooser.Folder.Fill}"
+            Stroke="{DynamicResource $F.Invented.FileChooser.Folder.Stroke}"
+            StrokeThickness="1"
+            IsVisible="{Binding IconKey, Converter={x:Static ObjectConverters.Equal}, ConverterParameter=Icon_Folder}" />
+      <Path Data="{DynamicResource $F.Invented.FileChooser.FileIcon}"
+            Fill="{DynamicResource SystemColors.WindowBrush}"
+            Stroke="{DynamicResource SystemColors.ControlDarkDarkBrush}"
+            StrokeThickness="1"
+            IsVisible="{Binding IconKey, Converter={x:Static ObjectConverters.Equal}, ConverterParameter=Icon_File}" />
+      <Path Data="{DynamicResource $F.Invented.FileChooser.VolumeIcon}"
+            Fill="{DynamicResource SystemColors.ControlDarkBrush}"
+            Stroke="{DynamicResource SystemColors.ControlDarkDarkBrush}"
+            StrokeThickness="1"
+            IsVisible="{Binding IconKey, Converter={x:Static ObjectConverters.Equal}, ConverterParameter=Icon_Volume}" />
+    </Panel>
+  </DataTemplate>
+</ResourceDictionary>

@@ -1,0 +1,31 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF ResizeGrip, Luna and Royale.NormalColor. -->
+  <ControlTheme x:Key="{x:Type wpf:ResizeGrip}" TargetType="wpf:ResizeGrip">
+    <Setter Property="MinWidth" Value="{DynamicResource SystemParameters.VerticalScrollBarWidth}" />
+    <Setter Property="MinHeight" Value="{DynamicResource SystemParameters.HorizontalScrollBarHeight}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Cursor" Value="BottomRightCorner" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Background="{TemplateBinding Background}"
+              UseLayoutRounding="True">
+          <Path HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="0,0,2,2"
+                Fill="{DynamicResource $F.ResizeGrip.ResizeGrip.Path#1.Fill}"
+                Data="{DynamicResource $F.ResizeGrip.ResizeGrip.Path#1.Data}" />
+          <Path HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="0,0,3,3"
+                Fill="{DynamicResource $F.ResizeGripperForeground}"
+                Data="{DynamicResource $F.ResizeGrip.ResizeGrip.Path#2.Data}" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^[FlowDirection=RightToLeft]">
+      <Setter Property="Cursor" Value="BottomLeftCorner" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

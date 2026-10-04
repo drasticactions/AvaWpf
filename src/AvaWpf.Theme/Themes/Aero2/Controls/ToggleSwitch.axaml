@@ -1,0 +1,136 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    An on/off switch in the Windows 8 shape: a WPF button surface track (checked brushes when on) and a solid thumb.
+  -->
+  <ControlTheme x:Key="{x:Type ToggleSwitch}" TargetType="ToggleSwitch">
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="FocusAdorner" Value="{DynamicResource Aero2.FocusVisualStyle}" />
+    <Setter Property="KnobTransitions">
+      <Transitions>
+        <DoubleTransition Property="Canvas.Left" Duration="0:0:0.1" />
+      </Transitions>
+    </Setter>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Background="{TemplateBinding Background}" RowDefinitions="Auto,*">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Grid.Row="0"
+                            VerticalAlignment="Top"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            RecognizesAccessKey="True"
+                            Margin="0,0,0,4" />
+          <Grid Grid.Row="1"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                ColumnDefinitions="Auto,8,Auto"
+                RowDefinitions="2,Auto,2">
+            <Grid Name="SwitchAreaGrid"
+                  Grid.RowSpan="3"
+                  Grid.ColumnSpan="3"
+                  Background="Transparent"
+                  TemplatedControl.IsTemplateFocusTarget="True" />
+            <ContentPresenter Name="PART_OffContentPresenter"
+                              Grid.RowSpan="3"
+                              Grid.Column="2"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              Content="{TemplateBinding OffContent}"
+                              ContentTemplate="{TemplateBinding OffContentTemplate}" />
+            <ContentPresenter Name="PART_OnContentPresenter"
+                              Grid.RowSpan="3"
+                              Grid.Column="2"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              Content="{TemplateBinding OnContent}"
+                              ContentTemplate="{TemplateBinding OnContentTemplate}" />
+            <Border Name="OuterBorder"
+                    Grid.Row="1"
+                    Width="40"
+                    Height="18"
+                    Background="{DynamicResource Aero2.Button.Static.Background}"
+                    BorderBrush="{DynamicResource Aero2.Button.Static.Border}"
+                    BorderThickness="1"
+                    UseLayoutRounding="True" />
+            <Border Name="SwitchKnobBounds"
+                    Grid.Row="1"
+                    Width="40"
+                    Height="18"
+                    Background="{DynamicResource Aero2.Button.Checked.Background}"
+                    BorderBrush="{DynamicResource Aero2.Button.Checked.Border}"
+                    BorderThickness="1"
+                    UseLayoutRounding="True" />
+            <Canvas Name="PART_SwitchKnob"
+                    Grid.Row="1"
+                    Width="30"
+                    Height="18"
+                    HorizontalAlignment="Left">
+              <Grid Name="PART_MovingKnobs" Width="10" Height="18">
+                <Border Name="SwitchKnob"
+                        Background="{DynamicResource SystemColors.ControlTextBrush}"
+                        UseLayoutRounding="True" />
+              </Grid>
+            </Canvas>
+          </Grid>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter:empty">
+      <Setter Property="Margin" Value="0" />
+    </Style>
+
+    <!-- Hover. -->
+    <Style Selector="^:pointerover">
+      <Style Selector="^ /template/ Border#OuterBorder">
+        <Setter Property="Background" Value="{DynamicResource Aero2.Button.MouseOver.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.Button.MouseOver.Border}" />
+      </Style>
+      <Style Selector="^ /template/ Border#SwitchKnobBounds">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.Button.MouseOver.Border}" />
+      </Style>
+    </Style>
+    <!-- Pressed. -->
+    <Style Selector="^:pressed">
+      <Style Selector="^ /template/ Border#OuterBorder">
+        <Setter Property="Background" Value="{DynamicResource Aero2.Button.Pressed.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.Button.Pressed.Border}" />
+      </Style>
+      <Style Selector="^ /template/ Border#SwitchKnobBounds">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.Button.Pressed.Border}" />
+      </Style>
+    </Style>
+    <!-- Disabled. -->
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+      <Style Selector="^ /template/ Border#OuterBorder, ^ /template/ Border#SwitchKnobBounds">
+        <Setter Property="Background" Value="{DynamicResource Aero2.Button.Disabled.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.Button.Disabled.Border}" />
+      </Style>
+      <Style Selector="^ /template/ Border#SwitchKnob">
+        <Setter Property="Background" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+      </Style>
+    </Style>
+    <!-- Checked and unchecked: the on track and content show over the off ones. -->
+    <Style Selector="^:checked">
+      <Style Selector="^ /template/ Border#OuterBorder, ^ /template/ ContentPresenter#PART_OffContentPresenter">
+        <Setter Property="Opacity" Value="0" />
+      </Style>
+      <Style Selector="^ /template/ Border#SwitchKnobBounds, ^ /template/ ContentPresenter#PART_OnContentPresenter">
+        <Setter Property="Opacity" Value="1" />
+      </Style>
+    </Style>
+    <Style Selector="^:unchecked">
+      <Style Selector="^ /template/ Border#OuterBorder, ^ /template/ ContentPresenter#PART_OffContentPresenter">
+        <Setter Property="Opacity" Value="1" />
+      </Style>
+      <Style Selector="^ /template/ Border#SwitchKnobBounds, ^ /template/ ContentPresenter#PART_OnContentPresenter">
+        <Setter Property="Opacity" Value="0" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

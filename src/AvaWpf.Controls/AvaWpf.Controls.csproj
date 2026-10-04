@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>AvaWpf.Controls</RootNamespace>
+    <PackageId>AvaWpf.Controls</PackageId>
+    <Description>WPF controls Avalonia lacks (ToolBar, ToolBarTray, StatusBar, ResizeGrip, ListView and GridView), themed for every WPF family.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AvaWpf.Animations\AvaWpf.Animations.csproj" />
+    <ProjectReference Include="..\AvaWpf.Theme\AvaWpf.Theme.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="AvaWpf.Ribbon" />
+    <InternalsVisibleTo Include="AvaWpf.Controls.Tests" />
+    <InternalsVisibleTo Include="AvaWpf.Ribbon.Tests" />
+  </ItemGroup>
+
+  <Import Project="..\SharedThemes.targets" />
+
+</Project>

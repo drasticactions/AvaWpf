@@ -1,0 +1,127 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!--
+    The Windows 11 window frame. Maximized, the corners, edge and shadow go away. The backdrop is always the solid base
+    color unless Mica is granted.
+  -->
+  <ControlTheme x:Key="{x:Type wpf:WindowFrame}" TargetType="wpf:WindowFrame">
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Fluent.SurfaceStrokeColorDefaultBrush}" />
+    <Setter Property="Background" Value="{DynamicResource Fluent.SolidBackgroundFillColorBaseBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.TextFillColorPrimaryBrush}" />
+    <Setter Property="CornerRadius" Value="{DynamicResource Fluent.OverlayCornerRadius}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel Name="root">
+          <Border Name="frame"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{TemplateBinding CornerRadius}"
+                  ClipToBounds="True">
+            <DockPanel>
+              <Grid Name="PART_Caption" DockPanel.Dock="Top"
+                    Height="{DynamicResource Fluent.Invented.WindowFrame.CaptionHeight}"
+                    Background="Transparent"
+                    ColumnDefinitions="Auto,Auto,Auto,*,Auto">
+                <Image Name="icon" Grid.Column="0" Source="{TemplateBinding Icon}" Width="16" Height="16" Margin="16,0,0,0" VerticalAlignment="Center" />
+                <!--
+                  Caption slots (a RibbonWindow puts its Quick Access Toolbar and contextual tab headers here). Empty
+                  areas are not hit, so they still drag the window through PART_Caption.
+                -->
+                <ContentPresenter Name="PART_CaptionContentPresenter" Grid.Column="1"
+                                  Content="{TemplateBinding CaptionContent}"
+                                  VerticalAlignment="Center"
+                                  IsVisible="{TemplateBinding CaptionContent, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                <ContentPresenter Name="PART_CaptionOverlayPresenter" Grid.Column="2"
+                                  Content="{TemplateBinding CaptionOverlay}"
+                                  VerticalAlignment="Stretch"
+                                  IsVisible="{TemplateBinding CaptionOverlay, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                <TextBlock Name="title" Grid.Column="3"
+                           Text="{TemplateBinding Title}"
+                           Margin="16,0,0,0"
+                           VerticalAlignment="Center"
+                           TextTrimming="CharacterEllipsis"
+                           FontFamily="{DynamicResource SystemFonts.CaptionFontFamily}"
+                           FontSize="12"
+                           Foreground="{DynamicResource Fluent.TextFillColorPrimaryBrush}" />
+                <StackPanel Grid.Column="4" Orientation="Horizontal" VerticalAlignment="Top"
+                            Height="{DynamicResource Fluent.Invented.WindowFrame.CaptionHeight}">
+                  <Button Name="PART_MinimizeButton" Theme="{StaticResource Fluent.CaptionButton}"
+                          Content="{x:Static wpf:FluentGlyph.ChromeMinimize}"
+                          IsVisible="{TemplateBinding IsMinimizeButtonVisible}" />
+                  <Button Name="PART_MaximizeButton" Theme="{StaticResource Fluent.CaptionButton}"
+                          Content="{x:Static wpf:FluentGlyph.ChromeMaximize}"
+                          IsVisible="{TemplateBinding IsMaximizeButtonVisible}" />
+                  <Button Name="PART_CloseButton" Theme="{StaticResource Fluent.CaptionButton}" Classes="close"
+                          Content="{x:Static wpf:FluentGlyph.ChromeClose}" />
+                </StackPanel>
+              </Grid>
+              <ContentPresenter Name="menu" DockPanel.Dock="Top" Content="{TemplateBinding MenuBar}" IsVisible="{TemplateBinding MenuBar, Converter={x:Static ObjectConverters.IsNotNull}}" />
+              <ContentPresenter Name="PART_ContentPresenter"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                HorizontalContentAlignment="Stretch"
+                                VerticalContentAlignment="Stretch" />
+            </DockPanel>
+          </Border>
+          <!-- Resize borders: hit areas on the edges and 8 px corners. -->
+          <Panel Name="resize">
+            <Border wpf:WindowFrame.ResizeEdge="North" Height="4" VerticalAlignment="Top" Background="Transparent" />
+            <Border wpf:WindowFrame.ResizeEdge="South" Height="4" VerticalAlignment="Bottom" Background="Transparent" />
+            <Border wpf:WindowFrame.ResizeEdge="West" Width="4" HorizontalAlignment="Left" Background="Transparent" />
+            <Border wpf:WindowFrame.ResizeEdge="East" Width="4" HorizontalAlignment="Right" Background="Transparent" />
+            <Border wpf:WindowFrame.ResizeEdge="NorthWest" Width="8" Height="8" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Transparent" />
+            <Border wpf:WindowFrame.ResizeEdge="NorthEast" Width="8" Height="8" HorizontalAlignment="Right" VerticalAlignment="Top" Background="Transparent" />
+            <Border wpf:WindowFrame.ResizeEdge="SouthWest" Width="8" Height="8" HorizontalAlignment="Left" VerticalAlignment="Bottom" Background="Transparent" />
+            <Border wpf:WindowFrame.ResizeEdge="SouthEast" Width="8" Height="8" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="Transparent" />
+          </Panel>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <!-- The close button sits in the rounded top-right corner of the window. -->
+    <Style Selector="^ /template/ Button#PART_CloseButton">
+      <Setter Property="CornerRadius" Value="0,7,0,0" />
+    </Style>
+    <Style Selector="^:inactive /template/ TextBlock#title">
+      <Setter Property="Foreground" Value="{DynamicResource Fluent.TextFillColorTertiaryBrush}" />
+    </Style>
+    <Style Selector="^:inactive /template/ Button">
+      <Setter Property="Foreground" Value="{DynamicResource Fluent.TextFillColorDisabledBrush}" />
+    </Style>
+    <Style Selector="^:noicon /template/ Image#icon">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:shadow /template/ Border#frame">
+      <Setter Property="Margin" Value="{DynamicResource Fluent.Invented.WindowFrame.ShadowMargin}" />
+      <Setter Property="BoxShadow" Value="{DynamicResource Fluent.Invented.WindowFrame.Shadow}" />
+    </Style>
+    <Style Selector="^:shadow /template/ Panel#resize">
+      <Setter Property="Margin" Value="{DynamicResource Fluent.Invented.WindowFrame.ShadowMargin}" />
+    </Style>
+    <Style Selector="^:maximized">
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="CornerRadius" Value="0" />
+    </Style>
+    <Style Selector="^:maximized /template/ Button#PART_CloseButton">
+      <Setter Property="CornerRadius" Value="0" />
+    </Style>
+    <Style Selector="^:maximized /template/ Panel#resize">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:maximized /template/ Button#PART_MaximizeButton">
+      <Setter Property="Content" Value="{x:Static wpf:FluentGlyph.ChromeRestore}" />
+    </Style>
+    <Style Selector="^:tool /template/ Grid#PART_Caption">
+      <Setter Property="Height" Value="{DynamicResource SystemParameters.SmallCaptionHeight}" />
+    </Style>
+    <Style Selector="^:tool /template/ TextBlock#title">
+      <Setter Property="FontFamily" Value="{DynamicResource SystemFonts.SmallCaptionFontFamily}" />
+    </Style>
+    <!-- Mica granted (Windows 11): the backdrop shows through the caption and borders. -->
+    <Style Selector="^:backdrop /template/ Border#frame">
+      <Setter Property="Background" Value="Transparent" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

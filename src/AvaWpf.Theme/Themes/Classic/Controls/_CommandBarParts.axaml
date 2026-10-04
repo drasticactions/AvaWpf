@@ -1,0 +1,41 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- CommandBar overflow button (WPF ToolBar.xaml ToolBarHorizontalOverflowButtonStyle [[Classic]]). -->
+  <ControlTheme x:Key="Classic.CommandBarOverflowButton" TargetType="Button">
+    <Setter Property="Background" Value="{DynamicResource Classic.ToolBarToggleButtonHorizontalBackground}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="Bd"
+                CornerRadius="0,3,3,0"
+                Background="{TemplateBinding Background}"
+                UseLayoutRounding="True">
+          <Canvas Width="6"
+                  Height="7"
+                  Margin="7,2,2,2"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Bottom">
+            <Path Stroke="{DynamicResource Classic.ToolBar.ToolBarHorizontalOverflowButtonStyle.Path#1.Stroke}"
+                  Data="{DynamicResource Classic.ToolBar.ToolBarHorizontalOverflowButtonStyle.Path#1.Data}" />
+            <Path Stroke="{TemplateBinding Foreground}"
+                  Data="{DynamicResource Classic.ToolBar.ToolBarHorizontalOverflowButtonStyle.Path#2.Data}" />
+            <Path Fill="{DynamicResource Classic.ToolBar.ToolBarHorizontalOverflowButtonStyle.Path#3.Fill}"
+                  Data="{DynamicResource Classic.ToolBar.ToolBarHorizontalOverflowButtonStyle.Path#3.Data}" />
+            <Path Fill="{TemplateBinding Foreground}"
+                  Data="{DynamicResource Classic.ToolBar.ToolBarHorizontalOverflowButtonStyle.Path#4.Data}" />
+          </Canvas>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#Bd">
+      <Setter Property="Background" Value="{DynamicResource Classic.ToolBarButtonHover}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource Classic.ToolBarGripper}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,54 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!--
+    Fluent.CaptionButton: the Windows 11 caption button of WindowFrame and WindowDrawnDecorations. Class close turns
+    #C42B1C.
+  -->
+  <ControlTheme x:Key="Fluent.CaptionButton" TargetType="Button">
+    <Setter Property="Width" Value="{DynamicResource Fluent.Invented.WindowFrame.ButtonWidth}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.TextFillColorPrimaryBrush}" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="border" Background="{TemplateBinding Background}" CornerRadius="{TemplateBinding CornerRadius}">
+          <Border.Transitions>
+            <Transitions>
+              <BrushTransition Property="Background" Duration="{x:Static wpf:FluentTimings.Faster}" Easing="0,0,0,1" />
+            </Transitions>
+          </Border.Transitions>
+          <TextBlock Name="glyph"
+                     Text="{TemplateBinding Content}"
+                     Foreground="{TemplateBinding Foreground}"
+                     FontFamily="{DynamicResource Fluent.SymbolThemeFontFamily}"
+                     FontSize="10"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#border">
+      <Setter Property="Background" Value="{DynamicResource Fluent.SubtleFillColorSecondaryBrush}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Border#border">
+      <Setter Property="Background" Value="{DynamicResource Fluent.SubtleFillColorTertiaryBrush}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource Fluent.TextFillColorDisabledBrush}" />
+    </Style>
+    <Style Selector="^.close:pointerover">
+      <Setter Property="Foreground" Value="{DynamicResource Fluent.Invented.WindowFrame.Close.Hover.Glyph}" />
+      <Style Selector="^ /template/ Border#border">
+        <Setter Property="Background" Value="{DynamicResource Fluent.Invented.WindowFrame.Close.Hover.Background}" />
+      </Style>
+    </Style>
+    <Style Selector="^.close:pressed">
+      <Setter Property="Foreground" Value="{DynamicResource Fluent.Invented.WindowFrame.Close.Hover.Glyph}" />
+      <Style Selector="^ /template/ Border#border">
+        <Setter Property="Background" Value="{DynamicResource Fluent.Invented.WindowFrame.Close.Pressed.Background}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

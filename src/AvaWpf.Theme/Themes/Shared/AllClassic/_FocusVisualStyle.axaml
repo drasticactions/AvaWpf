@@ -1,0 +1,10 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- WPF FocusVisual.xaml, [[all classic themes]]: SystemParameters.FocusVisualStyleKey. -->
+  <FocusAdornerTemplate x:Key="$F.FocusVisualStyle">
+    <Rectangle StrokeThickness="1"
+               Stroke="{DynamicResource SystemColors.ControlTextBrush}"
+               StrokeDashArray="1,2"
+               UseLayoutRounding="True" />
+  </FocusAdornerTemplate>
+</ResourceDictionary>

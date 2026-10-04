@@ -1,0 +1,38 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:wpf="https://github.com/avawpf"
+             x:Class="AvaWpf.Gallery.Pages.ListsPage">
+  <StackPanel Spacing="12">
+    <TextBlock Classes="Subtitle" Text="Combo boxes" />
+    <WrapPanel ItemSpacing="8" LineSpacing="8">
+      <ComboBox SelectedIndex="0" Width="150">
+        <ComboBoxItem Content="Red" />
+        <ComboBoxItem Content="Green" />
+        <ComboBoxItem Content="Blue" />
+      </ComboBox>
+      <ComboBox IsEditable="True" Text="Editable" Width="150">
+        <ComboBoxItem Content="One" />
+        <ComboBoxItem Content="Two" />
+      </ComboBox>
+      <ComboBox SelectedIndex="0" Width="150" IsEnabled="False">
+        <ComboBoxItem Content="Disabled" />
+      </ComboBox>
+    </WrapPanel>
+    <TextBlock Classes="Subtitle" Text="List box" />
+    <ListBox Width="220" Height="140" HorizontalAlignment="Left" SelectedIndex="1">
+      <ListBoxItem Content="Alpha" />
+      <ListBoxItem Content="Bravo" />
+      <ListBoxItem Content="Charlie" />
+      <ListBoxItem Content="Delta" />
+      <ListBoxItem Content="Disabled" IsEnabled="False" />
+      <ListBoxItem Content="Echo" />
+      <ListBoxItem Content="Foxtrot" />
+    </ListBox>
+    <TextBlock Classes="Subtitle" Text="Multiple selection" />
+    <ListBox Width="220" Height="100" HorizontalAlignment="Left" SelectionMode="Multiple">
+      <ListBoxItem Content="One" IsSelected="True" />
+      <ListBoxItem Content="Two" />
+      <ListBoxItem Content="Three" IsSelected="True" />
+    </ListBox>
+  </StackPanel>
+</UserControl>

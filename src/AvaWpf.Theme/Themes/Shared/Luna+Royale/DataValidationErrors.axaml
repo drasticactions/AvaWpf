@@ -1,0 +1,32 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- WPF's default Validation.ErrorTemplate (Validation.cs CreateDefaultErrorTemplate): a 1 px red border over the
+       control while it has errors, no text. -->
+  <ControlTheme x:Key="{x:Type DataValidationErrors}" TargetType="DataValidationErrors">
+    <Setter Property="Template">
+      <ControlTemplate TargetType="DataValidationErrors">
+        <Panel>
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Padding="{TemplateBinding Padding}"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            CornerRadius="{TemplateBinding CornerRadius}" />
+          <Border Name="ErrorAdorner"
+                  x:DataType="Control"
+                  DataContext="{TemplateBinding Owner}"
+                  BorderThickness="1"
+                  BorderBrush="{DynamicResource $F.Invented.ValidationError.Border}"
+                  IsHitTestVisible="False"
+                  IsVisible="{Binding (DataValidationErrors.HasErrors)}" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <Setter Property="ErrorTemplate">
+      <DataTemplate>
+        <ItemsControl x:DataType="DataValidationErrors" ItemsSource="{Binding}" />
+      </DataTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

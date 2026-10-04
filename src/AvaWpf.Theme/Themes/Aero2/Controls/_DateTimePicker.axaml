@@ -1,0 +1,112 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    Parts shared by the DatePicker and TimePicker: Aero2.DateTimePickerFlyoutButton (the non-editable
+    ComboBoxToggleButton) and Aero2.DateTimePickerItem (the WPF ComboBoxItem look).
+  -->
+  <ControlTheme x:Key="Aero2.DateTimePickerFlyoutButton" TargetType="Button">
+    <Setter Property="FocusAdorner" Value="{DynamicResource Aero2.FocusVisual}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="templateRoot"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                UseLayoutRounding="True">
+          <Grid ColumnDefinitions="*,Auto">
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Content="{TemplateBinding Content}"
+                              Foreground="{TemplateBinding Foreground}"
+                              HorizontalContentAlignment="Stretch"
+                              VerticalContentAlignment="Stretch" />
+            <Border Name="splitBorder"
+                    Grid.Column="1"
+                    Width="{DynamicResource SystemParameters.VerticalScrollBarWidth}">
+              <Path Name="Arrow"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Fill="{DynamicResource Aero2.ComboBox.Static.Glyph}"
+                    Width="5.3334"
+                  Height="4.44833"
+                  UseLayoutRounding="False"
+                  Data="{DynamicResource Aero2.DropDownArrowGeometry}" />
+            </Border>
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover">
+      <Style Selector="^ /template/ Border#templateRoot">
+        <Setter Property="Background" Value="{DynamicResource Aero2.ComboBox.MouseOver.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ComboBox.MouseOver.Border}" />
+      </Style>
+      <Style Selector="^ /template/ Path#Arrow">
+        <Setter Property="Fill" Value="{DynamicResource Aero2.ComboBox.MouseOver.Glyph}" />
+      </Style>
+    </Style>
+    <Style Selector="^:pressed, ^.open">
+      <Style Selector="^ /template/ Border#templateRoot">
+        <Setter Property="Background" Value="{DynamicResource Aero2.ComboBox.Pressed.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ComboBox.Pressed.Border}" />
+      </Style>
+      <Style Selector="^ /template/ Path#Arrow">
+        <Setter Property="Fill" Value="{DynamicResource Aero2.ComboBox.Pressed.Glyph}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Style Selector="^ /template/ Border#templateRoot">
+        <Setter Property="Background" Value="{DynamicResource Aero2.ComboBox.Disabled.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ComboBox.Disabled.Border}" />
+      </Style>
+      <Style Selector="^ /template/ Path#Arrow">
+        <Setter Property="Fill" Value="{DynamicResource Aero2.ComboBox.Disabled.Glyph}" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Aero2.DateTimePickerItem" TargetType="ListBoxItem">
+    <Setter Property="Padding" Value="4,1" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="Bd"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Background="{TemplateBinding Background}"
+                Padding="{TemplateBinding Padding}"
+                UseLayoutRounding="True">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#Bd">
+      <Setter Property="Background" Value="{DynamicResource Aero2.ComboBoxItem.ItemsviewHover.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ComboBoxItem.ItemsviewHover.Border}" />
+    </Style>
+    <Style Selector="^:selected">
+      <Setter Property="IsHitTestVisible" Value="False" />
+      <Style Selector="^ /template/ Border#Bd">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource SystemColors.HighlightTextBrush}" />
+      </Style>
+    </Style>
+    <Style Selector="^.MonthItem">
+      <Setter Property="Padding" Value="8,1,4,1" />
+      <Setter Property="HorizontalContentAlignment" Value="Left" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,91 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- CommandBar in the look of WPF ToolBar.xaml ToolBar [[Classic]]; the gripper is decorative. -->
+
+  <ControlTheme x:Key="{x:Type CommandBar}" TargetType="CommandBar">
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="Background" Value="{DynamicResource Classic.ToolBarHorizontalBackground}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="ItemWidthBottom" Value="58" />
+    <Setter Property="ItemWidthRight" Value="90" />
+    <Setter Property="ItemWidthCollapsed" Value="26" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel Name="Grid" Margin="3,1,1,1" UseLayoutRounding="True">
+          <Panel Name="OverflowGrid" HorizontalAlignment="Right">
+            <Button Name="PART_OverflowButton"
+                    Theme="{StaticResource Classic.CommandBarOverflowButton}"
+                    IsVisible="{TemplateBinding IsOverflowButtonVisible}" />
+            <Popup Name="PART_OverflowPopup"
+                   IsOpen="{TemplateBinding IsOpen, Mode=TwoWay}"
+                   PlacementTarget="{Binding #PART_OverflowButton}"
+                   Placement="Bottom"
+                   IsLightDismissEnabled="True"
+                   wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.ComboBoxPopupAnimation}">
+              <wpf:SystemDropShadowChrome Name="Shdw">
+                <Border Name="ToolBarSubMenuBorder"
+                        Background="{DynamicResource Classic.ToolBarSubMenuBackground}"
+                        BorderBrush="{DynamicResource Classic.ToolBarMenuBorder}"
+                        BorderThickness="1"
+                        MinWidth="120">
+                  <ItemsControl Name="PART_OverflowPresenter"
+                                Margin="2"
+                                ItemsSource="{Binding OverflowItems, RelativeSource={RelativeSource TemplatedParent}}">
+                    <ItemsControl.ItemsPanel>
+                      <ItemsPanelTemplate>
+                        <StackPanel />
+                      </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                  </ItemsControl>
+                </Border>
+              </wpf:SystemDropShadowChrome>
+            </Popup>
+          </Panel>
+          <Border Name="MainPanelBorder"
+                  Margin="0,0,11,0"
+                  CornerRadius="3"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  Padding="{TemplateBinding Padding}">
+            <DockPanel KeyboardNavigation.TabNavigation="Cycle">
+              <Border Name="ToolBarThumb"
+                      DockPanel.Dock="Left"
+                      Width="10"
+                      Margin="-3,-1,0,0"
+                      Padding="6,5,1,6"
+                      Background="Transparent">
+                <Rectangle Fill="{DynamicResource Classic.ToolBar.ToolBarThumbStyle.Rectangle#1.Fill}" />
+              </Border>
+              <ContentPresenter Name="PART_ContentPresenter"
+                                DockPanel.Dock="Left"
+                                Margin="4,0"
+                                VerticalAlignment="Center"
+                                Content="{TemplateBinding Content}" />
+              <ItemsControl Name="PART_PrimaryCommands"
+                            Margin="0,1,2,2"
+                            ItemsSource="{Binding VisiblePrimaryCommands, RelativeSource={RelativeSource TemplatedParent}}"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Stretch"
+                            ClipToBounds="True">
+                <ItemsControl.ItemsPanel>
+                  <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" />
+                  </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+              </ItemsControl>
+            </DockPanel>
+          </Border>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^[IsOverflowButtonVisible=False] /template/ Border#MainPanelBorder">
+      <Setter Property="Margin" Value="0" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

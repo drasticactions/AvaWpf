@@ -1,0 +1,137 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf"
+                    xmlns:primitives="clr-namespace:AvaWpf.Ribbon.Primitives;assembly=AvaWpf.Ribbon">
+  <!-- The shared Ribbon layout in Fluent colors. Ribbon text is 12 px: the 14 px Fluent body size does not fit the two-line labels of 66 px large controls. -->
+  <ControlTheme x:Key="{x:Type wpf:Ribbon}" TargetType="wpf:Ribbon">
+    <Setter Property="Background" Value="{DynamicResource Fluent.Invented.Ribbon.Background}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Invented.Ribbon.BorderBrush}" />
+    <Setter Property="FontSize" Value="12" />
+    <Setter Property="FontFamily" Value="{DynamicResource SystemFonts.MenuFontFamily}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.MenuTextBrush}" />
+    <Setter Property="ItemsPanel">
+      <ItemsPanelTemplate>
+        <primitives:RibbonTabsPanel />
+      </ItemsPanelTemplate>
+    </Setter>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Name="MainGrid" ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto,Auto,Auto">
+          <Border Name="BackgroundBorder"
+                  Grid.RowSpan="4"
+                  Grid.ColumnSpan="3"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}" />
+
+          <!-- Title bar -->
+          <Border Name="titleBarBackground"
+                  Grid.ColumnSpan="3"
+                  Background="{DynamicResource Fluent.Invented.Ribbon.OverlayBackground}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="0,0,0,1" />
+          <Panel Name="titlePanel" Grid.ColumnSpan="3" MinHeight="{DynamicResource Fluent.Invented.Ribbon.TitleBar.Height}">
+            <!-- The group titles come after the toolbar and before the title, so the title is laid out clear of them
+                 (WPF's RibbonTitlePanel); each title is placed over its tabs relative to this row. -->
+            <DockPanel LastChildFill="True">
+              <Decorator Name="PART_QatTopHost" DockPanel.Dock="Left" VerticalAlignment="Center" Margin="{DynamicResource Fluent.Invented.Ribbon.QatTopHost.Margin}" />
+              <wpf:RibbonContextualTabGroupItemsControl Name="PART_ContextualTabGroupItemsControl"
+                                                        DockPanel.Dock="Left"
+                                                        VerticalAlignment="Stretch" />
+              <ContentPresenter Name="PART_TitleHost"
+                                Content="{TemplateBinding Title}"
+                                ContentTemplate="{TemplateBinding TitleTemplate}"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Margin="3,0"
+                                MinWidth="75"
+                                IsHitTestVisible="False">
+                <ContentPresenter.Styles>
+                  <Style Selector="TextBlock">
+                    <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+                  </Style>
+                </ContentPresenter.Styles>
+              </ContentPresenter>
+            </DockPanel>
+          </Panel>
+
+          <!-- Application menu, tab headers, help pane -->
+          <ContentPresenter Name="applicationMenu"
+                            Grid.Row="1"
+                            Content="{TemplateBinding ApplicationMenu}"
+                            VerticalAlignment="Top" />
+          <wpf:RibbonTabHeaderItemsControl Name="PART_TabHeaderItemsControl"
+                                           Grid.Row="1"
+                                           Grid.Column="1"
+                                           HorizontalAlignment="Left"
+                                           VerticalAlignment="Top"
+                                           Margin="1,1,1,0" />
+          <ContentPresenter Name="PART_HelpPane"
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            Content="{TemplateBinding HelpPaneContent}"
+                            ContentTemplate="{TemplateBinding HelpPaneContentTemplate}"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top" />
+
+          <!-- Groups -->
+          <Decorator Name="PART_MainItemsPresenterHost" Grid.Row="2" Grid.ColumnSpan="3">
+            <Border Name="PART_GroupsBorder"
+                    Background="{DynamicResource Fluent.Invented.Ribbon.OverlayBackground}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="1,0,1,1"
+                    Height="91"
+                    UseLayoutRounding="True">
+              <Border BorderThickness="0,0,0,1" Margin="0,0,0,1" BorderBrush="{DynamicResource Fluent.Invented.Ribbon.InnerBorderBrush}">
+                <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
+              </Border>
+            </Border>
+          </Decorator>
+
+          <!-- The groups while minimized -->
+          <Popup Name="PART_ItemsPresenterPopup"
+                 Grid.Row="1"
+                 Grid.ColumnSpan="3"
+                 Placement="BottomEdgeAlignedLeft"
+                 PlacementTarget="{Binding #MainGrid}"
+                 IsLightDismissEnabled="True"
+                 IsOpen="{TemplateBinding IsDropDownOpen, Mode=TwoWay}"
+                 wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.MenuPopupAnimation}">
+            <wpf:SystemDropShadowChrome Name="Shdw" Margin="0,0,5,5">
+              <Border Name="CollapsedPopupBackgroundBorder" Background="{TemplateBinding Background}">
+                <Decorator Name="PART_PopupItemsPresenterHost" Margin="0,1,0,0" />
+              </Border>
+            </wpf:SystemDropShadowChrome>
+          </Popup>
+
+          <!-- Quick Access Toolbar below the Ribbon -->
+          <Border Name="QatBottomHost" Grid.Row="3" Grid.ColumnSpan="3" BorderBrush="{TemplateBinding BorderBrush}" IsVisible="False">
+            <Decorator Name="PART_QatBottomHost" HorizontalAlignment="Left" VerticalAlignment="Center" />
+          </Border>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^:collapsed">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <!-- Hosted in a RibbonWindow: the window caption shows the title, the toolbar and the contextual group headers. -->
+    <Style Selector="^:hosted">
+      <Style Selector="^ /template/ Border#titleBarBackground">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+      <Style Selector="^ /template/ Panel#titlePanel">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+    </Style>
+
+    <Style Selector="^:qatbelow:hasqat /template/ Border#QatBottomHost">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:minimized:qatbelow /template/ Border#QatBottomHost">
+      <Setter Property="BorderThickness" Value="0,1,0,0" />
+    </Style>
+    <Style Selector="^:minimized /template/ Border#BackgroundBorder">
+      <Setter Property="BorderThickness" Value="0,0,0,1" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

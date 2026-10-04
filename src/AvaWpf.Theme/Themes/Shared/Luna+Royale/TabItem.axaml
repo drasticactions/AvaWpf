@@ -1,0 +1,101 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- WPF TabItem.xaml [[Luna.*, Royale.NormalColor]]. The selected tab grows 2 px to cover the content border. Bottom,
+       Left and Right placements flip or turn the tab shape; the header text stays upright. -->
+  <FocusAdornerTemplate x:Key="$F.TabItemFocusVisual">
+    <Rectangle Margin="3,3,3,1"
+               StrokeThickness="1"
+               Stroke="{DynamicResource SystemColors.ControlTextBrush}"
+               StrokeDashArray="1,2"
+               UseLayoutRounding="True" />
+  </FocusAdornerTemplate>
+
+  <ControlTheme x:Key="{x:Type TabItem}" TargetType="TabItem">
+    <Setter Property="FocusAdorner" Value="{DynamicResource $F.TabItemFocusVisual}" />
+    <Setter Property="Padding" Value="12,2,12,2" />
+    <Setter Property="BorderThickness" Value="1,1,1,0" />
+    <Setter Property="BorderBrush" Value="{DynamicResource $F.TabControlNormalBorderBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="Background" Value="{DynamicResource $F.TabItemNormalBackground}" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Stretch" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border UseLayoutRounding="True">
+          <Grid Margin="0,0,1,0">
+            <LayoutTransformControl Name="Transform">
+              <Grid>
+                <Border Name="Bd"
+                        CornerRadius="3,3,0,0"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}" />
+                <Border Name="HighlightBorder"
+                        Height="3"
+                        BorderThickness="1,1,1,0"
+                        CornerRadius="3,3,0,0"
+                        VerticalAlignment="Top" />
+              </Grid>
+            </LayoutTransformControl>
+            <Border BorderThickness="{TemplateBinding BorderThickness}"
+                    Padding="{TemplateBinding Padding}">
+              <ContentPresenter Name="PART_ContentPresenter"
+                                Content="{TemplateBinding Header}"
+                                ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                RecognizesAccessKey="True" />
+            </Border>
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover">
+      <Style Selector="^ /template/ Border#HighlightBorder">
+        <Setter Property="BorderBrush" Value="{DynamicResource $F.TabItemHotBorderBrush}" />
+        <Setter Property="Background" Value="{DynamicResource $F.TabItemHotBorderBackround}" />
+      </Style>
+      <Style Selector="^ /template/ Border#Bd">
+        <Setter Property="Background" Value="{DynamicResource $F.TabItemHotBackground}" />
+      </Style>
+    </Style>
+    <Style Selector="^:selected">
+      <Setter Property="ZIndex" Value="1" />
+      <Style Selector="^ /template/ Border#HighlightBorder">
+        <Setter Property="BorderBrush" Value="{DynamicResource $F.TabItemSelectedBorderBrush}" />
+        <Setter Property="Background" Value="{DynamicResource $F.TabItemSelectedBorderBackround}" />
+      </Style>
+      <Style Selector="^ /template/ Border#Bd">
+        <Setter Property="Background" Value="{DynamicResource $F.TabItemSelectedBackground}" />
+      </Style>
+    </Style>
+    <Style Selector="^[TabStripPlacement=Bottom] /template/ LayoutTransformControl#Transform">
+      <Setter Property="LayoutTransform" Value="scale(1,-1)" />
+    </Style>
+    <Style Selector="^[TabStripPlacement=Left] /template/ LayoutTransformControl#Transform">
+      <Setter Property="LayoutTransform" Value="rotate(-90deg)" />
+    </Style>
+    <Style Selector="^[TabStripPlacement=Right] /template/ LayoutTransformControl#Transform">
+      <Setter Property="LayoutTransform" Value="rotate(90deg)" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+      <Style Selector="^ /template/ Border#Bd">
+        <Setter Property="Background" Value="{DynamicResource $F.TabItemDisabledBackground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource $F.TabItemDisabledBorderBrush}" />
+      </Style>
+    </Style>
+    <Style Selector="^:selected[TabStripPlacement=Top]">
+      <Setter Property="Margin" Value="-2,-2,-2,-1" />
+    </Style>
+    <Style Selector="^:selected[TabStripPlacement=Bottom]">
+      <Setter Property="Margin" Value="-2" />
+    </Style>
+    <Style Selector="^:selected[TabStripPlacement=Left]">
+      <Setter Property="Margin" Value="-2,-2,-1,-2" />
+    </Style>
+    <Style Selector="^:selected[TabStripPlacement=Right]">
+      <Setter Property="Margin" Value="-1,-2,-2,-2" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

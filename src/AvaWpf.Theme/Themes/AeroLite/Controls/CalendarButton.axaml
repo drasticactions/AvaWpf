@@ -1,0 +1,56 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- WPF Calendar.xaml CalendarButton, AeroLite.NormalColor: a month or year cell. -->
+  <ControlTheme x:Key="{x:Type CalendarButton}" TargetType="CalendarButton">
+    <Setter Property="Background" Value="{DynamicResource AeroLite.Calendar.CalendarButton.Setter.Self.Background}" />
+    <Setter Property="MinWidth" Value="40" />
+    <Setter Property="MinHeight" Value="42" />
+    <Setter Property="FontSize" Value="10" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="ClickMode" Value="Release" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Background="Transparent">
+          <Rectangle Name="SelectedBackground" Opacity="0" Fill="{TemplateBinding Background}" />
+          <Rectangle Name="Background" Opacity="0" Fill="{TemplateBinding Background}">
+            <Rectangle.Transitions>
+              <Transitions>
+                <DoubleTransition Property="Opacity" Duration="0:0:0.1" />
+              </Transitions>
+            </Rectangle.Transitions>
+          </Rectangle>
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Margin="1,0,1,1">
+            <ContentPresenter.Foreground>
+              <SolidColorBrush Color="{DynamicResource AeroLite.Calendar.CalendarButton.SolidColorBrush#1.Color}" />
+            </ContentPresenter.Foreground>
+          </ContentPresenter>
+          <Rectangle Name="CalendarButtonFocusVisual"
+                     IsVisible="False"
+                     IsHitTestVisible="False"
+                     Stroke="{DynamicResource AeroLite.Calendar.CalendarButton.CalendarButtonFocusVisual.Stroke}" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Rectangle#Background">
+      <Setter Property="Opacity" Value="0.5" />
+    </Style>
+    <Style Selector="^:pressed /template/ Rectangle#Background">
+      <Setter Property="Opacity" Value="0.5" />
+    </Style>
+    <Style Selector="^:selected /template/ Rectangle#SelectedBackground">
+      <Setter Property="Opacity" Value="0.75" />
+    </Style>
+    <Style Selector="^:inactive /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource AeroLite.Invented.Calendar.Inactive.Foreground}" />
+    </Style>
+    <Style Selector="^:btnfocused /template/ Rectangle#CalendarButtonFocusVisual, ^:focus /template/ Rectangle#CalendarButtonFocusVisual">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

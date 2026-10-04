@@ -1,0 +1,49 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:wpf="https://github.com/avawpf"
+             x:Class="AvaWpf.Gallery.MainView">
+  <DockPanel>
+    <Menu DockPanel.Dock="Top">
+      <MenuItem Header="_File">
+        <MenuItem Header="E_xit" Name="ExitItem" />
+      </MenuItem>
+      <MenuItem Header="_View">
+        <MenuItem Header="_Light" Name="LightItem" />
+        <MenuItem Header="_Dark" Name="DarkItem" />
+        <MenuItem Header="_High contrast" Name="ContrastItem" />
+        <Separator />
+        <MenuItem Header="_Animations" Name="AnimationsItem" ToggleType="CheckBox" IsChecked="True" />
+      </MenuItem>
+      <MenuItem Header="_Help">
+        <MenuItem Header="_About AvaWpf" Name="AboutItem" />
+      </MenuItem>
+    </Menu>
+    <wpf:ToolBarTray DockPanel.Dock="Top" IsLocked="True">
+      <wpf:ToolBar Name="SwitcherBar">
+        <Label Content="_Theme:" Target="{Binding #ThemeBox}" VerticalAlignment="Center" />
+        <ComboBox Name="ThemeBox" Width="110" />
+        <Separator />
+        <Label Content="_Scheme:" Target="{Binding #SchemeBox}" VerticalAlignment="Center" />
+        <ComboBox Name="SchemeBox" Width="150" />
+        <Separator />
+        <Label Content="_Variant:" Target="{Binding #VariantBox}" VerticalAlignment="Center" />
+        <ComboBox Name="VariantBox" Width="110" />
+      </wpf:ToolBar>
+    </wpf:ToolBarTray>
+    <wpf:StatusBar DockPanel.Dock="Bottom">
+      <wpf:StatusBarItem DockPanel.Dock="Left">
+        <TextBlock Name="StatusText" />
+      </wpf:StatusBarItem>
+      <wpf:StatusBarItem HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom" Padding="0">
+        <wpf:ResizeGrip />
+      </wpf:StatusBarItem>
+    </wpf:StatusBar>
+    <Grid ColumnDefinitions="180,4,*">
+      <TreeView Name="PageTree" Grid.Column="0" />
+      <GridSplitter Grid.Column="1" ResizeDirection="Columns" />
+      <ScrollViewer Grid.Column="2" HorizontalScrollBarVisibility="Auto">
+        <ContentControl Name="PageHost" Margin="12" />
+      </ScrollViewer>
+    </Grid>
+  </DockPanel>
+</UserControl>

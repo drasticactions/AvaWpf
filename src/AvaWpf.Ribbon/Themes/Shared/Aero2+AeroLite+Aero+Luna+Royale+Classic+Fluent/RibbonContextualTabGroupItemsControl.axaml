@@ -1,0 +1,20 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf"
+                    xmlns:primitives="clr-namespace:AvaWpf.Ribbon.Primitives;assembly=AvaWpf.Ribbon">
+  <!-- WPF RibbonContextualTabGroup.xaml (items control), [[Generic]]. In a RibbonWindow caption (:incaption) the window gives the row the Ribbon's font and text color. -->
+  <ControlTheme x:Key="{x:Type wpf:RibbonContextualTabGroupItemsControl}" TargetType="wpf:RibbonContextualTabGroupItemsControl">
+    <Setter Property="ItemsPanel">
+      <ItemsPanelTemplate>
+        <primitives:RibbonContextualTabGroupsPanel />
+      </ItemsPanelTemplate>
+    </Setter>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}">
+          <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

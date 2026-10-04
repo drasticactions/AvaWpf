@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  build-test-pack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - name: Build
+        run: dotnet build AvaWpf.slnx -c Release
+      - name: Headless tests
+        run: |
+          for t in tests/*/; do
+            dotnet run --project "$t" -c Release
+          done
+      - name: Check out dotnet/wpf at the pinned commit
+        run: |
+          git init wpf-src
+          cd wpf-src
+          git remote add origin https://github.com/dotnet/wpf.git
+          git sparse-checkout set --no-cone 'src/Microsoft.DotNet.Wpf/src/Themes/'
+          git fetch --depth 1 origin "$(cat ../tools/wpf-tokens/WPF_COMMIT)"
+          git checkout FETCH_HEAD
+      - name: Token generator is up to date
+        run: dotnet run tools/wpf-tokens/wpf-tokens.cs -- --check --wpf wpf-src
+      - name: Icon outputs are up to date
+        run: |
+          python3 -m pip install --user fonttools
+          python3 tools/gen-icons/gen-icons.py --check
+      - name: Pack
+        run: dotnet pack AvaWpf.slnx -c Release -o artifacts
+      - uses: actions/upload-artifact@v4
+        with:
+          name: packages
+          path: artifacts/*.nupkg

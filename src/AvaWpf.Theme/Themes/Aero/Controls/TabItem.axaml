@@ -1,0 +1,93 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    WPF TabItem.xaml, [[Aero.NormalColor]]. The selected tab grows 2 px and draws above its neighbours to cover the content border.
+  -->
+  <FocusAdornerTemplate x:Key="Aero.TabItemFocusVisual">
+    <Rectangle Margin="3,3,3,1"
+               StrokeThickness="1"
+               Stroke="{DynamicResource SystemColors.ControlTextBrush}"
+               StrokeDashArray="1,2"
+               UseLayoutRounding="True" />
+  </FocusAdornerTemplate>
+
+  <ControlTheme x:Key="{x:Type TabItem}" TargetType="TabItem">
+    <Setter Property="FocusAdorner" Value="{StaticResource Aero.TabItemFocusVisual}" />
+    <Setter Property="Foreground" Value="{DynamicResource Aero.TabItem.TabItem.Setter.Self.Foreground}" />
+    <Setter Property="Padding" Value="6,1,6,1" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Aero.TabControlNormalBorderBrush}" />
+    <Setter Property="Background" Value="{DynamicResource Aero.ButtonNormalBackground}" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Stretch" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid UseLayoutRounding="True">
+          <Border Name="Bd"
+                  Padding="{TemplateBinding Padding}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  Background="{TemplateBinding Background}"
+                  BorderThickness="1,1,1,0">
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Content="{TemplateBinding Header}"
+                              ContentTemplate="{TemplateBinding HeaderTemplate}"
+                              HorizontalAlignment="{Binding $parent[TabControl].HorizontalContentAlignment, FallbackValue=Center}"
+                              VerticalAlignment="{Binding $parent[TabControl].VerticalContentAlignment, FallbackValue=Center}"
+                              RecognizesAccessKey="True" />
+          </Border>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#Bd">
+      <Setter Property="Background" Value="{DynamicResource Aero.TabItemHotBackground}" />
+    </Style>
+    <Style Selector="^:selected">
+      <Setter Property="ZIndex" Value="1" />
+      <Style Selector="^ /template/ Border#Bd">
+        <Setter Property="Background" Value="{DynamicResource Aero.TabItemSelectedBackground}" />
+      </Style>
+    </Style>
+    <Style Selector="^:not(:selected):pointerover /template/ Border#Bd">
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero.TabItemHotBorderBrush}" />
+    </Style>
+    <Style Selector="^[TabStripPlacement=Bottom] /template/ Border#Bd">
+      <Setter Property="BorderThickness" Value="1,0,1,1" />
+    </Style>
+    <Style Selector="^[TabStripPlacement=Left] /template/ Border#Bd">
+      <Setter Property="BorderThickness" Value="1,1,0,1" />
+    </Style>
+    <Style Selector="^[TabStripPlacement=Right] /template/ Border#Bd">
+      <Setter Property="BorderThickness" Value="0,1,1,1" />
+    </Style>
+    <Style Selector="^:selected[TabStripPlacement=Top]">
+      <Setter Property="Margin" Value="-2,-2,-2,-1" />
+      <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Margin" Value="0,0,0,1" />
+      </Style>
+    </Style>
+    <Style Selector="^:selected[TabStripPlacement=Bottom]">
+      <Setter Property="Margin" Value="-2,-1,-2,-2" />
+      <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Margin" Value="0,1,0,0" />
+      </Style>
+    </Style>
+    <Style Selector="^:selected[TabStripPlacement=Left]">
+      <Setter Property="Margin" Value="-2,-2,-1,-2" />
+      <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Margin" Value="0,0,1,0" />
+      </Style>
+    </Style>
+    <Style Selector="^:selected[TabStripPlacement=Right]">
+      <Setter Property="Margin" Value="-1,-2,-2,-2" />
+      <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Margin" Value="1,0,0,0" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+      <Style Selector="^ /template/ Border#Bd">
+        <Setter Property="Background" Value="{DynamicResource Aero.TabItemDisabledBackground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.TabItemDisabledBorderBrush}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

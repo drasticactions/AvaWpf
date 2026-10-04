@@ -1,0 +1,90 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/DatePicker.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!-- WPF DefaultDatePickerStyle. DataValidationErrors wraps the field so validation errors show. -->
+  <ControlTheme x:Key="{x:Type CalendarDatePicker}" TargetType="CalendarDatePicker">
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.DatePickerForeground}" />
+    <Setter Property="Background" Value="{DynamicResource Fluent.DatePickerBackground}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Fluent.TextControlElevationBorderBrush}" />
+    <Setter Property="BorderThickness" Value="{DynamicResource Fluent.DatePickerBorderThickness}" />
+    <Setter Property="PlaceholderForeground" Value="{DynamicResource Fluent.TextControlPlaceholderForeground}" />
+    <Setter Property="MinHeight" Value="{DynamicResource Fluent.TextControlThemeMinHeight}" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Stretch" />
+    <Setter Property="Padding" Value="{DynamicResource Fluent.TextControlThemePadding}" />
+    <Setter Property="CornerRadius" Value="{DynamicResource Fluent.ControlCornerRadius}" />
+    <Setter Property="IsTodayHighlighted" Value="True" />
+    <Setter Property="SelectedDateFormat" Value="Short" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DataValidationErrors>
+          <Grid RowDefinitions="*,Auto">
+            <Grid Name="PART_Root" ColumnDefinitions="*,Auto">
+              <Border Name="BorderElement"
+                      Grid.ColumnSpan="2"
+                      BorderBrush="{TemplateBinding BorderBrush}"
+                      BorderThickness="{TemplateBinding BorderThickness}"
+                      Background="{TemplateBinding Background}"
+                      CornerRadius="{TemplateBinding CornerRadius}"
+                      MinHeight="{TemplateBinding MinHeight}"
+                      UseLayoutRounding="True" />
+              <TextBox Name="PART_TextBox"
+                       Theme="{StaticResource Fluent.DatePickerTextBox}"
+                       Padding="{TemplateBinding Padding}"
+                       Foreground="{TemplateBinding Foreground}"
+                       PlaceholderText="{TemplateBinding PlaceholderText}"
+                       PlaceholderForeground="{TemplateBinding PlaceholderForeground}"
+                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+              <Button Name="PART_Button"
+                      Grid.Column="1"
+                      VerticalAlignment="Stretch"
+                      MinWidth="30"
+                      Focusable="False"
+                      Theme="{StaticResource Fluent.DatePickerCalendarButton}" />
+            </Grid>
+            <Popup Name="PART_Popup"
+                   Grid.Row="1"
+                   VerticalAlignment="Top"
+                   Placement="Bottom"
+                   PlacementTarget="{Binding #PART_Root}"
+                   IsLightDismissEnabled="True">
+              <Calendar Name="PART_Calendar"
+                        Margin="10"
+                        Background="{DynamicResource Fluent.DatePickerPopupBackground}"
+                        CornerRadius="{DynamicResource Fluent.OverlayCornerRadius}"
+                        FirstDayOfWeek="{TemplateBinding FirstDayOfWeek}"
+                        IsTodayHighlighted="{TemplateBinding IsTodayHighlighted}"
+                        SelectedDate="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SelectedDate, Mode=TwoWay}"
+                        DisplayDate="{TemplateBinding DisplayDate}"
+                        DisplayDateStart="{TemplateBinding DisplayDateStart}"
+                        DisplayDateEnd="{TemplateBinding DisplayDateEnd}">
+                <Calendar.Effect>
+                  <DropShadowEffect BlurRadius="20" OffsetX="0" OffsetY="6" Opacity="0.25" />
+                </Calendar.Effect>
+              </Calendar>
+            </Popup>
+          </Grid>
+        </DataValidationErrors>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#BorderElement">
+      <Setter Property="Background" Value="{DynamicResource Fluent.DatePickerBackgroundPointerOver}" />
+    </Style>
+    <Style Selector="^:focus-within /template/ Border#BorderElement">
+      <Setter Property="Background" Value="{DynamicResource Fluent.DatePickerBackgroundFocused}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Fluent.TextControlElevationBorderFocusedBrush}" />
+      <Setter Property="BorderThickness" Value="{DynamicResource Fluent.TextControlBorderThemeThicknessFocused}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource Fluent.TextFillColorDisabledBrush}" />
+      <Style Selector="^ /template/ Border#BorderElement">
+        <Setter Property="Background" Value="{DynamicResource Fluent.ControlFillColorDisabledBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.ControlStrokeColorDefaultBrush}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

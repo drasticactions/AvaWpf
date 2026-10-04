@@ -1,0 +1,208 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:dialogs="using:Avalonia.Dialogs"
+                    xmlns:internal="using:Avalonia.Dialogs.Internal">
+  <!-- Avalonia's managed open/save dialog, laid out as a simplified Windows 7/8 common file dialog. -->
+  <DataTemplate x:Key="Aero2.ManagedFileChooserIcon" x:DataType="internal:ManagedFileChooserItemViewModel">
+    <Panel Width="16" Height="16">
+      <Path Data="{DynamicResource Aero2.Invented.FileChooser.Folder.Data}"
+            Fill="{DynamicResource Aero2.Invented.FileChooser.Folder.Fill}"
+            Stroke="{DynamicResource Aero2.Invented.FileChooser.Folder.Stroke}"
+            StrokeThickness="1"
+            IsVisible="{Binding IconKey, Converter={x:Static ObjectConverters.Equal}, ConverterParameter=Icon_Folder}" />
+      <Path Data="{DynamicResource Aero2.Invented.FileChooser.File.Data}"
+            Fill="{DynamicResource Aero2.Invented.FileChooser.File.Fill}"
+            Stroke="{DynamicResource Aero2.Invented.FileChooser.File.Stroke}"
+            StrokeThickness="1"
+            IsVisible="{Binding IconKey, Converter={x:Static ObjectConverters.Equal}, ConverterParameter=Icon_File}" />
+      <Path Data="{DynamicResource Aero2.Invented.FileChooser.Volume.Data}"
+            Fill="{DynamicResource Aero2.Invented.FileChooser.Volume.Fill}"
+            Stroke="{DynamicResource Aero2.Invented.FileChooser.Volume.Stroke}"
+            StrokeThickness="1"
+            IsVisible="{Binding IconKey, Converter={x:Static ObjectConverters.Equal}, ConverterParameter=Icon_Volume}" />
+    </Panel>
+  </DataTemplate>
+
+  <ControlTheme x:Key="{x:Type dialogs:ManagedFileChooser}" TargetType="dialogs:ManagedFileChooser">
+    <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="Template">
+      <ControlTemplate x:DataType="internal:ManagedFileChooserViewModel">
+        <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Padding="{TemplateBinding Padding}">
+          <DockPanel>
+            <DockPanel Name="NavBar" DockPanel.Dock="Top" Margin="8,6,8,6">
+              <Button Classes="toolbar"
+                      Command="{Binding GoUp}"
+                      DockPanel.Dock="Left"
+                      Width="24"
+                      Height="22"
+                      Margin="0,0,4,0">
+                <Path Data="{DynamicResource Aero2.Invented.Glyph.Up}"
+                      Stroke="{Binding $parent[Button].Foreground}"
+                      StrokeThickness="1" />
+              </Button>
+              <Button Classes="toolbar"
+                      Command="{Binding Refresh}"
+                      DockPanel.Dock="Right"
+                      Width="24"
+                      Height="22"
+                      Margin="4,0,0,0">
+                <Path Data="{DynamicResource Aero2.Invented.Glyph.Refresh}"
+                      Stroke="{Binding $parent[Button].Foreground}"
+                      StrokeThickness="1" />
+              </Button>
+              <TextBox Name="Location" Text="{Binding Location}" VerticalContentAlignment="Center">
+                <TextBox.KeyBindings>
+                  <KeyBinding Command="{Binding EnterPressed}" Gesture="Enter" />
+                </TextBox.KeyBindings>
+              </TextBox>
+            </DockPanel>
+            <DockPanel Margin="8,6,8,8" DockPanel.Dock="Bottom">
+              <DockPanel DockPanel.Dock="Top" Margin="0,0,0,8">
+                <ComboBox DockPanel.Dock="Right"
+                          MinWidth="140"
+                          Margin="6,0,0,0"
+                          IsVisible="{Binding ShowFilters}"
+                          ItemsSource="{Binding Filters}"
+                          SelectedItem="{Binding SelectedFilter}" />
+                <TextBox Text="{Binding FileName}"
+                         PlaceholderText="{DynamicResource StringManagedFileChooserFileNamePlaceholder}"
+                         IsVisible="{Binding !SelectingFolder}" />
+              </DockPanel>
+              <CheckBox IsChecked="{Binding ShowHiddenFiles}"
+                        Content="{DynamicResource StringManagedFileChooserShowHiddenFilesText}"
+                        VerticalAlignment="Center"
+                        DockPanel.Dock="Left" />
+              <StackPanel Name="Finalize" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="6">
+                <Button Command="{Binding Ok}"
+                        Classes="accent"
+                        MinWidth="75"
+                        MinHeight="23"
+                        Content="{DynamicResource StringManagedFileChooserOkText}" />
+                <Button Command="{Binding Cancel}"
+                        MinWidth="75"
+                        MinHeight="23"
+                        Content="{DynamicResource StringManagedFileChooserCancelText}" />
+              </StackPanel>
+            </DockPanel>
+            <Border Margin="8,0"
+                    Background="{DynamicResource SystemColors.WindowBrush}"
+                    BorderBrush="{DynamicResource Aero2.ListBox.Static.Border}"
+                    BorderThickness="1">
+              <DockPanel>
+                <ListBox Name="PART_QuickLinks"
+                         DockPanel.Dock="Left"
+                         Width="180"
+                         Background="Transparent"
+                         BorderBrush="{DynamicResource SystemColors.ControlDarkBrush}"
+                         BorderThickness="0,0,1,0"
+                         Padding="0,4"
+                         Focusable="False"
+                         ItemsSource="{Binding QuickLinks}"
+                         SelectedIndex="{Binding QuickLinksSelectedIndex}">
+                  <ListBox.ItemTemplate>
+                    <DataTemplate x:DataType="internal:ManagedFileChooserItemViewModel">
+                      <StackPanel Spacing="6" Orientation="Horizontal" Background="Transparent">
+                        <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource Aero2.ManagedFileChooserIcon}" />
+                        <TextBlock Text="{Binding DisplayName}" VerticalAlignment="Center" />
+                      </StackPanel>
+                    </DataTemplate>
+                  </ListBox.ItemTemplate>
+                </ListBox>
+                <DockPanel Grid.IsSharedSizeScope="True">
+                  <Border DockPanel.Dock="Top"
+                          Background="{DynamicResource Aero2.GridViewColumnHeaderBackground}"
+                          BorderBrush="{DynamicResource Aero2.GridViewColumnHeaderBorderBackground}"
+                          BorderThickness="0,0,0,1"
+                          MinHeight="20"
+                          Padding="2,0,0,0">
+                    <Grid HorizontalAlignment="Stretch">
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="26" SharedSizeGroup="Icon" />
+                        <ColumnDefinition Width="240" SharedSizeGroup="Name" />
+                        <ColumnDefinition Width="9" SharedSizeGroup="Splitter" />
+                        <ColumnDefinition Width="140" SharedSizeGroup="Modified" />
+                        <ColumnDefinition Width="9" SharedSizeGroup="Splitter" />
+                        <ColumnDefinition Width="110" SharedSizeGroup="Type" />
+                        <ColumnDefinition Width="9" SharedSizeGroup="Splitter" />
+                        <ColumnDefinition Width="80" SharedSizeGroup="Size" />
+                        <ColumnDefinition Width="9" SharedSizeGroup="Splitter" />
+                      </Grid.ColumnDefinitions>
+                      <Grid.Styles>
+                        <Style Selector="GridSplitter">
+                          <Setter Property="Background" Value="{DynamicResource Aero2.GridViewColumnHeaderBorderBackground}" />
+                          <Setter Property="Template">
+                            <ControlTemplate>
+                              <Border Background="Transparent">
+                                <Rectangle Width="1" HorizontalAlignment="Center" Fill="{TemplateBinding Background}" />
+                              </Border>
+                            </ControlTemplate>
+                          </Setter>
+                        </Style>
+                        <Style Selector="TextBlock">
+                          <Setter Property="VerticalAlignment" Value="Center" />
+                          <Setter Property="Margin" Value="4,0" />
+                        </Style>
+                      </Grid.Styles>
+                      <TextBlock Grid.Column="1" Text="{DynamicResource StringManagedFileChooserNameColumn}" />
+                      <GridSplitter Grid.Column="2" />
+                      <TextBlock Grid.Column="3" Text="{DynamicResource StringManagedFileChooserDateModifiedColumn}" />
+                      <GridSplitter Grid.Column="4" />
+                      <TextBlock Grid.Column="5" Text="{DynamicResource StringManagedFileChooserTypeColumn}" />
+                      <GridSplitter Grid.Column="6" />
+                      <TextBlock Grid.Column="7" Text="{DynamicResource StringManagedFileChooserSizeColumn}" />
+                      <GridSplitter Grid.Column="8" />
+                    </Grid>
+                  </Border>
+                  <ListBox Name="PART_Files"
+                           ItemsSource="{Binding Items}"
+                           SelectionMode="{Binding SelectionMode}"
+                           SelectedItems="{Binding SelectedItems}"
+                           Background="Transparent"
+                           BorderThickness="0"
+                           ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListBox.ItemTemplate>
+                      <DataTemplate x:DataType="internal:ManagedFileChooserItemViewModel">
+                        <Grid Background="Transparent">
+                          <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="Icon" />
+                            <ColumnDefinition SharedSizeGroup="Name" />
+                            <ColumnDefinition SharedSizeGroup="Splitter" />
+                            <ColumnDefinition SharedSizeGroup="Modified" />
+                            <ColumnDefinition SharedSizeGroup="Splitter" />
+                            <ColumnDefinition SharedSizeGroup="Type" />
+                            <ColumnDefinition SharedSizeGroup="Splitter" />
+                            <ColumnDefinition SharedSizeGroup="Size" />
+                            <ColumnDefinition SharedSizeGroup="Splitter" />
+                          </Grid.ColumnDefinitions>
+                          <ContentPresenter Content="{Binding}"
+                                            ContentTemplate="{StaticResource Aero2.ManagedFileChooserIcon}"
+                                            HorizontalAlignment="Left" />
+                          <TextBlock Grid.Column="1" Text="{Binding DisplayName}" TextTrimming="CharacterEllipsis" />
+                          <TextBlock Grid.Column="3" Text="{Binding Modified}" />
+                          <TextBlock Grid.Column="5" Text="{Binding Type}" />
+                          <TextBlock Grid.Column="7" HorizontalAlignment="Right">
+                            <TextBlock.Text>
+                              <Binding Path="Size">
+                                <Binding.Converter>
+                                  <internal:FileSizeStringConverter />
+                                </Binding.Converter>
+                              </Binding>
+                            </TextBlock.Text>
+                          </TextBlock>
+                        </Grid>
+                      </DataTemplate>
+                    </ListBox.ItemTemplate>
+                  </ListBox>
+                </DockPanel>
+              </DockPanel>
+            </Border>
+          </DockPanel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,236 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/TextBox.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!--
+    WPF DefaultTextBoxStyle. Class password: DefaultPasswordBoxStyle with a reveal button in place of the delete button,
+    as the Windows 11 password box has. Class toolbar: ToolBar.TextBoxStyleKey. DataValidationErrors draws the ErrorTemplate.
+  -->
+  <ControlTheme x:Key="Fluent.TextBoxButton" TargetType="Button">
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.TextControlButtonForeground}" />
+    <Setter Property="Background" Value="{DynamicResource Fluent.TextControlButtonBackground}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Fluent.TextControlButtonBorderBrush}" />
+    <Setter Property="CornerRadius" Value="{DynamicResource Fluent.ControlCornerRadius}" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Cursor" Value="Arrow" />
+    <Setter Property="Width" Value="{Binding $self.Bounds.Height}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="ButtonLayoutBorder"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Background="{TemplateBinding Background}"
+                CornerRadius="{TemplateBinding CornerRadius}">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            Padding="{TemplateBinding Padding}"
+                            Foreground="{TemplateBinding Foreground}"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover">
+      <Setter Property="Background" Value="{DynamicResource Fluent.TextControlButtonBackgroundPointerOver}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Fluent.TextControlButtonBorderBrushPointerOver}" />
+      <Setter Property="Foreground" Value="{DynamicResource Fluent.TextControlButtonForegroundPointerOver}" />
+    </Style>
+    <Style Selector="^:pressed">
+      <Setter Property="Background" Value="{DynamicResource Fluent.TextControlButtonBackgroundPressed}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Fluent.TextControlButtonBorderBrushPressed}" />
+      <Setter Property="Foreground" Value="{DynamicResource Fluent.TextControlButtonForegroundPressed}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Border#ButtonLayoutBorder">
+      <Setter Property="Opacity" Value="0" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Fluent.TextBoxToggleButton" TargetType="ToggleButton" BasedOn="{StaticResource Fluent.TextBoxButton}">
+    <Style Selector="^:checked">
+      <Setter Property="Background" Value="{DynamicResource Fluent.TextControlButtonBackgroundPressed}" />
+      <Setter Property="Foreground" Value="{DynamicResource Fluent.TextControlButtonForegroundPressed}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type TextBox}" TargetType="TextBox">
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.TextControlForeground}" />
+    <Setter Property="CaretBrush" Value="{DynamicResource Fluent.TextControlForeground}" />
+    <Setter Property="Background" Value="{DynamicResource Fluent.TextControlBackground}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Fluent.TextControlElevationBorderBrush}" />
+    <Setter Property="BorderThickness" Value="{DynamicResource Fluent.TextControlBorderThemeThickness}" />
+    <Setter Property="SelectionBrush" Value="{DynamicResource Fluent.TextControlSelectionHighlightColor}" />
+    <Setter Property="PlaceholderForeground" Value="{DynamicResource Fluent.TextControlPlaceholderForeground}" />
+    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden" />
+    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden" />
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+    <Setter Property="VerticalContentAlignment" Value="Top" />
+    <Setter Property="MinHeight" Value="{DynamicResource Fluent.TextControlThemeMinHeight}" />
+    <Setter Property="MinWidth" Value="{DynamicResource Fluent.TextControlThemeMinWidth}" />
+    <Setter Property="Padding" Value="{DynamicResource Fluent.TextControlThemePadding}" />
+    <Setter Property="CornerRadius" Value="{DynamicResource Fluent.ControlCornerRadius}" />
+    <Setter Property="Cursor" Value="IBeam" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DataValidationErrors>
+          <Grid ColumnDefinitions="*,Auto">
+            <Border Name="ContentBorder"
+                    Grid.ColumnSpan="2"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    MinHeight="{TemplateBinding MinHeight}"
+                    CornerRadius="{TemplateBinding CornerRadius}"
+                    UseLayoutRounding="True" />
+            <DockPanel Name="PART_ContentHost"
+                       Margin="{TemplateBinding BorderThickness}">
+              <ContentPresenter DockPanel.Dock="Left"
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Content="{TemplateBinding InnerLeftContent}" />
+              <ContentPresenter DockPanel.Dock="Right"
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Content="{TemplateBinding InnerRightContent}" />
+              <ScrollViewer Name="PART_ScrollViewer"
+                            Padding="{TemplateBinding Padding}"
+                            HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+                            VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
+                            IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
+                            AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
+                            BringIntoViewOnFocusChange="{TemplateBinding (ScrollViewer.BringIntoViewOnFocusChange)}">
+                <Panel>
+                  <TextBlock Name="PART_Placeholder"
+                             Foreground="{TemplateBinding PlaceholderForeground}"
+                             Text="{TemplateBinding PlaceholderText}"
+                             TextAlignment="{TemplateBinding TextAlignment}"
+                             TextWrapping="{TemplateBinding TextWrapping}"
+                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                    <TextBlock.IsVisible>
+                      <MultiBinding Converter="{x:Static BoolConverters.And}">
+                        <Binding ElementName="PART_TextPresenter" Path="PreeditText" Converter="{x:Static StringConverters.IsNullOrEmpty}" />
+                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Text" Converter="{x:Static StringConverters.IsNullOrEmpty}" />
+                      </MultiBinding>
+                    </TextBlock.IsVisible>
+                  </TextBlock>
+                  <TextPresenter Name="PART_TextPresenter"
+                                 Text="{TemplateBinding Text, Mode=TwoWay}"
+                                 CaretBlinkInterval="{TemplateBinding CaretBlinkInterval}"
+                                 CaretIndex="{TemplateBinding CaretIndex}"
+                                 SelectionStart="{TemplateBinding SelectionStart}"
+                                 SelectionEnd="{TemplateBinding SelectionEnd}"
+                                 TextAlignment="{TemplateBinding TextAlignment}"
+                                 TextWrapping="{TemplateBinding TextWrapping}"
+                                 LineHeight="{TemplateBinding LineHeight}"
+                                 LetterSpacing="{TemplateBinding LetterSpacing}"
+                                 PasswordChar="{TemplateBinding PasswordChar}"
+                                 RevealPassword="{TemplateBinding RevealPassword}"
+                                 SelectionBrush="{TemplateBinding SelectionBrush}"
+                                 SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
+                                 CaretBrush="{TemplateBinding CaretBrush}"
+                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                </Panel>
+                <ScrollViewer.Styles>
+                  <Style Selector="ScrollContentPresenter#PART_ContentPresenter">
+                    <Setter Property="Cursor" Value="IBeam" />
+                  </Style>
+                </ScrollViewer.Styles>
+              </ScrollViewer>
+            </DockPanel>
+            <Button Name="DeleteButton"
+                    Grid.Column="1"
+                    Theme="{StaticResource Fluent.TextBoxButton}"
+                    IsTabStop="False"
+                    MinWidth="30"
+                    IsVisible="False"
+                    VerticalAlignment="Stretch"
+                    Padding="{DynamicResource Fluent.TextBoxClearButtonPadding}"
+                    Command="{Binding $parent[TextBox].Clear}">
+              <TextBlock Name="GlyphElement"
+                         FontFamily="{DynamicResource Fluent.SymbolThemeFontFamily}"
+                         FontSize="{DynamicResource Fluent.TextBoxIconFontSize}"
+                         Text="{x:Static wpf:FluentGlyph.Clear}"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center" />
+            </Button>
+            <ToggleButton Name="RevealButton"
+                          Grid.Column="1"
+                          Theme="{StaticResource Fluent.TextBoxToggleButton}"
+                          IsTabStop="False"
+                          IsVisible="False"
+                          Height="{DynamicResource Fluent.PasswordBoxButtonHeight}"
+                          MinWidth="30"
+                          VerticalAlignment="Top"
+                          Margin="{DynamicResource Fluent.PasswordBoxButtonMargin}"
+                          Padding="{DynamicResource Fluent.PasswordBoxButtonPadding}"
+                          IsChecked="{Binding $parent[TextBox].RevealPassword, Mode=TwoWay}">
+              <TextBlock FontFamily="{DynamicResource Fluent.SymbolThemeFontFamily}"
+                         FontSize="{DynamicResource Fluent.PasswordBoxButtonIconSize}"
+                         Text="{x:Static wpf:FluentGlyph.RevealPassword}"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center" />
+            </ToggleButton>
+          </Grid>
+        </DataValidationErrors>
+      </ControlTemplate>
+    </Setter>
+
+    <!-- IsKeyboardFocusWithin, unless the text is empty, read-only, multi-line or wrapping: the delete button. -->
+    <Style Selector="^[IsReadOnly=False][AcceptsReturn=False][TextWrapping=NoWrap]:focus-within:not(:empty) /template/ Button#DeleteButton">
+      <Setter Property="IsVisible" Value="True" />
+      <Setter Property="Margin" Value="{DynamicResource Fluent.TextBoxClearButtonMargin}" />
+    </Style>
+
+    <Style Selector="^:pointerover">
+      <Style Selector="^ /template/ Border#ContentBorder">
+        <Setter Property="Background" Value="{DynamicResource Fluent.TextControlBackgroundPointerOver}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.TextControlBorderBrushPointerOver}" />
+      </Style>
+      <Setter Property="Foreground" Value="{DynamicResource Fluent.TextControlForegroundPointerOver}" />
+    </Style>
+    <Style Selector="^:focus">
+      <Style Selector="^ /template/ Border#ContentBorder">
+        <Setter Property="BorderThickness" Value="{DynamicResource Fluent.TextControlBorderThemeThicknessFocused}" />
+        <Setter Property="Background" Value="{DynamicResource Fluent.TextControlBackgroundFocused}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.TextControlBorderBrushFocused}" />
+      </Style>
+      <Setter Property="Foreground" Value="{DynamicResource Fluent.TextControlForegroundFocused}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Style Selector="^ /template/ Border#ContentBorder">
+        <Setter Property="Background" Value="{DynamicResource Fluent.TextControlBackgroundDisabled}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.TextControlBorderBrushDisabled}" />
+      </Style>
+      <Setter Property="Foreground" Value="{DynamicResource Fluent.TextControlForegroundDisabled}" />
+    </Style>
+    <!-- PasswordBox.xaml -->
+    <Style Selector="^.password">
+      <Setter Property="PasswordChar" Value="●" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Fluent.TextControlBorderBrush}" />
+      <Setter Property="BorderThickness" Value="{DynamicResource Fluent.PasswordBoxBorderThemeThickness}" />
+      <Style Selector="^ /template/ Button#DeleteButton">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+      <Style Selector="^[IsReadOnly=False][AcceptsReturn=False]:not(:empty) /template/ ToggleButton#RevealButton">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+    </Style>
+
+    <!-- ToolBar.xaml ToolBar.TextBoxStyleKey -->
+    <Style Selector="^.toolbar">
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderBrush" Value="Transparent" />
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="Padding" Value="2" />
+      <Setter Property="MinHeight" Value="0" />
+      <Style Selector="^ /template/ Border#ContentBorder">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+      </Style>
+      <Style Selector="^ /template/ Button#DeleteButton">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

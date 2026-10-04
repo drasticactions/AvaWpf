@@ -1,0 +1,26 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- WPF's default Validation.ErrorTemplate: a 1 px red border while the control has errors, with no message. -->
+  <ControlTheme x:Key="{x:Type DataValidationErrors}" TargetType="DataValidationErrors">
+    <Setter Property="Template">
+      <ControlTemplate TargetType="DataValidationErrors">
+        <Panel>
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Padding="{TemplateBinding Padding}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}" />
+          <Border Name="ErrorBorder"
+                  IsVisible="{Binding Owner.(DataValidationErrors.HasErrors), RelativeSource={RelativeSource TemplatedParent}, FallbackValue=False}"
+                  BorderBrush="{DynamicResource Aero2.Invented.Validation.ErrorBorder}"
+                  BorderThickness="1"
+                  IsHitTestVisible="False"
+                  UseLayoutRounding="True" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

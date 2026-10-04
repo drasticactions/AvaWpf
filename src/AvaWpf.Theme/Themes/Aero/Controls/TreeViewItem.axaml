@@ -1,0 +1,73 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!--
+    WPF TreeViewItem.xaml with the Aero expander. The "active" class follows the TreeView's keyboard focus (WPF IsSelectionActive).
+    PART_Header and PART_HeaderPresenter are the parts Avalonia's TreeViewItem uses for bring-into-view and double-tap expand.
+    Avalonia's TreeView has no HorizontalContentAlignment, so the header uses WPF's Left.
+  -->
+  <ControlTheme x:Key="{x:Type TreeViewItem}" TargetType="TreeViewItem">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Padding" Value="1,0,0,0" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition MinWidth="19" Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+          </Grid.RowDefinitions>
+          <ToggleButton Name="Expander"
+                        Theme="{StaticResource Aero.TreeViewExpandCollapseToggle}"
+                        IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}"
+                        ClickMode="Press" />
+          <Border Name="PART_Header"
+                  Grid.Column="1"
+                  Classes.active="{Binding $parent[TreeView].IsKeyboardFocusWithin, FallbackValue=True}"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  Padding="{TemplateBinding Padding}"
+                  UseLayoutRounding="True">
+            <ContentPresenter Name="PART_HeaderPresenter"
+                              Content="{TemplateBinding Header}"
+                              ContentTemplate="{TemplateBinding HeaderTemplate}"
+                              HorizontalAlignment="Left"
+                              UseLayoutRounding="True" />
+          </Border>
+          <ItemsPresenter Name="PART_ItemsPresenter"
+                          Grid.Row="1"
+                          Grid.Column="1"
+                          Grid.ColumnSpan="2"
+                          ItemsPanel="{TemplateBinding ItemsPanel}" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^[IsExpanded=False] /template/ ItemsPresenter#PART_ItemsPresenter">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <!-- WPF hides the expander (Visibility Hidden); the 19 px minimum column keeps its space. -->
+    <Style Selector="^:empty /template/ ToggleButton#Expander">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:selected">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.HighlightTextBrush}" />
+      <Style Selector="^ /template/ Border#PART_Header">
+        <Setter Property="Background" Value="{DynamicResource SystemColors.HighlightBrush}" />
+      </Style>
+    </Style>
+    <Style Selector="^:selected /template/ Border#PART_Header:not(.active)">
+      <Setter Property="Background" Value="{DynamicResource SystemColors.InactiveSelectionHighlightBrush}" />
+      <Setter Property="TextElement.Foreground" Value="{DynamicResource SystemColors.InactiveSelectionHighlightTextBrush}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

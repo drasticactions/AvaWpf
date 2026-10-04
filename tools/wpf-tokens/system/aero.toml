@@ -1,0 +1,81 @@
+# Windows 7 (Aero) default SystemColors, Light. Seeded from published references (spec Appendix C): the Windows 7
+# default "Windows 7" theme values of HKCU\Control Panel\Colors, as documented for GetSysColor and reproduced in the
+# Windows 7 theme files (aero.theme [Control Panel\Colors]).
+name = "Aero"
+
+[colors]
+ActiveBorder = { value = "#B4B4B4", source = "Win7 aero.theme ActiveBorder 180 180 180" }
+ActiveCaption = { value = "#99B4D1", source = "Win7 aero.theme ActiveTitle 153 180 209" }
+ActiveCaptionText = { value = "#000000", source = "Win7 aero.theme TitleText 0 0 0" }
+AppWorkspace = { value = "#ABABAB", source = "Win7 aero.theme AppWorkspace 171 171 171" }
+Control = { value = "#F0F0F0", source = "Win7 aero.theme ButtonFace 240 240 240" }
+ControlLightLight = { value = "#FFFFFF", source = "Win7 aero.theme ButtonHilight 255 255 255" }
+ControlLight = { value = "#E3E3E3", source = "Win7 aero.theme ButtonLight 227 227 227" }
+ControlDark = { value = "#A0A0A0", source = "Win7 aero.theme ButtonShadow 160 160 160" }
+ControlDarkDark = { value = "#696969", source = "Win7 aero.theme ButtonDkShadow 105 105 105" }
+ControlText = { value = "#000000", source = "Win7 aero.theme ButtonText 0 0 0" }
+Desktop = { value = "#000000", source = "Win7 aero.theme Background 0 0 0" }
+GradientActiveCaption = { value = "#B9D1EA", source = "Win7 aero.theme GradientActiveTitle 185 209 234" }
+GradientInactiveCaption = { value = "#D7E4F2", source = "Win7 aero.theme GradientInactiveTitle 215 228 242" }
+GrayText = { value = "#6D6D6D", source = "Win7 aero.theme GrayText 109 109 109" }
+Highlight = { value = "#3399FF", source = "Win7 aero.theme Hilight 51 153 255" }
+HighlightText = { value = "#FFFFFF", source = "Win7 aero.theme HilightText 255 255 255" }
+HotTrack = { value = "#0066CC", source = "Win7 aero.theme HotTrackingColor 0 102 204" }
+InactiveBorder = { value = "#F4F7FC", source = "Win7 aero.theme InactiveBorder 244 247 252" }
+InactiveCaption = { value = "#BFCDDB", source = "Win7 aero.theme InactiveTitle 191 205 219" }
+InactiveCaptionText = { value = "#434E54", source = "Win7 aero.theme InactiveTitleText 67 78 84" }
+Info = { value = "#FFFFE1", source = "Win7 aero.theme InfoWindow 255 255 225" }
+InfoText = { value = "#000000", source = "Win7 aero.theme InfoText 0 0 0" }
+Menu = { value = "#F0F0F0", source = "Win7 aero.theme Menu 240 240 240" }
+MenuBar = { value = "#F0F0F0", source = "Win7 aero.theme MenuBar 240 240 240" }
+MenuHighlight = { value = "#3399FF", source = "Win7 aero.theme MenuHilight 51 153 255" }
+MenuText = { value = "#000000", source = "Win7 aero.theme MenuText 0 0 0" }
+ScrollBar = { value = "#C8C8C8", source = "Win7 aero.theme Scrollbar 200 200 200" }
+Window = { value = "#FFFFFF", source = "Win7 aero.theme Window 255 255 255" }
+WindowFrame = { value = "#646464", source = "Win7 aero.theme WindowFrame 100 100 100" }
+WindowText = { value = "#000000", source = "Win7 aero.theme WindowText 0 0 0" }
+
+[parameters]
+VerticalScrollBarWidth = 17
+HorizontalScrollBarHeight = 17
+VerticalScrollBarButtonHeight = 17
+HorizontalScrollBarButtonWidth = 17
+CaptionHeight = 22
+CaptionWidth = 36
+SmallCaptionHeight = 22
+SmallCaptionWidth = 22
+MenuHeight = 20
+BorderWidth = 1
+HighContrast = false
+ClientAreaAnimation = true
+DropShadow = true
+KeyboardCues = false
+MenuPopupAnimation = "Fade"
+ComboBoxPopupAnimation = "Slide"
+ToolTipAnimation = "Fade"
+
+[fonts]
+MessageFontFamily = "Segoe UI"
+MessageFontSize = 12
+MessageFontWeight = 400
+MessageFontStyle = "Normal"
+MenuFontFamily = "Segoe UI"
+MenuFontSize = 12
+MenuFontWeight = 400
+MenuFontStyle = "Normal"
+StatusFontFamily = "Segoe UI"
+StatusFontSize = 12
+StatusFontWeight = 400
+StatusFontStyle = "Normal"
+CaptionFontFamily = "Segoe UI"
+CaptionFontSize = 12
+CaptionFontWeight = 400
+CaptionFontStyle = "Normal"
+SmallCaptionFontFamily = "Segoe UI"
+SmallCaptionFontSize = 12
+SmallCaptionFontWeight = 400
+SmallCaptionFontStyle = "Normal"
+IconFontFamily = "Segoe UI"
+IconFontSize = 12
+IconFontWeight = 400
+IconFontStyle = "Normal"

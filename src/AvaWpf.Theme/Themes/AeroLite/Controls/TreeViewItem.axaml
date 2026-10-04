@@ -1,0 +1,75 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    WPF TreeViewItem.xaml, AeroLite.NormalColor. The whole header row takes the list item looks; no focus rectangle
+    (TreeViewItemFocusVisual is empty).
+  -->
+  <ControlTheme x:Key="{x:Type TreeViewItem}" TargetType="TreeViewItem">
+    <Setter Property="Padding" Value="4,1" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid ColumnDefinitions="18,*">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" MinHeight="21" />
+            <RowDefinition />
+          </Grid.RowDefinitions>
+          <Border Name="Border"
+                  Classes.active="{Binding $parent[TreeView].IsKeyboardFocusWithin, FallbackValue=False}"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  Grid.ColumnSpan="2">
+            <Classes.hover>
+              <MultiBinding Converter="{x:Static BoolConverters.Or}">
+                <Binding ElementName="PART_Header" Path="IsPointerOver" />
+                <Binding ElementName="Expander" Path="IsPointerOver" />
+              </MultiBinding>
+            </Classes.hover>
+          </Border>
+          <Border Name="PART_Header"
+                  Grid.Column="1"
+                  Background="Transparent"
+                  Margin="{TemplateBinding Padding}">
+            <ContentPresenter Name="PART_HeaderPresenter"
+                              Content="{TemplateBinding Header}"
+                              ContentTemplate="{TemplateBinding HeaderTemplate}"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Center" />
+          </Border>
+          <ToggleButton Name="Expander"
+                        Theme="{StaticResource AeroLite.TreeViewExpandCollapseToggle}"
+                        IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}"
+                        Foreground="{TemplateBinding Foreground}" />
+          <ItemsPresenter Name="PART_ItemsPresenter"
+                          Grid.Row="1"
+                          Grid.Column="1"
+                          ItemsPanel="{TemplateBinding ItemsPanel}"
+                          IsVisible="{TemplateBinding IsExpanded}" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^ /template/ Border#Border.hover">
+      <Setter Property="Background" Value="{DynamicResource AeroLite.Item.MouseOver.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.Item.MouseOver.Border}" />
+    </Style>
+    <Style Selector="^:selected /template/ Border#Border">
+      <Setter Property="Background" Value="{DynamicResource AeroLite.Item.SelectedInactive.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.Item.SelectedInactive.Border}" />
+    </Style>
+    <Style Selector="^:selected /template/ Border#Border.active">
+      <Setter Property="Background" Value="{DynamicResource AeroLite.Item.SelectedActive.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.Item.SelectedActive.Border}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+    <Style Selector="^:empty /template/ ToggleButton#Expander">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

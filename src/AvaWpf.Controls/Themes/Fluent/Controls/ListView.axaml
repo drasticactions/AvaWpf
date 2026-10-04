@@ -1,0 +1,69 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/ListView.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!--
+    WPF Fluent DefaultListViewStyle; with a GridView, the GridViewTemplate of GridView.xaml, which has no disabled
+    look.
+  -->
+  <ControlTheme x:Key="{x:Type wpf:ListView}" TargetType="wpf:ListView">
+    <Setter Property="Margin" Value="0" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="Background" Value="{DynamicResource Fluent.ListViewBackground}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Fluent.ListViewBorderBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border BorderThickness="{TemplateBinding BorderThickness}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                Background="{TemplateBinding Background}"
+                UseLayoutRounding="True">
+          <Grid>
+            <ScrollViewer Name="PART_ScrollViewer"
+                          Padding="{TemplateBinding Padding}"
+                          HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+                          VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
+              <ItemsPresenter Name="PART_ItemsPresenter"
+                              ItemsPanel="{TemplateBinding ItemsPanel}" />
+            </ScrollViewer>
+            <Rectangle Name="PART_DisabledVisual"
+                       Opacity="0"
+                       RadiusX="2"
+                       RadiusY="2"
+                       Stretch="Fill"
+                       Stroke="Transparent"
+                       StrokeThickness="0"
+                       IsVisible="False"
+                       Fill="{DynamicResource Fluent.ListView.ListViewTemplate.PART_DisabledVisual.Fill}" />
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:disabled /template/ Rectangle#PART_DisabledVisual">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+
+    <Style Selector="^:gridview">
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Border Name="RootBorder"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  UseLayoutRounding="True">
+            <ScrollViewer Name="PART_ScrollViewer"
+                          Theme="{StaticResource Fluent.GridViewScrollViewer}"
+                          Padding="{TemplateBinding Padding}"
+                          HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+                          VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
+              <ItemsPresenter Name="PART_ItemsPresenter"
+                              ItemsPanel="{TemplateBinding ItemsPanel}" />
+            </ScrollViewer>
+          </Border>
+        </ControlTemplate>
+      </Setter>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,35 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF ToolTip.xaml. No shadow: SystemParameters.DropShadow is false in Classic schemes. -->
+  <ControlTheme x:Key="{x:Type ToolTip}" TargetType="ToolTip">
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="BorderBrush" Value="{DynamicResource SystemColors.WindowFrameBrush}" />
+    <Setter Property="Background" Value="{DynamicResource SystemColors.InfoBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.InfoTextBrush}" />
+    <Setter Property="FontFamily" Value="{DynamicResource SystemFonts.StatusFontFamily}" />
+    <Setter Property="FontSize" Value="{DynamicResource SystemFonts.StatusFontSize}" />
+    <Setter Property="FontStyle" Value="{DynamicResource SystemFonts.StatusFontStyle}" />
+    <Setter Property="FontWeight" Value="{DynamicResource SystemFonts.StatusFontWeight}" />
+    <Setter Property="Padding" Value="1,1,3,1" />
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="wpf:PopupAnimation.Kind" Value="{DynamicResource SystemParameters.ToolTipAnimation}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <wpf:SystemDropShadowChrome Name="Shdw" UseLayoutRounding="True">
+          <Border Background="{TemplateBinding Background}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  Padding="{TemplateBinding Padding}">
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+          </Border>
+        </wpf:SystemDropShadowChrome>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

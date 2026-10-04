@@ -1,0 +1,121 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/ComboBox.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!--
+    ComboBox parts: Fluent.ComboBoxToggleButton (DefaultComboBoxToggleButtonStyle) and Fluent.ComboBoxTextBox
+    (DefaultComboBoxTextBoxStyle). As in WPF, the ComboBox owns the pointer-over background.
+  -->
+  <ControlTheme x:Key="Fluent.ComboBoxToggleButton" TargetType="ToggleButton">
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.ComboBoxForeground}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="CornerRadius" Value="{DynamicResource Fluent.ControlCornerRadius}" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="ContentBorder"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Fluent.ComboBoxTextBox" TargetType="TextBox">
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.TextControlForeground}" />
+    <Setter Property="CaretBrush" Value="{DynamicResource Fluent.TextControlForeground}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Fluent.TextControlElevationBorderBrush}" />
+    <Setter Property="BorderThickness" Value="{DynamicResource Fluent.TextControlBorderThemeThickness}" />
+    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden" />
+    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden" />
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+    <Setter Property="VerticalContentAlignment" Value="Top" />
+    <Setter Property="Cursor" Value="IBeam" />
+    <Setter Property="MinHeight" Value="{DynamicResource Fluent.TextControlThemeMinHeight}" />
+    <Setter Property="MinWidth" Value="{DynamicResource Fluent.TextControlThemeMinWidth}" />
+    <Setter Property="Padding" Value="{DynamicResource Fluent.TextControlThemePadding}" />
+    <Setter Property="CornerRadius" Value="{DynamicResource Fluent.ControlCornerRadius}" />
+    <Setter Property="SelectionBrush" Value="{DynamicResource Fluent.TextControlSelectionHighlightColor}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid>
+          <Border Name="ContentBorder"
+                  MinWidth="{TemplateBinding MinWidth}"
+                  MinHeight="{TemplateBinding MinHeight}"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{TemplateBinding CornerRadius}" />
+          <ScrollViewer Name="PART_ScrollViewer"
+                        Margin="{TemplateBinding BorderThickness}"
+                        Padding="{TemplateBinding Padding}"
+                        Foreground="{TemplateBinding Foreground}"
+                        HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+                        VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
+            <Panel>
+              <TextBlock Name="PART_Placeholder"
+                         Foreground="{DynamicResource Fluent.TextControlPlaceholderForeground}"
+                         Text="{TemplateBinding PlaceholderText}"
+                         TextAlignment="{TemplateBinding TextAlignment}"
+                         HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                         VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                         IsVisible="{TemplateBinding Text, Converter={x:Static StringConverters.IsNullOrEmpty}}" />
+              <TextPresenter Name="PART_TextPresenter"
+                             Text="{TemplateBinding Text, Mode=TwoWay}"
+                             CaretBlinkInterval="{TemplateBinding CaretBlinkInterval}"
+                             CaretIndex="{TemplateBinding CaretIndex}"
+                             SelectionStart="{TemplateBinding SelectionStart}"
+                             SelectionEnd="{TemplateBinding SelectionEnd}"
+                             TextAlignment="{TemplateBinding TextAlignment}"
+                             TextWrapping="{TemplateBinding TextWrapping}"
+                             LineHeight="{TemplateBinding LineHeight}"
+                             LetterSpacing="{TemplateBinding LetterSpacing}"
+                             PasswordChar="{TemplateBinding PasswordChar}"
+                             RevealPassword="{TemplateBinding RevealPassword}"
+                             SelectionBrush="{TemplateBinding SelectionBrush}"
+                             SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
+                             CaretBrush="{TemplateBinding CaretBrush}"
+                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+            </Panel>
+          </ScrollViewer>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover">
+      <Style Selector="^ /template/ Border#ContentBorder">
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.TextControlBorderBrushPointerOver}" />
+      </Style>
+      <Style Selector="^ /template/ ScrollViewer#PART_ScrollViewer">
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.TextControlForegroundPointerOver}" />
+      </Style>
+    </Style>
+    <Style Selector="^:focus">
+      <Style Selector="^ /template/ Border#ContentBorder">
+        <Setter Property="BorderThickness" Value="{DynamicResource Fluent.TextControlBorderThemeThicknessFocused}" />
+        <Setter Property="Background" Value="{DynamicResource Fluent.TextControlBackgroundFocused}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.TextControlBorderBrushFocused}" />
+      </Style>
+      <Style Selector="^ /template/ ScrollViewer#PART_ScrollViewer">
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.TextControlForegroundFocused}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Style Selector="^ /template/ Border#ContentBorder">
+        <Setter Property="Background" Value="{DynamicResource Fluent.TextControlBackgroundDisabled}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.TextControlBorderBrushDisabled}" />
+      </Style>
+      <Style Selector="^ /template/ ScrollViewer#PART_ScrollViewer">
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.TextControlForegroundDisabled}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

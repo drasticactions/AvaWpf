@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    The WPF reference shooter. It is not part of AvaWpf.slnx and does not run in CI.
+    tools/wpf-reference/run.py builds it (self-contained win-x64, so Wine needs no installed .NET runtime).
+  -->
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AvaWpfIsLibrary>false</AvaWpfIsLibrary>
+    <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
+    <SignAssembly>false</SignAssembly>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <!--
+      WPF's font cache needs real cultures (invariant globalization breaks OpenType layout), and Wine has no icu.dll,
+      so use the Windows NLS APIs, which Wine implements.
+    -->
+    <RuntimeHostConfigurationOption Include="System.Globalization.UseNls" Value="true" />
+  </ItemGroup>
+</Project>

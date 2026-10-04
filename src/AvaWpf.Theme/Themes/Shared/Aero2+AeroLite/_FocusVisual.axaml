@@ -1,0 +1,18 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- WPF FocusVisual.xaml, [[AeroLite.NormalColor, Aero2.NormalColor]]: FocusVisual and OptionMarkFocusVisual. -->
+  <FocusAdornerTemplate x:Key="$F.FocusVisual">
+    <Rectangle Margin="2"
+               StrokeThickness="1"
+               Stroke="{DynamicResource SystemColors.ControlTextBrush}"
+               StrokeDashArray="1,2"
+               UseLayoutRounding="True" />
+  </FocusAdornerTemplate>
+  <FocusAdornerTemplate x:Key="$F.OptionMarkFocusVisual">
+    <Rectangle Margin="14,0,0,0"
+               StrokeThickness="1"
+               Stroke="{DynamicResource SystemColors.ControlTextBrush}"
+               StrokeDashArray="1,2"
+               UseLayoutRounding="True" />
+  </FocusAdornerTemplate>
+</ResourceDictionary>

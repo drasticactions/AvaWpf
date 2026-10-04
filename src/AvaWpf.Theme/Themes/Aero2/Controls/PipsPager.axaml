@@ -1,0 +1,167 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- A page indicator with WPF ToolBar.ButtonStyleKey previous and next buttons. -->
+  <ControlTheme x:Key="Aero2.PipsPagerNavigationButton" TargetType="Button">
+    <Setter Property="Foreground" Value="{DynamicResource Aero2.ScrollBar.Static.Glyph}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Width" Value="20" />
+    <Setter Property="Height" Value="20" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="Bd"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                UseLayoutRounding="True">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Padding="{TemplateBinding Padding}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#Bd">
+      <Setter Property="Background" Value="{DynamicResource Aero2.ToolBarButtonHover}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ToolBarButtonHoverBorder}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Border#Bd">
+      <Setter Property="Background" Value="{DynamicResource Aero2.ToolBarButtonPressed}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ToolBarButtonPressedBorder}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource Aero2.ScrollBar.Disabled.Glyph}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Aero2.PipsPagerItem" TargetType="ListBoxItem">
+    <Setter Property="Width" Value="12" />
+    <Setter Property="Height" Value="20" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="Margin" Value="0" />
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Background="Transparent">
+          <Ellipse Name="Pip"
+                   Width="6"
+                   Height="6"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Fill="{DynamicResource SystemColors.GrayTextBrush}" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Ellipse#Pip">
+      <Setter Property="Fill" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    </Style>
+    <Style Selector="^:selected /template/ Ellipse#Pip">
+      <Setter Property="Width" Value="8" />
+      <Setter Property="Height" Value="8" />
+      <Setter Property="Fill" Value="{DynamicResource SystemColors.HighlightBrush}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Ellipse#Pip">
+      <Setter Property="Fill" Value="{DynamicResource SystemColors.ControlDarkBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type PipsPager}" TargetType="PipsPager">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Top" />
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="PreviousButtonTheme" Value="{StaticResource Aero2.PipsPagerNavigationButton}" />
+    <Setter Property="NextButtonTheme" Value="{StaticResource Aero2.PipsPagerNavigationButton}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <StackPanel Name="PART_RootPanel"
+                    Orientation="{TemplateBinding Orientation}"
+                    Background="{TemplateBinding Background}"
+                    ClipToBounds="False">
+          <Button Name="PART_PreviousButton"
+                  Theme="{TemplateBinding PreviousButtonTheme}"
+                  IsVisible="{TemplateBinding IsPreviousButtonVisible}"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Center">
+            <Path Name="PreviousButtonIcon"
+                  Width="4"
+                  Height="7"
+                  Stretch="Uniform"
+                  Fill="{Binding $parent[Button].Foreground}"
+                  Data="{DynamicResource Aero2.ScrollBar.ScrollBar.ArrowLeft.Data}" />
+          </Button>
+          <ListBox Name="PART_PipsPagerList"
+                   Background="Transparent"
+                   BorderThickness="0"
+                   Padding="0"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                   ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                   ItemsSource="{Binding TemplateSettings.Pips, RelativeSource={RelativeSource TemplatedParent}}"
+                   SelectedIndex="{Binding SelectedPageIndex, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                   AutoScrollToSelectedItem="False"
+                   ClipToBounds="False"
+                   FocusAdorner="{x:Null}"
+                   ItemContainerTheme="{StaticResource Aero2.PipsPagerItem}">
+            <ListBox.ItemsPanel>
+              <ItemsPanelTemplate>
+                <StackPanel Orientation="{Binding Orientation, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=PipsPager}}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center" />
+              </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+          </ListBox>
+          <Button Name="PART_NextButton"
+                  Theme="{TemplateBinding NextButtonTheme}"
+                  IsVisible="{TemplateBinding IsNextButtonVisible}"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Center">
+            <Path Name="NextButtonIcon"
+                  Width="4"
+                  Height="7"
+                  Stretch="Uniform"
+                  Fill="{Binding $parent[Button].Foreground}"
+                  Data="{DynamicResource Aero2.ScrollBar.ScrollBar.ArrowRight.Data}" />
+          </Button>
+        </StackPanel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:horizontal /template/ StackPanel#PART_RootPanel">
+      <Setter Property="Orientation" Value="Horizontal" />
+    </Style>
+    <Style Selector="^:vertical">
+      <Style Selector="^ /template/ StackPanel#PART_RootPanel">
+        <Setter Property="Orientation" Value="Vertical" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+      </Style>
+      <Style Selector="^ /template/ ListBox ListBoxItem">
+        <Setter Property="Width" Value="20" />
+        <Setter Property="Height" Value="12" />
+      </Style>
+      <Style Selector="^ /template/ Path#PreviousButtonIcon">
+        <Setter Property="Width" Value="7" />
+        <Setter Property="Height" Value="4" />
+        <Setter Property="Data" Value="{DynamicResource Aero2.ScrollBar.ScrollBar.ArrowTop.Data}" />
+      </Style>
+      <Style Selector="^ /template/ Path#NextButtonIcon">
+        <Setter Property="Width" Value="7" />
+        <Setter Property="Height" Value="4" />
+        <Setter Property="Data" Value="{DynamicResource Aero2.ScrollBar.ScrollBar.ArrowBottom.Data}" />
+      </Style>
+    </Style>
+    <Style Selector="^:first-page /template/ Button#PART_PreviousButton, ^:last-page /template/ Button#PART_NextButton">
+      <Setter Property="Opacity" Value="0" />
+      <Setter Property="IsHitTestVisible" Value="False" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

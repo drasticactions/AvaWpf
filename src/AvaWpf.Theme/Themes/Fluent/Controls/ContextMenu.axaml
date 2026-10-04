@@ -1,0 +1,49 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/ContextMenu.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!-- WPF DefaultContextMenuStyle. The IsOpen Enter storyboard (slide down from -90 px) is Style.Animations here. -->
+  <ControlTheme x:Key="{x:Type ContextMenu}" TargetType="ContextMenu">
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.ContextMenuForeground}" />
+    <Setter Property="Background" Value="{DynamicResource Fluent.ContextMenuBackground}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Fluent.ContextMenuBorderBrush}" />
+    <Setter Property="BorderThickness" Value="{DynamicResource Fluent.ContextMenuBorderThickness}" />
+    <Setter Property="CornerRadius" Value="8" />
+    <Setter Property="MinWidth" Value="140" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="Margin" Value="0" />
+    <Setter Property="Focusable" Value="True" />
+    <Setter Property="WindowManagerAddShadowHint" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="Border"
+                Padding="0,3,0,3"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                UseLayoutRounding="True">
+          <ScrollViewer Theme="{StaticResource Fluent.MenuScrollViewer}">
+            <ItemsPresenter Name="PART_ItemsPresenter"
+                            ItemsPanel="{TemplateBinding ItemsPanel}"
+                            ClipToBounds="True"
+                            KeyboardNavigation.TabNavigation="Continue"
+                            Grid.IsSharedSizeScope="True" />
+          </ScrollViewer>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^[IsOpen=True] /template/ Border#Border">
+      <Style.Animations>
+        <Animation Duration="{x:Static wpf:FluentTimings.Fast}" Easing="CircularEaseOut" FillMode="Forward">
+          <KeyFrame Cue="0%">
+            <Setter Property="TranslateTransform.Y" Value="-90" />
+          </KeyFrame>
+          <KeyFrame Cue="100%">
+            <Setter Property="TranslateTransform.Y" Value="0" />
+          </KeyFrame>
+        </Animation>
+      </Style.Animations>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

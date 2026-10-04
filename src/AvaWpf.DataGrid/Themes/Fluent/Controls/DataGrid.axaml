@@ -1,0 +1,80 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/DataGrid.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!-- WPF Fluent DefaultDataGridStyle. -->
+  <ControlTheme x:Key="{x:Type DataGrid}" TargetType="DataGrid">
+    <Setter Property="Background" Value="{DynamicResource Fluent.DataGrid.DefaultDataGridStyle.Setter.Self.Background}" />
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.DataGrid.DefaultDataGridStyle.Setter.Self.Foreground}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Fluent.ControlElevationBorderBrush}" />
+    <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource Fluent.ControlElevationBorderBrush}" />
+    <Setter Property="VerticalGridLinesBrush" Value="{DynamicResource Fluent.ControlElevationBorderBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="{DynamicResource Fluent.ControlCornerRadius}" />
+    <Setter Property="RowBackground" Value="Transparent" />
+    <Setter Property="RowDetailsVisibilityMode" Value="VisibleWhenSelected" />
+    <!-- WPF defaults: both header kinds, every grid line, extended selection. -->
+    <Setter Property="HeadersVisibility" Value="All" />
+    <Setter Property="GridLinesVisibility" Value="All" />
+    <Setter Property="SelectionMode" Value="Extended" />
+    <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
+    <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <!-- A grid in the details of a selected row does not inherit the outer row's selection. -->
+    <Setter Property="wpf:DataGridState.IsRowSelected" Value="False" />
+    <!-- WPF Fluent DefaultDataGridHeaderDropSeparatorStyle. -->
+    <Setter Property="DropLocationIndicatorTemplate">
+      <Template>
+        <Border Width="{DynamicResource Fluent.DataGridHeaderDropSeparatorWidth}"
+                Margin="{DynamicResource Fluent.DataGridHeaderDropSeparatorPadding}"
+                CornerRadius="{DynamicResource Fluent.DataGridHeaderDropSeparatorCornerRadius}"
+                Background="{DynamicResource Fluent.DataGridHeaderDropSeparatorBackground}" />
+      </Template>
+    </Setter>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border x:Name="border"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                Padding="{TemplateBinding Padding}"
+                UseLayoutRounding="True">
+          <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,*,Auto" ClipToBounds="True">
+            <DataGridColumnHeader Name="PART_TopLeftCornerHeader" Theme="{StaticResource Fluent.DataGridSelectAllButtonStyle}" />
+            <DataGridColumnHeadersPresenter Name="PART_ColumnHeadersPresenter" Grid.Column="1" />
+            <DataGridRowsPresenter Name="PART_RowsPresenter"
+                                   Grid.Row="1"
+                                   Grid.ColumnSpan="2"
+                                   ScrollViewer.IsScrollInertiaEnabled="{TemplateBinding IsScrollInertiaEnabled}">
+              <DataGridRowsPresenter.GestureRecognizers>
+                <ScrollGestureRecognizer CanHorizontallyScroll="True"
+                                         CanVerticallyScroll="True"
+                                         IsScrollInertiaEnabled="{Binding (ScrollViewer.IsScrollInertiaEnabled), ElementName=PART_RowsPresenter}" />
+              </DataGridRowsPresenter.GestureRecognizers>
+            </DataGridRowsPresenter>
+            <ScrollBar Name="PART_VerticalScrollbar" Grid.Row="1" Grid.Column="2" Orientation="Vertical" />
+            <Grid Grid.Row="2" Grid.Column="1" ColumnDefinitions="Auto,*">
+              <Rectangle Name="PART_FrozenColumnScrollBarSpacer" />
+              <ScrollBar Name="PART_HorizontalScrollbar" Grid.Column="1" Orientation="Horizontal" />
+            </Grid>
+            <Rectangle Name="PART_BottomRightCorner" Grid.Row="2" Grid.Column="2" />
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:disabled /template/ Border#border">
+      <Setter Property="Background">
+        <SolidColorBrush Color="{DynamicResource Fluent.ControlLightColor}" />
+      </Setter>
+    </Style>
+    <Style Selector="^:empty-columns">
+      <Style Selector="^ /template/ DataGridColumnHeader#PART_TopLeftCornerHeader">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+      <Style Selector="^ /template/ DataGridColumnHeadersPresenter#PART_ColumnHeadersPresenter">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

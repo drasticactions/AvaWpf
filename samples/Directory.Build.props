@@ -1,0 +1,11 @@
+<Project>
+  <PropertyGroup>
+    <AvaWpfIsLibrary>false</AvaWpfIsLibrary>
+  </PropertyGroup>
+  <Import Project="..\Directory.Build.props" />
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,7 @@
+{
+  "control": "TabControl",
+  "width": 220,
+  "height": 120,
+  "properties": { "Items": ["Tab 1", "Tab 2", "Tab 3"], "SelectedIndex": 0, "Width": 200, "Height": 100 },
+  "states": ["normal", "disabled"]
+}

@@ -1,0 +1,30 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:wpf="https://github.com/avawpf"
+             x:Class="AvaWpf.Gallery.Pages.TabsPage">
+  <StackPanel Spacing="12">
+    <TextBlock Classes="Subtitle" Text="Tab control" />
+    <TabControl Width="380" Height="160" HorizontalAlignment="Left">
+      <TabItem Header="_General"><TextBlock Margin="8" Text="General settings" /></TabItem>
+      <TabItem Header="Advanced"><TextBlock Margin="8" Text="Advanced settings" /></TabItem>
+      <TabItem Header="Disabled" IsEnabled="False" />
+    </TabControl>
+    <WrapPanel ItemSpacing="12" LineSpacing="12">
+      <TabControl Width="260" Height="120" TabStripPlacement="Bottom">
+        <TabItem Header="Bottom" /><TabItem Header="Two" />
+      </TabControl>
+      <TabControl Width="260" Height="120" TabStripPlacement="Left">
+        <TabItem Header="Left" /><TabItem Header="Two" />
+      </TabControl>
+      <TabControl Width="260" Height="120" TabStripPlacement="Right">
+        <TabItem Header="Right" /><TabItem Header="Two" />
+      </TabControl>
+    </WrapPanel>
+    <TextBlock Classes="Subtitle" Text="Tab strip" />
+    <TabStrip SelectedIndex="0">
+      <TabStripItem Content="One" />
+      <TabStripItem Content="Two" />
+      <TabStripItem Content="Three" />
+    </TabStrip>
+  </StackPanel>
+</UserControl>

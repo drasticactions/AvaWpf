@@ -1,0 +1,262 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:wpf="https://github.com/avawpf"
+             xmlns:local="using:AvaWpf.WordPad"
+             xmlns:rte="using:AvaloniaRichEditor.Controls"
+             x:Class="AvaWpf.WordPad.MainView"
+             x:DataType="local:MainView">
+
+  <!--
+    The Windows 7 WordPad layout: the Ribbon (application menu, Home and View tabs, the Quick Access Toolbar, the
+    Picture Tools contextual tab), the document in an AvaloniaRichEditor RichEditorView (its own toolbar and status bar
+    hidden: the Ribbon formats the selection), an optional ruler above it and a status bar below.
+  -->
+  <Panel>
+    <DockPanel>
+      <wpf:Ribbon Name="Ribbon" DockPanel.Dock="Top" Title="{Binding Title}">
+        <wpf:Ribbon.QuickAccessToolBar>
+          <wpf:RibbonQuickAccessToolBar>
+            <wpf:RibbonButton Label="Save" SmallImageSource="{local:Icon save}" KeyTip="1" Click="OnSave"
+                              ToolTipTitle="Save (Ctrl+S)" ToolTipDescription="Save the current document." />
+            <wpf:RibbonButton Label="Undo" SmallImageSource="{local:Icon undo}" KeyTip="2" Click="OnUndo"
+                              ToolTipTitle="Undo (Ctrl+Z)" ToolTipDescription="Undo the last change." />
+            <wpf:RibbonButton Label="Redo" SmallImageSource="{local:Icon redo}" KeyTip="3" Click="OnRedo"
+                              ToolTipTitle="Redo (Ctrl+Y)" ToolTipDescription="Redo the last undone change." />
+          </wpf:RibbonQuickAccessToolBar>
+        </wpf:Ribbon.QuickAccessToolBar>
+
+        <wpf:Ribbon.ApplicationMenu>
+          <wpf:RibbonApplicationMenu SmallImageSource="{local:Icon wordpad}" KeyTip="F" ToolTipTitle="WordPad"
+                                     ToolTipDescription="Create, open, save and print documents.">
+            <wpf:RibbonApplicationMenuItem Header="_New" ImageSource="{local:Icon new, Size=32}" KeyTip="N" Click="OnNew" />
+            <wpf:RibbonApplicationMenuItem Header="_Open" ImageSource="{local:Icon folder-open, Size=32}" KeyTip="O" Click="OnOpen" />
+            <wpf:RibbonApplicationMenuItem Header="_Save" ImageSource="{local:Icon save, Size=32}" KeyTip="S" Click="OnSave" />
+            <wpf:RibbonApplicationMenuItem Header="Save _as" ImageSource="{local:Icon save-as, Size=32}" KeyTip="A" Click="OnSaveAs" />
+            <wpf:RibbonSeparator />
+            <wpf:RibbonApplicationMenuItem Header="_Print" ImageSource="{local:Icon print, Size=32}" KeyTip="P" Click="OnPrint" />
+            <wpf:RibbonSeparator />
+            <wpf:RibbonApplicationMenuItem Header="A_bout WordPad" ImageSource="{local:Icon about, Size=32}" KeyTip="B" Click="OnAbout" />
+            <wpf:RibbonApplicationMenuItem Header="E_xit" ImageSource="{local:Icon exit, Size=32}" KeyTip="X" Click="OnExit" />
+            <wpf:RibbonApplicationMenu.AuxiliaryPaneContent>
+              <DockPanel MinWidth="220">
+                <TextBlock DockPanel.Dock="Top" Text="Recent documents" FontWeight="Bold" Margin="6,4,6,4" />
+                <Separator DockPanel.Dock="Top" Margin="2,0,2,2" />
+                <ItemsControl Name="RecentList" ItemsSource="{Binding RecentDocuments}">
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="local:RecentDocument">
+                      <wpf:RibbonButton Label="{Binding Label}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                                        KeyTip="{Binding KeyTip}" Click="OnOpenRecent" />
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+              </DockPanel>
+            </wpf:RibbonApplicationMenu.AuxiliaryPaneContent>
+          </wpf:RibbonApplicationMenu>
+        </wpf:Ribbon.ApplicationMenu>
+
+        <wpf:Ribbon.ContextualTabGroups>
+          <wpf:RibbonContextualTabGroup Name="PictureTools" Header="Picture Tools" Background="#FFE8B030" IsVisible="False" />
+        </wpf:Ribbon.ContextualTabGroups>
+
+        <!-- Home -->
+        <wpf:RibbonTab Name="HomeTab" Header="Home" KeyTip="H">
+          <wpf:RibbonGroup Header="Clipboard" KeyTip="ZC" LargeImageSource="{local:Icon paste, Size=32}">
+            <wpf:RibbonSplitButton Label="Paste" LargeImageSource="{local:Icon paste, Size=32}" SmallImageSource="{local:Icon paste}"
+                                   KeyTip="V" Click="OnPaste" ToolTipTitle="Paste (Ctrl+V)"
+                                   ToolTipDescription="Paste the contents of the Clipboard.">
+              <wpf:RibbonMenuItem Header="_Paste" ImageSource="{local:Icon paste}" KeyTip="P" Click="OnPaste" />
+              <wpf:RibbonMenuItem Header="Paste as plain _text" KeyTip="T" Click="OnPaste" />
+            </wpf:RibbonSplitButton>
+            <wpf:RibbonButton Label="Cut" SmallImageSource="{local:Icon cut}" KeyTip="X" Click="OnCut"
+                              ToolTipTitle="Cut (Ctrl+X)" ToolTipDescription="Cut the selection and put it on the Clipboard." />
+            <wpf:RibbonButton Label="Copy" SmallImageSource="{local:Icon copy}" KeyTip="C" Click="OnCopy"
+                              ToolTipTitle="Copy (Ctrl+C)" ToolTipDescription="Copy the selection to the Clipboard." />
+          </wpf:RibbonGroup>
+
+          <wpf:RibbonGroup Header="Font" KeyTip="ZF" LargeImageSource="{local:Icon bold, Size=32}">
+            <wpf:RibbonComboBox Name="FontFamilyBox" KeyTip="FF" SelectionBoxWidth="120" Text="Segoe UI" DropDownHeight="400"
+                                ToolTipTitle="Font family" ToolTipDescription="Change the font of the selected text.">
+              <wpf:RibbonGallery Name="FontFamilyGallery" MaxColumnCount="1" SelectionChanged="OnFontFamilyChanged">
+                <!-- A machine can have hundreds of fonts: realize only the rows in view. -->
+                <wpf:RibbonGalleryCategory ItemsSource="{Binding FontFamilies}">
+                  <wpf:RibbonGalleryCategory.ItemsPanel>
+                    <ItemsPanelTemplate>
+                      <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                  </wpf:RibbonGalleryCategory.ItemsPanel>
+                </wpf:RibbonGalleryCategory>
+              </wpf:RibbonGallery>
+            </wpf:RibbonComboBox>
+            <wpf:RibbonComboBox Name="FontSizeBox" KeyTip="FS" SelectionBoxWidth="36" Text="10"
+                                ToolTipTitle="Font size" ToolTipDescription="Change the size of the text.">
+              <wpf:RibbonGallery Name="FontSizeGallery" MaxColumnCount="1" SelectionChanged="OnFontSizeChanged">
+                <wpf:RibbonGalleryCategory ItemsSource="{Binding FontSizes}" />
+              </wpf:RibbonGallery>
+            </wpf:RibbonComboBox>
+            <wpf:RibbonControlGroup>
+              <wpf:RibbonToggleButton Name="BoldToggle" SmallImageSource="{local:Icon bold}" KeyTip="1" IsCheckedChanged="OnFormatChanged"
+                                      ToolTipTitle="Bold (Ctrl+B)" ToolTipDescription="Make the text bold." />
+              <wpf:RibbonToggleButton Name="ItalicToggle" SmallImageSource="{local:Icon italic}" KeyTip="2" IsCheckedChanged="OnFormatChanged"
+                                      ToolTipTitle="Italic (Ctrl+I)" ToolTipDescription="Italicize the text." />
+              <wpf:RibbonToggleButton Name="UnderlineToggle" SmallImageSource="{local:Icon underline}" KeyTip="3" IsCheckedChanged="OnFormatChanged"
+                                      ToolTipTitle="Underline (Ctrl+U)" ToolTipDescription="Underline the text." />
+            </wpf:RibbonControlGroup>
+          </wpf:RibbonGroup>
+
+          <wpf:RibbonGroup Header="Paragraph" KeyTip="ZP" LargeImageSource="{local:Icon align-left, Size=32}">
+            <wpf:RibbonControlGroup>
+              <wpf:RibbonRadioButton Name="AlignLeft" GroupName="Align" IsChecked="True" SmallImageSource="{local:Icon align-left}" KeyTip="AL"
+                                     IsCheckedChanged="OnAlignChanged" ToolTipTitle="Align text left (Ctrl+L)" ToolTipDescription="Align the text with the left margin." />
+              <wpf:RibbonRadioButton Name="AlignCenter" GroupName="Align" SmallImageSource="{local:Icon align-center}" KeyTip="AE"
+                                     IsCheckedChanged="OnAlignChanged" ToolTipTitle="Center (Ctrl+E)" ToolTipDescription="Center the text." />
+              <wpf:RibbonRadioButton Name="AlignRight" GroupName="Align" SmallImageSource="{local:Icon align-right}" KeyTip="AR"
+                                     IsCheckedChanged="OnAlignChanged" ToolTipTitle="Align text right (Ctrl+R)" ToolTipDescription="Align the text with the right margin." />
+            </wpf:RibbonControlGroup>
+            <wpf:RibbonToggleButton Name="BulletsToggle" Label="Bullets" SmallImageSource="{local:Icon bullets}" KeyTip="U"
+                                    IsCheckedChanged="OnBulletsChanged" ToolTipTitle="Start a list" ToolTipDescription="Put a bullet before the selected paragraphs." />
+          </wpf:RibbonGroup>
+
+          <wpf:RibbonGroup Header="Styles" KeyTip="ZS" LargeImageSource="{local:Icon text, Size=32}">
+            <wpf:InRibbonGallery Label="Styles" KeyTip="L" MinColumnCount="2" MaxColumnCount="4" SmallImageSource="{local:Icon text}"
+                                 ToolTipTitle="Paragraph styles" ToolTipDescription="Apply a style to the paragraph.">
+              <wpf:RibbonGallery Name="StylesGallery" SelectionChanged="OnStyleChanged">
+                <wpf:RibbonGallery.GalleryItemTemplate>
+                  <DataTemplate x:DataType="local:ParagraphStyle">
+                    <Border Width="60" Height="42" Padding="2">
+                      <StackPanel VerticalAlignment="Center">
+                        <TextBlock Text="AaBb" FontSize="{Binding PreviewSize}" FontWeight="{Binding Weight}" FontStyle="{Binding Style}"
+                                   HorizontalAlignment="Center" />
+                        <TextBlock Text="{Binding Name}" FontSize="10" HorizontalAlignment="Center" TextTrimming="CharacterEllipsis" />
+                      </StackPanel>
+                    </Border>
+                  </DataTemplate>
+                </wpf:RibbonGallery.GalleryItemTemplate>
+                <wpf:RibbonGalleryCategory Header="Paragraph styles" ItemsSource="{Binding ParagraphStyles}" />
+              </wpf:RibbonGallery>
+            </wpf:InRibbonGallery>
+          </wpf:RibbonGroup>
+
+          <wpf:RibbonGroup Header="Insert" KeyTip="ZI" LargeImageSource="{local:Icon picture, Size=32}">
+            <wpf:RibbonButton Label="Picture" LargeImageSource="{local:Icon picture, Size=32}" SmallImageSource="{local:Icon picture}" KeyTip="P"
+                              Click="OnInsertPicture" ToolTipTitle="Picture"
+                              ToolTipDescription="Insert a picture from a file into the document." />
+          </wpf:RibbonGroup>
+
+          <wpf:RibbonGroup Header="Editing" KeyTip="ZE" LargeImageSource="{local:Icon find, Size=32}">
+            <wpf:RibbonButton Label="Find" SmallImageSource="{local:Icon find}" KeyTip="FD" Click="OnFind"
+                              ToolTipTitle="Find (Ctrl+F)" ToolTipDescription="Find text in the document." />
+            <wpf:RibbonButton Label="Replace" SmallImageSource="{local:Icon replace}" KeyTip="R" Click="OnReplace"
+                              ToolTipTitle="Replace (Ctrl+H)" ToolTipDescription="Replace text in the document." />
+            <wpf:RibbonButton Label="Select all" SmallImageSource="{local:Icon select-all}" KeyTip="A" Click="OnSelectAll"
+                              ToolTipTitle="Select all (Ctrl+A)" ToolTipDescription="Select all the text in the document." />
+          </wpf:RibbonGroup>
+        </wpf:RibbonTab>
+
+        <!-- View -->
+        <wpf:RibbonTab Header="View" KeyTip="V">
+          <wpf:RibbonGroup Header="Zoom" KeyTip="ZZ" LargeImageSource="{local:Icon zoom-in, Size=32}">
+            <wpf:RibbonButton Label="Zoom in" LargeImageSource="{local:Icon zoom-in, Size=32}" SmallImageSource="{local:Icon zoom-in}"
+                              KeyTip="I" Click="OnZoomIn" ToolTipTitle="Zoom in" ToolTipDescription="Make the document bigger." />
+            <wpf:RibbonButton Label="Zoom out" LargeImageSource="{local:Icon zoom-out, Size=32}" SmallImageSource="{local:Icon zoom-out}"
+                              KeyTip="O" Click="OnZoomOut" ToolTipTitle="Zoom out" ToolTipDescription="Make the document smaller." />
+            <wpf:RibbonButton Label="100%" LargeImageSource="{local:Icon find, Size=32}" SmallImageSource="{local:Icon find}"
+                              KeyTip="M" Click="OnZoomReset" ToolTipTitle="100%" ToolTipDescription="Show the document at its normal size." />
+          </wpf:RibbonGroup>
+
+          <wpf:RibbonGroup Header="Show or hide" KeyTip="ZH">
+            <wpf:RibbonCheckBox Label="Ruler" KeyTip="R" IsChecked="{Binding ShowRuler}" />
+            <wpf:RibbonCheckBox Label="Status bar" KeyTip="S" IsChecked="{Binding ShowStatusBar}" />
+          </wpf:RibbonGroup>
+
+          <wpf:RibbonGroup Header="Theme" KeyTip="ZT" LargeImageSource="{local:Icon theme, Size=32}">
+            <wpf:RibbonMenuButton Label="Theme" LargeImageSource="{local:Icon theme, Size=32}" SmallImageSource="{local:Icon theme}"
+                                  KeyTip="T" ToolTipTitle="Theme" ToolTipDescription="Switch the theme family, color scheme and variant.">
+              <wpf:RibbonGallery Name="ThemeGallery" MaxColumnCount="3" SelectionChanged="OnThemeChanged">
+                <wpf:RibbonGallery.GalleryItemTemplate>
+                  <DataTemplate x:DataType="local:ThemeChoice">
+                    <TextBlock Text="{Binding Name}" Margin="6,3" MinWidth="90" />
+                  </DataTemplate>
+                </wpf:RibbonGallery.GalleryItemTemplate>
+                <wpf:RibbonGalleryCategory Header="Light" ItemsSource="{Binding LightThemes}" />
+                <wpf:RibbonGalleryCategory Header="Dark" ItemsSource="{Binding DarkThemes}" />
+              </wpf:RibbonGallery>
+            </wpf:RibbonMenuButton>
+          </wpf:RibbonGroup>
+        </wpf:RibbonTab>
+
+        <!-- Picture Tools: Format, shown after a picture is inserted -->
+        <wpf:RibbonTab Name="FormatTab" Header="Format" KeyTip="JP" ContextualTabGroupHeader="Picture Tools" IsVisible="False">
+          <wpf:RibbonGroup Header="Arrange" KeyTip="ZA" LargeImageSource="{local:Icon crop, Size=32}">
+            <wpf:RibbonButton Label="Crop" LargeImageSource="{local:Icon crop, Size=32}" SmallImageSource="{local:Icon crop}" KeyTip="C"
+                              ToolTipTitle="Crop" ToolTipDescription="Trim the edges of the picture." />
+          </wpf:RibbonGroup>
+        </wpf:RibbonTab>
+      </wpf:Ribbon>
+
+      <wpf:StatusBar DockPanel.Dock="Bottom" IsVisible="{Binding ShowStatusBar}">
+        <wpf:StatusBarItem DockPanel.Dock="Right" Padding="0" VerticalAlignment="Bottom">
+          <wpf:ResizeGrip />
+        </wpf:StatusBarItem>
+        <wpf:StatusBarItem DockPanel.Dock="Right" Width="60">
+          <TextBlock Text="{Binding ZoomText}" />
+        </wpf:StatusBarItem>
+        <Separator DockPanel.Dock="Right" />
+        <wpf:StatusBarItem DockPanel.Dock="Right" Width="110">
+          <TextBlock Text="{Binding PositionText}" />
+        </wpf:StatusBarItem>
+        <Separator DockPanel.Dock="Right" />
+        <wpf:StatusBarItem>
+          <TextBlock Text="{Binding StatusText}" />
+        </wpf:StatusBarItem>
+      </wpf:StatusBar>
+
+      <!-- Find and Replace bar -->
+      <Border Name="FindBar" DockPanel.Dock="Top" IsVisible="False" Padding="6,4"
+              Background="{DynamicResource SystemColors.ControlBrush}"
+              BorderBrush="{DynamicResource SystemColors.ControlDarkBrush}" BorderThickness="0,0,0,1">
+        <StackPanel Orientation="Horizontal" Spacing="6">
+          <Label Content="Fi_nd what:" Target="FindText" VerticalAlignment="Center" />
+          <TextBox Name="FindText" Width="160" VerticalAlignment="Center" />
+          <Button Content="_Find next" Click="OnFindNext" VerticalAlignment="Center" />
+          <Label Name="ReplaceLabel" Content="Re_place with:" Target="ReplaceText" VerticalAlignment="Center" />
+          <TextBox Name="ReplaceText" Width="160" VerticalAlignment="Center" />
+          <Button Name="ReplaceAllButton" Content="Replace _all" Click="OnReplaceAll" VerticalAlignment="Center" />
+          <Button Content="Close" Click="OnCloseFind" VerticalAlignment="Center" />
+        </StackPanel>
+      </Border>
+
+      <local:Ruler DockPanel.Dock="Top" IsVisible="{Binding ShowRuler}" Height="20" />
+
+      <!--
+        The document: the page on the application workspace, as WordPad draws it. The page is white paper in every
+        theme: the editor draws text and caret black unless a run sets a color.
+      -->
+      <Border Background="{DynamicResource SystemColors.AppWorkspaceBrush}" Padding="12,10,12,0">
+        <rte:RichEditorView Name="EditorView"
+                            ShowStatusBar="False"
+                            Background="White"
+                            BorderBrush="{DynamicResource SystemColors.ControlDarkBrush}"
+                            BorderThickness="1" />
+      </Border>
+    </DockPanel>
+
+    <!-- About box (an overlay, so it works in the Browser head too) -->
+    <Border Name="AboutBox" IsVisible="False" Background="Transparent">
+      <Border HorizontalAlignment="Center" VerticalAlignment="Center" Padding="16" MinWidth="280"
+              Background="{DynamicResource SystemColors.ControlBrush}"
+              BorderBrush="{DynamicResource SystemColors.ActiveBorderBrush}" BorderThickness="1"
+              BoxShadow="0 4 12 0 #60000000">
+        <StackPanel Spacing="10">
+          <StackPanel Orientation="Horizontal" Spacing="10">
+            <Image Source="{local:Icon wordpad, Size=32}" Width="32" Height="32" />
+            <StackPanel>
+              <TextBlock Text="AvaWpf WordPad" FontWeight="Bold" />
+              <TextBlock Text="A RibbonWindow demo of AvaWpf.Ribbon." />
+            </StackPanel>
+          </StackPanel>
+          <Button Content="OK" IsDefault="True" HorizontalAlignment="Right" MinWidth="75" Click="OnCloseAbout" />
+        </StackPanel>
+      </Border>
+    </Border>
+  </Panel>
+</UserControl>

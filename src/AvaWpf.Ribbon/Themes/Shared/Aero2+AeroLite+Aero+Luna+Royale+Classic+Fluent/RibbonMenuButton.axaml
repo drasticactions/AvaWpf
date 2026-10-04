@@ -1,0 +1,64 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF RibbonMenuButton.xaml, [[Generic]]: a RibbonToggleButton bound to IsDropDownOpen and a popup under it. -->
+  <ControlTheme x:Key="{x:Type wpf:RibbonMenuButton}" TargetType="wpf:RibbonMenuButton">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Padding" Value="2,0,2,0" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Name="MainGrid" ColumnDefinitions="*,Auto">
+          <wpf:RibbonToggleButton Name="PART_ToggleButton"
+                                  Classes="dropdown"
+                                  Label="{TemplateBinding Label}"
+                                  LargeImageSource="{TemplateBinding LargeImageSource}"
+                                  SmallImageSource="{TemplateBinding SmallImageSource}"
+                                  ControlSizeDefinition="{TemplateBinding ControlSizeDefinition}"
+                                  QuickAccessToolBarControlSizeDefinition="{TemplateBinding QuickAccessToolBarControlSizeDefinition}"
+                                  BorderBrush="{TemplateBinding BorderBrush}"
+                                  BorderThickness="{TemplateBinding BorderThickness}"
+                                  Background="{TemplateBinding Background}"
+                                  Padding="{TemplateBinding Padding}"
+                                  ClickMode="Press"
+                                  Focusable="False"
+                                  CanAddToQuickAccessToolBarDirectly="False"
+                                  IsChecked="{TemplateBinding IsDropDownOpen, Mode=TwoWay}" />
+          <Popup Name="PART_Popup"
+                 HorizontalOffset="1"
+                 VerticalOffset="-1"
+                 Placement="BottomEdgeAlignedLeft"
+                 PlacementTarget="{Binding #PART_ToggleButton}"
+                 IsLightDismissEnabled="True"
+                 IsOpen="{TemplateBinding IsDropDownOpen, Mode=TwoWay}"
+                 wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.MenuPopupAnimation}">
+            <wpf:SystemDropShadowChrome Name="Shadow" Margin="0,0,5,5">
+              <Border Name="MenuBorder"
+                      BorderBrush="{DynamicResource $F.Invented.Ribbon.BorderBrush}"
+                      Background="{DynamicResource $F.Invented.Ribbon.Background}"
+                      BorderThickness="1"
+                      CornerRadius="{DynamicResource $F.Invented.Ribbon.Popup.CornerRadius}">
+                <Border Name="SubMenuInnerBorder"
+                        Background="{DynamicResource $F.Invented.Ribbon.DropDown.Background}"
+                        CornerRadius="{DynamicResource $F.Invented.Ribbon.Popup.CornerRadius}">
+                  <ItemsPresenter Name="PART_ItemsPresenter"
+                                  Margin="1"
+                                  Height="{TemplateBinding DropDownHeight}"
+                                  ItemsPanel="{TemplateBinding ItemsPanel}"
+                                  Grid.IsSharedSizeScope="True" />
+                </Border>
+              </Border>
+            </wpf:SystemDropShadowChrome>
+          </Popup>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:collapsed">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource $F.Invented.Ribbon.Disabled.Foreground}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

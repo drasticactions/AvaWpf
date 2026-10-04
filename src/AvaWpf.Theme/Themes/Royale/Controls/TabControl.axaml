@@ -1,0 +1,76 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- WPF TabControl.xaml [[Royale.NormalColor]]. Right placement keeps the top gradient and uses
+       TabItemDisabledBorderBrush, as WPF's Royale section does. -->
+  <ControlTheme x:Key="{x:Type TabControl}" TargetType="TabControl">
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="Padding" Value="4,4,4,4" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Royale.TabControlNormalBorderBrush}" />
+    <Setter Property="Background" Value="{DynamicResource Royale.TabControlPaneTopNormalBackground}" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DockPanel Name="Root"
+                   KeyboardNavigation.TabNavigation="Local"
+                   UseLayoutRounding="True"
+                   ClipToBounds="True">
+          <ItemsPresenter Name="PART_ItemsPresenter"
+                          ItemsPanel="{TemplateBinding ItemsPanel}"
+                          ZIndex="1"
+                          DockPanel.Dock="{TemplateBinding TabStripPlacement}"
+                          Margin="2,2,2,0" />
+          <Border Name="ContentPanel"
+                  BorderThickness="0,0,1,1"
+                  BorderBrush="{DynamicResource Royale.TabControl.TabControl.ContentPanel.BorderBrush}"
+                  KeyboardNavigation.TabNavigation="Local">
+            <Border BorderThickness="{TemplateBinding BorderThickness}"
+                    BorderBrush="{TemplateBinding BorderBrush}">
+              <Border Background="{TemplateBinding Background}">
+                <Panel ClipToBounds="True">
+                  <ContentPresenter Name="PART_SelectedContentHost2"
+                                    Margin="{TemplateBinding Padding}"
+                                    HorizontalContentAlignment="Stretch"
+                                    VerticalContentAlignment="Stretch"
+                                    IsVisible="False" />
+                  <ContentPresenter Name="PART_SelectedContentHost"
+                                    Margin="{TemplateBinding Padding}"
+                                    HorizontalContentAlignment="Stretch"
+                                    VerticalContentAlignment="Stretch" />
+                </Panel>
+              </Border>
+            </Border>
+          </Border>
+        </DockPanel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^[TabStripPlacement=Bottom]">
+      <Setter Property="Background" Value="{DynamicResource Royale.TabControlPaneBottomNormalBackground}" />
+      <Style Selector="^ /template/ ItemsPresenter#PART_ItemsPresenter">
+        <Setter Property="Margin" Value="2,0,2,2" />
+      </Style>
+    </Style>
+    <Style Selector="^[TabStripPlacement=Left]">
+      <Setter Property="Background" Value="{DynamicResource Royale.TabControlPaneLeftNormalBackground}" />
+      <Style Selector="^ /template/ ItemsPresenter#PART_ItemsPresenter">
+        <Setter Property="Margin" Value="2,2,-1,2" />
+      </Style>
+    </Style>
+    <Style Selector="^[TabStripPlacement=Right]">
+      <Setter Property="BorderBrush" Value="{DynamicResource Royale.TabItemDisabledBorderBrush}" />
+      <Style Selector="^ /template/ ItemsPresenter#PART_ItemsPresenter">
+        <Setter Property="Margin" Value="-1,2,2,2" />
+      </Style>
+    </Style>
+    <Style Selector="^[TabStripPlacement=Left] /template/ ItemsPresenter#PART_ItemsPresenter > WrapPanel">
+      <Setter Property="Orientation" Value="Vertical" />
+    </Style>
+    <Style Selector="^[TabStripPlacement=Right] /template/ ItemsPresenter#PART_ItemsPresenter > WrapPanel">
+      <Setter Property="Orientation" Value="Vertical" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

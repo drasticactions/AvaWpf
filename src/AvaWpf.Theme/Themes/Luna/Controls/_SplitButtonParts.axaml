@@ -1,0 +1,12 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:luna="using:AvaWpf.Chrome.Luna">
+  <!-- Luna.SplitButtonPart: one half of a split button. The SplitButton sets its Tag; "flyout-open", "checked" and
+       "checked-flyout-open" draw the pressed face. -->
+  <ControlTheme x:Key="Luna.SplitButtonPart" TargetType="Button" BasedOn="{StaticResource Luna.BaseButtonStyle}">
+    <Setter Property="Focusable" Value="False" />
+    <Style Selector="^[Tag=flyout-open] /template/ luna|ButtonChrome#Chrome, ^[Tag=checked] /template/ luna|ButtonChrome#Chrome, ^[Tag=checked-flyout-open] /template/ luna|ButtonChrome#Chrome">
+      <Setter Property="RenderPressed" Value="True" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

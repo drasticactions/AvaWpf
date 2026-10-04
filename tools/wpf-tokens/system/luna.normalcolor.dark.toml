@@ -1,0 +1,11 @@
+name = "Luna.NormalColor.Dark"
+base = "xp-dark"
+
+[colors]
+Highlight = "#316AC5"
+MenuHighlight = "#316AC5"
+ActiveCaption = "#003A9E"
+GradientActiveCaption = "#2A6BC4"
+InactiveCaption = "#3E4D73"
+GradientInactiveCaption = "#4F6185"
+HotTrack = "#8FB4F0"

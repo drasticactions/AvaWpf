@@ -1,0 +1,46 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf"
+                    xmlns:royale="using:AvaWpf.Chrome.Royale">
+  <!-- WPF Button.xaml BaseButtonStyle [[Royale.NormalColor]]: the Royale ButtonChrome; Button, ToggleButton and
+       RepeatButton are BasedOn it. The .accent class keeps the defaulted ring on. -->
+  <ControlTheme x:Key="Royale.BaseButtonStyle" TargetType="Button">
+    <Setter Property="FocusAdorner" Value="{DynamicResource Royale.FocusVisual}" />
+    <Setter Property="Background" Value="{DynamicResource Royale.ButtonNormalBackgroundFill}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Royale.ButtonBorder}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <royale:ButtonChrome Name="Chrome"
+                           BorderBrush="{TemplateBinding BorderBrush}"
+                           Fill="{TemplateBinding Background}"
+                           RenderDefaulted="{TemplateBinding wpf:ButtonState.IsDefaulted}"
+                           RenderMouseOver="{TemplateBinding IsPointerOver}"
+                           RenderPressed="{TemplateBinding IsPressed}"
+                           UseLayoutRounding="True">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Margin="{TemplateBinding Padding}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            RecognizesAccessKey="True" />
+        </royale:ButtonChrome>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:focus /template/ royale|ButtonChrome#Chrome">
+      <Setter Property="RenderDefaulted" Value="True" />
+    </Style>
+    <Style Selector="^.accent /template/ royale|ButtonChrome#Chrome">
+      <Setter Property="RenderDefaulted" Value="True" />
+    </Style>
+    <Style Selector="^:checked /template/ royale|ButtonChrome#Chrome">
+      <Setter Property="RenderPressed" Value="True" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

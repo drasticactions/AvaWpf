@@ -1,0 +1,379 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf"
+                    xmlns:conv="using:Avalonia.Controls.Converters">
+  <!--
+    WPF Menu.xaml, Aero2.NormalColor. Class toolbar: WPF ToolBar.MenuStyleKey. WPF scopes the toolbar MenuItem style to
+    the menu's resources; here the toolbar menu sets its item container theme and each item passes it on to its
+    children.
+  -->
+
+  <conv:PlatformKeyGestureConverter x:Key="Aero2.ToolBarMenuItem.KeyGestureConverter" />
+
+  <!-- WPF ToolBar.xaml ToolBar.MenuStyleKey resources: the MenuItem SubmenuItem template. -->
+  <ControlTemplate x:Key="Aero2.ToolBarMenuItem.SubmenuItemTemplate" TargetType="MenuItem">
+    <Grid Background="Transparent" UseLayoutRounding="True">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition MinWidth="24" Width="Auto" SharedSizeGroup="MenuItemIconColumnGroup" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="Auto" SharedSizeGroup="MenuItemIGTColumnGroup" />
+        <ColumnDefinition Width="14" />
+      </Grid.ColumnDefinitions>
+      <Border Name="Border"
+              Background="{TemplateBinding Background}"
+              BorderThickness="{TemplateBinding BorderThickness}"
+              BorderBrush="{TemplateBinding BorderBrush}"
+              Grid.ColumnSpan="4"
+              Margin="1,0" />
+      <ContentPresenter Name="Icon"
+                        Content="{TemplateBinding Icon}"
+                        IsVisible="False"
+                        Margin="0"
+                        VerticalAlignment="Center"
+                        UseLayoutRounding="True" />
+      <Border Name="GlyphPanel"
+              Margin="0,1"
+              Width="20"
+              Height="20"
+              Opacity="0"
+              BorderBrush="{DynamicResource Aero2.ToolBarButtonHoverBorder}"
+              Background="{DynamicResource Aero2.ToolBarMenuCheckFill}"
+              BorderThickness="1">
+        <Path VerticalAlignment="Center"
+              HorizontalAlignment="Center"
+              FlowDirection="LeftToRight"
+              Stroke="{TemplateBinding Foreground}"
+              StrokeThickness="1.2"
+              Data="{DynamicResource Aero2.ToolBarCheckmark}" />
+      </Border>
+      <ContentPresenter Name="PART_HeaderPresenter"
+                        Grid.Column="1"
+                        Content="{TemplateBinding Header}"
+                        ContentTemplate="{TemplateBinding HeaderTemplate}"
+                        Margin="{TemplateBinding Padding}"
+                        RecognizesAccessKey="True"
+                        UseLayoutRounding="True" />
+      <TextBlock Grid.Column="2"
+                 Text="{TemplateBinding InputGesture, Converter={StaticResource Aero2.ToolBarMenuItem.KeyGestureConverter}}"
+                 Margin="4,3,2,3"
+                 HorizontalAlignment="Right" />
+    </Grid>
+  </ControlTemplate>
+
+  <!-- Role TopLevelHeader. -->
+  <ControlTemplate x:Key="Aero2.ToolBarMenuItem.TopLevelHeaderTemplate" TargetType="MenuItem">
+    <Border Name="Border"
+            Background="{TemplateBinding Background}"
+            BorderBrush="{TemplateBinding BorderBrush}"
+            BorderThickness="1"
+            UseLayoutRounding="True">
+      <DockPanel Name="Header">
+        <ContentPresenter Name="Icon"
+                          Content="{TemplateBinding Icon}"
+                          IsVisible="False"
+                          Margin="4,0,6,0"
+                          VerticalAlignment="Center"
+                          UseLayoutRounding="True" />
+        <Path Name="GlyphPanel"
+              Margin="4,0,6,0"
+              IsVisible="False"
+              VerticalAlignment="Center"
+              FlowDirection="LeftToRight"
+              Stroke="{TemplateBinding Foreground}"
+              StrokeThickness="1.2"
+              Data="{DynamicResource Aero2.ToolBarCheckmark}" />
+        <ContentPresenter Name="PART_HeaderPresenter"
+                          Content="{TemplateBinding Header}"
+                          ContentTemplate="{TemplateBinding HeaderTemplate}"
+                          Margin="{TemplateBinding Padding}"
+                          RecognizesAccessKey="True"
+                          UseLayoutRounding="True" />
+        <Popup Name="PART_Popup"
+               Placement="BottomEdgeAlignedLeft"
+               PlacementTarget="Border"
+               HorizontalOffset="-1"
+               IsOpen="{TemplateBinding IsSubMenuOpen, Mode=TwoWay}"
+               Focusable="False"
+               IsLightDismissEnabled="True"
+               OverlayInputPassThroughElement="{Binding $parent[Menu]}"
+               WindowManagerAddShadowHint="False"
+               wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.MenuPopupAnimation}">
+          <wpf:SystemDropShadowChrome Name="Shdw" Classes.dropshadow="{DynamicResource SystemParameters.DropShadow}">
+            <Border Name="SubMenuBorder"
+                    Background="{DynamicResource Aero2.ToolBarSubMenuBackground}"
+                    BorderBrush="{DynamicResource Aero2.ToolBarMenuBorder}"
+                    BorderThickness="1">
+              <Grid>
+                <Rectangle Fill="{DynamicResource Aero2.ToolBarSubMenuBackground}"
+                           Margin="0,-1,0,0"
+                           VerticalAlignment="Top"
+                           HorizontalAlignment="Left"
+                           Height="1"
+                           Width="{Binding #Header.Bounds.Width}" />
+                <ScrollViewer Name="SubMenuScrollViewer" Theme="{StaticResource Aero2.MenuScrollViewer}">
+                  <Grid Grid.IsSharedSizeScope="True">
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition MinWidth="24" Width="Auto" SharedSizeGroup="MenuItemIconColumnGroup" />
+                      <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Rectangle Fill="{DynamicResource Aero2.ToolBarVerticalBackground}" Margin="0,1" />
+                    <ItemsPresenter Name="PART_ItemsPresenter"
+                                    ItemsPanel="{TemplateBinding ItemsPanel}"
+                                    Grid.ColumnSpan="2"
+                                    KeyboardNavigation.TabNavigation="Cycle"
+                                    Margin="0,0,0,1"
+                                    UseLayoutRounding="True" />
+                  </Grid>
+                </ScrollViewer>
+              </Grid>
+            </Border>
+          </wpf:SystemDropShadowChrome>
+        </Popup>
+      </DockPanel>
+    </Border>
+  </ControlTemplate>
+
+  <!-- Role TopLevelItem. -->
+  <ControlTemplate x:Key="Aero2.ToolBarMenuItem.TopLevelItemTemplate" TargetType="MenuItem">
+    <Border Name="Border"
+            Background="{TemplateBinding Background}"
+            BorderBrush="{TemplateBinding BorderBrush}"
+            BorderThickness="1"
+            UseLayoutRounding="True">
+      <DockPanel>
+        <ContentPresenter Name="Icon"
+                          Content="{TemplateBinding Icon}"
+                          IsVisible="False"
+                          Margin="4,0,6,0"
+                          VerticalAlignment="Center"
+                          UseLayoutRounding="True" />
+        <Path Name="GlyphPanel"
+              Margin="4,0,6,0"
+              IsVisible="False"
+              VerticalAlignment="Center"
+              FlowDirection="LeftToRight"
+              Stroke="{TemplateBinding Foreground}"
+              StrokeThickness="1.2"
+              Data="{DynamicResource Aero2.ToolBarCheckmark}" />
+        <ContentPresenter Name="PART_HeaderPresenter"
+                          Content="{TemplateBinding Header}"
+                          ContentTemplate="{TemplateBinding HeaderTemplate}"
+                          Margin="{TemplateBinding Padding}"
+                          RecognizesAccessKey="True"
+                          UseLayoutRounding="True" />
+      </DockPanel>
+    </Border>
+  </ControlTemplate>
+
+  <!-- Role SubmenuHeader. -->
+  <ControlTemplate x:Key="Aero2.ToolBarMenuItem.SubmenuHeaderTemplate" TargetType="MenuItem">
+    <Grid Background="Transparent" UseLayoutRounding="True">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition MinWidth="24" Width="Auto" SharedSizeGroup="MenuItemIconColumnGroup" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="Auto" SharedSizeGroup="MenuItemIGTColumnGroup" />
+        <ColumnDefinition Width="14" />
+      </Grid.ColumnDefinitions>
+      <Border Name="Border"
+              Background="{TemplateBinding Background}"
+              BorderThickness="{TemplateBinding BorderThickness}"
+              BorderBrush="{TemplateBinding BorderBrush}"
+              Grid.ColumnSpan="4"
+              Margin="1,0" />
+      <ContentPresenter Name="Icon"
+                        Content="{TemplateBinding Icon}"
+                        IsVisible="False"
+                        Margin="3"
+                        VerticalAlignment="Center"
+                        UseLayoutRounding="True" />
+      <Border Name="GlyphPanel"
+              Margin="0,1"
+              Width="20"
+              Height="20"
+              Opacity="0"
+              BorderBrush="{DynamicResource Aero2.ToolBarButtonHoverBorder}"
+              Background="{DynamicResource Aero2.ToolBarMenuCheckFill}"
+              BorderThickness="1">
+        <Path VerticalAlignment="Center"
+              HorizontalAlignment="Center"
+              FlowDirection="LeftToRight"
+              Stroke="{TemplateBinding Foreground}"
+              StrokeThickness="1.2"
+              Data="{DynamicResource Aero2.ToolBarCheckmark}" />
+      </Border>
+      <ContentPresenter Name="PART_HeaderPresenter"
+                        Grid.Column="1"
+                        Content="{TemplateBinding Header}"
+                        ContentTemplate="{TemplateBinding HeaderTemplate}"
+                        Margin="{TemplateBinding Padding}"
+                        RecognizesAccessKey="True"
+                        UseLayoutRounding="True" />
+      <Path Grid.Column="3"
+            VerticalAlignment="Center"
+            Margin="4,0,6,0"
+            Fill="{TemplateBinding Foreground}"
+            Data="{DynamicResource Aero2.RightArrow}" />
+      <Popup Name="PART_Popup"
+             Placement="RightEdgeAlignedTop"
+             IsOpen="{TemplateBinding IsSubMenuOpen, Mode=TwoWay}"
+             Focusable="False"
+             IsLightDismissEnabled="False"
+             WindowManagerAddShadowHint="False"
+             wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.MenuPopupAnimation}">
+        <wpf:SystemDropShadowChrome Name="Shdw" Classes.dropshadow="{DynamicResource SystemParameters.DropShadow}">
+          <Border Name="SubMenuBorder"
+                  Background="{DynamicResource Aero2.ToolBarSubMenuBackground}"
+                  BorderBrush="{DynamicResource Aero2.ToolBarMenuBorder}"
+                  BorderThickness="1"
+                  Grid.IsSharedSizeScope="True">
+            <ScrollViewer Name="SubMenuScrollViewer" Theme="{StaticResource Aero2.MenuScrollViewer}">
+              <Grid>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition MinWidth="24" Width="Auto" SharedSizeGroup="MenuItemIconColumnGroup" />
+                  <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Rectangle Fill="{DynamicResource Aero2.ToolBarVerticalBackground}" Margin="0,1" />
+                <ItemsPresenter Name="PART_ItemsPresenter"
+                                ItemsPanel="{TemplateBinding ItemsPanel}"
+                                Grid.ColumnSpan="2"
+                                KeyboardNavigation.TabNavigation="Cycle"
+                                Margin="0,0,0,1"
+                                UseLayoutRounding="True" />
+              </Grid>
+            </ScrollViewer>
+          </Border>
+        </wpf:SystemDropShadowChrome>
+      </Popup>
+    </Grid>
+  </ControlTemplate>
+
+  <!-- The MenuItem.SeparatorStyleKey of the toolbar menu, for a "-" header. -->
+  <ControlTemplate x:Key="Aero2.ToolBarMenuItem.SeparatorTemplate" TargetType="MenuItem">
+    <Grid UseLayoutRounding="True" Height="1" Margin="0,1,0,0">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition MinWidth="24" Width="Auto" SharedSizeGroup="MenuItemIconColumnGroup" />
+        <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
+      <Border Grid.Column="1" Margin="8,0,0,0" Background="{DynamicResource Aero2.ToolBarSeparatorFill}" />
+    </Grid>
+  </ControlTemplate>
+
+  <!-- The submenu roles of the toolbar menu's items (SubmenuItem, SubmenuHeader). -->
+  <ControlTheme x:Key="Aero2.ToolBarMenuItem" TargetType="MenuItem">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.MenuTextBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Margin" Value="0,1,0,0" />
+    <Setter Property="Padding" Value="8,3,8,3" />
+    <Setter Property="ItemContainerTheme" Value="{DynamicResource Aero2.ToolBarMenuItem}" />
+    <Setter Property="Template" Value="{StaticResource Aero2.ToolBarMenuItem.SubmenuItemTemplate}" />
+    <Style Selector="^:not(:empty)">
+      <Setter Property="Grid.IsSharedSizeScope" Value="True" />
+      <Setter Property="Template" Value="{StaticResource Aero2.ToolBarMenuItem.SubmenuHeaderTemplate}" />
+    </Style>
+    <Style Selector="^:separator">
+      <Setter Property="Template" Value="{StaticResource Aero2.ToolBarMenuItem.SeparatorTemplate}" />
+    </Style>
+    <Style Selector="^:icon /template/ ContentPresenter#Icon">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:checked">
+      <Style Selector="^ /template/ Border#GlyphPanel">
+        <Setter Property="Opacity" Value="1" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#Icon">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+    </Style>
+    <Style Selector="^:selected">
+      <Style Selector="^ /template/ Border#Border">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ToolBarButtonHoverBorder}" />
+        <Setter Property="Background" Value="{DynamicResource Aero2.ToolBarButtonHover}" />
+      </Style>
+      <Style Selector="^ /template/ Border#GlyphPanel">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ToolBarButtonPressedBorder}" />
+        <Setter Property="Background" Value="{DynamicResource Aero2.ToolBarDarkFill}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+    <Style Selector="^ /template/ wpf|SystemDropShadowChrome#Shdw.dropshadow">
+      <Setter Property="Margin" Value="0,0,5,5" />
+    </Style>
+  </ControlTheme>
+
+  <!-- The top-level roles of the toolbar menu's items (TopLevelHeader, TopLevelItem). -->
+  <ControlTheme x:Key="Aero2.ToolBarMenuItem.TopLevel" TargetType="MenuItem">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.MenuTextBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Margin" Value="0,1,0,0" />
+    <Setter Property="Padding" Value="6,2,7,2" />
+    <Setter Property="Grid.IsSharedSizeScope" Value="True" />
+    <Setter Property="ItemContainerTheme" Value="{StaticResource Aero2.ToolBarMenuItem}" />
+    <Setter Property="Template" Value="{StaticResource Aero2.ToolBarMenuItem.TopLevelHeaderTemplate}" />
+    <Style Selector="^:empty">
+      <Setter Property="Margin" Value="0,1,0,1" />
+      <Setter Property="Padding" Value="7,1,8,2" />
+      <Setter Property="Template" Value="{StaticResource Aero2.ToolBarMenuItem.TopLevelItemTemplate}" />
+    </Style>
+    <Style Selector="^:icon /template/ ContentPresenter#Icon">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:checked">
+      <Style Selector="^ /template/ Path#GlyphPanel">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#Icon">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+    </Style>
+    <Style Selector="^:selected /template/ Border#Border">
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ToolBarButtonHoverBorder}" />
+      <Setter Property="Background" Value="{DynamicResource Aero2.ToolBarButtonHover}" />
+    </Style>
+    <!-- TopLevelHeader only. -->
+    <Style Selector="^:open /template/ Border#Border">
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ToolBarMenuBorder}" />
+      <Setter Property="Background" Value="{DynamicResource Aero2.ToolBarOpenHeaderBackground}" />
+    </Style>
+    <Style Selector="^ /template/ wpf|SystemDropShadowChrome#Shdw.dropshadow">
+      <Setter Property="Margin" Value="0,0,5,5" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type Menu}" TargetType="Menu">
+    <Setter Property="Background" Value="{DynamicResource Aero2.Menu.Static.Background}" />
+    <Setter Property="FontFamily" Value="{DynamicResource SystemFonts.MenuFontFamily}" />
+    <Setter Property="FontSize" Value="{DynamicResource SystemFonts.MenuFontSize}" />
+    <Setter Property="FontWeight" Value="{DynamicResource SystemFonts.MenuFontWeight}" />
+    <Setter Property="Foreground" Value="{DynamicResource Aero2.Menu.Static.Foreground}" />
+    <Setter Property="ItemContainerTheme" Value="{DynamicResource Aero2.MenuItem.TopLevelHeader}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Padding="{TemplateBinding Padding}"
+                UseLayoutRounding="True">
+          <ItemsPresenter Name="PART_ItemsPresenter"
+                          ItemsPanel="{TemplateBinding ItemsPanel}"
+                          KeyboardNavigation.TabNavigation="Continue"
+                          UseLayoutRounding="True" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+
+    <!-- WPF ToolBar.xaml ToolBar.MenuStyleKey. -->
+    <Style Selector="^.toolbar">
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.MenuTextBrush}" />
+      <Setter Property="KeyboardNavigation.TabNavigation" Value="Continue" />
+      <Setter Property="ItemContainerTheme" Value="{StaticResource Aero2.ToolBarMenuItem.TopLevel}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

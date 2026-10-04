@@ -1,0 +1,73 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    ButtonSpinner as a Windows 11 NumberBox: the Fluent TextBox frame with inline Fluent.SpinnerButton up / down
+    buttons.
+  -->
+  <ControlTheme x:Key="{x:Type ButtonSpinner}" TargetType="ButtonSpinner">
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.TextControlForeground}" />
+    <Setter Property="Background" Value="{DynamicResource Fluent.TextControlBackground}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Fluent.TextControlElevationBorderBrush}" />
+    <Setter Property="BorderThickness" Value="{DynamicResource Fluent.TextControlBorderThemeThickness}" />
+    <Setter Property="CornerRadius" Value="{DynamicResource Fluent.ControlCornerRadius}" />
+    <Setter Property="Padding" Value="10,0" />
+    <Setter Property="MinHeight" Value="{DynamicResource Fluent.TextControlThemeMinHeight}" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Focusable" Value="True" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DataValidationErrors>
+          <Border Name="BorderElement"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{TemplateBinding CornerRadius}"
+                  MinHeight="{TemplateBinding MinHeight}"
+                  UseLayoutRounding="True">
+            <DockPanel>
+              <StackPanel Name="PART_SpinnerPanel"
+                          DockPanel.Dock="Right"
+                          Orientation="Horizontal"
+                          VerticalAlignment="Center"
+                          IsVisible="{TemplateBinding ShowButtonSpinner}">
+                <RepeatButton Name="PART_IncreaseButton"
+                              Classes="up"
+                              Theme="{StaticResource Fluent.SpinnerButton}" />
+                <RepeatButton Name="PART_DecreaseButton"
+                              Classes="down"
+                              Theme="{StaticResource Fluent.SpinnerButton}" />
+              </StackPanel>
+              <ContentPresenter Name="PART_ContentPresenter"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Padding="{TemplateBinding Padding}" />
+            </DockPanel>
+          </Border>
+        </DataValidationErrors>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:left /template/ StackPanel#PART_SpinnerPanel">
+      <Setter Property="DockPanel.Dock" Value="Left" />
+      <Setter Property="Margin" Value="4,0,0,0" />
+    </Style>
+    <Style Selector="^:pointerover /template/ Border#BorderElement">
+      <Setter Property="Background" Value="{DynamicResource Fluent.TextControlBackgroundPointerOver}" />
+    </Style>
+    <Style Selector="^:focus-within /template/ Border#BorderElement">
+      <Setter Property="Background" Value="{DynamicResource Fluent.TextControlBackgroundFocused}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Fluent.TextControlElevationBorderFocusedBrush}" />
+      <Setter Property="BorderThickness" Value="{DynamicResource Fluent.TextControlBorderThemeThicknessFocused}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource Fluent.TextControlForegroundDisabled}" />
+      <Style Selector="^ /template/ Border#BorderElement">
+        <Setter Property="Background" Value="{DynamicResource Fluent.TextControlBackgroundDisabled}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.TextControlBorderBrushDisabled}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

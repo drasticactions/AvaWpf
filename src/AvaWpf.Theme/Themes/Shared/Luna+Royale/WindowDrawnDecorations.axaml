@@ -1,0 +1,126 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WindowDrawnDecorations: the underlay is the family wpf:WindowFrame; the overlay puts invisible hit targets over
+       the drawn caption buttons so the platform handles them. In full screen a caption strip drops down. -->
+  <ControlTheme x:Key="$F.DrawnCaptionHitButton" TargetType="Button">
+    <Setter Property="Width" Value="{DynamicResource $F.Invented.WindowFrame.ButtonSize}" />
+    <Setter Property="Height" Value="{DynamicResource $F.Invented.WindowFrame.ButtonSize}" />
+    <Setter Property="Margin" Value="0,0,3,0" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="(WindowDecorationProperties.ElementRole)" Value="DecorationsElement" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="Transparent" />
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type WindowDrawnDecorations}" TargetType="WindowDrawnDecorations">
+    <Setter Property="DefaultTitleBarHeight" Value="29" />
+    <Setter Property="DefaultFrameThickness" Value="4" />
+    <Setter Property="DefaultShadowThickness" Value="0" />
+    <Setter Property="Template">
+      <WindowDrawnDecorationsTemplate>
+        <WindowDrawnDecorationsContent>
+          <WindowDrawnDecorationsContent.Underlay>
+            <Panel Name="PART_UnderlayWrapper">
+              <wpf:WindowFrame Name="PART_Frame"
+                               Title="{TemplateBinding Title}"
+                               ShowIcon="False"
+                               CanMinimize="False"
+                               CanMaximize="False"
+                               IsActive="True"
+                               IsHitTestVisible="False" />
+              <Panel Name="PART_TitleBar"
+                     VerticalAlignment="Top"
+                     Height="{TemplateBinding TitleBarHeight}"
+                     Background="Transparent"
+                     IsVisible="{TemplateBinding HasTitleBar}"
+                     WindowDecorationProperties.ElementRole="TitleBar" />
+            </Panel>
+          </WindowDrawnDecorationsContent.Underlay>
+          <WindowDrawnDecorationsContent.Overlay>
+            <Panel Name="PART_OverlayWrapper">
+              <StackPanel Name="PART_OverlayPanel"
+                          VerticalAlignment="Top"
+                          HorizontalAlignment="Right"
+                          Margin="0,1,1,0"
+                          Height="{DynamicResource $F.Invented.WindowFrame.CaptionHeight}"
+                          IsVisible="{TemplateBinding HasTitleBar}"
+                          Orientation="Horizontal">
+                <Button Name="PART_FullScreenButton"
+                        Theme="{StaticResource $F.DrawnCaptionHitButton}"
+                        IsVisible="False"
+                        WindowDecorationProperties.ElementRole="FullScreenButton" />
+                <Button Name="PART_MinimizeButton"
+                        Theme="{StaticResource $F.DrawnCaptionHitButton}"
+                        WindowDecorationProperties.ElementRole="MinimizeButton" />
+                <Button Name="PART_MaximizeButton"
+                        Theme="{StaticResource $F.DrawnCaptionHitButton}"
+                        WindowDecorationProperties.ElementRole="MaximizeButton" />
+                <Button Name="PART_CloseButton"
+                        Theme="{StaticResource $F.DrawnCaptionHitButton}"
+                        WindowDecorationProperties.ElementRole="CloseButton" />
+              </StackPanel>
+            </Panel>
+          </WindowDrawnDecorationsContent.Overlay>
+          <WindowDrawnDecorationsContent.FullscreenPopover>
+            <Panel Height="{TemplateBinding DefaultTitleBarHeight}"
+                   VerticalAlignment="Top"
+                   Background="{DynamicResource SystemColors.HighlightBrush}"
+                   WindowDecorationProperties.ElementRole="DecorationsElement">
+              <TextBlock Text="{TemplateBinding Title}"
+                         VerticalAlignment="Center"
+                         Margin="8,0,0,0"
+                         Foreground="{DynamicResource SystemColors.HighlightTextBrush}"
+                         FontFamily="{DynamicResource SystemFonts.CaptionFontFamily}"
+                         FontSize="{DynamicResource SystemFonts.CaptionFontSize}"
+                         FontWeight="{DynamicResource SystemFonts.CaptionFontWeight}" />
+              <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,4,0">
+                <Button Name="PART_PopoverFullScreenButton"
+                        Classes="toolbar"
+                        Content="Restore"
+                        Foreground="{DynamicResource SystemColors.HighlightTextBrush}"
+                        WindowDecorationProperties.ElementRole="FullScreenButton" />
+                <Button Name="PART_PopoverCloseButton"
+                        Classes="toolbar"
+                        Content="Close"
+                        Foreground="{DynamicResource SystemColors.HighlightTextBrush}"
+                        WindowDecorationProperties.ElementRole="CloseButton" />
+              </StackPanel>
+            </Panel>
+          </WindowDrawnDecorationsContent.FullscreenPopover>
+        </WindowDrawnDecorationsContent>
+      </WindowDrawnDecorationsTemplate>
+    </Setter>
+    <Style Selector="^:maximized /template/ wpf|WindowFrame#PART_Frame">
+      <Setter Property="WindowState" Value="Maximized" />
+    </Style>
+    <Style Selector="^:has-minimize /template/ wpf|WindowFrame#PART_Frame">
+      <Setter Property="CanMinimize" Value="True" />
+    </Style>
+    <Style Selector="^:has-maximize /template/ wpf|WindowFrame#PART_Frame">
+      <Setter Property="CanMaximize" Value="True" />
+    </Style>
+    <Style Selector="^:not(:has-minimize) /template/ Button#PART_MinimizeButton">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:not(:has-maximize) /template/ Button#PART_MaximizeButton">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:not(:has-fullscreen) /template/ Button#PART_PopoverFullScreenButton">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:fullscreen /template/ StackPanel#PART_OverlayPanel">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:fullscreen /template/ Panel#PART_TitleBar">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:fullscreen /template/ wpf|WindowFrame#PART_Frame">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

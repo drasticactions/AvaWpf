@@ -1,0 +1,37 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF ListBox.xaml [[Classic]]. Disabled keeps the Window color. -->
+  <ControlTheme x:Key="{x:Type ListBox}" TargetType="ListBox">
+    <Setter Property="Background" Value="{DynamicResource SystemColors.WindowBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.WindowTextBrush}" />
+    <Setter Property="BorderBrush" Value="{x:Static wpf:ClassicBorderDecorator.ClassicBorderBrush}" />
+    <Setter Property="BorderThickness" Value="2" />
+    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <wpf:ClassicBorderDecorator Name="Bd"
+                                    BorderStyle="Sunken"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    UseLayoutRounding="True">
+          <ScrollViewer Name="PART_ScrollViewer"
+                        Padding="{TemplateBinding Padding}"
+                        Focusable="False"
+                        HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+                        VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
+                        IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
+                        IsDeferredScrollingEnabled="{TemplateBinding (ScrollViewer.IsDeferredScrollingEnabled)}"
+                        BringIntoViewOnFocusChange="{TemplateBinding (ScrollViewer.BringIntoViewOnFocusChange)}">
+            <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
+          </ScrollViewer>
+        </wpf:ClassicBorderDecorator>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:disabled /template/ wpf|ClassicBorderDecorator#Bd">
+      <Setter Property="Background" Value="{DynamicResource SystemColors.WindowBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

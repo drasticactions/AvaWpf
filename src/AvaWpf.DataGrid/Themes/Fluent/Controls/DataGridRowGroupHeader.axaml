@@ -1,0 +1,59 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:collections="using:Avalonia.Collections">
+  <!--
+    Group header drawn as the WPF Fluent Expander header, because WPF Fluent DataGrid.xaml does not style group
+    headers.
+  -->
+  <ControlTheme x:Key="Fluent.DataGridRowGroupExpanderButton" TargetType="ToggleButton">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Width="32" Height="32" Background="Transparent">
+          <TextBlock x:Name="Chevron"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     FontFamily="{DynamicResource Fluent.SymbolThemeFontFamily}"
+                     FontSize="{DynamicResource Fluent.ExpanderChevronSize}"
+                     Foreground="{TemplateBinding Foreground}"
+                     Text="{DynamicResource Fluent.ExpanderChevronDownGlyph}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:checked /template/ TextBlock#Chevron">
+      <Setter Property="Text" Value="{DynamicResource Fluent.ExpanderChevronUpGlyph}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type DataGridRowGroupHeader}" TargetType="DataGridRowGroupHeader">
+    <Setter Property="Background" Value="{DynamicResource Fluent.ExpanderHeaderBackground}" />
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.ExpanderHeaderForeground}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Fluent.ExpanderHeaderBorderBrush}" />
+    <Setter Property="MinHeight" Value="32" />
+    <Setter Property="Template">
+      <ControlTemplate x:DataType="collections:DataGridCollectionViewGroup">
+        <DataGridFrozenGrid Name="PART_Root"
+                            Background="{TemplateBinding Background}"
+                            MinHeight="{TemplateBinding MinHeight}"
+                            ColumnDefinitions="Auto,Auto,Auto,Auto,*"
+                            RowDefinitions="*,Auto">
+          <Rectangle Name="PART_IndentSpacer" Grid.Column="1" />
+          <ToggleButton Name="PART_ExpanderButton"
+                        Grid.Column="2"
+                        VerticalAlignment="Center"
+                        Theme="{StaticResource Fluent.DataGridRowGroupExpanderButton}"
+                        Foreground="{TemplateBinding Foreground}"
+                        IsTabStop="False"
+                        Focusable="False" />
+          <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center">
+            <TextBlock Name="PART_PropertyNameElement" Margin="0,0,4,0" IsVisible="{TemplateBinding IsPropertyNameVisible}" Foreground="{TemplateBinding Foreground}" />
+            <TextBlock Text="{Binding Key}" Foreground="{TemplateBinding Foreground}" />
+            <TextBlock Name="PART_ItemCountElement" Margin="4,0,0,0" IsVisible="{TemplateBinding IsItemCountVisible}" Foreground="{TemplateBinding Foreground}" />
+          </StackPanel>
+          <DataGridRowHeader Name="PART_RowHeader" Grid.RowSpan="2" DataGridFrozenGrid.IsFrozen="True" />
+          <Rectangle Name="PART_BottomGridLine" Grid.Row="1" Grid.ColumnSpan="5" Height="1" Fill="{TemplateBinding BorderBrush}" />
+        </DataGridFrozenGrid>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,96 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    WPF ComboBox.xaml ComboBoxToggleButton, AeroLite.NormalColor. The ComboBox draws it with IsHitTestVisible off
+    (Avalonia's ComboBox opens itself) and sets its hover and pressed brushes.
+  -->
+  <ControlTheme x:Key="AeroLite.ComboBoxToggleButton" TargetType="ToggleButton">
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="ClickMode" Value="Press" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="templateRoot"
+                UseLayoutRounding="True"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                Background="{TemplateBinding Background}">
+          <Border Name="splitBorder"
+                  HorizontalAlignment="Right"
+                  Width="{DynamicResource SystemParameters.VerticalScrollBarWidth}"
+                  BorderThickness="1"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  Margin="0,-1,-1,-1">
+            <Path Name="Arrow"
+                  Data="{DynamicResource AeroLite.ComboBox.ComboBoxToggleButton.Arrow.Data}"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  Fill="{TemplateBinding Foreground}" />
+          </Border>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#templateRoot">
+      <Setter Property="Background" Value="{DynamicResource AeroLite.ComboBox.MouseOver.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.ComboBox.MouseOver.Border}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Border#templateRoot">
+      <Setter Property="Background" Value="{DynamicResource AeroLite.ComboBox.Pressed.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.ComboBox.Pressed.Border}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Style Selector="^ /template/ Border#templateRoot">
+        <Setter Property="Background" Value="{DynamicResource AeroLite.ComboBox.Disabled.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.ComboBox.Disabled.Border}" />
+      </Style>
+      <Style Selector="^ /template/ Border#splitBorder">
+        <Setter Property="Background" Value="{DynamicResource AeroLite.ComboBox.Disabled.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.ComboBox.Disabled.Border}" />
+      </Style>
+      <Style Selector="^ /template/ Path#Arrow">
+        <Setter Property="Fill" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+
+  <!--
+    WPF ToolBar.xaml ToolBarComboBoxTransparentButtonStyle; here it also draws the ComboBox border. The ComboBox sets
+    the ToolBar hover and pressed brushes on it.
+  -->
+  <ControlTheme x:Key="AeroLite.ToolBarComboBoxToggleButton" TargetType="ToggleButton">
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="ClickMode" Value="Press" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="Border"
+                Background="{Binding $parent[ComboBox].Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="1"
+                UseLayoutRounding="True">
+          <Border Name="Chrome"
+                  HorizontalAlignment="Right"
+                  Width="13"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="1,0,0,0">
+            <Path Name="ArrowDownPath"
+                  Data="{DynamicResource AeroLite.ToolBar.ToolBarComboBoxTransparentButtonStyle.ArrowDownPath.Data}"
+                  Fill="{DynamicResource AeroLite.ToolBar.ToolBarComboBoxTransparentButtonStyle.ArrowDownPath.Fill}"
+                  VerticalAlignment="Center" />
+          </Border>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:disabled">
+      <Style Selector="^ /template/ Border#Chrome">
+        <Setter Property="BorderBrush" Value="{x:Null}" />
+      </Style>
+      <Style Selector="^ /template/ Path#ArrowDownPath">
+        <Setter Property="Fill" Value="{DynamicResource AeroLite.ToolBarDisabledBorder}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

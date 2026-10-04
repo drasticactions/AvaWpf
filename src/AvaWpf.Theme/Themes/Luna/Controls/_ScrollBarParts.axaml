@@ -1,0 +1,85 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:luna="using:AvaWpf.Chrome.Luna">
+  <!-- WPF ScrollBar.xaml [[Luna.*]] parts; classes up, down, left, right, vertical and horizontal pick the glyph.
+       Normal Color has no disabled track gradient, so that trigger is guarded by the color scheme. -->
+  <ControlTheme x:Key="Luna.ScrollBarLineButton" TargetType="RepeatButton">
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <luna:ScrollChrome Name="Chrome"
+                           ThemeColor="{DynamicResource Luna.ThemeColor}"
+                           RenderMouseOver="{TemplateBinding IsPointerOver}"
+                           RenderPressed="{TemplateBinding IsPressed}"
+                           luna:ScrollChrome.ScrollGlyph="{TemplateBinding luna:ScrollChrome.ScrollGlyph}"
+                           UseLayoutRounding="True" />
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^.up /template/ luna|ScrollChrome#Chrome">
+      <Setter Property="luna:ScrollChrome.ScrollGlyph" Value="UpArrow" />
+    </Style>
+    <Style Selector="^.down /template/ luna|ScrollChrome#Chrome">
+      <Setter Property="luna:ScrollChrome.ScrollGlyph" Value="DownArrow" />
+    </Style>
+    <Style Selector="^.left /template/ luna|ScrollChrome#Chrome">
+      <Setter Property="luna:ScrollChrome.ScrollGlyph" Value="LeftArrow" />
+    </Style>
+    <Style Selector="^.right /template/ luna|ScrollChrome#Chrome">
+      <Setter Property="luna:ScrollChrome.ScrollGlyph" Value="RightArrow" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Luna.ScrollBarThumb" TargetType="Thumb">
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <luna:ScrollChrome Name="Chrome"
+                           ThemeColor="{DynamicResource Luna.ThemeColor}"
+                           RenderMouseOver="{TemplateBinding IsPointerOver}"
+                           luna:ScrollChrome.ScrollGlyph="{TemplateBinding luna:ScrollChrome.ScrollGlyph}"
+                           UseLayoutRounding="True" />
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pressed /template/ luna|ScrollChrome#Chrome">
+      <Setter Property="RenderPressed" Value="True" />
+    </Style>
+    <Style Selector="^.vertical /template/ luna|ScrollChrome#Chrome">
+      <Setter Property="luna:ScrollChrome.ScrollGlyph" Value="VerticalGripper" />
+    </Style>
+    <Style Selector="^.horizontal /template/ luna|ScrollChrome#Chrome">
+      <Setter Property="luna:ScrollChrome.ScrollGlyph" Value="HorizontalGripper" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Luna.ScrollBarPageButton" TargetType="RepeatButton">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Rectangle Name="Bg"
+                   Fill="{TemplateBinding Background}"
+                   Tag="{DynamicResource AvaWpf.ColorScheme}" />
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^.horizontal:pressed /template/ Rectangle#Bg">
+      <Setter Property="Fill" Value="{DynamicResource Luna.HorizontalScrollBarPageButtonPressed}" />
+    </Style>
+    <Style Selector="^.vertical:pressed /template/ Rectangle#Bg">
+      <Setter Property="Fill" Value="{DynamicResource Luna.VerticalScrollBarPageButtonPressed}" />
+    </Style>
+    <Style Selector="^.horizontal:disabled /template/ Rectangle#Bg">
+      <Setter Property="Fill" Value="{DynamicResource Luna.HorizontalScrollBarPageButtonDisabled}" />
+    </Style>
+    <Style Selector="^.vertical:disabled /template/ Rectangle#Bg">
+      <Setter Property="Fill" Value="{DynamicResource Luna.VerticalScrollBarPageButtonDisabled}" />
+    </Style>
+    <!-- Normal Color has no disabled trigger: the page button stays transparent over the track. -->
+    <Style Selector="^:disabled /template/ Rectangle#Bg[Tag=NormalColor]">
+      <Setter Property="Fill" Value="Transparent" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

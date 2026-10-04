@@ -1,0 +1,17 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:wpf="https://github.com/avawpf"
+             x:Class="AvaWpf.Gallery.Pages.ScrollingPage">
+  <StackPanel Spacing="12">
+    <TextBlock Classes="Subtitle" Text="Scroll bars" />
+    <ScrollBar Orientation="Horizontal" Width="300" HorizontalAlignment="Left" Maximum="100" ViewportSize="20" Value="30" AllowAutoHide="False" />
+    <ScrollBar Orientation="Vertical" Height="150" HorizontalAlignment="Left" Maximum="100" ViewportSize="20" Value="30" AllowAutoHide="False" />
+    <ScrollBar Orientation="Horizontal" Width="300" HorizontalAlignment="Left" Maximum="100" ViewportSize="20" IsEnabled="False" AllowAutoHide="False" />
+    <TextBlock Classes="Subtitle" Text="Scroll viewer" />
+    <ScrollViewer Width="300" Height="150" HorizontalAlignment="Left" HorizontalScrollBarVisibility="Visible" AllowAutoHide="False">
+      <Border Width="700" Height="500" Background="{DynamicResource WpfControlBackgroundBrush}" BorderBrush="{DynamicResource WpfBorderBrush}" BorderThickness="1">
+        <TextBlock Text="Large content" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+    </ScrollViewer>
+  </StackPanel>
+</UserControl>

@@ -1,0 +1,162 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!--
+    Parts of the flyout DatePicker and TimePicker: Fluent.DateTimePickerFlyoutButton (the field), Fluent.DateTimePickerItem
+    (a selector row; class MonthItem left-aligns month names), Fluent.DateTimePickerButton and the
+    Fluent.DateTimePickerUpButton / DownButton scroll buttons.
+  -->
+  <ControlTheme x:Key="Fluent.DateTimePickerFlyoutButton" TargetType="Button">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="ContentBorder"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                UseLayoutRounding="True">
+          <Border.Transitions>
+            <Transitions>
+              <BrushTransition Property="Background" Duration="{x:Static wpf:FluentTimings.Faster}" Easing="0,0,0,1" />
+            </Transitions>
+          </Border.Transitions>
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            Foreground="{TemplateBinding Foreground}"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover">
+      <Style Selector="^ /template/ Border#ContentBorder">
+        <Setter Property="Background" Value="{DynamicResource Fluent.TimePickerButtonBackgroundPointerOver}" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.TimePickerButtonForegroundPointerOver}" />
+      </Style>
+    </Style>
+    <Style Selector="^:pressed">
+      <Style Selector="^ /template/ Border#ContentBorder">
+        <Setter Property="Background" Value="{DynamicResource Fluent.TimePickerButtonBackgroundPressed}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.TimePickerButtonBorderBrushPressed}" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.TimePickerButtonForegroundPressed}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Style Selector="^ /template/ Border#ContentBorder">
+        <Setter Property="Background" Value="{DynamicResource Fluent.TimePickerButtonBackgroundDisabled}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.TimePickerButtonBorderBrushDisabled}" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.TimePickerButtonForegroundDisabled}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Fluent.DateTimePickerItem" TargetType="ListBoxItem">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.TextFillColorPrimaryBrush}" />
+    <Setter Property="Padding" Value="{DynamicResource Fluent.DatePickerHostPadding}" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="Root"
+                Margin="4,2"
+                Background="{TemplateBinding Background}"
+                CornerRadius="{DynamicResource Fluent.ControlCornerRadius}">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Padding="{TemplateBinding Padding}"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Foreground="{TemplateBinding Foreground}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover">
+      <Setter Property="Background" Value="{DynamicResource Fluent.SubtleFillColorSecondaryBrush}" />
+    </Style>
+    <Style Selector="^:selected">
+      <Setter Property="IsHitTestVisible" Value="False" />
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="Foreground" Value="{DynamicResource Fluent.TextOnAccentFillColorPrimaryBrush}" />
+    </Style>
+    <Style Selector="^.MonthItem">
+      <Setter Property="Padding" Value="{DynamicResource Fluent.DatePickerHostMonthPadding}" />
+      <Setter Property="HorizontalContentAlignment" Value="Left" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Fluent.DateTimePickerButton" TargetType="Button">
+    <Setter Property="Background" Value="{DynamicResource Fluent.SubtleFillColorTransparentBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.TextFillColorPrimaryBrush}" />
+    <Setter Property="CornerRadius" Value="{DynamicResource Fluent.ControlCornerRadius}" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="ContentBorder"
+                Background="{TemplateBinding Background}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                Margin="{TemplateBinding Padding}">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Foreground="{TemplateBinding Foreground}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#ContentBorder">
+      <Setter Property="Background" Value="{DynamicResource Fluent.SubtleFillColorSecondaryBrush}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Border#ContentBorder">
+      <Setter Property="Background" Value="{DynamicResource Fluent.SubtleFillColorTertiaryBrush}" />
+    </Style>
+    <Style Selector="^:pressed /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource Fluent.TextFillColorSecondaryBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Fluent.DateTimePickerUpButton" TargetType="RepeatButton" BasedOn="{StaticResource Fluent.DateTimePickerButton}">
+    <Setter Property="VerticalAlignment" Value="Top" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="Height" Value="22" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="CornerRadius" Value="0" />
+    <Setter Property="Background" Value="{DynamicResource Fluent.FlyoutBackground}" />
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.TextFillColorSecondaryBrush}" />
+    <Setter Property="IsVisible" Value="False" />
+    <Setter Property="Content">
+      <Template>
+        <TextBlock FontFamily="{DynamicResource Fluent.SymbolThemeFontFamily}"
+                   FontSize="8"
+                   Text="{x:Static wpf:FluentGlyph.ChevronUp}" />
+      </Template>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Fluent.DateTimePickerDownButton" TargetType="RepeatButton" BasedOn="{StaticResource Fluent.DateTimePickerButton}">
+    <Setter Property="VerticalAlignment" Value="Bottom" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="Height" Value="22" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="CornerRadius" Value="0" />
+    <Setter Property="Background" Value="{DynamicResource Fluent.FlyoutBackground}" />
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.TextFillColorSecondaryBrush}" />
+    <Setter Property="IsVisible" Value="False" />
+    <Setter Property="Content">
+      <Template>
+        <TextBlock FontFamily="{DynamicResource Fluent.SymbolThemeFontFamily}"
+                   FontSize="8"
+                   Text="{x:Static wpf:FluentGlyph.ChevronDown}" />
+      </Template>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,33 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF RibbonContextMenu.xaml, [[Generic]]. -->
+  <ControlTheme x:Key="{x:Type wpf:RibbonContextMenu}" TargetType="wpf:RibbonContextMenu">
+    <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.Background}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource $F.Invented.Ribbon.BorderBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="FontSize" Value="{DynamicResource SystemFonts.MenuFontSize}" />
+    <Setter Property="FontFamily" Value="{DynamicResource SystemFonts.MenuFontFamily}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.MenuTextBrush}" />
+    <Setter Property="wpf:PopupAnimation.Kind" Value="{DynamicResource SystemParameters.MenuPopupAnimation}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <wpf:SystemDropShadowChrome Margin="0,0,5,5">
+          <Border Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{DynamicResource $F.Invented.Ribbon.Popup.CornerRadius}">
+            <Border Background="{DynamicResource $F.Invented.Ribbon.DropDown.Background}"
+                    CornerRadius="{DynamicResource $F.Invented.Ribbon.Popup.CornerRadius}">
+              <ItemsPresenter Name="PART_ItemsPresenter"
+                              Margin="2"
+                              ItemsPanel="{TemplateBinding ItemsPanel}"
+                              Grid.IsSharedSizeScope="True"
+                              KeyboardNavigation.TabNavigation="Continue" />
+            </Border>
+          </Border>
+        </wpf:SystemDropShadowChrome>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

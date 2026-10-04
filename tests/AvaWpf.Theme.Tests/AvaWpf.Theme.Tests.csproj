@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Headless.XUnit" />
+    <PackageReference Include="Avalonia.Skia" />
+    <PackageReference Include="Avalonia.HarfBuzz" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\AvaWpf.Theme\AvaWpf.Theme.csproj" />
+    <ProjectReference Include="..\..\src\AvaWpf.Fonts\AvaWpf.Fonts.csproj" />
+    <ProjectReference Include="..\..\src\AvaWpf.Icons\AvaWpf.Icons.csproj" />
+    <ProjectReference Include="..\..\src\AvaWpf.Animations\AvaWpf.Animations.csproj" />
+    <!-- Referenced for the xmlns mapping test of all seven assemblies. -->
+    <ProjectReference Include="..\..\src\AvaWpf.Controls\AvaWpf.Controls.csproj" />
+    <ProjectReference Include="..\..\src\AvaWpf.DataGrid\AvaWpf.DataGrid.csproj" />
+    <ProjectReference Include="..\..\src\AvaWpf.Ribbon\AvaWpf.Ribbon.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- The theme XAML is read at test time to enumerate the resource keys each template consumes. -->
+    <Content Include="..\..\src\AvaWpf.Theme\Themes\**\*.axaml" Link="ThemeXaml\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,88 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF RibbonApplicationMenu.xaml, [[Generic]]. Submenus open as ordinary submenus, not over the auxiliary pane. -->
+  <ControlTheme x:Key="{x:Type wpf:RibbonApplicationMenu}" TargetType="wpf:RibbonApplicationMenu">
+    <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.ApplicationMenu.Button.Background}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource $F.Invented.Ribbon.ApplicationMenu.Button.BorderBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Width" Value="54" />
+    <Setter Property="Height" Value="23" />
+    <Setter Property="VerticalAlignment" Value="Bottom" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel Name="OuterGrid">
+          <ToggleButton Name="PART_ToggleButton"
+                        Theme="{StaticResource $F.Ribbon.SplitButtonPart}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{DynamicResource $F.Invented.Ribbon.ApplicationMenu.Button.CornerRadius}"
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"
+                        ClickMode="Press"
+                        IsChecked="{TemplateBinding IsDropDownOpen, Mode=TwoWay}">
+            <Border Name="MiddleBorder" Background="{DynamicResource $F.Invented.Ribbon.ApplicationMenu.Button.Overlay}" BorderBrush="{DynamicResource $F.Invented.Ribbon.ApplicationMenu.Button.OverlayBorderBrush}" BorderThickness="1">
+              <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image Name="Image" Source="{TemplateBinding SmallImageSource}" Width="16" Height="16" />
+                <Path Name="DownArrow"
+                      Data="{DynamicResource $F.Invented.Ribbon.ApplicationMenu.Glyph.DownArrow}"
+                      Fill="{DynamicResource $F.Invented.Ribbon.ApplicationMenu.Button.Arrow}"
+                      VerticalAlignment="Center"
+                      Margin="3.5,0,0,0" />
+              </StackPanel>
+            </Border>
+          </ToggleButton>
+          <Popup Name="PART_Popup"
+                 Placement="BottomEdgeAlignedLeft"
+                 PlacementTarget="{Binding #PART_ToggleButton}"
+                 IsLightDismissEnabled="True"
+                 IsOpen="{TemplateBinding IsDropDownOpen, Mode=TwoWay}"
+                 wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.MenuPopupAnimation}">
+            <wpf:SystemDropShadowChrome Name="Shadow" Margin="0,0,5,5">
+              <Border Name="PopupBorder"
+                      BorderBrush="{DynamicResource $F.Invented.Ribbon.BorderBrush}"
+                      Background="{DynamicResource $F.Invented.Ribbon.Background}"
+                      BorderThickness="1"
+                      CornerRadius="{DynamicResource $F.Invented.Ribbon.Popup.CornerRadius}">
+                <Grid RowDefinitions="24,*,Auto">
+                  <Border Name="HeaderBorder" BorderBrush="{DynamicResource $F.Invented.Ribbon.BorderBrush}" BorderThickness="0,0,0,1" />
+                  <Border Name="HeaderOverlayBorder"
+                          Margin="0,0,0,1"
+                          BorderBrush="{DynamicResource $F.Invented.Ribbon.Button.MouseOver.InnerBorderBrush}"
+                          BorderThickness="1"
+                          Background="{DynamicResource $F.Invented.Ribbon.ApplicationMenu.MouseOver.Background}" />
+                  <Grid Grid.Row="1" ColumnDefinitions="Auto,2,300" Margin="4,4,4,0">
+                    <Border Name="MainPaneBorder" Background="{DynamicResource $F.Invented.Ribbon.ApplicationMenu.Pane.Background}" BorderBrush="{DynamicResource $F.Invented.Ribbon.BorderBrush}" BorderThickness="1,1,0,1">
+                      <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" Grid.IsSharedSizeScope="True" Margin="2" />
+                    </Border>
+                    <Border Name="VerticalBorder" Grid.Column="1" Background="{DynamicResource $F.Invented.Ribbon.ApplicationMenu.Divider}" BorderBrush="{DynamicResource $F.Invented.Ribbon.BorderBrush}" BorderThickness="1,1,0,1" />
+                    <Border Name="PART_SubmenuPlaceholder" Grid.Column="2" Background="{DynamicResource $F.Invented.Ribbon.Button.MouseOver.InnerBorderBrush}" BorderBrush="{DynamicResource $F.Invented.Ribbon.BorderBrush}" BorderThickness="0,1,1,1">
+                      <ContentPresenter Name="PART_AuxiliaryPaneContentPresenter"
+                                        Content="{TemplateBinding AuxiliaryPaneContent}"
+                                        ContentTemplate="{TemplateBinding AuxiliaryPaneContentTemplate}" />
+                    </Border>
+                  </Grid>
+                  <Border Name="FooterBorder" Grid.Row="2" Margin="4,0,4,4">
+                    <Border Background="{DynamicResource $F.Invented.Ribbon.ApplicationMenu.Footer.Overlay}">
+                      <ContentPresenter Name="PART_FooterPaneContentPresenter"
+                                        Margin="2"
+                                        MinHeight="12"
+                                        HorizontalAlignment="Right"
+                                        Content="{TemplateBinding FooterPaneContent}"
+                                        ContentTemplate="{TemplateBinding FooterPaneContentTemplate}" />
+                    </Border>
+                  </Border>
+                </Grid>
+              </Border>
+            </wpf:SystemDropShadowChrome>
+          </Popup>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#MiddleBorder">
+      <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.ApplicationMenu.MouseOver.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource $F.Invented.Ribbon.ApplicationMenu.MouseOver.BorderBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

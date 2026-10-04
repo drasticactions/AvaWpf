@@ -1,0 +1,82 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Classic ComboBox parts: WPF ComboBoxEditableTextBox and ToolBar.xaml ToolBarComboBoxTransparentButtonStyle
+       [[Classic]]. -->
+  <ControlTheme x:Key="Classic.ComboBoxEditableTextBox" TargetType="TextBox">
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="CaretBrush" Value="{DynamicResource SystemColors.WindowTextBrush}" />
+    <Setter Property="SelectionBrush" Value="{DynamicResource SystemColors.HighlightBrush}" />
+    <Setter Property="SelectionForegroundBrush" Value="{DynamicResource SystemColors.HighlightTextBrush}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ScrollViewer Name="PART_ScrollViewer"
+                      Focusable="False"
+                      Background="Transparent"
+                      HorizontalScrollBarVisibility="Hidden"
+                      VerticalScrollBarVisibility="Hidden">
+          <TextPresenter Name="PART_TextPresenter"
+                         Margin="{TemplateBinding Padding}"
+                         Text="{TemplateBinding Text, Mode=TwoWay}"
+                         CaretBlinkInterval="{TemplateBinding CaretBlinkInterval}"
+                         CaretIndex="{TemplateBinding CaretIndex}"
+                         SelectionStart="{TemplateBinding SelectionStart}"
+                         SelectionEnd="{TemplateBinding SelectionEnd}"
+                         TextAlignment="{TemplateBinding TextAlignment}"
+                         TextWrapping="{TemplateBinding TextWrapping}"
+                         PasswordChar="{TemplateBinding PasswordChar}"
+                         SelectionBrush="{TemplateBinding SelectionBrush}"
+                         SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
+                         CaretBrush="{TemplateBinding CaretBrush}"
+                         HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                         VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                         Cursor="IBeam" />
+        </ScrollViewer>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Classic.ToolBarComboBoxToggleButton" TargetType="ToggleButton">
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="ClickMode" Value="Press" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Background="Transparent" ColumnDefinitions="*,Auto">
+          <Border Name="Chrome"
+                  Grid.Column="1"
+                  Width="13"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  UseLayoutRounding="True">
+            <Path Name="ArrowDownPath"
+                  Data="{DynamicResource Classic.ToolBar.ToolBarComboBoxTransparentButtonStyle.ArrowDownPath.Data}"
+                  Fill="{DynamicResource Classic.ToolBar.ToolBarComboBoxTransparentButtonStyle.ArrowDownPath.Fill}"
+                  VerticalAlignment="Center" />
+          </Border>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:disabled /template/ Border#Chrome">
+      <Setter Property="BorderBrush" Value="{x:Null}" />
+    </Style>
+    <Style Selector="^:pointerover:unchecked /template/ Border#Chrome">
+      <Setter Property="Background" Value="{DynamicResource Classic.ToolBarButtonHover}" />
+    </Style>
+    <Style Selector="^:checked /template/ Border#Chrome">
+      <Setter Property="BorderBrush" Value="{DynamicResource Classic.ToolBarButtonPressedBorder}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Border#Chrome">
+      <Setter Property="Background" Value="{DynamicResource Classic.ToolBarButtonPressed}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#ArrowDownPath">
+      <Setter Property="Fill" Value="{DynamicResource Classic.ToolBarDisabledBorder}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

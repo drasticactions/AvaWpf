@@ -1,0 +1,106 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/GridView.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+
+  <!-- WPF Fluent DefaultGridViewColumnHeaderGripper. -->
+  <ControlTheme x:Key="Fluent.GridViewColumnHeaderGripper" TargetType="Thumb">
+    <Setter Property="Width" Value="8" />
+    <Setter Property="HorizontalAlignment" Value="Right" />
+    <Setter Property="Margin" Value="0,0,-4,0" />
+    <Setter Property="Cursor" Value="SizeWestEast" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="RootGrid"
+                Background="Transparent"
+                Padding="{TemplateBinding Padding}">
+          <Rectangle Name="PART_Thumb"
+                     Width="2"
+                     Height="16"
+                     HorizontalAlignment="Center"
+                     Fill="{DynamicResource Fluent.GridViewColumnHeaderGripperThumbFill}"
+                     RadiusX="1"
+                     RadiusY="1" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <!--
+    WPF Fluent DefaultGridViewColumnHeaderStyle. The 32 px minimum height applies only while Height is Auto. WPF names
+    GridViewColumnHeaderForegroundDisabled, which no Fluent dictionary defines, so disabled text uses the disabled
+    text fill.
+  -->
+  <ControlTheme x:Key="{x:Type wpf:GridViewColumnHeader}" TargetType="wpf:GridViewColumnHeader">
+    <Setter Property="Background" Value="{DynamicResource Fluent.GridViewColumnHeaderBackground}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Fluent.GridViewColumnHeaderBorderBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.GridViewColumnHeaderForeground}" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="BorderThickness" Value="0,2,0,2" />
+    <Setter Property="Padding" Value="12,0" />
+    <Setter Property="MinHeight" Value="{DynamicResource Fluent.GridViewColumnHeaderMinHeight}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid UseLayoutRounding="True">
+          <Border Name="HeaderBorder"
+                  Background="{TemplateBinding Background}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  CornerRadius="4,4,0,0">
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Margin="{TemplateBinding Padding}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              RecognizesAccessKey="True" />
+          </Border>
+          <Panel Name="GripperHost">
+            <Thumb Name="PART_HeaderGripper"
+                   Theme="{StaticResource Fluent.GridViewColumnHeaderGripper}" />
+          </Panel>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^:pointerover /template/ Border#HeaderBorder">
+      <Setter Property="Background" Value="{DynamicResource Fluent.GridViewColumnHeaderBackgroundPointerOver}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Fluent.GridViewColumnHeaderBorderBrushPointerOver}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Border#HeaderBorder">
+      <Setter Property="Background" Value="{DynamicResource Fluent.GridViewColumnHeaderBackgroundPressed}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Fluent.GridViewColumnHeaderBorderBrushPressed}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource Fluent.TextFillColorDisabledBrush}" />
+      <Style Selector="^ /template/ Border#HeaderBorder">
+        <Setter Property="Background" Value="{DynamicResource Fluent.GridViewColumnHeaderBackgroundDisabled}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.GridViewColumnHeaderBorderBrushDisabled}" />
+      </Style>
+    </Style>
+
+    <!-- Role Padding: the normal header without gripper or content. -->
+    <Style Selector="^:padding">
+      <Setter Property="BorderThickness" Value="0,2,0,2" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Border Background="{TemplateBinding Background}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  UseLayoutRounding="True" />
+        </ControlTemplate>
+      </Setter>
+    </Style>
+
+    <!-- Role Floating: the copy of the dragged header, painted from the source into the canvas. -->
+    <Style Selector="^:floating">
+      <Setter Property="Opacity" Value="0.6" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Canvas Name="PART_FloatingHeaderCanvas" />
+        </ControlTemplate>
+      </Setter>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

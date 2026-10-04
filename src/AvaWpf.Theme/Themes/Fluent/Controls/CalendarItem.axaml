@@ -1,0 +1,108 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/Calendar.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!--
+    WPF DefaultCalendarItemStyle. The control switches PART_MonthView / PART_YearView itself, in place of WPF's
+    DisplayMode DataTriggers.
+  -->
+  <ControlTheme x:Key="{x:Type CalendarItem}" TargetType="CalendarItem">
+    <Setter Property="Margin" Value="0" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="DayTitleTemplate">
+      <Template x:DataType="x:String">
+        <TextBlock Margin="1"
+                   Padding="12"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="14"
+                   FontWeight="Bold"
+                   Foreground="{DynamicResource Fluent.CalendarViewForeground}"
+                   Text="{Binding}" />
+      </Template>
+    </Setter>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Name="PART_Root">
+          <Grid RowDefinitions="Auto,Auto,*">
+            <!-- Header with title and navigation buttons -->
+            <Grid Grid.Row="0" ColumnDefinitions="*,Auto,Auto">
+              <Button Name="PART_HeaderButton"
+                      Grid.Column="0"
+                      Margin="7,6,3,7"
+                      Padding="8,7,8,8"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Stretch"
+                      Background="Transparent"
+                      BorderBrush="Transparent"
+                      Focusable="True"
+                      FontSize="14"
+                      FontWeight="SemiBold"
+                      Foreground="{DynamicResource Fluent.CalendarViewForeground}" />
+              <Button Name="PART_PreviousButton"
+                      Grid.Column="1"
+                      Width="26" Height="26"
+                      Margin="7,6,7,7"
+                      Padding="0"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch"
+                      Background="Transparent"
+                      BorderBrush="Transparent"
+                      Focusable="True"
+                      AutomationProperties.Name="Previous"
+                      Foreground="{DynamicResource Fluent.CalendarViewNavigationButtonForeground}">
+                <TextBlock FontSize="8"
+                           FontFamily="{DynamicResource Fluent.SymbolThemeFontFamily}"
+                           Text="{x:Static wpf:FluentGlyph.CaretUpSolid8}" />
+              </Button>
+              <Button Name="PART_NextButton"
+                      Grid.Column="2"
+                      Width="26" Height="26"
+                      Margin="7,6,7,7"
+                      Padding="0"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch"
+                      Background="Transparent"
+                      BorderBrush="Transparent"
+                      Focusable="True"
+                      AutomationProperties.Name="Next"
+                      Foreground="{DynamicResource Fluent.CalendarViewNavigationButtonForeground}">
+                <TextBlock FontSize="8"
+                           FontFamily="{DynamicResource Fluent.SymbolThemeFontFamily}"
+                           Text="{x:Static wpf:FluentGlyph.CaretDownSolid8}" />
+              </Button>
+            </Grid>
+            <Border Grid.Row="1" Height="0.5" Background="{DynamicResource Fluent.CalendarViewBorderBrush}" />
+            <!-- Day picker -->
+            <Grid Name="PART_MonthView"
+                  Grid.Row="2"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  ColumnDefinitions="*,*,*,*,*,*,*"
+                  RowDefinitions="*,*,*,*,*,*,*" />
+            <Grid Name="PART_YearView"
+                  Grid.Row="2"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  IsVisible="False"
+                  ColumnDefinitions="*,*,*,*"
+                  RowDefinitions="*,*,*" />
+            <Rectangle Name="PART_DisabledVisual"
+                       Grid.Row="0" Grid.RowSpan="2"
+                       Opacity="0"
+                       RadiusX="2" RadiusY="2"
+                       Stretch="Fill"
+                       StrokeThickness="0"
+                       IsVisible="False"
+                       Fill="{DynamicResource Fluent.Calendar.DefaultCalendarItemStyle.PART_DisabledVisual.Fill}" />
+          </Grid>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:disabled /template/ Rectangle#PART_DisabledVisual">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

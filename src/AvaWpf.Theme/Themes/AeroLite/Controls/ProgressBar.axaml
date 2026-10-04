@@ -1,0 +1,80 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    WPF ProgressBar.xaml, AeroLite.NormalColor; indeterminate runs WPF's Indeterminate storyboard forever. Vertical bars
+    fill from the bottom, as WPF rotates the template -90 degrees.
+  -->
+  <ControlTheme x:Key="{x:Type ProgressBar}" TargetType="ProgressBar">
+    <Setter Property="Foreground" Value="{DynamicResource AeroLite.ProgressBar.Progress}" />
+    <Setter Property="Background" Value="{DynamicResource AeroLite.ProgressBar.Background}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.ProgressBar.Border}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="MinHeight" Value="10" />
+    <Setter Property="MinWidth" Value="10" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Name="TemplateRoot" UseLayoutRounding="True">
+          <Border BorderThickness="{TemplateBinding BorderThickness}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  Background="{TemplateBinding Background}" />
+          <Panel Name="PART_Track" Margin="{TemplateBinding BorderThickness}">
+            <Border Name="PART_Indicator"
+                    HorizontalAlignment="Left"
+                    ClipToBounds="True">
+              <Rectangle Name="Indicator" Fill="{TemplateBinding Foreground}" />
+            </Border>
+            <Panel Name="AnimationHost" ClipToBounds="True" IsVisible="False">
+              <Rectangle Name="Animation"
+                         RenderTransformOrigin="50%,50%"
+                         RenderTransform="scaleX(0.25)"
+                         Fill="{TemplateBinding Foreground}" />
+            </Panel>
+          </Panel>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:vertical /template/ Border#PART_Indicator">
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+      <Setter Property="VerticalAlignment" Value="Bottom" />
+    </Style>
+    <Style Selector="^:indeterminate">
+      <Style Selector="^ /template/ Border#PART_Indicator">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+      <Style Selector="^ /template/ Panel#AnimationHost">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="^:horizontal /template/ Rectangle#Animation">
+        <Style.Animations>
+          <Animation Duration="0:0:2" IterationCount="Infinite">
+            <KeyFrame Cue="0%">
+              <Setter Property="RenderTransformOrigin" Value="-50%,50%" />
+            </KeyFrame>
+            <KeyFrame Cue="50%">
+              <Setter Property="RenderTransformOrigin" Value="50%,50%" />
+            </KeyFrame>
+            <KeyFrame Cue="100%">
+              <Setter Property="RenderTransformOrigin" Value="150%,50%" />
+            </KeyFrame>
+          </Animation>
+        </Style.Animations>
+      </Style>
+      <Style Selector="^:vertical /template/ Rectangle#Animation">
+        <Setter Property="RenderTransform" Value="scaleY(0.25)" />
+        <Style.Animations>
+          <Animation Duration="0:0:2" IterationCount="Infinite">
+            <KeyFrame Cue="0%">
+              <Setter Property="RenderTransformOrigin" Value="50%,150%" />
+            </KeyFrame>
+            <KeyFrame Cue="50%">
+              <Setter Property="RenderTransformOrigin" Value="50%,50%" />
+            </KeyFrame>
+            <KeyFrame Cue="100%">
+              <Setter Property="RenderTransformOrigin" Value="50%,-50%" />
+            </KeyFrame>
+          </Animation>
+        </Style.Animations>
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

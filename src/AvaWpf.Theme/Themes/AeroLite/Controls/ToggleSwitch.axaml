@@ -1,0 +1,85 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- An on/off switch in the flat Windows 8 shape, built from the AeroLite OptionMark and Button colors. -->
+  <ControlTheme x:Key="{x:Type ToggleSwitch}" TargetType="ToggleSwitch">
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="FocusAdorner" Value="{DynamicResource AeroLite.FocusVisualStyle}" />
+    <Setter Property="KnobTransitions">
+      <Transitions>
+        <DoubleTransition Property="Canvas.Left" Duration="0:0:0.2" />
+      </Transitions>
+    </Setter>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Name="templateRoot" Background="{TemplateBinding Background}" RowDefinitions="Auto,*">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Grid.Row="0"
+                            VerticalAlignment="Top"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            RecognizesAccessKey="True"
+                            Margin="0,0,0,4" />
+          <Grid Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" ColumnDefinitions="Auto,8,Auto">
+            <ContentPresenter Name="PART_OffContentPresenter"
+                              Grid.Column="2"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              Content="{TemplateBinding OffContent}"
+                              ContentTemplate="{TemplateBinding OffContentTemplate}" />
+            <ContentPresenter Name="PART_OnContentPresenter"
+                              Grid.Column="2"
+                              Opacity="0"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              Content="{TemplateBinding OnContent}"
+                              ContentTemplate="{TemplateBinding OnContentTemplate}" />
+            <Border Name="OuterBorder"
+                    Width="44"
+                    Height="20"
+                    UseLayoutRounding="True"
+                    Background="{DynamicResource AeroLite.Invented.ToggleSwitch.Off.Background}"
+                    BorderBrush="{DynamicResource AeroLite.Invented.ToggleSwitch.Off.Border}"
+                    BorderThickness="1">
+              <Border Name="SwitchKnobBounds"
+                      Margin="2"
+                      Opacity="0"
+                      Background="{DynamicResource AeroLite.Invented.ToggleSwitch.On.Background}" />
+            </Border>
+            <Canvas Name="PART_SwitchKnob" Width="32" Height="20" HorizontalAlignment="Left">
+              <Grid Name="PART_MovingKnobs" Width="12" Height="20">
+                <Rectangle Name="SwitchKnob" Fill="{DynamicResource AeroLite.Invented.ToggleSwitch.Thumb.Background}" />
+              </Grid>
+            </Canvas>
+          </Grid>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter:empty">
+      <Setter Property="Margin" Value="0" />
+    </Style>
+    <Style Selector="^:pointerover /template/ Border#OuterBorder">
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.OptionMark.MouseOver.Border}" />
+    </Style>
+    <Style Selector="^:checked">
+      <Style Selector="^ /template/ Border#SwitchKnobBounds">
+        <Setter Property="Opacity" Value="1" />
+      </Style>
+      <Style Selector="^ /template/ Rectangle#SwitchKnob">
+        <Setter Property="Fill" Value="{DynamicResource AeroLite.Invented.ToggleSwitch.Thumb.On.Background}" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#PART_OffContentPresenter">
+        <Setter Property="Opacity" Value="0" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#PART_OnContentPresenter">
+        <Setter Property="Opacity" Value="1" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled /template/ Grid#templateRoot">
+      <Setter Property="Opacity" Value="0.56" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

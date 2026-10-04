@@ -1,0 +1,83 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- PipsPager: Classic radio circles as pips, and scroll bar line buttons for previous/next that hide on the
+       first/last page. -->
+
+  <ControlTheme x:Key="{x:Type PipsPager}" TargetType="PipsPager">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Top" />
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="PreviousButtonTheme" Value="{StaticResource Classic.PipsPagerNavigationButton}" />
+    <Setter Property="NextButtonTheme" Value="{StaticResource Classic.PipsPagerNavigationButton}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <StackPanel Name="PART_RootPanel"
+                    Orientation="{TemplateBinding Orientation}"
+                    Background="{TemplateBinding Background}"
+                    Spacing="2">
+          <Button Name="PART_PreviousButton"
+                  Theme="{TemplateBinding PreviousButtonTheme}"
+                  IsVisible="{TemplateBinding IsPreviousButtonVisible}"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Center">
+            <Path Name="PreviousButtonIcon"
+                  Fill="{Binding $parent[Button].Foreground}"
+                  Data="{DynamicResource Classic.ArrowLeftGeometry}" />
+          </Button>
+          <ListBox Name="PART_PipsPagerList"
+                   Background="Transparent"
+                   BorderThickness="0"
+                   Padding="0"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                   ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                   ItemsSource="{Binding TemplateSettings.Pips, RelativeSource={RelativeSource TemplatedParent}}"
+                   SelectedIndex="{Binding SelectedPageIndex, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                   AutoScrollToSelectedItem="False"
+                   ItemContainerTheme="{StaticResource Classic.PipsPagerItem}">
+            <ListBox.ItemsPanel>
+              <ItemsPanelTemplate>
+                <StackPanel Orientation="{Binding Orientation, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=PipsPager}}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center" />
+              </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+          </ListBox>
+          <Button Name="PART_NextButton"
+                  Theme="{TemplateBinding NextButtonTheme}"
+                  IsVisible="{TemplateBinding IsNextButtonVisible}"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Center">
+            <Path Name="NextButtonIcon"
+                  Fill="{Binding $parent[Button].Foreground}"
+                  Data="{DynamicResource Classic.ArrowRightGeometry}" />
+          </Button>
+        </StackPanel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:vertical /template/ ListBox ListBoxItem">
+      <Setter Property="Width" Value="16" />
+      <Setter Property="Height" Value="15" />
+    </Style>
+    <Style Selector="^:vertical /template/ StackPanel#PART_RootPanel">
+      <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="^:vertical /template/ Path#PreviousButtonIcon">
+      <Setter Property="Data" Value="{DynamicResource Classic.ArrowUpGeometry}" />
+    </Style>
+    <Style Selector="^:vertical /template/ Path#NextButtonIcon">
+      <Setter Property="Data" Value="{DynamicResource Classic.ArrowDownGeometry}" />
+    </Style>
+    <Style Selector="^:first-page /template/ Button#PART_PreviousButton">
+      <Setter Property="Opacity" Value="0" />
+      <Setter Property="IsHitTestVisible" Value="False" />
+    </Style>
+    <Style Selector="^:last-page /template/ Button#PART_NextButton">
+      <Setter Property="Opacity" Value="0" />
+      <Setter Property="IsHitTestVisible" Value="False" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

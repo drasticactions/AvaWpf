@@ -1,0 +1,41 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/ContextMenu.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!-- Avalonia's menu flyout in the WPF DefaultContextMenuStyle look. -->
+  <ControlTheme x:Key="{x:Type MenuFlyoutPresenter}" TargetType="MenuFlyoutPresenter">
+    <!--
+      Focusable like the ContextMenu: the flyout focuses the menu, not its first item, so no item is highlighted until
+      a key is pressed, as in a WPF ContextMenu opened with the mouse.
+    -->
+    <Setter Property="Focusable" Value="True" />
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.ContextMenuForeground}" />
+    <Setter Property="Background" Value="{DynamicResource Fluent.ContextMenuBackground}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Fluent.ContextMenuBorderBrush}" />
+    <Setter Property="BorderThickness" Value="{DynamicResource Fluent.ContextMenuBorderThickness}" />
+    <Setter Property="CornerRadius" Value="{DynamicResource Fluent.OverlayCornerRadius}" />
+    <Setter Property="MinWidth" Value="140" />
+    <Setter Property="Padding" Value="0,3,0,3" />
+    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="Border"
+                Padding="{TemplateBinding Padding}"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                UseLayoutRounding="True">
+          <ScrollViewer Theme="{StaticResource Fluent.MenuScrollViewer}"
+                        HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                        VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
+            <ItemsPresenter Name="PART_ItemsPresenter"
+                            ItemsPanel="{TemplateBinding ItemsPanel}"
+                            KeyboardNavigation.TabNavigation="Continue"
+                            Grid.IsSharedSizeScope="True" />
+          </ScrollViewer>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

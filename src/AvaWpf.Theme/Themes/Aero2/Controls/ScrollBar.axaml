@@ -1,0 +1,109 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    WPF ScrollBar.xaml, Aero2.NormalColor; parts in _ScrollBar.axaml. The line buttons and track are enabled only while
+    the pointer is over the bar; the transparent root background keeps hit testing over the disabled parts.
+  -->
+  <ControlTheme x:Key="{x:Type ScrollBar}" TargetType="ScrollBar">
+    <Setter Property="Background" Value="{DynamicResource Aero2.ScrollBar.Static.Background}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ScrollBar.Static.Border}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="BorderThickness" Value="1,0" />
+    <Setter Property="Width" Value="{DynamicResource SystemParameters.VerticalScrollBarWidth}" />
+    <Setter Property="MinWidth" Value="{DynamicResource SystemParameters.VerticalScrollBarWidth}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Name="Bg" UseLayoutRounding="True" Background="Transparent">
+          <Grid.RowDefinitions>
+            <RowDefinition MaxHeight="{DynamicResource SystemParameters.VerticalScrollBarButtonHeight}" />
+            <RowDefinition Height="0.00001*" />
+            <RowDefinition MaxHeight="{DynamicResource SystemParameters.VerticalScrollBarButtonHeight}" />
+          </Grid.RowDefinitions>
+          <Border Grid.Row="1"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}" />
+          <RepeatButton Name="PART_LineUpButton"
+                        Classes="up"
+                        Theme="{StaticResource Aero2.ScrollBarLineButton}"
+                        IsEnabled="{TemplateBinding IsPointerOver}" />
+          <Track Name="PART_Track"
+                 Grid.Row="1"
+                 IsDirectionReversed="True"
+                 IsEnabled="{TemplateBinding IsPointerOver}"
+                 Minimum="{TemplateBinding Minimum}"
+                 Maximum="{TemplateBinding Maximum}"
+                 Value="{TemplateBinding Value, Mode=TwoWay}"
+                 ViewportSize="{TemplateBinding ViewportSize}"
+                 Orientation="{TemplateBinding Orientation}"
+                 DeferThumbDrag="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}">
+            <Track.DecreaseButton>
+              <RepeatButton Name="PART_PageUpButton" Theme="{StaticResource Aero2.ScrollBarPageButton}" />
+            </Track.DecreaseButton>
+            <Track.IncreaseButton>
+              <RepeatButton Name="PART_PageDownButton" Theme="{StaticResource Aero2.ScrollBarPageButton}" />
+            </Track.IncreaseButton>
+            <Thumb Classes="vertical" Theme="{StaticResource Aero2.ScrollBarThumb}" />
+          </Track>
+          <RepeatButton Name="PART_LineDownButton"
+                        Grid.Row="2"
+                        Classes="down"
+                        Theme="{StaticResource Aero2.ScrollBarLineButton}"
+                        IsEnabled="{TemplateBinding IsPointerOver}" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:disabled /template/ RepeatButton.up, ^:disabled /template/ RepeatButton.down, ^:disabled /template/ RepeatButton.left, ^:disabled /template/ RepeatButton.right">
+      <Setter Property="Foreground" Value="{DynamicResource Aero2.ScrollBar.Disabled.Glyph}" />
+    </Style>
+
+    <Style Selector="^:horizontal">
+      <Setter Property="Width" Value="NaN" />
+      <Setter Property="MinWidth" Value="0" />
+      <Setter Property="Height" Value="{DynamicResource SystemParameters.HorizontalScrollBarHeight}" />
+      <Setter Property="MinHeight" Value="{DynamicResource SystemParameters.HorizontalScrollBarHeight}" />
+      <Setter Property="BorderThickness" Value="0,1" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Grid Name="Bg" UseLayoutRounding="True" Background="Transparent">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition MaxWidth="{DynamicResource SystemParameters.HorizontalScrollBarButtonWidth}" />
+              <ColumnDefinition Width="0.00001*" />
+              <ColumnDefinition MaxWidth="{DynamicResource SystemParameters.HorizontalScrollBarButtonWidth}" />
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="1"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}" />
+            <RepeatButton Name="PART_LineUpButton"
+                          Classes="left"
+                          Theme="{StaticResource Aero2.ScrollBarLineButton}"
+                          IsEnabled="{TemplateBinding IsPointerOver}" />
+            <Track Name="PART_Track"
+                   Grid.Column="1"
+                   IsEnabled="{TemplateBinding IsPointerOver}"
+                   Minimum="{TemplateBinding Minimum}"
+                   Maximum="{TemplateBinding Maximum}"
+                   Value="{TemplateBinding Value, Mode=TwoWay}"
+                   ViewportSize="{TemplateBinding ViewportSize}"
+                   Orientation="{TemplateBinding Orientation}"
+                   DeferThumbDrag="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}">
+              <Track.DecreaseButton>
+                <RepeatButton Name="PART_PageUpButton" Theme="{StaticResource Aero2.ScrollBarPageButton}" />
+              </Track.DecreaseButton>
+              <Track.IncreaseButton>
+                <RepeatButton Name="PART_PageDownButton" Theme="{StaticResource Aero2.ScrollBarPageButton}" />
+              </Track.IncreaseButton>
+              <Thumb Classes="horizontal" Theme="{StaticResource Aero2.ScrollBarThumb}" />
+            </Track>
+            <RepeatButton Name="PART_LineDownButton"
+                          Grid.Column="2"
+                          Classes="right"
+                          Theme="{StaticResource Aero2.ScrollBarLineButton}"
+                          IsEnabled="{TemplateBinding IsPointerOver}" />
+          </Grid>
+        </ControlTemplate>
+      </Setter>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

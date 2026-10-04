@@ -1,0 +1,129 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/Expander.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!--
+    Fluent.ExpanderToggleButton with WPF's Down / Up / Left / Right templates; the Expander picks one by ExpandDirection.
+    The IsChecked storyboards are a TransformOperationsTransition. Avalonia mirrors the glyph under RightToLeft.
+  -->
+  <ControlTemplate x:Key="Fluent.ExpanderToggleButtonDownTemplate" TargetType="ToggleButton">
+    <Grid Margin="{TemplateBinding Padding}" Background="Transparent" ColumnDefinitions="*,Auto">
+      <ContentPresenter Name="PART_ContentPresenter"
+                        Grid.Column="0"
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                        Content="{TemplateBinding Content}"
+                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                        RecognizesAccessKey="True"
+                        FontSize="{TemplateBinding FontSize}" />
+      <Grid Name="ChevronGrid"
+            Grid.Column="1"
+            Margin="0"
+            VerticalAlignment="Center"
+            Background="Transparent"
+            RenderTransformOrigin="50%,50%">
+        <TextBlock Name="ControlChevronIcon"
+                   FontSize="{DynamicResource Fluent.ExpanderChevronSize}"
+                   Foreground="{TemplateBinding Foreground}"
+                   FontFamily="{DynamicResource Fluent.SymbolThemeFontFamily}"
+                   HorizontalAlignment="Center"
+                   Text="{x:Static wpf:FluentGlyph.ChevronDown}" />
+      </Grid>
+    </Grid>
+  </ControlTemplate>
+
+  <ControlTemplate x:Key="Fluent.ExpanderToggleButtonUpTemplate" TargetType="ToggleButton">
+    <Grid Margin="{TemplateBinding Padding}" Background="Transparent" ColumnDefinitions="*,Auto">
+      <ContentPresenter Name="PART_ContentPresenter"
+                        Grid.Column="0"
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                        Content="{TemplateBinding Content}"
+                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                        RecognizesAccessKey="True"
+                        FontSize="{TemplateBinding FontSize}" />
+      <Grid Name="ChevronGrid"
+            Grid.Column="1"
+            Margin="0"
+            VerticalAlignment="Center"
+            Background="Transparent"
+            RenderTransformOrigin="50%,50%">
+        <TextBlock Name="ControlChevronIcon"
+                   FontSize="{DynamicResource Fluent.ExpanderChevronSize}"
+                   Foreground="{TemplateBinding Foreground}"
+                   FontFamily="{DynamicResource Fluent.SymbolThemeFontFamily}"
+                   HorizontalAlignment="Center"
+                   Text="{x:Static wpf:FluentGlyph.ChevronUp}" />
+      </Grid>
+    </Grid>
+  </ControlTemplate>
+
+  <ControlTemplate x:Key="Fluent.ExpanderToggleButtonLeftTemplate" TargetType="ToggleButton">
+    <Grid Margin="{TemplateBinding Padding}" Background="Transparent" RowDefinitions="*,Auto">
+      <ContentPresenter Name="PART_ContentPresenter"
+                        Grid.Row="0"
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                        Content="{TemplateBinding Content}"
+                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                        RecognizesAccessKey="True"
+                        FontSize="{TemplateBinding FontSize}" />
+      <Grid Name="ChevronGrid"
+            Grid.Row="1"
+            Margin="0"
+            VerticalAlignment="Center"
+            Background="Transparent"
+            RenderTransformOrigin="50%,50%">
+        <TextBlock Name="ControlChevronIcon"
+                   FontSize="{DynamicResource Fluent.ExpanderChevronSize}"
+                   Foreground="{TemplateBinding Foreground}"
+                   FontFamily="{DynamicResource Fluent.SymbolThemeFontFamily}"
+                   HorizontalAlignment="Center"
+                   Text="{x:Static wpf:FluentGlyph.ChevronLeft}" />
+      </Grid>
+    </Grid>
+  </ControlTemplate>
+
+  <ControlTemplate x:Key="Fluent.ExpanderToggleButtonRightTemplate" TargetType="ToggleButton">
+    <Grid Margin="{TemplateBinding Padding}" Background="Transparent" RowDefinitions="*,Auto">
+      <ContentPresenter Name="PART_ContentPresenter"
+                        Grid.Row="0"
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                        Content="{TemplateBinding Content}"
+                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                        RecognizesAccessKey="True"
+                        FontSize="{TemplateBinding FontSize}" />
+      <Grid Name="ChevronGrid"
+            Grid.Row="1"
+            Margin="0"
+            VerticalAlignment="Center"
+            Background="Transparent"
+            RenderTransformOrigin="50%,50%">
+        <TextBlock Name="ControlChevronIcon"
+                   FontSize="{DynamicResource Fluent.ExpanderChevronSize}"
+                   Foreground="{TemplateBinding Foreground}"
+                   FontFamily="{DynamicResource Fluent.SymbolThemeFontFamily}"
+                   HorizontalAlignment="Center"
+                   Text="{x:Static wpf:FluentGlyph.ChevronRight}" />
+      </Grid>
+    </Grid>
+  </ControlTemplate>
+
+  <ControlTheme x:Key="Fluent.ExpanderToggleButton" TargetType="ToggleButton">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="FocusAdorner" Value="{DynamicResource Fluent.FocusVisual}" />
+    <Setter Property="Template" Value="{StaticResource Fluent.ExpanderToggleButtonDownTemplate}" />
+    <Style Selector="^ /template/ Grid#ChevronGrid">
+      <Setter Property="RenderTransform" Value="rotate(0deg)" />
+      <Setter Property="Transitions">
+        <Transitions>
+          <TransformOperationsTransition Property="RenderTransform" Duration="{x:Static wpf:FluentTimings.Fast}" />
+        </Transitions>
+      </Setter>
+    </Style>
+    <Style Selector="^:checked /template/ Grid#ChevronGrid">
+      <Setter Property="RenderTransform" Value="rotate(180deg)" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

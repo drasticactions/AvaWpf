@@ -1,0 +1,113 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf"
+                    xmlns:dialogs="using:Avalonia.Dialogs"
+                    xmlns:internal="using:Avalonia.Dialogs.Internal">
+  <!-- ManagedFileChooser parts: path icons, Places bar item, file list item, flat tool button and column header. -->
+  <DataTemplate x:Key="Classic.ManagedFileChooser.Icon" x:DataType="internal:ManagedFileChooserItemViewModel">
+    <Panel Width="16" Height="16">
+      <Path IsVisible="{Binding IconKey, Converter={x:Static ObjectConverters.Equal}, ConverterParameter=Icon_Folder}"
+            Data="M 0.5 3.5 L 5.5 3.5 L 7 2 L 7 2 L 7.5 1.5 L 12.5 1.5 L 13.5 2.5 L 13.5 4.5 L 15.5 4.5 L 15.5 13.5 L 0.5 13.5 Z"
+            Fill="{DynamicResource Classic.Invented.FileChooser.Folder}"
+            Stroke="{DynamicResource Classic.Invented.FileChooser.IconOutline}"
+            StrokeThickness="1" />
+      <Path IsVisible="{Binding IconKey, Converter={x:Static ObjectConverters.Equal}, ConverterParameter=Icon_File}"
+            Data="M 2.5 0.5 L 9.5 0.5 L 13.5 4.5 L 13.5 15.5 L 2.5 15.5 Z M 9.5 0.5 L 9.5 4.5 L 13.5 4.5"
+            Fill="{DynamicResource Classic.Invented.FileChooser.Page}"
+            Stroke="{DynamicResource Classic.Invented.FileChooser.IconOutline}"
+            StrokeThickness="1" />
+      <Panel IsVisible="{Binding IconKey, Converter={x:Static ObjectConverters.Equal}, ConverterParameter=Icon_Volume}">
+        <Path Data="M 0.5 6.5 L 15.5 6.5 L 15.5 11.5 L 0.5 11.5 Z"
+              Fill="{DynamicResource Classic.Invented.FileChooser.Drive}"
+              Stroke="{DynamicResource Classic.Invented.FileChooser.IconOutline}"
+              StrokeThickness="1" />
+        <Path Data="M 12 8 L 14 8 L 14 10 L 12 10 Z" Fill="{DynamicResource Classic.Invented.FileChooser.DriveLight}" />
+      </Panel>
+    </Panel>
+  </DataTemplate>
+
+  <ControlTheme x:Key="Classic.ManagedFileChooser.PlacesItem" TargetType="ListBoxItem">
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlLightLightBrush}" />
+    <Setter Property="Padding" Value="6,4" />
+    <Setter Property="MinHeight" Value="32" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <wpf:ClassicBorderDecorator Name="Bd"
+                                    BorderStyle="None"
+                                    BorderThickness="1"
+                                    Margin="2,1">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Padding="{TemplateBinding Padding}"
+                            VerticalContentAlignment="Center" />
+        </wpf:ClassicBorderDecorator>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ wpf|ClassicBorderDecorator#Bd">
+      <Setter Property="BorderStyle" Value="ThinRaised" />
+    </Style>
+    <Style Selector="^:selected /template/ wpf|ClassicBorderDecorator#Bd">
+      <Setter Property="BorderStyle" Value="ThinPressed" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Classic.ManagedFileChooser.FileItem" TargetType="ListBoxItem">
+    <Setter Property="Padding" Value="2,1" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="Bd" Background="{TemplateBinding Background}">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Padding="{TemplateBinding Padding}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:selected">
+      <Setter Property="Background" Value="{DynamicResource SystemColors.HighlightBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.HighlightTextBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Classic.ManagedFileChooser.ToolButton" TargetType="Button">
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Width" Value="23" />
+    <Setter Property="Height" Value="22" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <wpf:ClassicBorderDecorator Name="Bd" BorderStyle="None" BorderThickness="1" Background="{TemplateBinding Background}">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center" />
+        </wpf:ClassicBorderDecorator>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ wpf|ClassicBorderDecorator#Bd">
+      <Setter Property="BorderStyle" Value="ThinRaised" />
+    </Style>
+    <Style Selector="^:pressed /template/ wpf|ClassicBorderDecorator#Bd">
+      <Setter Property="BorderStyle" Value="ThinPressed" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Classic.ManagedFileChooser.ColumnHeader" TargetType="ContentControl">
+    <Setter Property="Padding" Value="4,0" />
+    <Setter Property="MinHeight" Value="18" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <wpf:ClassicBorderDecorator BorderStyle="Raised" BorderThickness="2" Background="{DynamicResource SystemColors.ControlBrush}">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            Padding="{TemplateBinding Padding}"
+                            VerticalContentAlignment="Center" />
+        </wpf:ClassicBorderDecorator>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

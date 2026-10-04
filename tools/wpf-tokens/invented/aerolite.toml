@@ -1,0 +1,241 @@
+# Invented (Layer 2) tokens of the AeroLite family. The Ribbon keys hold the literal colors of WPF's Ribbon Generic.xaml
+# (System.Windows.Controls.Ribbon/Themes/XAML); WPF draws the Ribbon controls the same in every classic theme, so
+# the Aero2, AeroLite, Aero, Luna, Royale and Classic tables are identical.
+
+[light]
+
+# Ribbon.xaml
+"Ribbon.Background" = "#FFDFE9F5"
+"Ribbon.BorderBrush" = "#FFB9C9DA"
+"Ribbon.InnerBorderBrush" = "#60FFFFFF"
+"Ribbon.OverlayBackground" = "linear 0.5,0 0.5,1 #EEFFFFFF@0 #BBFFFFFF@0.1 #05FFFFFF@0.5 #20FFFFFF@1"
+"Ribbon.TitleBar.Height" = 23
+"Ribbon.QatTopHost.Margin" = "thickness 0"
+"Ribbon.QatTopHost.Cap.Background" = "#77222222"
+"Ribbon.QatTopHost.Cap.BorderBrush" = "#66CCCCCC"
+"Ribbon.QatTopHost.Cap.Width" = 3
+
+# RibbonSharedResources.xaml: the visual states every control shares
+"Ribbon.MouseOver.Background" = "linear 0,0 0,1 #FFFEFBF4@0 #FFFDE7CE@0.19 #FFFDDEB8@0.39 #FFFFCE6B@0.39 #FFFFDE9A@0.79 #FFFFEBAA@1"
+"Ribbon.MouseOver.BorderBrush" = "#FFFFB700"
+"Ribbon.Pressed.Background" = "linear 0,0 0,1 #FFE3C085@0 #FFF4CC89@0.19 #FFF5C777@0.36 #FFF5BB56@0.36 #FFF4CE9A@0.79 #FFF3E28D@1"
+"Ribbon.Pressed.BorderBrush" = "#FFC29B29"
+"Ribbon.Checked.Background" = "linear 0,0 0,1 #FFFFDCA0@0 #FFFFD692@0.18 #FFFFC45D@0.39 #FFFFD178@1"
+"Ribbon.Checked.BorderBrush" = "#FFC29B29"
+"Ribbon.Focused.Background" = "linear 0,0 0,1 #FFFEFBF4@0 #FFFDE7CE@0.19 #FFFDDEB8@0.39 #FFFFCE6B@0.39 #FFFFDE9A@0.79 #FFFFEBAA@1"
+"Ribbon.Focused.BorderBrush" = "#FFFFB700"
+"Ribbon.Button.MouseOver.InnerBorderBrush" = "#80FFFFFF"
+"Ribbon.Button.CornerRadius" = "radius 2"
+"Ribbon.Popup.CornerRadius" = "radius 2"
+"Ribbon.Disabled.Foreground" = "#FF9E9E9E"
+"Ribbon.DropDown.Background" = "#F0FFFFFF"
+"Ribbon.ToggleButton.Checked.InnerBorderBrush" = "linear 0,0 0,1 #FFE7CBAD@0 #FFF7D7B5@0.1 #FFFFD38C@0.36 #FFFFC75A@0.36 #FFFFEFA5@1"
+"Ribbon.HighlightedSelected.Background" = "linear 0,0 0,1 #40FFFEFE@0 #40FFFEFE@0.39 #20FFCE68@0.39 #20FFCE68@0.69 #10FFFFFF@1"
+"Ribbon.ToolTip.Overlay" = "linear 0,0 0,1 #CAFFFFFF@0 #20FFFFFF@1"
+"Ribbon.Separator.Highlight" = "#FFFFFFFF"
+
+# RibbonTabHeader.xaml, RibbonContextualTabGroup.xaml
+"Ribbon.TabHeader.Checked.Background" = "linear 0,0 0,1 #AAFFFFFF@0 #FFFFFFFF@1"
+"Ribbon.TabHeader.MouseOver.InnerBorderBrush" = "#88FFFFFF"
+"Ribbon.ContextualTabGroup.HeaderOverlay" = "radial 0.5,1 0.5,1 #FFFFFFFF@0 #77FFFFFF@1"
+
+# RibbonGroup.xaml
+"Ribbon.Group.MouseOver.Background" = "linear 0,0.5 1,0.5 #01FFFFFF@0 #80FFFFFF@0.5 #01FFFFFF@1"
+"Ribbon.Group.Header.Foreground" = "#FF9E9E9E"
+"Ribbon.Group.Collapsed.ButtonInnerBorderBrush" = "#FFEAF1FB"
+"Ribbon.Group.Collapsed.MouseOver.Background" = "#40FFFFFF"
+"Ribbon.Group.Collapsed.LabelBackground" = "radial 0.5,0.5 1,0.5 #30FFFFFF@0 #08808080@1"
+"Ribbon.Group.Collapsed.PressedLabelBackground" = "radial 0.5,1 0.9,0.5 #AAFFFFFF@0 #40BBBBBB@1"
+"Ribbon.Group.Collapsed.Pressed.ImageBackground" = "#20BBBBBB"
+"Ribbon.Group.Collapsed.OuterIconBorder.Background" = "linear 0,0 0,1 #88FFFFFF@0 #88DBE7F4@1"
+"Ribbon.Group.Collapsed.OuterIconBorder.BorderBrush" = "#FFAEBECF"
+"Ribbon.Group.Collapsed.InnerIconBorder.Background" = "#50FFFFFF"
+"Ribbon.Group.Collapsed.InnerIconBorder.BorderBrush" = "#FFFCFCFC"
+
+# RibbonTextBox.xaml, RibbonComboBox.xaml, RibbonCheckBox.xaml
+"Ribbon.TextBox.Overlay" = "#EEFFFFFF"
+"Ribbon.TextBox.MouseOver.Background" = "#FFFFFFFF"
+"Ribbon.TextBox.Focused.BorderBrush" = "#FFB9C9DA"
+"Ribbon.TextBox.Disabled.Background" = "#90DEDEDE"
+"Ribbon.TextBox.Disabled.BorderBrush" = "#90B1BBC6"
+"Ribbon.ComboBox.ToggleButton.MouseOver.Background" = "linear 0,0 0,1 #FFE4F0FE@0 #FFE4F0FE@0.5 #FFCFDFF3@0.5 #FFE8F1FD@1"
+"Ribbon.CheckBox.BorderBrush" = "#FFB5BEDE"
+"Ribbon.CheckBox.Background" = "linear 0,0 1,1 #FFE7E7F7@0 #FFFFFFFF@1"
+"Ribbon.CheckBox.InnerBorderBrush" = "linear 0,0 1,1 #80F7F7FF@0 #F0F7F7FF@1"
+"Ribbon.CheckBox.Box.Background" = "#FFFFFFFF"
+
+# RibbonMenuItem.xaml, RibbonSplitButton.xaml
+"Ribbon.MenuItem.Overlay" = "linear 0,0 1,0 #A0FFFFFF@0 #80FFFFFF@0.4 #0AFFFFFF@0.8 #08FFFFFF@1"
+"Ribbon.SplitButton.MouseOver.Background" = "linear 0,0 0,1 #FFFFFFFF@0 #AAFFFFFF@0.19 #77FFFFFF@0.39 #77FFFFFF@0.39 #AAFFFFFF@0.79 #FFFFFFFF@1"
+"Ribbon.SplitButton.Header.CornerRadius" = "radius 2,2,0,0"
+"Ribbon.SplitButton.DropDown.CornerRadius" = "radius 0,0,2,2"
+"Ribbon.SplitButton.SmallHeader.CornerRadius" = "radius 2,0,0,2"
+"Ribbon.SplitButton.SmallDropDown.CornerRadius" = "radius 0,2,2,0"
+
+# RibbonGallery*.xaml, InRibbonGallery.xaml, RibbonFilterMenuButton.xaml
+"Ribbon.GalleryCategory.HeaderBackground" = "#0C000000"
+"Ribbon.GalleryItem.PressedOverlay" = "#30FFFFFF"
+"Ribbon.GalleryItem.CornerRadius" = "radius 0"
+"Ribbon.InRibbonGallery.Button.Background" = "linear 0,0 0,1 #DDFFFFFF@0 #BBFFFFFF@1"
+"Ribbon.InRibbonGallery.Glyph" = "#FF808080"
+"Ribbon.FilterMenuButton.Arrow" = "#FF959595"
+"Ribbon.FilterMenuButton.Arrow.MouseOver" = "#FFFFD232"
+
+# RibbonApplicationMenu.xaml
+"Ribbon.ApplicationMenu.Button.Background" = "#FF114EAF"
+"Ribbon.ApplicationMenu.Button.BorderBrush" = "#FF114EAF"
+"Ribbon.ApplicationMenu.Button.CornerRadius" = "radius 0,2,0,0"
+"Ribbon.ApplicationMenu.Button.Overlay" = "linear 0,0 0,1 #90FFFFFF@0 #30FFFFFF@0.5 #00FFFFFF@0.5 #70FFFFFF@1"
+"Ribbon.ApplicationMenu.Button.OverlayBorderBrush" = "linear 0,0 0,1 #60FFFFFF@0 #20FFFFFF@0.5 #00FFFFFF@0.5 #00FFFFFF@1"
+"Ribbon.ApplicationMenu.Button.Arrow" = "radial 0.5,0.5 0.5,0.5 #FFD3D3D3@0 #FFFFFFFF@0.4"
+"Ribbon.ApplicationMenu.MouseOver.Background" = "linear 0,0 0,1 #A0FFFFFF@0 #60FFFFFF@0.5 #00FFFFFF@0.5 #D0FFFFFF@1"
+"Ribbon.ApplicationMenu.MouseOver.BorderBrush" = "linear 0,0 0,1 #90FFFFFF@0 #20FFFFFF@0.5 #00FFFFFF@0.5 #00FFFFFF@1"
+"Ribbon.ApplicationMenu.Pane.Background" = "#B8FFFFFF"
+"Ribbon.ApplicationMenu.Divider" = "#FFFFFFFF"
+"Ribbon.ApplicationMenu.Footer.Overlay" = "linear 0,0 0,1 #A0FFFFFF@0 #90FFFFFF@0.2 #80FFFFFF@0.4 #50FFFFFF@0.6 #00FFFFFF@0.8 #30FFFFFF@1"
+
+# Glyphs (RibbonSharedResources.xaml geometries)
+"Ribbon.Glyph.DownArrow" = "geometry M 0 0 L 2.5 3 L 5 0 Z"
+"Ribbon.Glyph.UpArrow" = "geometry M 0 3 L 2.5 0 L 5 3 Z"
+"Ribbon.Glyph.RightArrow" = "geometry M 0,0 L 4,3.5 L 0,7 Z"
+"Ribbon.Glyph.CheckMark" = "geometry M 0,5.1 L 1.7,5.2 L 3.4,7.1 L 8,0.4 L 9.2,0 L 3.3,10.8 Z"
+"Ribbon.Glyph.Overflow" = "geometry M 0,0 L 2,2 L 0,4 M 4,0 L 6,2 L 4,4"
+"Ribbon.ApplicationMenu.Glyph.DownArrow" = "geometry M 0 0 L 2.25 3 L 4.5 0 Z"
+
+# The Windows 8 window frame (WindowFrame): a flat solid frame. A 1 px outer line, a solid fill in a muted accent
+# around the client area (the caption and 7 px side and bottom borders), the title centered in Segoe UI 9 pt, flat
+# 26 x 20 minimize/maximize buttons and the 45 x 20 red close button hanging from the top edge. The inactive frame is
+# light grey. Values from the Windows 8 default frame (color intensity mixed into the default blue).
+"WindowFrame.Background" = "#FF6BA5D8"
+"WindowFrame.Border" = "#FF4D86BA"
+"WindowFrame.Inactive.Background" = "#FFEBEBEB"
+"WindowFrame.Inactive.Border" = "#FFAAAAAA"
+"WindowFrame.Caption.Foreground" = "#FF000000"
+"WindowFrame.Caption.Inactive.Foreground" = "#FF808080"
+"WindowFrame.Button.Glyph" = "#FF000000"
+"WindowFrame.Button.Glyph.Inactive" = "#FF808080"
+"WindowFrame.Button.Hover.Background" = "#59FFFFFF"
+"WindowFrame.Button.Pressed.Background" = "#33000000"
+"WindowFrame.Button.Disabled.Glyph" = "#66000000"
+"WindowFrame.Close.Background" = "#FFC75050"
+"WindowFrame.Close.Hover.Background" = "#FFE04343"
+"WindowFrame.Close.Pressed.Background" = "#FF993D3D"
+"WindowFrame.Close.Inactive.Background" = "#FFBCBCBC"
+"WindowFrame.Close.Glyph" = "#FFFFFFFF"
+"WindowFrame.Client.Border" = "#FF4D86BA"
+"WindowFrame.Client.Inactive.Border" = "#FFAAAAAA"
+"WindowFrame.Shadow" = "shadow 0 2 14 0 #4D000000"
+"WindowFrame.ShadowMargin" = "thickness 12"
+"WindowFrame.Padding" = "thickness 7,0,7,7"
+"WindowFrame.Maximized.Padding" = "thickness 0"
+"WindowFrame.CaptionHeight" = 29
+"WindowFrame.Maximized.CaptionHeight" = 22
+"WindowFrame.ButtonHeight" = 20
+"WindowFrame.ButtonWidth" = 26
+"WindowFrame.CloseButtonWidth" = 45
+"WindowFrame.MinimizeGlyph" = "geometry M 0 6 L 9 6 L 9 8 L 0 8 Z"
+"WindowFrame.MaximizeGlyph" = "geometry M 0 0 L 9 0 L 9 8 L 0 8 Z M 1 2 L 1 7 L 8 7 L 8 2 Z"
+"WindowFrame.RestoreGlyph" = "geometry M 2 0 L 9 0 L 9 6 L 7 6 L 7 5 L 8 5 L 8 2 L 3 2 L 3 2.5 L 2 2.5 Z M 0 3 L 7 3 L 7 9 L 0 9 Z M 1 5 L 1 8 L 6 8 L 6 5 Z"
+"WindowFrame.CloseGlyph" = "geometry M 0 0 L 2 0 L 4.5 2.5 L 7 0 L 9 0 L 5.5 3.5 L 9 7 L 7 7 L 4.5 4.5 L 2 7 L 0 7 L 3.5 3.5 Z"
+
+# Calendar and CalendarDatePicker: the colors WPF's storyboards animate to (Calendar.xaml and DatePicker.xaml,
+# [[AeroLite.NormalColor]]): the hovered navigation arrows and header, inactive (other month) days, today's text and
+# the hovered DatePickerTextBox border.
+"Calendar.MouseOver.Glyph" = "#FF73A9D8"
+"Calendar.Inactive.Foreground" = "#FF777777"
+"Calendar.Today.Foreground" = "#FFFFFFFF"
+"DatePickerTextBox.MouseOver.Border" = "#FF99C1E2"
+
+# ToggleSwitch: a flat Windows 8 switch, a 44 x 20 track with a 1 px border and a 12 x 20 thumb.
+"ToggleSwitch.Off.Background" = "#FFFFFFFF"
+"ToggleSwitch.Off.Border" = "#FF707070"
+"ToggleSwitch.On.Background" = "#FF3C7FB1"
+"ToggleSwitch.On.Border" = "#FF2C628B"
+"ToggleSwitch.Thumb.Background" = "#FF333333"
+"ToggleSwitch.Thumb.On.Background" = "#FF000000"
+
+# DataValidationErrors: WPF's default Validation.ErrorTemplate, a red 1 px adorner border.
+"Validation.Error.Border" = "#FFFF0000"
+"Validation.Error.Foreground" = "#FFFF0000"
+
+# NotificationCard: the Windows 8 toast, a flat panel in the accent with white text.
+"Notification.Background" = "#FF2D6EA8"
+"Notification.Border" = "#FF235A8C"
+"Notification.Foreground" = "#FFFFFFFF"
+"Notification.Warning" = "#FFF0B000"
+
+# RefreshVisualizer, PipsPager and TextSelectionHandle: the selection blue.
+"Accent.Background" = "#FF3C7FB1"
+
+# ManagedFileChooser: flat Windows 8 shell icons (folder, file, volume).
+"FileChooser.Folder" = "#FFFFD35E"
+"FileChooser.Folder.Edge" = "#FFDCB679"
+"FileChooser.File" = "#FFFAFAFA"
+"FileChooser.File.Edge" = "#FF797774"
+"FileChooser.Volume" = "#FFE1E3E6"
+"FileChooser.Volume.Edge" = "#FF737374"
+"FileChooser.Volume.Light" = "#FF01C001"
+
+[dark]
+"Ribbon.Background" = "#FF2B3542"
+"Ribbon.BorderBrush" = "#FF4A5A6C"
+"Ribbon.InnerBorderBrush" = "#18FFFFFF"
+"Ribbon.OverlayBackground" = "linear 0.5,0 0.5,1 #22FFFFFF@0 #18FFFFFF@0.1 #02FFFFFF@0.5 #08FFFFFF@1"
+"Ribbon.DropDown.Background" = "#F0262E38"
+"Ribbon.TextBox.Overlay" = "#EE1F262E"
+"Ribbon.TextBox.MouseOver.Background" = "#FF1B2128"
+"Ribbon.ApplicationMenu.Pane.Background" = "#B81F262E"
+"Ribbon.CheckBox.Box.Background" = "#FF1F262E"
+"Ribbon.Separator.Highlight" = "#20FFFFFF"
+"Ribbon.TabHeader.Checked.Background" = "linear 0,0 0,1 #18FFFFFF@0 #30FFFFFF@1"
+"Ribbon.Group.Header.Foreground" = "#FFA8B4C0"
+"Ribbon.Disabled.Foreground" = "#FF6E7884"
+
+"WindowFrame.Background" = "#FF2E5779"
+"WindowFrame.Border" = "#FF214562"
+"WindowFrame.Inactive.Background" = "#FF2B2B2B"
+"WindowFrame.Inactive.Border" = "#FF3C3C3C"
+"WindowFrame.Caption.Foreground" = "#FFFFFFFF"
+"WindowFrame.Caption.Inactive.Foreground" = "#FF8A8A8A"
+"WindowFrame.Button.Glyph" = "#FFFFFFFF"
+"WindowFrame.Button.Glyph.Inactive" = "#FF8A8A8A"
+"WindowFrame.Button.Hover.Background" = "#33FFFFFF"
+"WindowFrame.Button.Pressed.Background" = "#59000000"
+"WindowFrame.Button.Disabled.Glyph" = "#66FFFFFF"
+"WindowFrame.Close.Background" = "#FFC75050"
+"WindowFrame.Close.Hover.Background" = "#FFE04343"
+"WindowFrame.Close.Pressed.Background" = "#FF993D3D"
+"WindowFrame.Close.Inactive.Background" = "#FF4A4A4A"
+"WindowFrame.Close.Glyph" = "#FFFFFFFF"
+"WindowFrame.Client.Border" = "#FF214562"
+"WindowFrame.Client.Inactive.Border" = "#FF3C3C3C"
+"WindowFrame.Shadow" = "shadow 0 2 14 0 #80000000"
+"WindowFrame.ShadowMargin" = "thickness 12"
+"WindowFrame.Padding" = "thickness 7,0,7,7"
+"WindowFrame.Maximized.Padding" = "thickness 0"
+"WindowFrame.CaptionHeight" = 29
+"WindowFrame.Maximized.CaptionHeight" = 22
+"WindowFrame.ButtonHeight" = 20
+"WindowFrame.ButtonWidth" = 26
+"WindowFrame.CloseButtonWidth" = 45
+"WindowFrame.MinimizeGlyph" = "geometry M 0 6 L 9 6 L 9 8 L 0 8 Z"
+"WindowFrame.MaximizeGlyph" = "geometry M 0 0 L 9 0 L 9 8 L 0 8 Z M 1 2 L 1 7 L 8 7 L 8 2 Z"
+"WindowFrame.RestoreGlyph" = "geometry M 2 0 L 9 0 L 9 6 L 7 6 L 7 5 L 8 5 L 8 2 L 3 2 L 3 2.5 L 2 2.5 Z M 0 3 L 7 3 L 7 9 L 0 9 Z M 1 5 L 1 8 L 6 8 L 6 5 Z"
+"WindowFrame.CloseGlyph" = "geometry M 0 0 L 2 0 L 4.5 2.5 L 7 0 L 9 0 L 5.5 3.5 L 9 7 L 7 7 L 4.5 4.5 L 2 7 L 0 7 L 3.5 3.5 Z"
+"Calendar.MouseOver.Glyph" = "#FF73A9D8"
+"Calendar.Inactive.Foreground" = "#FF8A8A8A"
+"Calendar.Today.Foreground" = "#FFFFFFFF"
+"DatePickerTextBox.MouseOver.Border" = "#FF4A79A3"
+"ToggleSwitch.Off.Background" = "#FF202020"
+"ToggleSwitch.Off.Border" = "#FFA0A0A0"
+"ToggleSwitch.On.Background" = "#FF3C7FB1"
+"ToggleSwitch.On.Border" = "#FF5A9BD0"
+"ToggleSwitch.Thumb.Background" = "#FFDDDDDD"
+"ToggleSwitch.Thumb.On.Background" = "#FFFFFFFF"
+"Validation.Error.Border" = "#FFFF4040"
+"Validation.Error.Foreground" = "#FFFF6060"
+"Notification.Background" = "#FF2D6EA8"
+"Notification.Border" = "#FF235A8C"
+"Notification.Foreground" = "#FFFFFFFF"
+"Notification.Warning" = "#FFF0B000"
+"Accent.Background" = "#FF3C7FB1"

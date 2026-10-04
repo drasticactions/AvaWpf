@@ -1,0 +1,5 @@
+# Hand-tuned Dark overrides of AeroLite tokens (keys without the family prefix).
+# The Calendar navigation arrows and month title are SystemColors.ControlDarkDark in WPF, which is too dark on the
+# derived dark calendar background; Dark uses a light grey.
+"Calendar.CalendarItem.path.Fill" = "#FFB0B0B0"
+"Calendar.CalendarItem.path.Fill#2" = "#FFB0B0B0"

@@ -1,0 +1,202 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF Slider.xaml [[Classic]]. Ticks on one side switch to the pointed thumb; TickPlacement Outside is WPF's Both.
+       Avalonia's Slider has no selection range, so PART_SelectionRange is left out. -->
+  <ControlTheme x:Key="{x:Type Slider}" TargetType="Slider">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="FocusAdorner" Value="{DynamicResource Classic.FocusVisualStyle}" />
+    <Style Selector="^:horizontal">
+      <Setter Property="Template">
+        <ControlTemplate>
+          <DataValidationErrors>
+            <Border Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    UseLayoutRounding="True">
+              <Grid RowDefinitions="Auto,Auto,Auto">
+                <Grid.Styles>
+                  <Style Selector="TickBar">
+                    <Setter Property="ReservedSpace" Value="{Binding #PART_Track.Thumb.Bounds}" />
+                  </Style>
+                </Grid.Styles>
+                <TickBar Name="TopTick"
+                         Placement="Top"
+                         Fill="{TemplateBinding Foreground}"
+                         Height="4"
+                         IsVisible="False"
+                         Ticks="{TemplateBinding Ticks}"
+                         TickFrequency="{TemplateBinding TickFrequency}"
+                         Orientation="{TemplateBinding Orientation}"
+                         Minimum="{TemplateBinding Minimum}"
+                         Maximum="{TemplateBinding Maximum}"
+                         IsDirectionReversed="{TemplateBinding IsDirectionReversed}" />
+                <wpf:ClassicBorderDecorator Name="TrackBackground"
+                                            Grid.Row="1"
+                                            Margin="0,0,0,1"
+                                            Height="4"
+                                            BorderStyle="Sunken"
+                                            BorderBrush="{x:Static wpf:ClassicBorderDecorator.ClassicBorderBrush}"
+                                            BorderThickness="2" />
+                <Track Name="PART_Track"
+                       Grid.Row="1"
+                       Minimum="{TemplateBinding Minimum}"
+                       Maximum="{TemplateBinding Maximum}"
+                       Value="{TemplateBinding Value, Mode=TwoWay}"
+                       IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
+                       Orientation="Horizontal">
+                  <Track.DecreaseButton>
+                    <RepeatButton Name="PART_DecreaseButton" Theme="{StaticResource Classic.SliderRepeatButton}" />
+                  </Track.DecreaseButton>
+                  <Track.IncreaseButton>
+                    <RepeatButton Name="PART_IncreaseButton" Theme="{StaticResource Classic.SliderRepeatButton}" />
+                  </Track.IncreaseButton>
+                  <Thumb Name="Thumb" Theme="{StaticResource Classic.SliderThumb.Horizontal}" />
+                </Track>
+                <TickBar Name="BottomTick"
+                         Grid.Row="2"
+                         Placement="Bottom"
+                         Fill="{TemplateBinding Foreground}"
+                         Height="4"
+                         IsVisible="False"
+                         Ticks="{TemplateBinding Ticks}"
+                         TickFrequency="{TemplateBinding TickFrequency}"
+                         Orientation="{TemplateBinding Orientation}"
+                         Minimum="{TemplateBinding Minimum}"
+                         Maximum="{TemplateBinding Maximum}"
+                         IsDirectionReversed="{TemplateBinding IsDirectionReversed}" />
+              </Grid>
+            </Border>
+          </DataValidationErrors>
+        </ControlTemplate>
+      </Setter>
+      <Style Selector="^[TickPlacement=TopLeft]">
+        <Style Selector="^ /template/ TickBar#TopTick">
+          <Setter Property="IsVisible" Value="True" />
+        </Style>
+        <Style Selector="^ /template/ Thumb#Thumb">
+          <Setter Property="Theme" Value="{StaticResource Classic.SliderThumb.HorizontalUp}" />
+        </Style>
+        <Style Selector="^ /template/ wpf|ClassicBorderDecorator#TrackBackground">
+          <Setter Property="Margin" Value="0,3,0,0" />
+        </Style>
+      </Style>
+      <Style Selector="^[TickPlacement=BottomRight]">
+        <Style Selector="^ /template/ TickBar#BottomTick">
+          <Setter Property="IsVisible" Value="True" />
+        </Style>
+        <Style Selector="^ /template/ Thumb#Thumb">
+          <Setter Property="Theme" Value="{StaticResource Classic.SliderThumb.HorizontalDown}" />
+        </Style>
+        <Style Selector="^ /template/ wpf|ClassicBorderDecorator#TrackBackground">
+          <Setter Property="Margin" Value="0,0,0,3" />
+        </Style>
+      </Style>
+      <Style Selector="^[TickPlacement=Outside]">
+        <Style Selector="^ /template/ TickBar#TopTick">
+          <Setter Property="IsVisible" Value="True" />
+        </Style>
+        <Style Selector="^ /template/ TickBar#BottomTick">
+          <Setter Property="IsVisible" Value="True" />
+        </Style>
+      </Style>
+    </Style>
+
+    <Style Selector="^:vertical">
+      <Setter Property="Template">
+        <ControlTemplate>
+          <DataValidationErrors>
+            <Border Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    UseLayoutRounding="True">
+              <Grid ColumnDefinitions="Auto,Auto,Auto">
+                <Grid.Styles>
+                  <Style Selector="TickBar">
+                    <Setter Property="ReservedSpace" Value="{Binding #PART_Track.Thumb.Bounds}" />
+                  </Style>
+                </Grid.Styles>
+                <TickBar Name="LeftTick"
+                         Placement="Left"
+                         Fill="{TemplateBinding Foreground}"
+                         Width="4"
+                         IsVisible="False"
+                         Ticks="{TemplateBinding Ticks}"
+                         TickFrequency="{TemplateBinding TickFrequency}"
+                         Orientation="{TemplateBinding Orientation}"
+                         Minimum="{TemplateBinding Minimum}"
+                         Maximum="{TemplateBinding Maximum}"
+                         IsDirectionReversed="{TemplateBinding IsDirectionReversed}" />
+                <wpf:ClassicBorderDecorator Name="TrackBackground"
+                                            Grid.Column="1"
+                                            Margin="0,0,1,0"
+                                            Width="4"
+                                            BorderStyle="Sunken"
+                                            BorderBrush="{x:Static wpf:ClassicBorderDecorator.ClassicBorderBrush}"
+                                            BorderThickness="2" />
+                <Track Name="PART_Track"
+                       Grid.Column="1"
+                       Minimum="{TemplateBinding Minimum}"
+                       Maximum="{TemplateBinding Maximum}"
+                       Value="{TemplateBinding Value, Mode=TwoWay}"
+                       IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
+                       Orientation="Vertical">
+                  <Track.DecreaseButton>
+                    <RepeatButton Name="PART_DecreaseButton" Theme="{StaticResource Classic.SliderRepeatButton}" />
+                  </Track.DecreaseButton>
+                  <Track.IncreaseButton>
+                    <RepeatButton Name="PART_IncreaseButton" Theme="{StaticResource Classic.SliderRepeatButton}" />
+                  </Track.IncreaseButton>
+                  <Thumb Name="Thumb" Theme="{StaticResource Classic.SliderThumb.Vertical}" />
+                </Track>
+                <TickBar Name="RightTick"
+                         Grid.Column="2"
+                         Placement="Right"
+                         Fill="{TemplateBinding Foreground}"
+                         Width="4"
+                         IsVisible="False"
+                         Ticks="{TemplateBinding Ticks}"
+                         TickFrequency="{TemplateBinding TickFrequency}"
+                         Orientation="{TemplateBinding Orientation}"
+                         Minimum="{TemplateBinding Minimum}"
+                         Maximum="{TemplateBinding Maximum}"
+                         IsDirectionReversed="{TemplateBinding IsDirectionReversed}" />
+              </Grid>
+            </Border>
+          </DataValidationErrors>
+        </ControlTemplate>
+      </Setter>
+      <Style Selector="^[TickPlacement=TopLeft]">
+        <Style Selector="^ /template/ TickBar#LeftTick">
+          <Setter Property="IsVisible" Value="True" />
+        </Style>
+        <Style Selector="^ /template/ Thumb#Thumb">
+          <Setter Property="Theme" Value="{StaticResource Classic.SliderThumb.VerticalLeft}" />
+        </Style>
+        <Style Selector="^ /template/ wpf|ClassicBorderDecorator#TrackBackground">
+          <Setter Property="Margin" Value="3,0,0,0" />
+        </Style>
+      </Style>
+      <Style Selector="^[TickPlacement=BottomRight]">
+        <Style Selector="^ /template/ TickBar#RightTick">
+          <Setter Property="IsVisible" Value="True" />
+        </Style>
+        <Style Selector="^ /template/ Thumb#Thumb">
+          <Setter Property="Theme" Value="{StaticResource Classic.SliderThumb.VerticalRight}" />
+        </Style>
+        <Style Selector="^ /template/ wpf|ClassicBorderDecorator#TrackBackground">
+          <Setter Property="Margin" Value="0,0,3,0" />
+        </Style>
+      </Style>
+      <Style Selector="^[TickPlacement=Outside]">
+        <Style Selector="^ /template/ TickBar#LeftTick">
+          <Setter Property="IsVisible" Value="True" />
+        </Style>
+        <Style Selector="^ /template/ TickBar#RightTick">
+          <Setter Property="IsVisible" Value="True" />
+        </Style>
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

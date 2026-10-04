@@ -1,0 +1,370 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf"
+                    xmlns:conv="using:Avalonia.Controls.Converters">
+  <!-- WPF MenuItem.xaml [[Luna.*, Royale.NormalColor]]: the menu scroller, the separator and the four role templates.
+       Avalonia has no Role property: the named themes $F.MenuItem.TopLevelHeader, .TopLevelItem, .SubmenuHeader and
+       .SubmenuItem carry the roles, and the header themes switch to the item template while the item has no children
+       (:empty). Menu uses TopLevelHeader as its ItemContainerTheme; the plain MenuItem theme is SubmenuHeader. -->
+  <conv:PlatformKeyGestureConverter x:Key="$F.KeyGestureConverter" />
+
+  <ControlTheme x:Key="$F.MenuScrollButton" TargetType="RepeatButton">
+    <Setter Property="ClickMode" Value="Press" />
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DockPanel Background="Transparent" UseLayoutRounding="True">
+          <Rectangle Name="R1" DockPanel.Dock="Right" Width="1" Fill="Transparent" />
+          <Rectangle Name="B1" DockPanel.Dock="Bottom" Height="1" Fill="Transparent" />
+          <Rectangle Name="L1" DockPanel.Dock="Left" Width="1" Fill="Transparent" />
+          <Rectangle Name="T1" DockPanel.Dock="Top" Height="1" Fill="Transparent" />
+          <ContentPresenter Name="ContentContainer"
+                            Content="{TemplateBinding Content}"
+                            Margin="2,2,2,2"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center" />
+        </DockPanel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pressed">
+      <Style Selector="^ /template/ Rectangle#R1, ^ /template/ Rectangle#B1">
+        <Setter Property="Fill" Value="{DynamicResource SystemColors.ControlLightLightBrush}" />
+      </Style>
+      <Style Selector="^ /template/ Rectangle#L1, ^ /template/ Rectangle#T1">
+        <Setter Property="Fill" Value="{DynamicResource SystemColors.ControlDarkDarkBrush}" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#ContentContainer">
+        <Setter Property="Margin" Value="3,3,1,1" />
+      </Style>
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="$F.MenuScrollViewer" TargetType="ScrollViewer">
+    <Setter Property="HorizontalScrollBarVisibility" Value="Hidden" />
+    <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+    <Setter Property="IsScrollChainingEnabled" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid RowDefinitions="Auto,*,Auto" UseLayoutRounding="True">
+          <Border Grid.Row="1">
+            <ScrollContentPresenter Name="PART_ContentPresenter" Margin="{TemplateBinding Padding}" />
+          </Border>
+          <RepeatButton Grid.Row="0"
+                        Theme="{StaticResource $F.MenuScrollButton}"
+                        Command="{Binding LineUp, RelativeSource={RelativeSource TemplatedParent}}">
+            <RepeatButton.IsVisible>
+              <MultiBinding Converter="{x:Static conv:MenuScrollingVisibilityConverter.Instance}" ConverterParameter="0">
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="VerticalScrollBarVisibility" />
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Offset.Y" />
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Extent.Height" />
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Viewport.Height" />
+              </MultiBinding>
+            </RepeatButton.IsVisible>
+            <Path Fill="{DynamicResource SystemColors.MenuTextBrush}" Data="{DynamicResource $F.UpArrow}" />
+          </RepeatButton>
+          <RepeatButton Grid.Row="2"
+                        Theme="{StaticResource $F.MenuScrollButton}"
+                        Command="{Binding LineDown, RelativeSource={RelativeSource TemplatedParent}}">
+            <RepeatButton.IsVisible>
+              <MultiBinding Converter="{x:Static conv:MenuScrollingVisibilityConverter.Instance}" ConverterParameter="100">
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="VerticalScrollBarVisibility" />
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Offset.Y" />
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Extent.Height" />
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Viewport.Height" />
+              </MultiBinding>
+            </RepeatButton.IsVisible>
+            <Path Fill="{DynamicResource SystemColors.MenuTextBrush}" Data="{DynamicResource $F.DownArrow}" />
+          </RepeatButton>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="$F.MenuItem.Separator" TargetType="Separator">
+    <Setter Property="Background" Value="{DynamicResource SystemColors.ControlDarkBrush}" />
+    <Setter Property="MinHeight" Value="1" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                UseLayoutRounding="True" />
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTemplate x:Key="$F.MenuItem.TopLevelItemTemplate" TargetType="MenuItem">
+    <Border Name="Bd"
+            Background="{TemplateBinding Background}"
+            BorderThickness="{TemplateBinding BorderThickness}"
+            BorderBrush="{TemplateBinding BorderBrush}"
+            UseLayoutRounding="True">
+      <DockPanel>
+        <ContentPresenter Name="Icon"
+                          Margin="4,0,6,0"
+                          VerticalAlignment="Center"
+                          Content="{TemplateBinding Icon}"
+                          IsVisible="False" />
+        <Path Name="GlyphPanel"
+              Margin="4,0,6,0"
+              IsVisible="False"
+              VerticalAlignment="Center"
+              Fill="{TemplateBinding Foreground}"
+              FlowDirection="LeftToRight"
+              Data="{DynamicResource $F.Checkmark}" />
+        <ContentPresenter Name="PART_HeaderPresenter"
+                          Content="{TemplateBinding Header}"
+                          ContentTemplate="{TemplateBinding HeaderTemplate}"
+                          Margin="{TemplateBinding Padding}"
+                          VerticalAlignment="Center"
+                          RecognizesAccessKey="True" />
+      </DockPanel>
+    </Border>
+  </ControlTemplate>
+
+  <ControlTemplate x:Key="$F.MenuItem.TopLevelHeaderTemplate" TargetType="MenuItem">
+    <Border Name="Bd"
+            Background="{TemplateBinding Background}"
+            BorderThickness="{TemplateBinding BorderThickness}"
+            BorderBrush="{TemplateBinding BorderBrush}"
+            UseLayoutRounding="True">
+      <Panel>
+        <DockPanel>
+          <ContentPresenter Name="Icon"
+                            Margin="4,0,6,0"
+                            VerticalAlignment="Center"
+                            Content="{TemplateBinding Icon}"
+                            IsVisible="False" />
+          <Path Name="GlyphPanel"
+                Margin="4,0,6,0"
+                IsVisible="False"
+                VerticalAlignment="Center"
+                Fill="{TemplateBinding Foreground}"
+                FlowDirection="LeftToRight"
+                Data="{DynamicResource $F.Checkmark}" />
+          <ContentPresenter Name="PART_HeaderPresenter"
+                            Content="{TemplateBinding Header}"
+                            ContentTemplate="{TemplateBinding HeaderTemplate}"
+                            Margin="{TemplateBinding Padding}"
+                            VerticalAlignment="Center"
+                            RecognizesAccessKey="True" />
+        </DockPanel>
+        <Popup Name="PART_Popup"
+               WindowManagerAddShadowHint="False"
+               Placement="BottomEdgeAlignedLeft"
+               IsLightDismissEnabled="True"
+               IsOpen="{TemplateBinding IsSubMenuOpen, Mode=TwoWay}"
+               OverlayInputPassThroughElement="{Binding $parent[Menu]}"
+               wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.MenuPopupAnimation}">
+          <wpf:SystemDropShadowChrome Name="Shdw" Margin="0,0,5,5">
+            <Border Name="SubMenuBorder"
+                    Background="{DynamicResource SystemColors.MenuBrush}"
+                    BorderThickness="1"
+                    BorderBrush="{DynamicResource SystemColors.ControlDarkBrush}">
+              <ScrollViewer Name="SubMenuScrollViewer" Theme="{StaticResource $F.MenuScrollViewer}">
+                <ItemsPresenter Name="PART_ItemsPresenter"
+                                ItemsPanel="{TemplateBinding ItemsPanel}"
+                                Margin="2"
+                                KeyboardNavigation.TabNavigation="Cycle"
+                                Grid.IsSharedSizeScope="True" />
+              </ScrollViewer>
+            </Border>
+          </wpf:SystemDropShadowChrome>
+        </Popup>
+      </Panel>
+    </Border>
+  </ControlTemplate>
+
+  <ControlTemplate x:Key="$F.MenuItem.SubmenuItemTemplate" TargetType="MenuItem">
+    <Border Name="Bd"
+            Background="{TemplateBinding Background}"
+            BorderThickness="{TemplateBinding BorderThickness}"
+            BorderBrush="{TemplateBinding BorderBrush}"
+            UseLayoutRounding="True">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition MinWidth="17" Width="Auto" SharedSizeGroup="MenuItemIconColumnGroup" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="Auto" SharedSizeGroup="MenuItemIGTColumnGroup" />
+          <ColumnDefinition Width="14" />
+        </Grid.ColumnDefinitions>
+        <ContentPresenter Name="Icon"
+                          Margin="4,0,6,0"
+                          VerticalAlignment="Center"
+                          Content="{TemplateBinding Icon}"
+                          IsVisible="False" />
+        <Path Name="GlyphPanel"
+              Margin="4,0,6,0"
+              IsVisible="False"
+              VerticalAlignment="Center"
+              Fill="{TemplateBinding Foreground}"
+              FlowDirection="LeftToRight"
+              Data="{DynamicResource $F.Checkmark}" />
+        <ContentPresenter Name="PART_HeaderPresenter"
+                          Grid.Column="1"
+                          Content="{TemplateBinding Header}"
+                          ContentTemplate="{TemplateBinding HeaderTemplate}"
+                          Margin="{TemplateBinding Padding}"
+                          VerticalAlignment="Center"
+                          RecognizesAccessKey="True" />
+        <TextBlock Name="InputGestureText"
+                   Grid.Column="2"
+                   Text="{TemplateBinding InputGesture, Converter={StaticResource $F.KeyGestureConverter}}"
+                   Margin="5,2,0,2"
+                   VerticalAlignment="Center" />
+      </Grid>
+    </Border>
+  </ControlTemplate>
+
+  <ControlTemplate x:Key="$F.MenuItem.SubmenuHeaderTemplate" TargetType="MenuItem">
+    <Border Name="Bd"
+            Background="{TemplateBinding Background}"
+            BorderThickness="{TemplateBinding BorderThickness}"
+            BorderBrush="{TemplateBinding BorderBrush}"
+            UseLayoutRounding="True">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition MinWidth="17" Width="Auto" SharedSizeGroup="MenuItemIconColumnGroup" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="Auto" SharedSizeGroup="MenuItemIGTColumnGroup" />
+          <ColumnDefinition Width="14" />
+        </Grid.ColumnDefinitions>
+        <ContentPresenter Name="Icon"
+                          Margin="4,0,6,0"
+                          VerticalAlignment="Center"
+                          Content="{TemplateBinding Icon}"
+                          IsVisible="False" />
+        <Path Name="GlyphPanel"
+              Margin="4,0,6,0"
+              IsVisible="False"
+              VerticalAlignment="Center"
+              Fill="{TemplateBinding Foreground}"
+              FlowDirection="LeftToRight"
+              Data="{DynamicResource $F.Checkmark}" />
+        <ContentPresenter Name="PART_HeaderPresenter"
+                          Grid.Column="1"
+                          Content="{TemplateBinding Header}"
+                          ContentTemplate="{TemplateBinding HeaderTemplate}"
+                          Margin="{TemplateBinding Padding}"
+                          VerticalAlignment="Center"
+                          RecognizesAccessKey="True" />
+        <Path Name="Arrow"
+              Grid.Column="3"
+              VerticalAlignment="Center"
+              Margin="4,0,6,0"
+              Fill="{TemplateBinding Foreground}"
+              Data="{DynamicResource $F.RightArrow}" />
+        <Popup Name="PART_Popup"
+               WindowManagerAddShadowHint="False"
+               Placement="RightEdgeAlignedTop"
+               VerticalOffset="-3"
+               IsLightDismissEnabled="False"
+               IsOpen="{TemplateBinding IsSubMenuOpen, Mode=TwoWay}"
+               wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.MenuPopupAnimation}">
+          <wpf:SystemDropShadowChrome Name="Shdw" Margin="0,0,5,5">
+            <Border Name="SubMenuBorder"
+                    Background="{DynamicResource SystemColors.MenuBrush}"
+                    BorderThickness="1"
+                    BorderBrush="{DynamicResource SystemColors.ControlDarkBrush}">
+              <ScrollViewer Name="SubMenuScrollViewer" Theme="{StaticResource $F.MenuScrollViewer}">
+                <ItemsPresenter Name="PART_ItemsPresenter"
+                                ItemsPanel="{TemplateBinding ItemsPanel}"
+                                Margin="2"
+                                KeyboardNavigation.TabNavigation="Cycle"
+                                Grid.IsSharedSizeScope="True" />
+              </ScrollViewer>
+            </Border>
+          </wpf:SystemDropShadowChrome>
+        </Popup>
+      </Grid>
+    </Border>
+  </ControlTemplate>
+
+  <!-- The states every role shares, in WPF trigger order: icon, checked, highlighted, disabled. Each role theme ends
+       with the separator template (an item with the header "-"), so it wins over the :empty template switch. -->
+  <ControlTheme x:Key="$F.MenuItem.Base" TargetType="MenuItem">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.MenuTextBrush}" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="Template" Value="{StaticResource $F.MenuItem.SubmenuItemTemplate}" />
+    <Style Selector="^:icon /template/ ContentPresenter#Icon">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:checked">
+      <Style Selector="^ /template/ Path#GlyphPanel">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#Icon">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+    </Style>
+    <Style Selector="^:selected">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.HighlightTextBrush}" />
+      <Style Selector="^ /template/ Border#Bd">
+        <Setter Property="Background" Value="{DynamicResource SystemColors.HighlightBrush}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="$F.MenuItem.TopLevelHeader" TargetType="MenuItem" BasedOn="{StaticResource $F.MenuItem.Base}">
+    <Setter Property="Margin" Value="0,1,0,1" />
+    <Setter Property="Padding" Value="6,3,6,3" />
+    <Setter Property="Template" Value="{StaticResource $F.MenuItem.TopLevelHeaderTemplate}" />
+    <Style Selector="^:empty">
+      <Setter Property="Template" Value="{StaticResource $F.MenuItem.TopLevelItemTemplate}" />
+    </Style>
+    <Style Selector="^:separator">
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Separator Theme="{StaticResource $F.MenuItem.Separator}" />
+        </ControlTemplate>
+      </Setter>
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="$F.MenuItem.TopLevelItem" TargetType="MenuItem" BasedOn="{StaticResource $F.MenuItem.Base}">
+    <Setter Property="Margin" Value="0,1,0,1" />
+    <Setter Property="Padding" Value="6,3,6,3" />
+    <Setter Property="Template" Value="{StaticResource $F.MenuItem.TopLevelItemTemplate}" />
+    <Style Selector="^:separator">
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Separator Theme="{StaticResource $F.MenuItem.Separator}" />
+        </ControlTemplate>
+      </Setter>
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="$F.MenuItem.SubmenuHeader" TargetType="MenuItem" BasedOn="{StaticResource $F.MenuItem.Base}">
+    <Setter Property="Padding" Value="0,2,0,2" />
+    <Setter Property="Template" Value="{StaticResource $F.MenuItem.SubmenuHeaderTemplate}" />
+    <Style Selector="^:empty">
+      <Setter Property="Template" Value="{StaticResource $F.MenuItem.SubmenuItemTemplate}" />
+    </Style>
+    <Style Selector="^:separator">
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Separator Theme="{StaticResource $F.MenuItem.Separator}" />
+        </ControlTemplate>
+      </Setter>
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="$F.MenuItem.SubmenuItem" TargetType="MenuItem" BasedOn="{StaticResource $F.MenuItem.Base}">
+    <Setter Property="Padding" Value="0,2,0,2" />
+    <Setter Property="Template" Value="{StaticResource $F.MenuItem.SubmenuItemTemplate}" />
+    <Style Selector="^:separator">
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Separator Theme="{StaticResource $F.MenuItem.Separator}" />
+        </ControlTemplate>
+      </Setter>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,33 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    The pull-to-refresh indicator: a circular arrow the control rotates. The control inserts its content into PART_Root;
+    the hidden PART_ContentPresenter only satisfies ContentControl.
+  -->
+  <ControlTheme x:Key="{x:Type RefreshVisualizer}" TargetType="RefreshVisualizer">
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="IsHitTestVisible" Value="False" />
+    <Setter Property="Height" Value="100" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="Content">
+      <Template>
+        <Viewbox Name="PART_Icon" Width="20" Height="20">
+          <Path Data="{DynamicResource Aero2.Invented.Glyph.Refresh}"
+                Stroke="{Binding $parent[RefreshVisualizer].Foreground}"
+                StrokeThickness="1.5"
+                Margin="1" />
+        </Viewbox>
+      </Template>
+    </Setter>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Name="PART_Root"
+              MinHeight="80"
+              Background="{TemplateBinding Background}">
+          <ContentPresenter Name="PART_ContentPresenter" IsVisible="False" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

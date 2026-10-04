@@ -1,0 +1,41 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- TableView parts: the scroll viewer (WPF GridViewScrollViewerStyleKey) and the column header gripper [[Classic]]. -->
+  <ControlTheme x:Key="Classic.TableViewScrollViewer" TargetType="ScrollViewer">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="AllowAutoHide" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid ColumnDefinitions="*,Auto" RowDefinitions="*,Auto" Background="{TemplateBinding Background}">
+          <DockPanel Name="ContentPanel">
+            <TableViewColumnHeadersPresenter DockPanel.Dock="Top" />
+            <ScrollContentPresenter Name="PART_ContentPresenter"
+                                    HorizontalSnapPointsType="{TemplateBinding HorizontalSnapPointsType}"
+                                    VerticalSnapPointsType="{TemplateBinding VerticalSnapPointsType}"
+                                    HorizontalSnapPointsAlignment="{TemplateBinding HorizontalSnapPointsAlignment}"
+                                    VerticalSnapPointsAlignment="{TemplateBinding VerticalSnapPointsAlignment}"
+                                    Padding="{TemplateBinding Padding}"
+                                    ScrollViewer.IsScrollInertiaEnabled="{TemplateBinding IsScrollInertiaEnabled}">
+              <ScrollContentPresenter.GestureRecognizers>
+                <ScrollGestureRecognizer CanHorizontallyScroll="{Binding CanHorizontallyScroll, ElementName=PART_ContentPresenter}"
+                                         CanVerticallyScroll="{Binding CanVerticallyScroll, ElementName=PART_ContentPresenter}"
+                                         IsScrollInertiaEnabled="{Binding (ScrollViewer.IsScrollInertiaEnabled), ElementName=PART_ContentPresenter}" />
+              </ScrollContentPresenter.GestureRecognizers>
+            </ScrollContentPresenter>
+          </DockPanel>
+          <ScrollBar Name="PART_HorizontalScrollBar" Orientation="Horizontal" Grid.Column="0" Grid.Row="1" />
+          <ScrollBar Name="PART_VerticalScrollBar" Orientation="Vertical" Grid.Column="1" Grid.Row="0" />
+          <DockPanel Name="PART_ScrollBarsSeparator"
+                     Grid.Column="1"
+                     Grid.Row="1"
+                     Background="{DynamicResource SystemColors.ControlLightBrush}"
+                     LastChildFill="False">
+            <Rectangle DockPanel.Dock="Left" Width="1" Fill="{DynamicResource Classic.ListView.GridView.GridViewScrollViewerStyleKey.Rectangle#1.Fill}" />
+            <Rectangle DockPanel.Dock="Top" Height="1" Fill="{DynamicResource Classic.ListView.GridView.GridViewScrollViewerStyleKey.Rectangle#2.Fill}" />
+          </DockPanel>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

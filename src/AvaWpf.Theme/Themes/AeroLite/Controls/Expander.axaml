@@ -1,0 +1,88 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- WPF Expander.xaml, AeroLite.NormalColor; header toggles in _ExpanderToggleButton.axaml. -->
+  <ControlTheme x:Key="{x:Type Expander}" TargetType="Expander">
+    <Setter Property="Foreground" Value="{DynamicResource AeroLite.Expander.Static.Foreground}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Padding" Value="0,2" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Stretch" />
+    <!-- WPF Expander: IsTabStop false but Focusable; Keyboard.Focus shows the default focus visual around it. -->
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="Focusable" Value="True" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DockPanel Name="RootVisual">
+          <ToggleButton Name="HeaderSite"
+                        DockPanel.Dock="Top"
+                        Content="{TemplateBinding Header}"
+                        ContentTemplate="{TemplateBinding HeaderTemplate}"
+                        IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}"
+                        Foreground="{TemplateBinding Foreground}"
+                        Padding="{TemplateBinding Padding}"
+                        FontFamily="{TemplateBinding FontFamily}"
+                        FontSize="{TemplateBinding FontSize}"
+                        FontStyle="{TemplateBinding FontStyle}"
+                        FontWeight="{TemplateBinding FontWeight}"
+                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                        BorderBrush="{TemplateBinding BorderBrush}" />
+          <Border Name="ExpandSiteBorder"
+                  DockPanel.Dock="Bottom"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  Background="{TemplateBinding Background}"
+                  Padding="{TemplateBinding Padding}"
+                  IsVisible="False">
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Focusable="False"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+          </Border>
+        </DockPanel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^ /template/ ToggleButton#HeaderSite">
+      <Setter Property="Theme" Value="{StaticResource AeroLite.ExpanderToggleButton}" />
+    </Style>
+    <Style Selector="^:expanded /template/ Border#ExpandSiteBorder">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:disabled /template/ DockPanel#RootVisual">
+      <Setter Property="TextElement.Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+    <Style Selector="^:right">
+      <Setter Property="Padding" Value="2,0" />
+      <Style Selector="^ /template/ Border#ExpandSiteBorder">
+        <Setter Property="DockPanel.Dock" Value="Right" />
+      </Style>
+      <Style Selector="^ /template/ ToggleButton#HeaderSite">
+        <Setter Property="DockPanel.Dock" Value="Left" />
+        <Setter Property="Theme" Value="{StaticResource AeroLite.ExpanderRightHeaderStyle}" />
+      </Style>
+    </Style>
+    <Style Selector="^:up">
+      <Style Selector="^ /template/ Border#ExpandSiteBorder">
+        <Setter Property="DockPanel.Dock" Value="Top" />
+      </Style>
+      <Style Selector="^ /template/ ToggleButton#HeaderSite">
+        <Setter Property="DockPanel.Dock" Value="Bottom" />
+        <Setter Property="Theme" Value="{StaticResource AeroLite.ExpanderUpHeaderStyle}" />
+      </Style>
+    </Style>
+    <Style Selector="^:left">
+      <Setter Property="Padding" Value="2,0" />
+      <Style Selector="^ /template/ Border#ExpandSiteBorder">
+        <Setter Property="DockPanel.Dock" Value="Left" />
+      </Style>
+      <Style Selector="^ /template/ ToggleButton#HeaderSite">
+        <Setter Property="DockPanel.Dock" Value="Right" />
+        <Setter Property="Theme" Value="{StaticResource AeroLite.ExpanderLeftHeaderStyle}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

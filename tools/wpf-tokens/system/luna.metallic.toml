@@ -1,0 +1,27 @@
+# Windows XP Luna Silver (luna.msstyles normalmetallic.ini) SystemColors, Light.
+# Values marked normalmetallic.ini are the msstyles [SysMetrics] section (R G B), as listed in the author's palette notes;
+# the rest are the Windows XP SP3 defaults, which the visual style does not override.
+name = "Luna.Metallic"
+base = "xp-defaults"
+
+[colors]
+Window = { value = "#FFFFFF", source = "normalmetallic.ini [SysMetrics]" }
+MenuBar = { value = "#E0E2EB", source = "normalmetallic.ini [SysMetrics]" }
+Menu = { value = "#FFFFFF", source = "normalmetallic.ini [SysMetrics]" }
+Desktop = { value = "#585768", source = "normalmetallic.ini [SysMetrics]" }
+Control = { value = "#E0DFE3", source = "normalmetallic.ini [SysMetrics]" }
+Highlight = { value = "#B2B4BF", source = "normalmetallic.ini [SysMetrics]" }
+ActiveCaption = { value = "#C0C0C0", source = "normalmetallic.ini [SysMetrics]" }
+ActiveCaptionText = { value = "#0E1010", source = "normalmetallic.ini [SysMetrics]" }
+InactiveCaption = { value = "#FFFFFF", source = "normalmetallic.ini [SysMetrics]" }
+InactiveCaptionText = { value = "#A2A1A1", source = "normalmetallic.ini [SysMetrics]" }
+GradientActiveCaption = { value = "#C8C8C8", source = "normalmetallic.ini [SysMetrics]" }
+GradientInactiveCaption = { value = "#EEEFF7", source = "normalmetallic.ini [SysMetrics]" }
+HighlightText = { value = "#000000", source = "normalmetallic.ini [SysMetrics]" }
+MenuHighlight = { value = "#BBB7C7", source = "normalmetallic.ini [SysMetrics]" }
+ControlDark = { value = "#9D9DA1", source = "normalmetallic.ini [SysMetrics]" }
+GrayText = { value = "#ACA899", source = "normalmetallic.ini [SysMetrics]" }
+ControlLightLight = { value = "#FFFFFF", source = "normalmetallic.ini [SysMetrics]" }
+ControlDarkDark = { value = "#716F64", source = "normalmetallic.ini [SysMetrics]" }
+ControlLight = { value = "#F1EFE2", source = "normalmetallic.ini [SysMetrics]" }
+HotTrack = { value = "#648BCB", source = "normalmetallic.ini [SysMetrics]" }

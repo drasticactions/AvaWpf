@@ -1,0 +1,61 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- A text box with a suggestion list: the Aero2 TextBox over the WPF ComboBox drop-down (Aero2.NormalColor). -->
+  <ControlTheme x:Key="{x:Type AutoCompleteBox}" TargetType="AutoCompleteBox">
+    <Setter Property="VerticalAlignment" Value="Top" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="Background" Value="{DynamicResource SystemColors.WindowBrush}" />
+    <Setter Property="PlaceholderForeground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Aero2.TextBox.Static.Border}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Padding" Value="0,1" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Name="PART_LayoutRoot">
+          <TextBox Name="PART_TextBox"
+                   PlaceholderText="{TemplateBinding PlaceholderText}"
+                   PlaceholderForeground="{TemplateBinding PlaceholderForeground}"
+                   Width="{TemplateBinding Width}"
+                   Foreground="{TemplateBinding Foreground}"
+                   Background="{TemplateBinding Background}"
+                   BorderBrush="{TemplateBinding BorderBrush}"
+                   BorderThickness="{TemplateBinding BorderThickness}"
+                   CaretIndex="{TemplateBinding CaretIndex, Mode=TwoWay}"
+                   ClearSelectionOnLostFocus="{TemplateBinding ClearSelectionOnLostFocus}"
+                   Padding="{TemplateBinding Padding}"
+                   Margin="0"
+                   DataValidationErrors.Errors="{TemplateBinding (DataValidationErrors.Errors)}"
+                   MaxLength="{TemplateBinding MaxLength}"
+                   InnerLeftContent="{TemplateBinding InnerLeftContent}"
+                   InnerRightContent="{TemplateBinding InnerRightContent}" />
+          <Popup Name="PART_Popup"
+                 WindowManagerAddShadowHint="False"
+                 MinWidth="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}"
+                 MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                 IsLightDismissEnabled="True"
+                 PlacementTarget="{TemplateBinding}"
+                 wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.ComboBoxPopupAnimation}">
+            <wpf:SystemDropShadowChrome Name="shadow"
+                                        Classes.dropshadow="{DynamicResource SystemParameters.DropShadow}"
+                                        UseLayoutRounding="True">
+              <Border Name="PART_SuggestionsContainer"
+                      BorderBrush="{DynamicResource SystemColors.WindowFrameBrush}"
+                      Background="{DynamicResource SystemColors.WindowBrush}"
+                      BorderThickness="1">
+                <ListBox Name="PART_SelectingItemsControl"
+                         BorderThickness="0"
+                         Background="Transparent"
+                         ItemTemplate="{TemplateBinding ItemTemplate}"
+                         ScrollViewer.IsScrollChainingEnabled="False" />
+              </Border>
+            </wpf:SystemDropShadowChrome>
+          </Popup>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^ /template/ wpf|SystemDropShadowChrome#shadow.dropshadow">
+      <Setter Property="Margin" Value="0,0,5,5" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

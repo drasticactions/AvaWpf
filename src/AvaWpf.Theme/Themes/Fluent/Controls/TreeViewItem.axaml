@@ -1,0 +1,120 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/TreeViewItem.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!--
+    WPF DefaultTreeViewItemStyle and ExpandCollapseToggleButtonStyle (Fluent.TreeViewExpandCollapseToggle).
+    WPF's IsMouseOver lights up the whole branch; here only the row under the pointer does.
+  -->
+  <ControlTheme x:Key="Fluent.TreeViewExpandCollapseToggle" TargetType="ToggleButton">
+    <Setter Property="FocusAdorner" Value="{DynamicResource Fluent.CollectionFocusVisual}" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Name="ChevronContainer"
+              Width="15"
+              Height="15"
+              Background="Transparent"
+              RenderTransform="rotate(0deg)"
+              RenderTransformOrigin="50%,50%">
+          <Grid.Transitions>
+            <Transitions>
+              <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.16" />
+            </Transitions>
+          </Grid.Transitions>
+          <TextBlock Name="ChevronIcon"
+                     VerticalAlignment="Center"
+                     FontSize="{DynamicResource Fluent.TreeViewItemChevronSize}"
+                     FontFamily="{DynamicResource Fluent.SymbolThemeFontFamily}"
+                     HorizontalAlignment="Center"
+                     Text="{x:Static wpf:FluentGlyph.ChevronRight}" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <!-- Checked: the chevron turns to 90 degrees over 160 ms. -->
+    <Style Selector="^:checked /template/ Grid#ChevronContainer">
+      <Setter Property="RenderTransform" Value="rotate(90deg)" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type TreeViewItem}" TargetType="TreeViewItem">
+    <Setter Property="FocusAdorner" Value="{DynamicResource Fluent.CollectionFocusVisual}" />
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.TreeViewItemForeground}" />
+    <Setter Property="Background" Value="{DynamicResource Fluent.TreeViewItemBackground}" />
+    <Setter Property="Margin" Value="0,0,0,2" />
+    <Setter Property="Padding" Value="4" />
+    <Setter Property="CornerRadius" Value="{DynamicResource Fluent.ControlCornerRadius}" />
+    <Setter Property="IsTabStop" Value="True" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Background="{TemplateBinding Background}" RowDefinitions="Auto,Auto">
+          <Border Name="Border"
+                  Grid.Row="0"
+                  Background="Transparent"
+                  CornerRadius="{TemplateBinding CornerRadius}"
+                  Margin="{TemplateBinding Margin}">
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" MinWidth="19" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+              </Grid.ColumnDefinitions>
+              <Rectangle Name="ActiveRectangle"
+                         Grid.Column="0"
+                         Width="3"
+                         Height="16"
+                         Margin="0"
+                         HorizontalAlignment="Left"
+                         VerticalAlignment="Center"
+                         Fill="{DynamicResource Fluent.TreeViewItemSelectionIndicatorForeground}"
+                         RadiusX="2"
+                         RadiusY="2"
+                         IsVisible="False" />
+              <ToggleButton Name="Expander"
+                            Grid.Column="0"
+                            Margin="8,0"
+                            ClickMode="Press"
+                            IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}"
+                            Theme="{StaticResource Fluent.TreeViewExpandCollapseToggle}" />
+              <ContentPresenter Name="PART_Header"
+                                Grid.Column="1"
+                                Margin="{TemplateBinding Padding}"
+                                Content="{TemplateBinding Header}"
+                                ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                FontSize="{TemplateBinding FontSize}" />
+            </Grid>
+          </Border>
+          <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto" MinWidth="19" />
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ItemsPresenter Name="PART_ItemsPresenter"
+                            Grid.Column="1"
+                            Grid.ColumnSpan="2"
+                            IsVisible="{TemplateBinding IsExpanded}"
+                            ItemsPanel="{TemplateBinding ItemsPanel}" />
+          </Grid>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <!-- HasItems False: the chevron is hidden but keeps its space. -->
+    <Style Selector="^:empty /template/ ToggleButton#Expander">
+      <Setter Property="Opacity" Value="0" />
+      <Setter Property="IsHitTestVisible" Value="False" />
+    </Style>
+    <Style Selector="^ /template/ Border#Border:pointerover">
+      <Setter Property="Background" Value="{DynamicResource Fluent.TreeViewItemBackgroundPointerOver}" />
+    </Style>
+    <Style Selector="^:selected">
+      <Style Selector="^ /template/ Border#Border">
+        <Setter Property="Background" Value="{DynamicResource Fluent.TreeViewItemBackgroundSelected}" />
+      </Style>
+      <Style Selector="^ /template/ Rectangle#ActiveRectangle">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

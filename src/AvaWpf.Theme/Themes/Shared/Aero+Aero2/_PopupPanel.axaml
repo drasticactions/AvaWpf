@@ -1,0 +1,37 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- The WPF ContextMenu.xaml frame around any popup content (flyouts, menu flyouts). -->
+  <ControlTheme x:Key="$F.PopupPanel" TargetType="ContentControl">
+    <Setter Property="Background" Value="{DynamicResource $F.ContextMenu.ContextMenu.Setter.Self.Background}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource $F.ContextMenu.ContextMenu.Setter.Self.BorderBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Padding" Value="2" />
+    <Setter Property="FontFamily" Value="{DynamicResource SystemFonts.MenuFontFamily}" />
+    <Setter Property="FontSize" Value="{DynamicResource SystemFonts.MenuFontSize}" />
+    <Setter Property="FontWeight" Value="{DynamicResource SystemFonts.MenuFontWeight}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.MenuTextBrush}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <wpf:SystemDropShadowChrome Name="Shdw"
+                                    Classes.dropshadow="{DynamicResource SystemParameters.DropShadow}"
+                                    UseLayoutRounding="True">
+          <Border Name="PopupBorder"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}">
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Padding="{TemplateBinding Padding}"
+                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+          </Border>
+        </wpf:SystemDropShadowChrome>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^ /template/ wpf|SystemDropShadowChrome#Shdw.dropshadow">
+      <Setter Property="Margin" Value="0,0,5,5" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

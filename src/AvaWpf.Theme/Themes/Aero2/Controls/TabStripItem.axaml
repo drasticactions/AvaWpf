@@ -1,0 +1,59 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- A TabStrip tab, drawn as WPF TabItem with the strip on top, in WPF trigger order. -->
+  <ControlTheme x:Key="{x:Type TabStripItem}" TargetType="TabStripItem">
+    <Setter Property="FocusAdorner" Value="{DynamicResource Aero2.FocusVisual}" />
+    <Setter Property="Foreground" Value="{DynamicResource Aero2.TabItem.TabItem.Setter.Self.Foreground}" />
+    <Setter Property="Background" Value="{DynamicResource Aero2.TabItem.Static.Background}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Aero2.TabItem.Static.Border}" />
+    <Setter Property="Margin" Value="0" />
+    <Setter Property="Padding" Value="6,2,6,2" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Name="templateRoot" UseLayoutRounding="True">
+          <Border Name="mainBorder"
+                  BorderThickness="1,1,1,0"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}">
+            <Border Name="innerBorder"
+                    BorderThickness="1,1,1,0"
+                    Background="{DynamicResource Aero2.TabItem.Selected.Background}"
+                    BorderBrush="{DynamicResource Aero2.TabItem.Selected.Border}"
+                    Margin="-1"
+                    Opacity="0" />
+          </Border>
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Margin="{TemplateBinding Padding}"
+                            Focusable="False"
+                            RecognizesAccessKey="True" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#mainBorder">
+      <Setter Property="Background" Value="{DynamicResource Aero2.TabItem.MouseOver.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero2.TabItem.MouseOver.Border}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Opacity" Value="0.56" />
+      </Style>
+      <Style Selector="^ /template/ Border#mainBorder">
+        <Setter Property="Background" Value="{DynamicResource Aero2.TabItem.Disabled.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.TabItem.Disabled.Border}" />
+      </Style>
+    </Style>
+    <Style Selector="^:selected">
+      <Setter Property="ZIndex" Value="1" />
+      <Setter Property="Margin" Value="-2,-2,-2,-1" />
+      <Style Selector="^ /template/ Border#innerBorder">
+        <Setter Property="Opacity" Value="1" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

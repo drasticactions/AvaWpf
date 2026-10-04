@@ -1,0 +1,4 @@
+Luna.Metallic: Luna.ScrollBarButtonShadowDisabled missing; filled from NormalColor
+Luna.Metallic: Luna.ScrollBarButtonShadowNormal missing; filled from NormalColor
+Luna.NormalColor: Luna.HorizontalScrollBarPageButtonDisabled missing; filled from another scheme
+Luna.NormalColor: Luna.VerticalScrollBarPageButtonDisabled missing; filled from another scheme

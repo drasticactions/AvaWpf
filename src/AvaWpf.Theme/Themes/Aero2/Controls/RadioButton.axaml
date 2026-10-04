@@ -1,0 +1,140 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    WPF RadioButton.xaml, Aero2.NormalColor, in WPF trigger order. Class toolbar: WPF ToolBar.RadioButtonStyleKey.
+  -->
+  <ControlTheme x:Key="{x:Type RadioButton}" TargetType="RadioButton">
+    <Setter Property="FocusAdorner" Value="{DynamicResource Aero2.FocusVisual}" />
+    <Setter Property="Background" Value="{DynamicResource Aero2.RadioButton.Static.Background}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Aero2.RadioButton.Static.Border}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <!-- WPF Control defaults; the mark is aligned with them. -->
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+    <Setter Property="VerticalContentAlignment" Value="Top" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Name="templateRoot" UseLayoutRounding="True" Background="Transparent" ColumnDefinitions="Auto,*">
+          <Border Name="radioButtonBorder"
+                  Margin="1,1,2,1"
+                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  CornerRadius="100">
+            <Grid Name="markGrid" Margin="2">
+              <Ellipse Name="optionMark"
+                       Opacity="0"
+                       MinWidth="6"
+                       MinHeight="6"
+                       Fill="{DynamicResource Aero2.RadioButton.Static.Glyph}" />
+            </Grid>
+          </Border>
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Grid.Column="1"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            RecognizesAccessKey="True"
+                            Margin="{TemplateBinding Padding}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Focusable="False" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <!-- HasContent -->
+    <Style Selector="^:not(:empty)">
+      <Setter Property="FocusAdorner" Value="{DynamicResource Aero2.OptionMarkFocusVisual}" />
+      <Setter Property="Padding" Value="4,-1,0,0" />
+    </Style>
+    <Style Selector="^:pointerover">
+      <Style Selector="^ /template/ Border#radioButtonBorder">
+        <Setter Property="Background" Value="{DynamicResource Aero2.RadioButton.MouseOver.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.RadioButton.MouseOver.Border}" />
+      </Style>
+      <Style Selector="^ /template/ Ellipse#optionMark">
+        <Setter Property="Fill" Value="{DynamicResource Aero2.RadioButton.MouseOver.Glyph}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Style Selector="^ /template/ Border#radioButtonBorder">
+        <Setter Property="Background" Value="{DynamicResource Aero2.RadioButton.Disabled.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.RadioButton.Disabled.Border}" />
+      </Style>
+      <Style Selector="^ /template/ Ellipse#optionMark">
+        <Setter Property="Fill" Value="{DynamicResource Aero2.RadioButton.Disabled.Glyph}" />
+      </Style>
+    </Style>
+    <Style Selector="^:pressed">
+      <Style Selector="^ /template/ Border#radioButtonBorder">
+        <Setter Property="Background" Value="{DynamicResource Aero2.RadioButton.Pressed.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.RadioButton.Pressed.Border}" />
+      </Style>
+      <Style Selector="^ /template/ Ellipse#optionMark">
+        <Setter Property="Fill" Value="{DynamicResource Aero2.RadioButton.Pressed.Glyph}" />
+      </Style>
+    </Style>
+    <Style Selector="^:checked /template/ Ellipse#optionMark">
+      <Setter Property="Opacity" Value="1" />
+    </Style>
+    <Style Selector="^:indeterminate /template/ Ellipse#optionMark">
+      <Setter Property="Opacity" Value="0.56" />
+    </Style>
+
+    <Style Selector="^.toolbar">
+      <Setter Property="FocusAdorner" Value="{DynamicResource Aero2.FocusVisualStyle}" />
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+      <Setter Property="Padding" Value="2" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderBrush" Value="Transparent" />
+      <Setter Property="HorizontalAlignment" Value="Center" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+      <Setter Property="HorizontalContentAlignment" Value="Center" />
+      <Setter Property="VerticalContentAlignment" Value="Center" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Border Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  Padding="{TemplateBinding Padding}"
+                  UseLayoutRounding="True">
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+          </Border>
+        </ControlTemplate>
+      </Setter>
+      <Style Selector="^:checked">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ToolBarButtonHoverBorder}" />
+        <Setter Property="Background" Value="{DynamicResource Aero2.ToolBarButtonChecked}" />
+      </Style>
+      <Style Selector="^:pointerover">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ToolBarButtonHoverBorder}" />
+        <Setter Property="Background" Value="{DynamicResource Aero2.ToolBarButtonHover}" />
+      </Style>
+      <Style Selector="^:focus">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ToolBarButtonHoverBorder}" />
+        <Setter Property="Background" Value="{DynamicResource Aero2.ToolBarButtonHover}" />
+      </Style>
+      <Style Selector="^:pointerover:checked">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ToolBarButtonPressedBorder}" />
+        <Setter Property="Background" Value="{DynamicResource Aero2.ToolBarButtonPressed}" />
+      </Style>
+      <Style Selector="^:focus:checked">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ToolBarButtonPressedBorder}" />
+        <Setter Property="Background" Value="{DynamicResource Aero2.ToolBarButtonPressed}" />
+      </Style>
+      <Style Selector="^:pressed">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ToolBarButtonPressedBorder}" />
+        <Setter Property="Background" Value="{DynamicResource Aero2.ToolBarButtonPressed}" />
+      </Style>
+      <Style Selector="^:disabled">
+        <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

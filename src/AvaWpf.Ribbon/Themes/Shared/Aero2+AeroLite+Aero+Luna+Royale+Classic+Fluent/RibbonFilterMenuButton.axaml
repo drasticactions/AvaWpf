@@ -1,0 +1,46 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF RibbonFilterMenuButton.xaml, [[Generic]]: its menu lists "All" and the categories. -->
+  <ControlTheme x:Key="{x:Type wpf:RibbonFilterMenuButton}" TargetType="wpf:RibbonFilterMenuButton">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Padding" Value="4,1,4,1" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel Name="MainGrid">
+          <ToggleButton Name="PART_ToggleButton"
+                        Theme="{StaticResource $F.Ribbon.SplitButtonPart}"
+                        Background="{TemplateBinding Background}"
+                        Padding="{TemplateBinding Padding}"
+                        ClickMode="Press"
+                        IsChecked="{TemplateBinding IsDropDownOpen, Mode=TwoWay}">
+            <StackPanel Orientation="Horizontal" Spacing="4">
+              <TextBlock Name="PART_CurrentFilterItem" Text="{TemplateBinding Label}" VerticalAlignment="Center" />
+              <Path Name="Arrow" Data="{DynamicResource $F.Invented.Ribbon.Glyph.DownArrow}" Fill="{DynamicResource $F.Invented.Ribbon.FilterMenuButton.Arrow}" VerticalAlignment="Center" />
+            </StackPanel>
+          </ToggleButton>
+          <Popup Name="PART_Popup"
+                 Placement="BottomEdgeAlignedLeft"
+                 PlacementTarget="{Binding #PART_ToggleButton}"
+                 IsLightDismissEnabled="True"
+                 IsOpen="{TemplateBinding IsDropDownOpen, Mode=TwoWay}"
+                 wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.MenuPopupAnimation}">
+            <wpf:SystemDropShadowChrome Margin="0,0,5,5">
+              <Border BorderBrush="{DynamicResource $F.Invented.Ribbon.BorderBrush}"
+                      Background="{DynamicResource $F.Invented.Ribbon.Background}"
+                      BorderThickness="1"
+                      CornerRadius="{DynamicResource $F.Invented.Ribbon.Popup.CornerRadius}">
+                <Border Background="{DynamicResource $F.Invented.Ribbon.DropDown.Background}" CornerRadius="{DynamicResource $F.Invented.Ribbon.Popup.CornerRadius}">
+                  <ItemsPresenter Name="PART_ItemsPresenter" Margin="1" ItemsPanel="{TemplateBinding ItemsPanel}" Grid.IsSharedSizeScope="True" />
+                </Border>
+              </Border>
+            </wpf:SystemDropShadowChrome>
+          </Popup>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Path#Arrow">
+      <Setter Property="Fill" Value="{DynamicResource $F.Invented.Ribbon.FilterMenuButton.Arrow.MouseOver}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

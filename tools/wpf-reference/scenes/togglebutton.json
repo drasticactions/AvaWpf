@@ -1,0 +1,7 @@
+{
+  "control": "ToggleButton",
+  "width": 120,
+  "height": 50,
+  "properties": { "Content": "Toggle", "Width": 75, "Height": 23 },
+  "states": ["normal", "hover", "pressed", "focused", "checked", "disabled"]
+}

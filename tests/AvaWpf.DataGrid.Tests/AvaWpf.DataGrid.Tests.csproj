@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Headless.XUnit" />
+    <PackageReference Include="Avalonia.Skia" />
+    <PackageReference Include="Avalonia.HarfBuzz" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\AvaWpf.DataGrid\AvaWpf.DataGrid.csproj" />
+    <ProjectReference Include="..\..\src\AvaWpf.Theme\AvaWpf.Theme.csproj" />
+    <ProjectReference Include="..\..\src\AvaWpf.Fonts\AvaWpf.Fonts.csproj" />
+    <ProjectReference Include="..\..\src\AvaWpf.Animations\AvaWpf.Animations.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- The DataGrid theme XAML is read at test time to enumerate the resource keys each template consumes. -->
+    <Content Include="..\..\src\AvaWpf.DataGrid\Themes\**\*.axaml" Link="ThemeXaml\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

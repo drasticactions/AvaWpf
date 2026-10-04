@@ -1,0 +1,79 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/ScrollBar.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!--
+    Scroll bar parts: Fluent.ScrollBarLineButton, Fluent.ScrollBarPageButton, Fluent.ScrollBarThumb. The line button's
+    160 ms fade is on a transparent brush, so it shows nothing. Thumb classes vertical and horizontal are for the shared contract.
+  -->
+  <ControlTheme x:Key="Fluent.ScrollBarLineButton" TargetType="RepeatButton">
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.ScrollBarButtonArrowForeground}" />
+    <Setter Property="Background" Value="{DynamicResource Fluent.ScrollBarButtonBackground}" />
+    <Setter Property="Width" Value="{DynamicResource Fluent.LineButtonWidth}" />
+    <Setter Property="Height" Value="{DynamicResource Fluent.LineButtonHeight}" />
+    <Setter Property="FontSize" Value="{DynamicResource Fluent.ScrollBarButtonArrowIconFontSize}" />
+    <Setter Property="Margin" Value="0" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="Border"
+                Background="{TemplateBinding Background}"
+                CornerRadius="6"
+                UseLayoutRounding="True">
+          <Border.Transitions>
+            <Transitions>
+              <BrushTransition Property="Background" Duration="0:0:0.16" />
+            </Transitions>
+          </Border.Transitions>
+          <TextBlock Margin="0"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     FontSize="{TemplateBinding FontSize}"
+                     Foreground="{TemplateBinding Foreground}"
+                     FontFamily="{DynamicResource Fluent.SymbolThemeFontFamily}"
+                     Text="{TemplateBinding Content}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^.up">
+      <Setter Property="Content" Value="{x:Static wpf:FluentGlyph.CaretUpSolid8}" />
+    </Style>
+    <Style Selector="^.down">
+      <Setter Property="Content" Value="{x:Static wpf:FluentGlyph.CaretDownSolid8}" />
+    </Style>
+    <Style Selector="^.left">
+      <Setter Property="Content" Value="{x:Static wpf:FluentGlyph.CaretLeftSolid8}" />
+    </Style>
+    <Style Selector="^.right">
+      <Setter Property="Content" Value="{x:Static wpf:FluentGlyph.CaretRightSolid8}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Fluent.ScrollBarPageButton" TargetType="RepeatButton">
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="Transparent" />
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Fluent.ScrollBarThumb" TargetType="Thumb">
+    <Setter Property="Background" Value="{DynamicResource Fluent.ScrollBarThumbFill}" />
+    <Setter Property="CornerRadius" Value="4" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="1"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                UseLayoutRounding="True" />
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

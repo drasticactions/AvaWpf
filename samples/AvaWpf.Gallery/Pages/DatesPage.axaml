@@ -1,0 +1,13 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:wpf="https://github.com/avawpf"
+             x:Class="AvaWpf.Gallery.Pages.DatesPage">
+  <StackPanel Spacing="12">
+    <TextBlock Classes="Subtitle" Text="Calendar" />
+    <Calendar HorizontalAlignment="Left" />
+    <TextBlock Classes="Subtitle" Text="Date pickers" />
+    <CalendarDatePicker Width="180" HorizontalAlignment="Left" />
+    <DatePicker HorizontalAlignment="Left" />
+    <TimePicker HorizontalAlignment="Left" />
+  </StackPanel>
+</UserControl>

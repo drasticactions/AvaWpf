@@ -1,0 +1,44 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf"
+                    xmlns:luna="using:AvaWpf.Chrome.Luna">
+  <!-- DropDownButton from WPF BaseButtonStyle [[Luna.*]] with the MenuItem DownArrow at the right; the open flyout
+       draws the pressed face. -->
+  <ControlTheme x:Key="{x:Type DropDownButton}" TargetType="DropDownButton" BasedOn="{StaticResource Luna.BaseButtonStyle}">
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="Padding" Value="2,0" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <luna:ButtonChrome Name="Chrome"
+                           ThemeColor="{DynamicResource Luna.ThemeColor}"
+                           BorderBrush="{TemplateBinding BorderBrush}"
+                           Fill="{TemplateBinding Background}"
+                           RenderDefaulted="{TemplateBinding wpf:ButtonState.IsDefaulted}"
+                           RenderMouseOver="{TemplateBinding IsPointerOver}"
+                           RenderPressed="{TemplateBinding IsPressed}"
+                           UseLayoutRounding="True">
+          <Grid ColumnDefinitions="*,Auto">
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Padding="{TemplateBinding Padding}"
+                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                              RecognizesAccessKey="True" />
+            <Path Name="DropDownGlyph"
+                  Grid.Column="1"
+                  Margin="6,0,2,0"
+                  IsHitTestVisible="False"
+                  VerticalAlignment="Center"
+                  Fill="{TemplateBinding Foreground}"
+                  Data="{DynamicResource Luna.DownArrow}" />
+          </Grid>
+        </luna:ButtonChrome>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:flyout-open /template/ luna|ButtonChrome#Chrome">
+      <Setter Property="RenderPressed" Value="True" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

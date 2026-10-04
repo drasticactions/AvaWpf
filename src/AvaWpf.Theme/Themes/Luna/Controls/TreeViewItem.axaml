@@ -1,0 +1,61 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- WPF TreeViewItem.xaml with the family's ExpandCollapseToggleStyle. No focus rectangle: WPF's
+       TreeViewItemFocusVisual is an empty Rectangle. -->
+  <ControlTheme x:Key="{x:Type TreeViewItem}" TargetType="TreeViewItem">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Padding" Value="1,0,0,0" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid ColumnDefinitions="Auto,Auto,*" RowDefinitions="Auto,*">
+          <ToggleButton Name="Expander"
+                        Theme="{StaticResource Luna.TreeViewExpandCollapseToggle}"
+                        IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}" />
+          <Border Name="PART_Header"
+                  Grid.Column="1"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  Padding="{TemplateBinding Padding}"
+                  Classes.inactive="{Binding !$parent[TreeView].IsKeyboardFocusWithin}"
+                  UseLayoutRounding="True">
+            <ContentPresenter Name="PART_HeaderPresenter"
+                              Content="{TemplateBinding Header}"
+                              ContentTemplate="{TemplateBinding HeaderTemplate}"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Center" />
+          </Border>
+          <ItemsPresenter Name="PART_ItemsPresenter"
+                          Grid.Row="1"
+                          Grid.Column="1"
+                          Grid.ColumnSpan="2"
+                          ItemsPanel="{TemplateBinding ItemsPanel}"
+                          IsVisible="{TemplateBinding IsExpanded}" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:empty /template/ ToggleButton#Expander">
+      <Setter Property="Opacity" Value="0" />
+      <Setter Property="IsHitTestVisible" Value="False" />
+    </Style>
+    <Style Selector="^:selected">
+      <Style Selector="^ /template/ Border#PART_Header">
+        <Setter Property="Background" Value="{DynamicResource SystemColors.HighlightBrush}" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#PART_HeaderPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource SystemColors.HighlightTextBrush}" />
+      </Style>
+      <Style Selector="^ /template/ Border#PART_Header.inactive">
+        <Setter Property="Background" Value="{DynamicResource SystemColors.InactiveSelectionHighlightBrush}" />
+      </Style>
+      <Style Selector="^ /template/ Border#PART_Header.inactive > ContentPresenter#PART_HeaderPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource SystemColors.InactiveSelectionHighlightTextBrush}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

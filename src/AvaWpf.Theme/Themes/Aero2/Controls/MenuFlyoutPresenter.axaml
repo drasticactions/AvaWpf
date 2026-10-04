@@ -1,0 +1,48 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- A menu flyout, drawn as the WPF ContextMenu: Aero2.PopupPanel with the icon gutter behind the items. -->
+  <ControlTheme x:Key="{x:Type MenuFlyoutPresenter}" TargetType="MenuFlyoutPresenter">
+    <!-- Focusable like the ContextMenu: the flyout then focuses the menu rather than its first item, so no item is
+         highlighted until a key is pressed, as in a WPF ContextMenu opened with the mouse. -->
+    <Setter Property="Focusable" Value="True" />
+    <Setter Property="Padding" Value="2" />
+    <Setter Property="Grid.IsSharedSizeScope" Value="True" />
+    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ContentControl Name="LayoutRoot"
+                        Theme="{StaticResource Aero2.PopupPanel}"
+                        Padding="0">
+          <ScrollViewer Name="ContextMenuScrollViewer"
+                        Margin="1,0"
+                        Theme="{DynamicResource Aero2.MenuScrollViewer}">
+            <Grid>
+              <Rectangle Fill="{DynamicResource Aero2.ContextMenu.ContextMenu.Rectangle#1.Fill}"
+                         HorizontalAlignment="Left"
+                         Width="28"
+                         Margin="1,2"
+                         RadiusX="2"
+                         RadiusY="2" />
+              <Rectangle HorizontalAlignment="Left"
+                         Width="1"
+                         Margin="29,2,0,2"
+                         Fill="{DynamicResource Aero2.ContextMenu.ContextMenu.Rectangle#2.Fill}" />
+              <Rectangle HorizontalAlignment="Left"
+                         Width="1"
+                         Margin="30,2,0,2"
+                         Fill="{DynamicResource Aero2.ContextMenu.ContextMenu.Rectangle#3.Fill}" />
+              <ItemsPresenter Name="PART_ItemsPresenter"
+                              ItemsPanel="{TemplateBinding ItemsPanel}"
+                              Margin="{TemplateBinding Padding}"
+                              KeyboardNavigation.TabNavigation="Continue"
+                              Grid.IsSharedSizeScope="True"
+                              UseLayoutRounding="True" />
+            </Grid>
+          </ScrollViewer>
+        </ContentControl>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

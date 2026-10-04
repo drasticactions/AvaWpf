@@ -1,0 +1,40 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- The group header glyph, from WPF ExpanderDownHeaderStyle, Classic. -->
+  <ControlTheme x:Key="Classic.DataGridRowGroupExpanderButton" TargetType="ToggleButton">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <wpf:ClassicBorderDecorator x:Name="Bd"
+                                    Width="19"
+                                    Height="19"
+                                    BorderStyle="None"
+                                    Background="{DynamicResource SystemColors.ControlBrush}"
+                                    BorderThickness="1"
+                                    BorderBrush="{x:Static wpf:ClassicBorderDecorator.ClassicBorderBrush}"
+                                    UseLayoutRounding="True">
+          <Path x:Name="arrow"
+                Width="8.53"
+                Height="6.06"
+                UseLayoutRounding="False"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Stroke="{TemplateBinding Foreground}"
+                StrokeThickness="1.5"
+                Data="{DynamicResource Classic.Expander.ExpanderDownHeaderStyle.arrow.Data}" />
+        </wpf:ClassicBorderDecorator>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:checked /template/ Path#arrow">
+      <Setter Property="Data" Value="{DynamicResource Classic.Expander.ExpanderDownHeaderStyle.arrow.Data.IsChecked_true}" />
+      <Setter Property="Height" Value="5.03" />
+    </Style>
+    <Style Selector="^:pointerover /template/ wpf|ClassicBorderDecorator#Bd">
+      <Setter Property="BorderStyle" Value="ThinRaised" />
+    </Style>
+    <Style Selector="^:pressed /template/ wpf|ClassicBorderDecorator#Bd">
+      <Setter Property="BorderStyle" Value="ThinPressed" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

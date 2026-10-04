@@ -1,0 +1,60 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF TabItem.xaml [[Classic]]. The selected tab has Margin -2, so it covers the page border under it. -->
+  <ControlTheme x:Key="{x:Type TabItem}" TargetType="TabItem">
+    <Setter Property="FocusAdorner" Value="{DynamicResource Classic.TabItemFocusVisual}" />
+    <Setter Property="Padding" Value="12,2,12,2" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Stretch" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <wpf:ClassicBorderDecorator Name="ClassicBorder"
+                                    UseLayoutRounding="True"
+                                    BorderStyle="TabTop"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{x:Static wpf:ClassicBorderDecorator.ClassicBorderBrush}"
+                                    BorderThickness="2">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Header}"
+                            ContentTemplate="{TemplateBinding HeaderTemplate}"
+                            HorizontalAlignment="{Binding $parent[TabControl].HorizontalContentAlignment, FallbackValue=Center}"
+                            VerticalAlignment="{Binding $parent[TabControl].VerticalContentAlignment, FallbackValue=Center}"
+                            Margin="{TemplateBinding Padding}"
+                            RecognizesAccessKey="True" />
+        </wpf:ClassicBorderDecorator>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:selected">
+      <Setter Property="ZIndex" Value="1" />
+    </Style>
+    <Style Selector="^[TabStripPlacement=Bottom] /template/ wpf|ClassicBorderDecorator#ClassicBorder">
+      <Setter Property="BorderStyle" Value="TabBottom" />
+    </Style>
+    <Style Selector="^[TabStripPlacement=Left] /template/ wpf|ClassicBorderDecorator#ClassicBorder">
+      <Setter Property="BorderStyle" Value="TabLeft" />
+    </Style>
+    <Style Selector="^[TabStripPlacement=Right] /template/ wpf|ClassicBorderDecorator#ClassicBorder">
+      <Setter Property="BorderStyle" Value="TabRight" />
+    </Style>
+    <Style Selector="^:selected[TabStripPlacement=Top]">
+      <Setter Property="Margin" Value="-2" />
+    </Style>
+    <Style Selector="^:selected[TabStripPlacement=Bottom]">
+      <Setter Property="Margin" Value="-2" />
+    </Style>
+    <Style Selector="^:selected[TabStripPlacement=Left]">
+      <Setter Property="Padding" Value="11,2,14,2" />
+      <Setter Property="Margin" Value="-2" />
+    </Style>
+    <Style Selector="^:selected[TabStripPlacement=Right]">
+      <Setter Property="Padding" Value="14,2,11,2" />
+      <Setter Property="Margin" Value="-2" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

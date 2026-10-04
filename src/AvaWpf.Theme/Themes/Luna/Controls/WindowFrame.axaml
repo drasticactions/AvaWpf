@@ -1,0 +1,353 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- Windows XP Luna window frame: a vector redraw for the three Luna schemes, picked with the AvaWpf.ColorScheme
+       resource. -->
+  <ControlTheme x:Key="Luna.WindowFrame.CaptionButton" TargetType="Button">
+    <Setter Property="Width" Value="{DynamicResource Luna.Invented.WindowFrame.ButtonSize}" />
+    <Setter Property="Height" Value="{DynamicResource Luna.Invented.WindowFrame.ButtonSize}" />
+    <Setter Property="Margin" Value="0,0,3,0" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="border"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{DynamicResource Luna.Invented.WindowFrame.ButtonCornerRadius}"
+                UseLayoutRounding="True">
+          <Path Name="glyph"
+                Data="{TemplateBinding Content}"
+                Fill="{TemplateBinding Foreground}"
+                Stretch="None"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type wpf:WindowFrame}" TargetType="wpf:WindowFrame">
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Luna.Invented.WindowFrame.NormalColor.Edge.Active}" />
+    <Setter Property="Background" Value="{DynamicResource Luna.Invented.WindowFrame.NormalColor.Face.Active}" />
+    <Setter Property="CornerRadius" Value="{DynamicResource Luna.Invented.WindowFrame.CornerRadius}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.WindowTextBrush}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel Name="root" Tag="{DynamicResource AvaWpf.ColorScheme}">
+          <Border Name="frame"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{TemplateBinding CornerRadius}"
+                  UseLayoutRounding="True">
+            <DockPanel>
+              <Border Name="caption" DockPanel.Dock="Top"
+                      Background="{DynamicResource Luna.Invented.WindowFrame.NormalColor.Caption.Active}"
+                      CornerRadius="{DynamicResource Luna.Invented.WindowFrame.CaptionCornerRadius}">
+                <Grid Name="PART_Caption"
+                      Height="{DynamicResource Luna.Invented.WindowFrame.CaptionHeight}"
+                      Background="Transparent"
+                      ColumnDefinitions="Auto,Auto,Auto,*,Auto">
+                  <Image Name="icon" Grid.Column="0" Source="{TemplateBinding Icon}" Width="16" Height="16" Margin="4,0,0,0" VerticalAlignment="Center" />
+                  <!-- Caption slots (a RibbonWindow puts its Quick Access Toolbar and contextual tab group headers
+                       here). Empty areas are not hit, so they drag the window through PART_Caption. -->
+                  <ContentPresenter Name="PART_CaptionContentPresenter" Grid.Column="1"
+                                    Content="{TemplateBinding CaptionContent}"
+                                    VerticalAlignment="Center"
+                                    IsVisible="{TemplateBinding CaptionContent, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                  <ContentPresenter Name="PART_CaptionOverlayPresenter" Grid.Column="2"
+                                    Content="{TemplateBinding CaptionOverlay}"
+                                    VerticalAlignment="Stretch"
+                                    IsVisible="{TemplateBinding CaptionOverlay, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                  <Panel Name="titlePanel" Grid.Column="3" Margin="4,0,4,0" VerticalAlignment="Center" ClipToBounds="True">
+                    <TextBlock Name="titleShadow"
+                               Text="{TemplateBinding Title}"
+                               Margin="1,1,0,0"
+                               TextTrimming="CharacterEllipsis"
+                               FontFamily="{DynamicResource SystemFonts.CaptionFontFamily}"
+                               FontSize="{DynamicResource SystemFonts.CaptionFontSize}"
+                               FontWeight="{DynamicResource SystemFonts.CaptionFontWeight}"
+                               Foreground="{DynamicResource Luna.Invented.WindowFrame.NormalColor.Title.Shadow}" />
+                    <TextBlock Name="title"
+                               Text="{TemplateBinding Title}"
+                               Margin="0,0,1,1"
+                               TextTrimming="CharacterEllipsis"
+                               FontFamily="{DynamicResource SystemFonts.CaptionFontFamily}"
+                               FontSize="{DynamicResource SystemFonts.CaptionFontSize}"
+                               FontWeight="{DynamicResource SystemFonts.CaptionFontWeight}"
+                               Foreground="{DynamicResource Luna.Invented.WindowFrame.NormalColor.Title.Active}" />
+                  </Panel>
+                  <StackPanel Grid.Column="4" Orientation="Horizontal" Margin="0,0,0,0">
+                    <Button Name="PART_MinimizeButton" Theme="{StaticResource Luna.WindowFrame.CaptionButton}" Classes="caption"
+                            Content="{DynamicResource Luna.Invented.WindowFrame.MinimizeGlyph}"
+                            IsVisible="{TemplateBinding IsMinimizeButtonVisible}" />
+                    <Button Name="PART_MaximizeButton" Theme="{StaticResource Luna.WindowFrame.CaptionButton}" Classes="caption"
+                            Content="{DynamicResource Luna.Invented.WindowFrame.MaximizeGlyph}"
+                            IsVisible="{TemplateBinding IsMaximizeButtonVisible}" />
+                    <Button Name="PART_CloseButton" Theme="{StaticResource Luna.WindowFrame.CaptionButton}" Classes="close"
+                            Content="{DynamicResource Luna.Invented.WindowFrame.CloseGlyph}" />
+                  </StackPanel>
+                </Grid>
+              </Border>
+              <Border Name="client"
+                      Background="{DynamicResource SystemColors.ControlBrush}"
+                      Margin="2,0,2,2"
+                      BorderThickness="1"
+                      BorderBrush="{DynamicResource Luna.Invented.WindowFrame.NormalColor.InnerEdge.Active}">
+                <DockPanel>
+                  <ContentPresenter Name="menu" DockPanel.Dock="Top" Content="{TemplateBinding MenuBar}" IsVisible="{TemplateBinding MenuBar, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                  <ContentPresenter Name="PART_ContentPresenter"
+                                    Content="{TemplateBinding Content}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    HorizontalContentAlignment="Stretch"
+                                    VerticalContentAlignment="Stretch" />
+                </DockPanel>
+              </Border>
+            </DockPanel>
+          </Border>
+          <!-- Resize borders: 4 px edges and 8 px corners over the frame. -->
+          <Panel Name="resize">
+            <Border wpf:WindowFrame.ResizeEdge="North" Height="4" VerticalAlignment="Top" Background="Transparent" />
+            <Border wpf:WindowFrame.ResizeEdge="South" Height="4" VerticalAlignment="Bottom" Background="Transparent" />
+            <Border wpf:WindowFrame.ResizeEdge="West" Width="4" HorizontalAlignment="Left" Background="Transparent" />
+            <Border wpf:WindowFrame.ResizeEdge="East" Width="4" HorizontalAlignment="Right" Background="Transparent" />
+            <Border wpf:WindowFrame.ResizeEdge="NorthWest" Width="8" Height="8" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Transparent" />
+            <Border wpf:WindowFrame.ResizeEdge="NorthEast" Width="8" Height="8" HorizontalAlignment="Right" VerticalAlignment="Top" Background="Transparent" />
+            <Border wpf:WindowFrame.ResizeEdge="SouthWest" Width="8" Height="8" HorizontalAlignment="Left" VerticalAlignment="Bottom" Background="Transparent" />
+            <Border wpf:WindowFrame.ResizeEdge="SouthEast" Width="8" Height="8" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="Transparent" />
+          </Panel>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+
+    <!-- Active window: the scheme colors (the first scheme is the template default). -->
+    <Style Selector="^ /template/ Panel#root[Tag=Metallic] Border#frame">
+      <Setter Property="Background" Value="{DynamicResource Luna.Invented.WindowFrame.Metallic.Face.Active}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Luna.Invented.WindowFrame.Metallic.Edge.Active}" />
+    </Style>
+    <Style Selector="^ /template/ Panel#root[Tag=Metallic] Border#caption">
+      <Setter Property="Background" Value="{DynamicResource Luna.Invented.WindowFrame.Metallic.Caption.Active}" />
+    </Style>
+    <Style Selector="^ /template/ Panel#root[Tag=Metallic] Border#client">
+      <Setter Property="BorderBrush" Value="{DynamicResource Luna.Invented.WindowFrame.Metallic.InnerEdge.Active}" />
+    </Style>
+    <Style Selector="^ /template/ Panel#root[Tag=Metallic] TextBlock#title">
+      <Setter Property="Foreground" Value="{DynamicResource Luna.Invented.WindowFrame.Metallic.Title.Active}" />
+    </Style>
+    <Style Selector="^ /template/ Panel#root[Tag=Metallic] TextBlock#titleShadow">
+      <Setter Property="Foreground" Value="{DynamicResource Luna.Invented.WindowFrame.Metallic.Title.Shadow}" />
+    </Style>
+    <Style Selector="^ /template/ Panel#root[Tag=Homestead] Border#frame">
+      <Setter Property="Background" Value="{DynamicResource Luna.Invented.WindowFrame.Homestead.Face.Active}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Luna.Invented.WindowFrame.Homestead.Edge.Active}" />
+    </Style>
+    <Style Selector="^ /template/ Panel#root[Tag=Homestead] Border#caption">
+      <Setter Property="Background" Value="{DynamicResource Luna.Invented.WindowFrame.Homestead.Caption.Active}" />
+    </Style>
+    <Style Selector="^ /template/ Panel#root[Tag=Homestead] Border#client">
+      <Setter Property="BorderBrush" Value="{DynamicResource Luna.Invented.WindowFrame.Homestead.InnerEdge.Active}" />
+    </Style>
+    <Style Selector="^ /template/ Panel#root[Tag=Homestead] TextBlock#title">
+      <Setter Property="Foreground" Value="{DynamicResource Luna.Invented.WindowFrame.Homestead.Title.Active}" />
+    </Style>
+    <Style Selector="^ /template/ Panel#root[Tag=Homestead] TextBlock#titleShadow">
+      <Setter Property="Foreground" Value="{DynamicResource Luna.Invented.WindowFrame.Homestead.Title.Shadow}" />
+    </Style>
+    <!-- Inactive window. -->
+    <Style Selector="^:inactive /template/ Panel#root Border#frame">
+      <Setter Property="Background" Value="{DynamicResource Luna.Invented.WindowFrame.NormalColor.Face.Inactive}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Luna.Invented.WindowFrame.NormalColor.Edge.Inactive}" />
+    </Style>
+    <Style Selector="^:inactive /template/ Panel#root Border#caption">
+      <Setter Property="Background" Value="{DynamicResource Luna.Invented.WindowFrame.NormalColor.Caption.Inactive}" />
+    </Style>
+    <Style Selector="^:inactive /template/ Panel#root Border#client">
+      <Setter Property="BorderBrush" Value="{DynamicResource Luna.Invented.WindowFrame.NormalColor.InnerEdge.Inactive}" />
+    </Style>
+    <Style Selector="^:inactive /template/ Panel#root TextBlock#title">
+      <Setter Property="Foreground" Value="{DynamicResource Luna.Invented.WindowFrame.NormalColor.Title.Inactive}" />
+    </Style>
+    <Style Selector="^:inactive /template/ Panel#root TextBlock#titleShadow">
+      <Setter Property="Foreground" Value="{DynamicResource Luna.Invented.WindowFrame.NormalColor.Title.InactiveShadow}" />
+    </Style>
+    <Style Selector="^:inactive /template/ Panel#root[Tag=Metallic] Border#frame">
+      <Setter Property="Background" Value="{DynamicResource Luna.Invented.WindowFrame.Metallic.Face.Inactive}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Luna.Invented.WindowFrame.Metallic.Edge.Inactive}" />
+    </Style>
+    <Style Selector="^:inactive /template/ Panel#root[Tag=Metallic] Border#caption">
+      <Setter Property="Background" Value="{DynamicResource Luna.Invented.WindowFrame.Metallic.Caption.Inactive}" />
+    </Style>
+    <Style Selector="^:inactive /template/ Panel#root[Tag=Metallic] Border#client">
+      <Setter Property="BorderBrush" Value="{DynamicResource Luna.Invented.WindowFrame.Metallic.InnerEdge.Inactive}" />
+    </Style>
+    <Style Selector="^:inactive /template/ Panel#root[Tag=Metallic] TextBlock#title">
+      <Setter Property="Foreground" Value="{DynamicResource Luna.Invented.WindowFrame.Metallic.Title.Inactive}" />
+    </Style>
+    <Style Selector="^:inactive /template/ Panel#root[Tag=Metallic] TextBlock#titleShadow">
+      <Setter Property="Foreground" Value="{DynamicResource Luna.Invented.WindowFrame.Metallic.Title.InactiveShadow}" />
+    </Style>
+    <Style Selector="^:inactive /template/ Panel#root[Tag=Homestead] Border#frame">
+      <Setter Property="Background" Value="{DynamicResource Luna.Invented.WindowFrame.Homestead.Face.Inactive}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Luna.Invented.WindowFrame.Homestead.Edge.Inactive}" />
+    </Style>
+    <Style Selector="^:inactive /template/ Panel#root[Tag=Homestead] Border#caption">
+      <Setter Property="Background" Value="{DynamicResource Luna.Invented.WindowFrame.Homestead.Caption.Inactive}" />
+    </Style>
+    <Style Selector="^:inactive /template/ Panel#root[Tag=Homestead] Border#client">
+      <Setter Property="BorderBrush" Value="{DynamicResource Luna.Invented.WindowFrame.Homestead.InnerEdge.Inactive}" />
+    </Style>
+    <Style Selector="^:inactive /template/ Panel#root[Tag=Homestead] TextBlock#title">
+      <Setter Property="Foreground" Value="{DynamicResource Luna.Invented.WindowFrame.Homestead.Title.Inactive}" />
+    </Style>
+    <Style Selector="^:inactive /template/ Panel#root[Tag=Homestead] TextBlock#titleShadow">
+      <Setter Property="Foreground" Value="{DynamicResource Luna.Invented.WindowFrame.Homestead.Title.InactiveShadow}" />
+    </Style>
+    <!-- Caption buttons: normal, inactive window, hot, pressed (a later state wins). -->
+    <Style Selector="^ /template/ Panel#root Button.caption">
+      <Setter Property="Background" Value="{DynamicResource Luna.Invented.WindowFrame.NormalColor.Button.Normal}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Luna.Invented.WindowFrame.NormalColor.Button.Border}" />
+      <Setter Property="Foreground" Value="{DynamicResource Luna.Invented.WindowFrame.NormalColor.Button.Glyph}" />
+    </Style>
+    <Style Selector="^ /template/ Panel#root Button.close">
+      <Setter Property="Background" Value="{DynamicResource Luna.Invented.WindowFrame.NormalColor.Close.Normal}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Luna.Invented.WindowFrame.NormalColor.Button.Border}" />
+      <Setter Property="Foreground" Value="{DynamicResource Luna.Invented.WindowFrame.NormalColor.Close.Glyph}" />
+    </Style>
+    <Style Selector="^ /template/ Panel#root[Tag=Metallic] Button.caption">
+      <Setter Property="Background" Value="{DynamicResource Luna.Invented.WindowFrame.Metallic.Button.Normal}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Luna.Invented.WindowFrame.Metallic.Button.Border}" />
+      <Setter Property="Foreground" Value="{DynamicResource Luna.Invented.WindowFrame.Metallic.Button.Glyph}" />
+    </Style>
+    <Style Selector="^ /template/ Panel#root[Tag=Metallic] Button.close">
+      <Setter Property="Background" Value="{DynamicResource Luna.Invented.WindowFrame.Metallic.Close.Normal}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Luna.Invented.WindowFrame.Metallic.Button.Border}" />
+      <Setter Property="Foreground" Value="{DynamicResource Luna.Invented.WindowFrame.Metallic.Close.Glyph}" />
+    </Style>
+    <Style Selector="^ /template/ Panel#root[Tag=Homestead] Button.caption">
+      <Setter Property="Background" Value="{DynamicResource Luna.Invented.WindowFrame.Homestead.Button.Normal}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Luna.Invented.WindowFrame.Homestead.Button.Border}" />
+      <Setter Property="Foreground" Value="{DynamicResource Luna.Invented.WindowFrame.Homestead.Button.Glyph}" />
+    </Style>
+    <Style Selector="^ /template/ Panel#root[Tag=Homestead] Button.close">
+      <Setter Property="Background" Value="{DynamicResource Luna.Invented.WindowFrame.Homestead.Close.Normal}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Luna.Invented.WindowFrame.Homestead.Button.Border}" />
+      <Setter Property="Foreground" Value="{DynamicResource Luna.Invented.WindowFrame.Homestead.Close.Glyph}" />
+    </Style>
+    <Style Selector="^:inactive /template/ Panel#root Button.caption">
+      <Setter Property="Background" Value="{DynamicResource Luna.Invented.WindowFrame.NormalColor.Button.Inactive}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Luna.Invented.WindowFrame.NormalColor.Button.InactiveBorder}" />
+    </Style>
+    <Style Selector="^:inactive /template/ Panel#root Button.close">
+      <Setter Property="Background" Value="{DynamicResource Luna.Invented.WindowFrame.NormalColor.Close.Inactive}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Luna.Invented.WindowFrame.NormalColor.Button.InactiveBorder}" />
+    </Style>
+    <Style Selector="^:inactive /template/ Panel#root[Tag=Metallic] Button.caption">
+      <Setter Property="Background" Value="{DynamicResource Luna.Invented.WindowFrame.Metallic.Button.Inactive}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Luna.Invented.WindowFrame.Metallic.Button.InactiveBorder}" />
+    </Style>
+    <Style Selector="^:inactive /template/ Panel#root[Tag=Metallic] Button.close">
+      <Setter Property="Background" Value="{DynamicResource Luna.Invented.WindowFrame.Metallic.Close.Inactive}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Luna.Invented.WindowFrame.Metallic.Button.InactiveBorder}" />
+    </Style>
+    <Style Selector="^:inactive /template/ Panel#root[Tag=Homestead] Button.caption">
+      <Setter Property="Background" Value="{DynamicResource Luna.Invented.WindowFrame.Homestead.Button.Inactive}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Luna.Invented.WindowFrame.Homestead.Button.InactiveBorder}" />
+    </Style>
+    <Style Selector="^:inactive /template/ Panel#root[Tag=Homestead] Button.close">
+      <Setter Property="Background" Value="{DynamicResource Luna.Invented.WindowFrame.Homestead.Close.Inactive}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Luna.Invented.WindowFrame.Homestead.Button.InactiveBorder}" />
+    </Style>
+    <Style Selector="^ /template/ Panel#root Button.caption:pointerover">
+      <Setter Property="Background" Value="{DynamicResource Luna.Invented.WindowFrame.NormalColor.Button.Hot}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Luna.Invented.WindowFrame.NormalColor.Button.Border}" />
+    </Style>
+    <Style Selector="^ /template/ Panel#root Button.close:pointerover">
+      <Setter Property="Background" Value="{DynamicResource Luna.Invented.WindowFrame.NormalColor.Close.Hot}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Luna.Invented.WindowFrame.NormalColor.Button.Border}" />
+    </Style>
+    <Style Selector="^ /template/ Panel#root[Tag=Metallic] Button.caption:pointerover">
+      <Setter Property="Background" Value="{DynamicResource Luna.Invented.WindowFrame.Metallic.Button.Hot}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Luna.Invented.WindowFrame.Metallic.Button.Border}" />
+    </Style>
+    <Style Selector="^ /template/ Panel#root[Tag=Metallic] Button.close:pointerover">
+      <Setter Property="Background" Value="{DynamicResource Luna.Invented.WindowFrame.Metallic.Close.Hot}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Luna.Invented.WindowFrame.Metallic.Button.Border}" />
+    </Style>
+    <Style Selector="^ /template/ Panel#root[Tag=Homestead] Button.caption:pointerover">
+      <Setter Property="Background" Value="{DynamicResource Luna.Invented.WindowFrame.Homestead.Button.Hot}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Luna.Invented.WindowFrame.Homestead.Button.Border}" />
+    </Style>
+    <Style Selector="^ /template/ Panel#root[Tag=Homestead] Button.close:pointerover">
+      <Setter Property="Background" Value="{DynamicResource Luna.Invented.WindowFrame.Homestead.Close.Hot}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Luna.Invented.WindowFrame.Homestead.Button.Border}" />
+    </Style>
+    <Style Selector="^ /template/ Panel#root Button.caption:pressed">
+      <Setter Property="Background" Value="{DynamicResource Luna.Invented.WindowFrame.NormalColor.Button.Pressed}" />
+    </Style>
+    <Style Selector="^ /template/ Panel#root Button.close:pressed">
+      <Setter Property="Background" Value="{DynamicResource Luna.Invented.WindowFrame.NormalColor.Close.Pressed}" />
+    </Style>
+    <Style Selector="^ /template/ Panel#root[Tag=Metallic] Button.caption:pressed">
+      <Setter Property="Background" Value="{DynamicResource Luna.Invented.WindowFrame.Metallic.Button.Pressed}" />
+    </Style>
+    <Style Selector="^ /template/ Panel#root[Tag=Metallic] Button.close:pressed">
+      <Setter Property="Background" Value="{DynamicResource Luna.Invented.WindowFrame.Metallic.Close.Pressed}" />
+    </Style>
+    <Style Selector="^ /template/ Panel#root[Tag=Homestead] Button.caption:pressed">
+      <Setter Property="Background" Value="{DynamicResource Luna.Invented.WindowFrame.Homestead.Button.Pressed}" />
+    </Style>
+    <Style Selector="^ /template/ Panel#root[Tag=Homestead] Button.close:pressed">
+      <Setter Property="Background" Value="{DynamicResource Luna.Invented.WindowFrame.Homestead.Close.Pressed}" />
+    </Style>
+    <Style Selector="^ /template/ Button:disabled">
+      <Setter Property="Opacity" Value="0.6" />
+    </Style>
+
+    <Style Selector="^:noicon /template/ Image#icon">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <!-- Maximized: the caption fills the top edge; no outer edge, no rounded corners, no resize borders. -->
+    <Style Selector="^:maximized">
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="CornerRadius" Value="0" />
+    </Style>
+    <Style Selector="^:maximized /template/ Border#caption">
+      <Setter Property="CornerRadius" Value="0" />
+    </Style>
+    <Style Selector="^:maximized /template/ Border#client">
+      <Setter Property="Margin" Value="0" />
+      <Setter Property="BorderThickness" Value="0" />
+    </Style>
+    <Style Selector="^:maximized /template/ Panel#resize">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:maximized /template/ Button#PART_MaximizeButton">
+      <Setter Property="Content" Value="{DynamicResource Luna.Invented.WindowFrame.RestoreGlyph}" />
+    </Style>
+    <!-- Tool window: the small caption, small buttons and the small caption font. -->
+    <Style Selector="^:tool /template/ Grid#PART_Caption">
+      <Setter Property="Height" Value="{DynamicResource Luna.Invented.WindowFrame.ToolCaptionHeight}" />
+    </Style>
+    <Style Selector="^:tool /template/ Button">
+      <Setter Property="Width" Value="{DynamicResource Luna.Invented.WindowFrame.ToolButtonSize}" />
+      <Setter Property="Height" Value="{DynamicResource Luna.Invented.WindowFrame.ToolButtonSize}" />
+      <Setter Property="Margin" Value="0,0,2,0" />
+    </Style>
+    <!-- XP tool windows have only the close button. -->
+    <Style Selector="^:tool /template/ Button.caption">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:tool /template/ Image#icon">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:tool /template/ TextBlock">
+      <Setter Property="FontFamily" Value="{DynamicResource SystemFonts.SmallCaptionFontFamily}" />
+      <Setter Property="FontSize" Value="{DynamicResource SystemFonts.SmallCaptionFontSize}" />
+      <Setter Property="FontWeight" Value="{DynamicResource SystemFonts.SmallCaptionFontWeight}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

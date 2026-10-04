@@ -1,0 +1,7 @@
+{
+  "control": "Menu",
+  "width": 220,
+  "height": 40,
+  "properties": { "Items": ["File", "Edit", "View"], "Width": 200 },
+  "states": ["normal", "hover", "disabled"]
+}

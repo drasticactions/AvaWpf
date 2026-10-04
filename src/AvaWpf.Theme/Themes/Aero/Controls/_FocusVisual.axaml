@@ -1,0 +1,43 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    WPF ButtonFocusVisual, CheckRadioFocusVisual and EmptyCheckRadioFocusVisual, [[Aero.NormalColor]].
+    OptionMarkFocusVisual is the name the shared templates use for CheckRadioFocusVisual.
+  -->
+  <FocusAdornerTemplate x:Key="Aero.FocusVisual">
+    <Rectangle Margin="2"
+               StrokeThickness="1"
+               Stroke="{DynamicResource SystemColors.ControlTextBrush}"
+               StrokeDashArray="1,2"
+               UseLayoutRounding="True" />
+  </FocusAdornerTemplate>
+  <FocusAdornerTemplate x:Key="Aero.CheckRadioFocusVisual">
+    <Rectangle Margin="14,0,0,0"
+               StrokeThickness="1"
+               Stroke="{DynamicResource SystemColors.ControlTextBrush}"
+               StrokeDashArray="1,2"
+               UseLayoutRounding="True" />
+  </FocusAdornerTemplate>
+  <FocusAdornerTemplate x:Key="Aero.EmptyCheckRadioFocusVisual">
+    <Rectangle Margin="1"
+               StrokeThickness="1"
+               Stroke="{DynamicResource SystemColors.ControlTextBrush}"
+               StrokeDashArray="1,2"
+               UseLayoutRounding="True" />
+  </FocusAdornerTemplate>
+  <FocusAdornerTemplate x:Key="Aero.OptionMarkFocusVisual">
+    <Rectangle Margin="14,0,0,0"
+               StrokeThickness="1"
+               Stroke="{DynamicResource SystemColors.ControlTextBrush}"
+               StrokeDashArray="1,2"
+               UseLayoutRounding="True" />
+  </FocusAdornerTemplate>
+  <!-- WPF ComboBox.xaml ComboBoxFocusVisual (shared section): inset 4 px, 21 px on the right past the arrow. -->
+  <FocusAdornerTemplate x:Key="Aero.ComboBoxFocusVisual">
+    <Rectangle Margin="4,4,21,4"
+               StrokeThickness="1"
+               Stroke="{DynamicResource SystemColors.ControlTextBrush}"
+               StrokeDashArray="1,2"
+               UseLayoutRounding="True" />
+  </FocusAdornerTemplate>
+</ResourceDictionary>

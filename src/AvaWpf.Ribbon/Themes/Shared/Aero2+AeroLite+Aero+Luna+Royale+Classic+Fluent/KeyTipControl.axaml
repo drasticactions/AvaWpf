@@ -1,0 +1,31 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF KeyTipControl.xaml, [[Generic]]. -->
+  <ControlTheme x:Key="{x:Type wpf:KeyTipControl}" TargetType="wpf:KeyTipControl">
+    <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.Background}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource $F.Invented.Ribbon.BorderBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Padding" Value="3,0" />
+    <Setter Property="FontSize" Value="{DynamicResource SystemFonts.StatusFontSize}" />
+    <Setter Property="FontFamily" Value="{DynamicResource SystemFonts.StatusFontFamily}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlDarkDarkBrush}" />
+    <Setter Property="MinWidth" Value="20" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="OuterBorder"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="1">
+          <Border Name="InnerBorder" Padding="{TemplateBinding Padding}" Background="{DynamicResource $F.Invented.Ribbon.ToolTip.Overlay}">
+            <TextBlock Text="{TemplateBinding Text}" HorizontalAlignment="Center" />
+          </Border>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource $F.Invented.Ribbon.Disabled.Foreground}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

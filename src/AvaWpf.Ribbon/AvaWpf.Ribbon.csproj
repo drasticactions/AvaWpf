@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>AvaWpf.Ribbon</RootNamespace>
+    <PackageId>AvaWpf.Ribbon</PackageId>
+    <Description>A port of the WPF Ribbon (System.Windows.Controls.Ribbon) to Avalonia, themed for every AvaWpf family.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AvaWpf.Animations\AvaWpf.Animations.csproj" />
+    <ProjectReference Include="..\AvaWpf.Theme\AvaWpf.Theme.csproj" />
+    <ProjectReference Include="..\AvaWpf.Controls\AvaWpf.Controls.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="AvaWpf.Ribbon.Tests" />
+  </ItemGroup>
+
+  <Import Project="..\SharedThemes.targets" />
+
+</Project>

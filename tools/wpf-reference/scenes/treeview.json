@@ -1,0 +1,7 @@
+{
+  "control": "TreeView",
+  "width": 160,
+  "height": 100,
+  "properties": { "Items": ["Item 1", "Item 2", "Item 3"], "Width": 140, "Height": 80 },
+  "states": ["normal", "disabled"]
+}

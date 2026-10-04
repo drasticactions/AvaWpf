@@ -1,0 +1,7 @@
+{
+  "control": "CheckBox",
+  "width": 160,
+  "height": 50,
+  "properties": { "Content": "CheckBox" },
+  "states": ["normal", "hover", "pressed", "focused", "checked", "disabled"]
+}

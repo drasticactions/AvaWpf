@@ -1,0 +1,71 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- DatePicker in the Aero ComboBox look: the day, month and year fields on the Aero button glass. -->
+  <ControlTheme x:Key="{x:Type DatePicker}" TargetType="DatePicker">
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.WindowTextBrush}" />
+    <Setter Property="Background" Value="{DynamicResource Aero.ButtonNormalBackground}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Aero.ButtonNormalBorder}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="MinWidth" Value="200" />
+    <Setter Property="MaxWidth" Value="456" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Name="LayoutRoot" Margin="{TemplateBinding Padding}">
+          <Button Name="PART_FlyoutButton"
+                  Theme="{StaticResource Aero.DateTimePickerFlyoutButton}"
+                  Classes.open="{Binding #PART_Popup.IsOpen}"
+                  Foreground="{TemplateBinding Foreground}"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  IsEnabled="{TemplateBinding IsEnabled}"
+                  MinWidth="{TemplateBinding MinWidth}"
+                  MaxWidth="{TemplateBinding MaxWidth}"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  TemplatedControl.IsTemplateFocusTarget="True">
+            <Grid Name="PART_ButtonContentGrid" ColumnDefinitions="78*,Auto,132*,Auto,78*">
+              <TextBlock Name="PART_DayTextBlock" Text="day" HorizontalAlignment="Center" Padding="4,3" />
+              <TextBlock Name="PART_MonthTextBlock" Text="month" TextAlignment="Left" Padding="9,3,4,3" />
+              <TextBlock Name="PART_YearTextBlock" Text="year" HorizontalAlignment="Center" Padding="4,3" />
+              <Rectangle Name="PART_FirstSpacer"
+                         Fill="{DynamicResource SystemColors.ControlDarkBrush}"
+                         HorizontalAlignment="Center"
+                         Margin="0,3"
+                         Width="1"
+                         Grid.Column="1" />
+              <Rectangle Name="PART_SecondSpacer"
+                         Fill="{DynamicResource SystemColors.ControlDarkBrush}"
+                         HorizontalAlignment="Center"
+                         Margin="0,3"
+                         Width="1"
+                         Grid.Column="3" />
+            </Grid>
+          </Button>
+          <Popup Name="PART_Popup"
+                 WindowManagerAddShadowHint="False"
+                 IsLightDismissEnabled="True"
+                 PlacementTarget="{TemplateBinding}"
+                 Placement="Bottom"
+                 wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.ComboBoxPopupAnimation}">
+            <DatePickerPresenter Name="PART_PickerPresenter" />
+          </Popup>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^ /template/ Button#PART_FlyoutButton TextBlock">
+      <Setter Property="VerticalAlignment" Value="{TemplateBinding VerticalContentAlignment}" />
+    </Style>
+    <Style Selector="^:hasnodate /template/ Button#PART_FlyoutButton TextBlock">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+      <Setter Property="Background" Value="{DynamicResource Aero.ComboBox.ComboBox.Self.Background.IsEnabled_false}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

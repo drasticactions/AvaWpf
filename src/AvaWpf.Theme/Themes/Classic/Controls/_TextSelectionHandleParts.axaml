@@ -1,0 +1,7 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- The selection and caret handle geometries for TextSelectionHandle. -->
+  <StreamGeometry x:Key="Classic.TextSelectionHandleGeometry">M 0 0 L 16 0 A 16 16 0 0 1 0 16 Z</StreamGeometry>
+
+  <StreamGeometry x:Key="Classic.TextCaretHandleGeometry">M 8 0 L 16 8 L 16 16 L 0 16 L 0 8 Z</StreamGeometry>
+</ResourceDictionary>

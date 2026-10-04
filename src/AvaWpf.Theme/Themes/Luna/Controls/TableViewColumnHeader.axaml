@@ -1,0 +1,70 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- TableViewColumnHeader from WPF ListView.xaml GridViewColumnHeader [[Luna.*]]. The gripper is the column resizer. -->
+  <ControlTemplate x:Key="Luna.GridViewColumnHeaderGripperTemplate" TargetType="Thumb">
+    <Border Padding="0,3,0,4" Background="Transparent">
+      <DockPanel HorizontalAlignment="Center">
+        <Rectangle Width="1" Fill="{TemplateBinding Background}" />
+        <Rectangle Width="1" Fill="{DynamicResource Luna.ListView.GridViewColumnHeaderGripper.Rectangle#2.Fill}" />
+      </DockPanel>
+    </Border>
+  </ControlTemplate>
+
+  <ControlTheme x:Key="{x:Type TableViewColumnHeader}" TargetType="TableViewColumnHeader">
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Background" Value="{DynamicResource Luna.GridViewColumnHeaderBackground}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Padding" Value="2,0,2,0" />
+    <Setter Property="MinHeight" Value="20" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="ClipToBounds" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Background="{TemplateBinding Background}" UseLayoutRounding="True">
+          <Border Name="HighlightBorder"
+                  VerticalAlignment="Bottom"
+                  Background="{DynamicResource Luna.GridViewColumnHeaderHighlightBackground}"
+                  BorderBrush="{DynamicResource Luna.GridViewColumnHeaderDarkBackground}"
+                  Height="3"
+                  BorderThickness="0,0,0,1" />
+          <Border BorderThickness="{TemplateBinding BorderThickness}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  Padding="{TemplateBinding Padding}"
+                  Margin="1,0,1,0">
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Margin="0,0,0,1"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              RecognizesAccessKey="True" />
+          </Border>
+          <Thumb Name="PART_Resizer"
+                 Template="{StaticResource Luna.GridViewColumnHeaderGripperTemplate}"
+                 Background="{DynamicResource Luna.GridViewColumnHeaderGripperBackground}"
+                 Width="18"
+                 Margin="0,0,-9,0"
+                 HorizontalAlignment="Right"
+                 Cursor="SizeWestEast"
+                 IsEnabled="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Column?.CanUserEffectivelyResize, FallbackValue=False}" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover">
+      <Setter Property="Background" Value="{DynamicResource Luna.GridViewColumnHeaderHoverBackground}" />
+      <Style Selector="^ /template/ Border#HighlightBorder">
+        <Setter Property="BorderBrush" Value="{DynamicResource Luna.TabItemHotBorderBrush}" />
+        <Setter Property="Background" Value="{DynamicResource Luna.TabItemHotBorderBackround}" />
+        <Setter Property="CornerRadius" Value="0,0,3,3" />
+        <Setter Property="BorderThickness" Value="1,0,1,1" />
+      </Style>
+      <Style Selector="^ /template/ Thumb#PART_Resizer">
+        <Setter Property="Background" Value="Transparent" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

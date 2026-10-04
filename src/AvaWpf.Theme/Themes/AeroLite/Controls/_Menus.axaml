@@ -1,0 +1,382 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:conv="using:Avalonia.Controls.Converters"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!--
+    WPF MenuItem.xaml menu parts, AeroLite.NormalColor: MenuScrollButton, MenuScrollViewer and the four role templates.
+    The Menu applies AeroLite.MenuItem.TopLevelHeader, which switches to TopLevelItem without children; the MenuItem
+    theme is SubmenuItem and switches to SubmenuHeader with children, as WPF picks by Role.
+  -->
+  <conv:PlatformKeyGestureConverter x:Key="AeroLite.KeyGestureConverter" />
+
+  <ControlTheme x:Key="AeroLite.MenuScrollButton" TargetType="RepeatButton">
+    <Setter Property="ClickMode" Value="Release" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="templateRoot"
+                UseLayoutRounding="True"
+                Background="Transparent"
+                BorderBrush="Transparent"
+                BorderThickness="1">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            Margin="6"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pressed /template/ Border#templateRoot">
+      <Setter Property="Background" Value="{DynamicResource AeroLite.MenuItem.Highlight.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.MenuItem.Highlight.Border}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="AeroLite.MenuScrollViewer" TargetType="ScrollViewer">
+    <Setter Property="HorizontalScrollBarVisibility" Value="Hidden" />
+    <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+    <Setter Property="IsScrollChainingEnabled" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid UseLayoutRounding="True" RowDefinitions="Auto,*,Auto">
+          <Border Grid.Row="1">
+            <ScrollContentPresenter Name="PART_ContentPresenter" Margin="{TemplateBinding Padding}" />
+          </Border>
+          <RepeatButton Grid.Row="0"
+                        Theme="{StaticResource AeroLite.MenuScrollButton}"
+                        Command="{Binding LineUp, RelativeSource={RelativeSource TemplatedParent}}">
+            <RepeatButton.IsVisible>
+              <MultiBinding Converter="{x:Static conv:MenuScrollingVisibilityConverter.Instance}" ConverterParameter="0">
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="VerticalScrollBarVisibility" />
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Offset.Y" />
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Extent.Height" />
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Viewport.Height" />
+              </MultiBinding>
+            </RepeatButton.IsVisible>
+            <Path Data="{DynamicResource AeroLite.UpArrow}" Fill="{DynamicResource SystemColors.MenuTextBrush}" />
+          </RepeatButton>
+          <RepeatButton Grid.Row="2"
+                        Theme="{StaticResource AeroLite.MenuScrollButton}"
+                        Command="{Binding LineDown, RelativeSource={RelativeSource TemplatedParent}}">
+            <RepeatButton.IsVisible>
+              <MultiBinding Converter="{x:Static conv:MenuScrollingVisibilityConverter.Instance}" ConverterParameter="100">
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="VerticalScrollBarVisibility" />
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Offset.Y" />
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Extent.Height" />
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Viewport.Height" />
+              </MultiBinding>
+            </RepeatButton.IsVisible>
+            <Path Data="{DynamicResource AeroLite.DownArrow}" Fill="{DynamicResource SystemColors.MenuTextBrush}" />
+          </RepeatButton>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <!--
+    The submenu popup frame, shared by the TopLevelHeader and SubmenuHeader templates. The scroll viewer stays in
+    those templates: Avalonia applies a templated parent's theme setters to template children of its target type, so
+    a ScrollViewer (a ContentControl) here would take this template too and draw a second frame.
+  -->
+  <ControlTheme x:Key="AeroLite.SubMenuBorder" TargetType="ContentControl">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <wpf:SystemDropShadowChrome Margin="0,0,5,5">
+          <Border Name="SubMenuBorder"
+                  Background="{DynamicResource SystemColors.MenuBrush}"
+                  BorderBrush="{DynamicResource AeroLite.Menu.Border}"
+                  BorderThickness="1"
+                  Padding="2"
+                  UseLayoutRounding="True">
+            <ContentPresenter Name="PART_ContentPresenter" Content="{TemplateBinding Content}" />
+          </Border>
+        </wpf:SystemDropShadowChrome>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTemplate x:Key="AeroLite.MenuItem.TopLevelItemTemplate" TargetType="MenuItem">
+    <Border Name="templateRoot"
+            UseLayoutRounding="True"
+            BorderThickness="{TemplateBinding BorderThickness}"
+            Background="{TemplateBinding Background}"
+            BorderBrush="{TemplateBinding BorderBrush}">
+      <Grid VerticalAlignment="Center" ColumnDefinitions="Auto,Auto">
+        <ContentPresenter Name="Icon"
+                          Content="{TemplateBinding Icon}"
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Center"
+                          Width="16"
+                          Height="16"
+                          Margin="3"
+                          IsVisible="False" />
+        <Path Name="GlyphPanel"
+              Data="{DynamicResource AeroLite.Checkmark}"
+              FlowDirection="LeftToRight"
+              Margin="3"
+              IsVisible="False"
+              VerticalAlignment="Center"
+              Fill="{TemplateBinding Foreground}" />
+        <ContentPresenter Name="PART_HeaderPresenter"
+                          Grid.Column="1"
+                          Content="{TemplateBinding Header}"
+                          ContentTemplate="{TemplateBinding HeaderTemplate}"
+                          RecognizesAccessKey="True"
+                          Margin="{TemplateBinding Padding}" />
+      </Grid>
+    </Border>
+  </ControlTemplate>
+
+  <ControlTemplate x:Key="AeroLite.MenuItem.TopLevelHeaderTemplate" TargetType="MenuItem">
+    <Border Name="templateRoot"
+            UseLayoutRounding="True"
+            BorderThickness="{TemplateBinding BorderThickness}"
+            Background="{TemplateBinding Background}"
+            BorderBrush="{TemplateBinding BorderBrush}">
+      <Grid VerticalAlignment="Center" ColumnDefinitions="Auto,Auto">
+        <ContentPresenter Name="Icon"
+                          Content="{TemplateBinding Icon}"
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Center"
+                          Width="16"
+                          Height="16"
+                          Margin="3"
+                          IsVisible="False" />
+        <Path Name="GlyphPanel"
+              Data="{DynamicResource AeroLite.Checkmark}"
+              FlowDirection="LeftToRight"
+              Margin="3"
+              IsVisible="False"
+              VerticalAlignment="Center"
+              Fill="{TemplateBinding Foreground}" />
+        <ContentPresenter Name="PART_HeaderPresenter"
+                          Grid.Column="1"
+                          Content="{TemplateBinding Header}"
+                          ContentTemplate="{TemplateBinding HeaderTemplate}"
+                          RecognizesAccessKey="True"
+                          Margin="{TemplateBinding Padding}" />
+        <Popup Name="PART_Popup"
+               IsLightDismissEnabled="True"
+               WindowManagerAddShadowHint="False"
+               IsOpen="{TemplateBinding IsSubMenuOpen, Mode=TwoWay}"
+               Placement="BottomEdgeAlignedLeft"
+               PlacementTarget="templateRoot"
+               OverlayInputPassThroughElement="{Binding $parent[Menu]}"
+               wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.MenuPopupAnimation}">
+          <ContentControl Theme="{StaticResource AeroLite.SubMenuBorder}"
+                          FontFamily="{DynamicResource SystemFonts.MenuFontFamily}"
+                          FontSize="{DynamicResource SystemFonts.MenuFontSize}"
+                          Foreground="{DynamicResource AeroLite.MenuItem.SubLevel.Static.Foreground}">
+            <ScrollViewer Name="SubMenuScrollViewer" Theme="{StaticResource AeroLite.MenuScrollViewer}">
+              <Panel>
+                <Rectangle HorizontalAlignment="Left"
+                           Width="1"
+                           Margin="29,2,0,2"
+                           Fill="{DynamicResource SystemColors.ControlDarkBrush}" />
+                <ItemsPresenter Name="PART_ItemsPresenter"
+                                ItemsPanel="{TemplateBinding ItemsPanel}"
+                                KeyboardNavigation.TabNavigation="Cycle"
+                                Grid.IsSharedSizeScope="True" />
+              </Panel>
+            </ScrollViewer>
+          </ContentControl>
+        </Popup>
+      </Grid>
+    </Border>
+  </ControlTemplate>
+
+  <ControlTemplate x:Key="AeroLite.MenuItem.SubmenuItemTemplate" TargetType="MenuItem">
+    <Border Name="templateRoot"
+            UseLayoutRounding="True"
+            BorderThickness="{TemplateBinding BorderThickness}"
+            Background="{TemplateBinding Background}"
+            BorderBrush="{TemplateBinding BorderBrush}">
+      <Grid Margin="-1">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition MinWidth="22" SharedSizeGroup="MenuItemIconColumnGroup" Width="Auto" />
+          <ColumnDefinition Width="13" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="30" />
+          <ColumnDefinition SharedSizeGroup="MenuItemIGTColumnGroup" Width="Auto" />
+          <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+        <ContentPresenter Name="Icon"
+                          Content="{TemplateBinding Icon}"
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Center"
+                          Width="16"
+                          Height="16"
+                          Margin="3"
+                          IsVisible="False" />
+        <Border Name="GlyphPanel"
+                Opacity="0"
+                Height="22"
+                Width="22"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Background="{DynamicResource AeroLite.MenuItem.Highlight.Background}"
+                BorderBrush="{DynamicResource AeroLite.MenuItem.Highlight.Border}"
+                BorderThickness="1"
+                Margin="-1,0,0,0">
+          <Path Name="Glyph"
+                Data="{DynamicResource AeroLite.Checkmark}"
+                FlowDirection="LeftToRight"
+                Height="11"
+                Width="9"
+                Fill="{DynamicResource AeroLite.MenuItem.Selected.Glyph}" />
+        </Border>
+        <ContentPresenter Name="PART_HeaderPresenter"
+                          Grid.Column="2"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Center"
+                          Content="{TemplateBinding Header}"
+                          ContentTemplate="{TemplateBinding HeaderTemplate}"
+                          RecognizesAccessKey="True"
+                          Margin="{TemplateBinding Padding}" />
+        <TextBlock Name="menuGestureText"
+                   Grid.Column="4"
+                   Text="{TemplateBinding InputGesture, Converter={StaticResource AeroLite.KeyGestureConverter}}"
+                   Margin="{TemplateBinding Padding}"
+                   VerticalAlignment="Center"
+                   Opacity="0.7" />
+      </Grid>
+    </Border>
+  </ControlTemplate>
+
+  <ControlTemplate x:Key="AeroLite.MenuItem.SubmenuHeaderTemplate" TargetType="MenuItem">
+    <Border Name="templateRoot"
+            UseLayoutRounding="True"
+            BorderThickness="{TemplateBinding BorderThickness}"
+            Background="{TemplateBinding Background}"
+            BorderBrush="{TemplateBinding BorderBrush}">
+      <Grid Margin="-1">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition MinWidth="22" SharedSizeGroup="MenuItemIconColumnGroup" Width="Auto" />
+          <ColumnDefinition Width="13" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="30" />
+          <ColumnDefinition SharedSizeGroup="MenuItemIGTColumnGroup" Width="Auto" />
+          <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+        <ContentPresenter Name="Icon"
+                          Content="{TemplateBinding Icon}"
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Center"
+                          Width="16"
+                          Height="16"
+                          Margin="3"
+                          IsVisible="False" />
+        <Border Name="GlyphPanel"
+                BorderThickness="1"
+                Height="22"
+                Width="22"
+                Opacity="0"
+                VerticalAlignment="Center"
+                Margin="-1,0,0,0"
+                BorderBrush="{DynamicResource AeroLite.MenuItem.Highlight.Border}"
+                Background="{DynamicResource AeroLite.MenuItem.Highlight.Background}">
+          <Path Name="Glyph"
+                Data="{DynamicResource AeroLite.Checkmark}"
+                FlowDirection="LeftToRight"
+                Height="11"
+                Width="9"
+                Fill="{DynamicResource AeroLite.MenuItem.Selected.Glyph}" />
+        </Border>
+        <ContentPresenter Name="PART_HeaderPresenter"
+                          Grid.Column="2"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Center"
+                          Content="{TemplateBinding Header}"
+                          ContentTemplate="{TemplateBinding HeaderTemplate}"
+                          RecognizesAccessKey="True"
+                          Margin="{TemplateBinding Padding}" />
+        <TextBlock Grid.Column="4"
+                   Text="{TemplateBinding InputGesture, Converter={StaticResource AeroLite.KeyGestureConverter}}"
+                   VerticalAlignment="Center"
+                   Margin="{TemplateBinding Padding}"
+                   Opacity="0.7" />
+        <Path Name="RightArrow"
+              Grid.Column="5"
+              Data="{DynamicResource AeroLite.RightArrow}"
+              Margin="10,0,0,0"
+              VerticalAlignment="Center"
+              HorizontalAlignment="Left"
+              Fill="{TemplateBinding Foreground}" />
+        <Popup Name="PART_Popup"
+               IsLightDismissEnabled="False"
+               WindowManagerAddShadowHint="False"
+               IsOpen="{TemplateBinding IsSubMenuOpen, Mode=TwoWay}"
+               Placement="RightEdgeAlignedTop"
+               HorizontalOffset="-2"
+               VerticalOffset="-3"
+               wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.MenuPopupAnimation}">
+          <ContentControl Theme="{StaticResource AeroLite.SubMenuBorder}"
+                          FontFamily="{DynamicResource SystemFonts.MenuFontFamily}"
+                          FontSize="{DynamicResource SystemFonts.MenuFontSize}"
+                          Foreground="{DynamicResource AeroLite.MenuItem.SubLevel.Static.Foreground}">
+            <ScrollViewer Name="SubMenuScrollViewer" Theme="{StaticResource AeroLite.MenuScrollViewer}">
+              <Panel>
+                <Rectangle HorizontalAlignment="Left"
+                           Width="1"
+                           Margin="29,2,0,2"
+                           Fill="{DynamicResource SystemColors.ControlDarkBrush}" />
+                <ItemsPresenter Name="PART_ItemsPresenter"
+                                ItemsPanel="{TemplateBinding ItemsPanel}"
+                                KeyboardNavigation.TabNavigation="Cycle"
+                                Grid.IsSharedSizeScope="True" />
+              </Panel>
+            </ScrollViewer>
+          </ContentControl>
+        </Popup>
+      </Grid>
+    </Border>
+  </ControlTemplate>
+
+  <!-- The top level roles: WPF's MenuItem style triggers on Role TopLevelHeader / TopLevelItem. -->
+  <ControlTheme x:Key="AeroLite.MenuItem.TopLevelHeader" TargetType="MenuItem">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Padding" Value="6,0" />
+    <Setter Property="Template" Value="{StaticResource AeroLite.MenuItem.TopLevelHeaderTemplate}" />
+    <Style Selector="^:empty">
+      <Setter Property="Template" Value="{StaticResource AeroLite.MenuItem.TopLevelItemTemplate}" />
+    </Style>
+    <Style Selector="^:icon /template/ ContentPresenter#Icon">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:checked">
+      <Style Selector="^ /template/ Path#GlyphPanel">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#Icon">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+    </Style>
+    <Style Selector="^:selected /template/ Border#templateRoot">
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.MenuItem.Highlight.Border}" />
+      <Setter Property="TextElement.Foreground" Value="{DynamicResource AeroLite.MenuItem.Highlight.Foreground}" />
+    </Style>
+    <Style Selector="^:empty:selected /template/ Border#templateRoot">
+      <Setter Property="Background" Value="{DynamicResource AeroLite.MenuItem.Highlight.Background}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Border#templateRoot, ^:open /template/ Border#templateRoot">
+      <Setter Property="Background" Value="{DynamicResource AeroLite.MenuItem.Pressed.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.MenuItem.Pressed.Border}" />
+      <Setter Property="TextElement.Foreground" Value="{DynamicResource AeroLite.MenuItem.Pressed.Foreground}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Path#GlyphPanel, ^:open /template/ Path#GlyphPanel">
+      <Setter Property="Fill" Value="{DynamicResource AeroLite.MenuItem.Pressed.Foreground}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Style Selector="^ /template/ Border#templateRoot">
+        <Setter Property="TextElement.Foreground" Value="{DynamicResource AeroLite.MenuItem.Disabled.Foreground}" />
+      </Style>
+      <Style Selector="^ /template/ Path#GlyphPanel">
+        <Setter Property="Fill" Value="{DynamicResource AeroLite.MenuItem.Disabled.Foreground}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

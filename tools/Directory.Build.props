@@ -1,0 +1,14 @@
+<Project>
+  <!-- The tools are file-based apps and scripts, not packages: no signing, no central package versions. -->
+  <PropertyGroup>
+    <AvaWpfIsLibrary>false</AvaWpfIsLibrary>
+  </PropertyGroup>
+  <Import Project="..\Directory.Build.props" />
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
+    <SignAssembly>false</SignAssembly>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,93 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:aero="using:AvaWpf.Chrome.Aero">
+  <!--
+    SplitButton: two adjoining Aero button glasses, the content part and a down-arrow part.
+    Both draw pressed while the flyout is open, and while checked for ToggleSplitButton.
+  -->
+  <ControlTheme x:Key="Aero.SplitButtonComponent" TargetType="Button" BasedOn="{StaticResource Aero.BaseButtonStyle}">
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="KeyboardNavigation.IsTabStop" Value="False" />
+    <Style Selector="^[Tag=flyout-open] /template/ aero|ButtonChrome#Chrome">
+      <Setter Property="RenderPressed" Value="True" />
+    </Style>
+    <Style Selector="^[Tag=checked] /template/ aero|ButtonChrome#Chrome">
+      <Setter Property="RenderPressed" Value="True" />
+    </Style>
+    <Style Selector="^[Tag=checked-flyout-open] /template/ aero|ButtonChrome#Chrome">
+      <Setter Property="RenderPressed" Value="True" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type SplitButton}" TargetType="SplitButton">
+    <Setter Property="Background" Value="{DynamicResource Aero.ButtonNormalBackground}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Aero.ButtonNormalBorder}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Padding" Value="1" />
+    <Setter Property="FocusAdorner" Value="{DynamicResource Aero.FocusVisual}" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="KeyboardNavigation.IsTabStop" Value="True" />
+    <Setter Property="Focusable" Value="True" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid ColumnDefinitions="*,Auto" UseLayoutRounding="True">
+          <Button Name="PART_PrimaryButton"
+                  Grid.Column="0"
+                  Theme="{StaticResource Aero.SplitButtonComponent}"
+                  Foreground="{TemplateBinding Foreground}"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  Command="{TemplateBinding Command}"
+                  CommandParameter="{TemplateBinding CommandParameter}"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                  Padding="{TemplateBinding Padding}">
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              RecognizesAccessKey="True" />
+          </Button>
+          <Button Name="PART_SecondaryButton"
+                  Grid.Column="1"
+                  Margin="-1,0,0,0"
+                  Width="{DynamicResource SystemParameters.VerticalScrollBarWidth}"
+                  Theme="{StaticResource Aero.SplitButtonComponent}"
+                  Foreground="{TemplateBinding Foreground}"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  Padding="0"
+                  HorizontalContentAlignment="Center"
+                  VerticalContentAlignment="Center"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch">
+            <Path Name="Arrow"
+                  Margin="0,1,0,0"
+                  Fill="{DynamicResource Aero.ComboBox.ComboBoxReadonlyToggleButton.Arrow.Fill}"
+                  Data="{DynamicResource Aero.DownArrowGeometry}" />
+          </Button>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:flyout-open /template/ Button">
+      <Setter Property="Tag" Value="flyout-open" />
+    </Style>
+    <Style Selector="^:checked /template/ Button">
+      <Setter Property="Tag" Value="checked" />
+    </Style>
+    <Style Selector="^:checked:flyout-open /template/ Button">
+      <Setter Property="Tag" Value="checked-flyout-open" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource Aero.Button.BaseButtonStyle.Self.Foreground.IsEnabled_false}" />
+      <Style Selector="^ /template/ Path#Arrow">
+        <Setter Property="Fill" Value="{DynamicResource Aero.ComboBox.ComboBoxReadonlyToggleButton.Arrow.Fill.IsEnabled_false}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

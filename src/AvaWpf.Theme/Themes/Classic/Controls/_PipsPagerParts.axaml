@@ -1,0 +1,79 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- PipsPager parts: the navigation button (a scroll bar line button) and the pip (a Classic radio circle). -->
+  <ControlTheme x:Key="Classic.PipsPagerNavigationButton" TargetType="Button">
+    <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="BorderBrush" Value="{x:Static wpf:ClassicBorderDecorator.ClassicBorderBrush}" />
+    <Setter Property="BorderThickness" Value="2" />
+    <Setter Property="Width" Value="16" />
+    <Setter Property="Height" Value="16" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <wpf:ClassicBorderDecorator Name="ClassicBorder"
+                                    BorderStyle="AltRaised"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    UseLayoutRounding="True">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center" />
+        </wpf:ClassicBorderDecorator>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pressed /template/ wpf|ClassicBorderDecorator#ClassicBorder">
+      <Setter Property="BorderStyle" Value="AltPressed" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlDarkBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Classic.PipsPagerItem" TargetType="ListBoxItem">
+    <Setter Property="Width" Value="15" />
+    <Setter Property="Height" Value="16" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="Margin" Value="0" />
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Background="Transparent">
+          <wpf:ClassicBorderDecorator Name="PipBackground"
+                                      Width="13"
+                                      Height="13"
+                                      BorderStyle="RadioButton"
+                                      BorderThickness="4,4,5,5"
+                                      Background="{DynamicResource SystemColors.WindowBrush}"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center">
+            <Ellipse Name="Pip"
+                     Width="4"
+                     Height="4"
+                     Opacity="0"
+                     Fill="{DynamicResource SystemColors.WindowTextBrush}" />
+          </wpf:ClassicBorderDecorator>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:selected /template/ Ellipse#Pip">
+      <Setter Property="Opacity" Value="1" />
+    </Style>
+    <Style Selector="^:pressed /template/ wpf|ClassicBorderDecorator#PipBackground">
+      <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Style Selector="^ /template/ wpf|ClassicBorderDecorator#PipBackground">
+        <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+      </Style>
+      <Style Selector="^ /template/ Ellipse#Pip">
+        <Setter Property="Fill" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

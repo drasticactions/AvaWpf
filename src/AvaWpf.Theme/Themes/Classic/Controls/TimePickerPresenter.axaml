@@ -1,0 +1,97 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- TimePicker drop-down in the WPF ComboBox [[Classic]] drop-down frame, with looping selectors and OK and Cancel
+       buttons. -->
+  <ControlTheme x:Key="{x:Type TimePickerPresenter}" TargetType="TimePickerPresenter">
+    <Setter Property="Width" Value="200" />
+    <Setter Property="MinWidth" Value="200" />
+    <Setter Property="MaxHeight" Value="230" />
+    <Setter Property="Background" Value="{DynamicResource SystemColors.WindowBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.WindowTextBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource SystemColors.WindowFrameBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="Background"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                MaxHeight="230"
+                UseLayoutRounding="True">
+          <Grid Name="ContentRoot" RowDefinitions="*,Auto">
+            <Grid Name="PART_PickerContainer">
+              <Grid.Styles>
+                <Style Selector="DateTimePickerPanel > ListBoxItem">
+                  <Setter Property="Theme" Value="{StaticResource Classic.DateTimePickerItem}" />
+                </Style>
+              </Grid.Styles>
+              <Panel Name="PART_HourHost" Grid.Column="0">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                  <DateTimePickerPanel Name="PART_HourSelector" PanelType="Hour" ItemHeight="20" ShouldLoop="True" />
+                </ScrollViewer>
+                <RepeatButton Name="PART_HourUpButton" Classes="up picker" Theme="{StaticResource Classic.ScrollBarLineButton}" />
+                <RepeatButton Name="PART_HourDownButton" Classes="down picker" Theme="{StaticResource Classic.ScrollBarLineButton}" />
+              </Panel>
+              <Panel Name="PART_MinuteHost" Grid.Column="2">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                  <DateTimePickerPanel Name="PART_MinuteSelector" PanelType="Minute" ItemHeight="20" ShouldLoop="True" />
+                </ScrollViewer>
+                <RepeatButton Name="PART_MinuteUpButton" Classes="up picker" Theme="{StaticResource Classic.ScrollBarLineButton}" />
+                <RepeatButton Name="PART_MinuteDownButton" Classes="down picker" Theme="{StaticResource Classic.ScrollBarLineButton}" />
+              </Panel>
+              <Panel Name="PART_SecondHost" Grid.Column="4">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                  <DateTimePickerPanel Name="PART_SecondSelector" PanelType="Second" ItemHeight="20" ShouldLoop="True" />
+                </ScrollViewer>
+                <RepeatButton Name="PART_SecondUpButton" Classes="up picker" Theme="{StaticResource Classic.ScrollBarLineButton}" />
+                <RepeatButton Name="PART_SecondDownButton" Classes="down picker" Theme="{StaticResource Classic.ScrollBarLineButton}" />
+              </Panel>
+              <Panel Name="PART_PeriodHost" Grid.Column="6">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                  <DateTimePickerPanel Name="PART_PeriodSelector" PanelType="TimePeriod" ItemHeight="20" ShouldLoop="False" />
+                </ScrollViewer>
+                <RepeatButton Name="PART_PeriodUpButton" Classes="up picker" Theme="{StaticResource Classic.ScrollBarLineButton}" />
+                <RepeatButton Name="PART_PeriodDownButton" Classes="down picker" Theme="{StaticResource Classic.ScrollBarLineButton}" />
+              </Panel>
+              <Rectangle Name="HighlightRect" IsHitTestVisible="False" ZIndex="-1"
+                         Fill="{DynamicResource SystemColors.HighlightBrush}"
+                         Grid.Column="0" Grid.ColumnSpan="7" VerticalAlignment="Center" Height="20" />
+              <Rectangle Name="PART_FirstSpacer" Fill="{DynamicResource SystemColors.ControlLightBrush}" HorizontalAlignment="Center" Width="1" Grid.Column="1" />
+              <Rectangle Name="PART_SecondSpacer" Fill="{DynamicResource SystemColors.ControlLightBrush}" HorizontalAlignment="Center" Width="1" Grid.Column="3" />
+              <Rectangle Name="PART_ThirdSpacer" Fill="{DynamicResource SystemColors.ControlLightBrush}" HorizontalAlignment="Center" Width="1" Grid.Column="5" />
+            </Grid>
+            <wpf:ClassicBorderDecorator Grid.Row="1"
+                                        BorderStyle="HorizontalLine"
+                                        BorderBrush="{x:Static wpf:ClassicBorderDecorator.ClassicBorderBrush}"
+                                        BorderThickness="1"
+                                        Height="2"
+                                        VerticalAlignment="Top" />
+            <Grid Name="AcceptDismissGrid" Grid.Row="1" ColumnDefinitions="*,*" Margin="4,6,4,4">
+              <Button Name="PART_AcceptButton" Grid.Column="0" Height="23" Margin="0,0,2,0" HorizontalAlignment="Stretch">
+                <Path Fill="{Binding $parent[Button].Foreground}" Data="{DynamicResource Classic.CheckMarkGeometry}" />
+              </Button>
+              <Button Name="PART_DismissButton" Grid.Column="1" Height="23" Margin="2,0,0,0" HorizontalAlignment="Stretch">
+                <Path Stroke="{Binding $parent[Button].Foreground}" StrokeThickness="1.5" Data="M 0 0 L 7 7 M 0 7 L 7 0" />
+              </Button>
+            </Grid>
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^ /template/ RepeatButton.picker">
+      <Setter Property="IsVisible" Value="False" />
+      <Setter Property="Height" Value="16" />
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+    </Style>
+    <Style Selector="^ /template/ RepeatButton.up">
+      <Setter Property="VerticalAlignment" Value="Top" />
+    </Style>
+    <Style Selector="^ /template/ RepeatButton.down">
+      <Setter Property="VerticalAlignment" Value="Bottom" />
+    </Style>
+    <Style Selector="^ /template/ Panel:pointerover > RepeatButton.picker">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

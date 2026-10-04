@@ -1,0 +1,33 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- WPF focus visuals: ButtonFocusVisual, CheckRadioFocusVisual, EmptyCheckRadioFocusVisual and ComboBoxFocusVisual
+       (inset 4,4,21,4 to skip the drop-down button). -->
+  <FocusAdornerTemplate x:Key="$F.FocusVisual">
+    <Rectangle Margin="3"
+               StrokeThickness="1"
+               Stroke="{DynamicResource SystemColors.ControlTextBrush}"
+               StrokeDashArray="1,2"
+               UseLayoutRounding="True" />
+  </FocusAdornerTemplate>
+  <FocusAdornerTemplate x:Key="$F.OptionMarkFocusVisual">
+    <Rectangle Margin="14,0,0,0"
+               StrokeThickness="1"
+               Stroke="{DynamicResource SystemColors.ControlTextBrush}"
+               StrokeDashArray="1,2"
+               UseLayoutRounding="True" />
+  </FocusAdornerTemplate>
+  <FocusAdornerTemplate x:Key="$F.EmptyOptionMarkFocusVisual">
+    <Rectangle Margin="1"
+               StrokeThickness="1"
+               Stroke="{DynamicResource SystemColors.ControlTextBrush}"
+               StrokeDashArray="1,2"
+               UseLayoutRounding="True" />
+  </FocusAdornerTemplate>
+  <FocusAdornerTemplate x:Key="$F.ComboBoxFocusVisual">
+    <Rectangle Margin="4,4,21,4"
+               StrokeThickness="1"
+               Stroke="{DynamicResource SystemColors.ControlTextBrush}"
+               StrokeDashArray="1,2"
+               UseLayoutRounding="True" />
+  </FocusAdornerTemplate>
+</ResourceDictionary>

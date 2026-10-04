@@ -1,0 +1,60 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- DatePickerPresenter and TimePickerPresenter parts: $F.DateTimePickerItem, the up and down buttons and
+       $F.DateTimePickerDialogButton. The selected row is not hit-testable. -->
+  <ControlTheme x:Key="$F.DateTimePickerItem" TargetType="ListBoxItem">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.WindowTextBrush}" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="Bd" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#Bd">
+      <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+    </Style>
+    <Style Selector="^:selected">
+      <Setter Property="IsHitTestVisible" Value="False" />
+      <Style Selector="^ /template/ Border#Bd">
+        <Setter Property="Background" Value="Transparent" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource SystemColors.HighlightTextBrush}" />
+      </Style>
+    </Style>
+    <Style Selector="^.MonthItem">
+      <Setter Property="Padding" Value="6,0,0,0" />
+      <Setter Property="HorizontalContentAlignment" Value="Left" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="$F.DateTimePickerUpButton" TargetType="RepeatButton" BasedOn="{StaticResource $F.ScrollBarLineButton}">
+    <Setter Property="VerticalAlignment" Value="Top" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="Height" Value="{DynamicResource SystemParameters.VerticalScrollBarButtonHeight}" />
+    <Setter Property="IsVisible" Value="False" />
+  </ControlTheme>
+
+  <ControlTheme x:Key="$F.DateTimePickerDownButton" TargetType="RepeatButton" BasedOn="{StaticResource $F.ScrollBarLineButton}">
+    <Setter Property="VerticalAlignment" Value="Bottom" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="Height" Value="{DynamicResource SystemParameters.VerticalScrollBarButtonHeight}" />
+    <Setter Property="IsVisible" Value="False" />
+  </ControlTheme>
+
+  <ControlTheme x:Key="$F.DateTimePickerDialogButton" TargetType="Button" BasedOn="{StaticResource $F.BaseButtonStyle}">
+    <Setter Property="Width" Value="75" />
+    <Setter Property="Height" Value="23" />
+    <Setter Property="Margin" Value="6" />
+    <Setter Property="HorizontalAlignment" Value="Center" />
+  </ControlTheme>
+</ResourceDictionary>

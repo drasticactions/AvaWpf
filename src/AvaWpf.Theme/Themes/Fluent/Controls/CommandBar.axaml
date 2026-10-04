@@ -1,0 +1,113 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/ToolBar.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!-- CommandBar in the look of WPF Fluent's ToolBar inside its ToolBarTray. -->
+  <ControlTheme x:Key="Fluent.CommandBarOverflowButton" TargetType="Button">
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.ToolBar.ToolBarOverflowButtonStyle.Setter.Self.Foreground}" />
+    <Setter Property="Background" Value="{DynamicResource Fluent.ToolBar.ToolBarButtonBaseStyle.Setter.Self.Background}" />
+    <Setter Property="FocusAdorner" Value="{DynamicResource Fluent.FocusVisual}" />
+    <Setter Property="CornerRadius" Value="0,3,3,0" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="Border"
+                Background="{TemplateBinding Background}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                Padding="{TemplateBinding Padding}"
+                UseLayoutRounding="True">
+          <Border.Transitions>
+            <Transitions>
+              <BrushTransition Property="Background" Duration="0:0:0.16" />
+            </Transitions>
+          </Border.Transitions>
+          <TextBlock HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Foreground="{TemplateBinding Foreground}"
+                     FontFamily="{DynamicResource Fluent.SymbolThemeFontFamily}"
+                     Text="{x:Static wpf:FluentGlyph.ChevronDown}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#Border">
+      <Setter Property="Background" Value="{DynamicResource Fluent.ControlFillColorDefaultBrush}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Border#Border">
+      <Setter Property="Background" Value="{DynamicResource Fluent.ControlFillColorTertiaryBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type CommandBar}" TargetType="CommandBar">
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="Background" Value="{DynamicResource Fluent.ToolBar.ToolBarTray.Setter.Self.Background}" />
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.TextFillColorPrimaryBrush}" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="CornerRadius" Value="{DynamicResource Fluent.ControlCornerRadius}" />
+    <Setter Property="MinHeight" Value="48" />
+    <Setter Property="Padding" Value="4,0" />
+    <Setter Property="ItemWidthBottom" Value="70" />
+    <Setter Property="ItemWidthRight" Value="102" />
+    <Setter Property="ItemWidthCollapsed" Value="42" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                Padding="{TemplateBinding Padding}"
+                MinHeight="{TemplateBinding MinHeight}"
+                UseLayoutRounding="True">
+          <Panel>
+            <DockPanel KeyboardNavigation.TabNavigation="Cycle">
+              <Button Name="PART_OverflowButton"
+                      DockPanel.Dock="Right"
+                      Theme="{StaticResource Fluent.CommandBarOverflowButton}"
+                      Padding="12,0"
+                      MinWidth="40"
+                      VerticalAlignment="Stretch"
+                      IsVisible="{TemplateBinding IsOverflowButtonVisible}" />
+              <ContentPresenter Name="PART_ContentPresenter"
+                                Content="{TemplateBinding Content}"
+                                DockPanel.Dock="Left"
+                                VerticalAlignment="Center" />
+              <ItemsControl Name="PART_PrimaryCommands"
+                            ItemsSource="{Binding VisiblePrimaryCommands, RelativeSource={RelativeSource TemplatedParent}}"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            ClipToBounds="True">
+                <ItemsControl.ItemsPanel>
+                  <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" Spacing="2" />
+                  </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+              </ItemsControl>
+            </DockPanel>
+            <Popup Name="PART_OverflowPopup"
+                   IsOpen="{TemplateBinding IsOpen, Mode=TwoWay}"
+                   PlacementTarget="{Binding #PART_OverflowButton}"
+                   Placement="BottomEdgeAlignedRight"
+                   IsLightDismissEnabled="True">
+              <Border Name="DropDownBorder"
+                      Background="{DynamicResource Fluent.ToolBar.ToolBar.DropDownBorder.Background}"
+                      BorderBrush="{DynamicResource Fluent.ContextMenuBorderBrush}"
+                      BorderThickness="1"
+                      CornerRadius="{DynamicResource Fluent.OverlayCornerRadius}"
+                      Padding="0,3,0,3"
+                      MinWidth="160"
+                      UseLayoutRounding="True">
+                <ItemsControl Name="PART_OverflowPresenter"
+                              ItemsSource="{Binding OverflowItems, RelativeSource={RelativeSource TemplatedParent}}">
+                  <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                      <StackPanel Spacing="2" />
+                    </ItemsPanelTemplate>
+                  </ItemsControl.ItemsPanel>
+                </ItemsControl>
+              </Border>
+            </Popup>
+          </Panel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

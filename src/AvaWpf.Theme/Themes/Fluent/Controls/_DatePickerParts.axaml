@@ -1,0 +1,102 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/DatePicker.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!--
+    DatePicker parts: Fluent.DatePickerTextBox (DefaultDatePickerTextBoxStyle; WatermarkStates Watermarked is :empty)
+    and Fluent.DatePickerCalendarButton (the template's CalendarButtonStyle).
+  -->
+  <ControlTheme x:Key="Fluent.DatePickerTextBox" TargetType="TextBox">
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="CaretBrush" Value="{DynamicResource Fluent.DatePickerTextBoxCaretBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.DatePickerTextBoxForeground}" />
+    <Setter Property="PlaceholderForeground" Value="{DynamicResource Fluent.TextControlPlaceholderForeground}" />
+    <Setter Property="SelectionBrush" Value="{DynamicResource Fluent.AccentFillColorSelectedTextBackgroundBrush}" />
+    <Setter Property="SelectionForegroundBrush" Value="{DynamicResource Fluent.TextOnAccentFillColorSelectedTextBrush}" />
+    <Setter Property="Cursor" Value="IBeam" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="RootBorder"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Padding="{TemplateBinding Padding}">
+          <Grid Name="RootGrid"
+                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+            <TextBlock Name="PART_Watermark"
+                       Opacity="0"
+                       IsHitTestVisible="False"
+                       Text="{TemplateBinding PlaceholderText}"
+                       Foreground="{TemplateBinding PlaceholderForeground}"
+                       VerticalAlignment="Center" />
+            <ScrollViewer Name="PART_ScrollViewer"
+                          Padding="0"
+                          HorizontalScrollBarVisibility="Hidden"
+                          VerticalScrollBarVisibility="Disabled">
+              <TextPresenter Name="PART_TextPresenter"
+                             Text="{TemplateBinding Text, Mode=TwoWay}"
+                             CaretBlinkInterval="{TemplateBinding CaretBlinkInterval}"
+                             CaretIndex="{TemplateBinding CaretIndex}"
+                             SelectionStart="{TemplateBinding SelectionStart}"
+                             SelectionEnd="{TemplateBinding SelectionEnd}"
+                             TextAlignment="{TemplateBinding TextAlignment}"
+                             TextWrapping="{TemplateBinding TextWrapping}"
+                             LineHeight="{TemplateBinding LineHeight}"
+                             LetterSpacing="{TemplateBinding LetterSpacing}"
+                             PasswordChar="{TemplateBinding PasswordChar}"
+                             RevealPassword="{TemplateBinding RevealPassword}"
+                             SelectionBrush="{TemplateBinding SelectionBrush}"
+                             SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
+                             CaretBrush="{TemplateBinding CaretBrush}"
+                             VerticalAlignment="Center" />
+            </ScrollViewer>
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <!-- WatermarkStates: Watermarked -->
+    <Style Selector="^:empty /template/ TextBlock#PART_Watermark">
+      <Setter Property="Opacity" Value="1" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Fluent.DatePickerCalendarButton" TargetType="Button">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.TextFillColorSecondaryBrush}" />
+    <Setter Property="CornerRadius" Value="{DynamicResource Fluent.ControlCornerRadius}" />
+    <Setter Property="Width" Value="{Binding $self.Bounds.Height}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="ButtonLayoutBorder"
+                Margin="{DynamicResource Fluent.DatePickerCalendarButtonMargin}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Background="{TemplateBinding Background}"
+                CornerRadius="{TemplateBinding CornerRadius}">
+          <TextBlock Name="GlyphElement"
+                     Foreground="{TemplateBinding Foreground}"
+                     FontFamily="{DynamicResource Fluent.SymbolThemeFontFamily}"
+                     FontSize="{DynamicResource Fluent.DatePickerCalendarButtonIconSize}"
+                     Text="{x:Static wpf:FluentGlyph.Calendar}"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Center" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover">
+      <Setter Property="Background" Value="{DynamicResource Fluent.SubtleFillColorSecondaryBrush}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Fluent.SubtleFillColorSecondaryBrush}" />
+    </Style>
+    <Style Selector="^:pressed">
+      <Setter Property="Background" Value="{DynamicResource Fluent.SubtleFillColorTertiaryBrush}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Fluent.SubtleFillColorTertiaryBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

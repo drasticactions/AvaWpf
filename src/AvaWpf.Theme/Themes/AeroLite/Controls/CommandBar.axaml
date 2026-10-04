@@ -1,0 +1,102 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- A command bar in the AeroLite WPF ToolBar look, with the ToolBar overflow button and menu. -->
+  <ControlTheme x:Key="{x:Type CommandBar}" TargetType="CommandBar">
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="Background" Value="{DynamicResource AeroLite.ToolBarHorizontalBackground}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="MinHeight" Value="26" />
+    <Setter Property="Padding" Value="2,1" />
+    <Setter Property="ItemWidthBottom" Value="56" />
+    <Setter Property="ItemWidthRight" Value="96" />
+    <Setter Property="ItemWidthCollapsed" Value="28" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Padding="{TemplateBinding Padding}"
+                MinHeight="{TemplateBinding MinHeight}"
+                UseLayoutRounding="True">
+          <Panel>
+            <DockPanel KeyboardNavigation.TabNavigation="Cycle">
+              <Button Name="PART_OverflowButton"
+                      DockPanel.Dock="Right"
+                      Focusable="False"
+                      VerticalAlignment="Stretch"
+                      MinWidth="11"
+                      Foreground="{TemplateBinding Foreground}"
+                      IsVisible="{TemplateBinding IsOverflowButtonVisible}">
+                <Button.Template>
+                  <ControlTemplate>
+                    <Border Name="Bd" Background="{DynamicResource AeroLite.ToolBarToggleButtonHorizontalBackground}">
+                      <Canvas Width="6"
+                              Height="7"
+                              Margin="2,2,2,2"
+                              HorizontalAlignment="Right"
+                              VerticalAlignment="Bottom">
+                        <Path Stroke="{DynamicResource AeroLite.ToolBar.ToolBarHorizontalOverflowButtonStyle.Path#1.Stroke}"
+                              Data="{DynamicResource AeroLite.ToolBar.ToolBarHorizontalOverflowButtonStyle.Path#1.Data}" />
+                        <Path Stroke="{TemplateBinding Foreground}"
+                              Data="{DynamicResource AeroLite.ToolBar.ToolBarHorizontalOverflowButtonStyle.Path#2.Data}" />
+                        <Path Fill="{DynamicResource AeroLite.ToolBar.ToolBarHorizontalOverflowButtonStyle.Path#3.Fill}"
+                              Data="{DynamicResource AeroLite.ToolBar.ToolBarHorizontalOverflowButtonStyle.Path#3.Data}" />
+                        <Path Fill="{TemplateBinding Foreground}"
+                              Data="{DynamicResource AeroLite.ToolBar.ToolBarHorizontalOverflowButtonStyle.Path#4.Data}" />
+                      </Canvas>
+                    </Border>
+                  </ControlTemplate>
+                </Button.Template>
+                <Button.Styles>
+                  <Style Selector="Button:pointerover /template/ Border#Bd">
+                    <Setter Property="Background" Value="{DynamicResource AeroLite.ToolBarButtonHover}" />
+                  </Style>
+                </Button.Styles>
+              </Button>
+              <ContentPresenter Name="PART_ContentPresenter"
+                                Content="{TemplateBinding Content}"
+                                DockPanel.Dock="Left"
+                                VerticalAlignment="Center" />
+              <ItemsControl Name="PART_PrimaryCommands"
+                            ItemsSource="{Binding VisiblePrimaryCommands, RelativeSource={RelativeSource TemplatedParent}}"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Stretch"
+                            ClipToBounds="True">
+                <ItemsControl.ItemsPanel>
+                  <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" Spacing="0" />
+                  </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+              </ItemsControl>
+            </DockPanel>
+            <Popup Name="PART_OverflowPopup"
+                   IsOpen="{TemplateBinding IsOpen, Mode=TwoWay}"
+                   PlacementTarget="{Binding #PART_OverflowButton}"
+                   Placement="Bottom"
+                   IsLightDismissEnabled="True"
+                   WindowManagerAddShadowHint="False"
+                   wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.MenuPopupAnimation}">
+              <wpf:SystemDropShadowChrome Margin="0,0,5,5">
+                <Border Background="{DynamicResource AeroLite.ToolBarSubMenuBackground}"
+                        BorderBrush="{DynamicResource AeroLite.ToolBarMenuBorder}"
+                        BorderThickness="1"
+                        Padding="2"
+                        MinWidth="140">
+                  <ItemsControl Name="PART_OverflowPresenter"
+                                ItemsSource="{Binding OverflowItems, RelativeSource={RelativeSource TemplatedParent}}">
+                    <ItemsControl.ItemsPanel>
+                      <ItemsPanelTemplate>
+                        <StackPanel />
+                      </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                  </ItemsControl>
+                </Border>
+              </wpf:SystemDropShadowChrome>
+            </Popup>
+          </Panel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

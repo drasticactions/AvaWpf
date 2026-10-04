@@ -1,0 +1,7 @@
+{
+  "control": "Label",
+  "width": 120,
+  "height": 50,
+  "properties": { "Content": "Label" },
+  "states": ["normal", "disabled"]
+}

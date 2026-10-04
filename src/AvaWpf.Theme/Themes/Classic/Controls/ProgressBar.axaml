@@ -1,0 +1,85 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF ProgressBar.xaml [[Classic]]: 6 px blocks with 2 px gaps, as ProgressBarBrushConverter draws them. Vertical
+       rotates the blocks inside the indicator (WPF rotates the template). No glow: the Classic template has no
+       PART_GlowRect. Avalonia sizes PART_Indicator only while determinate, so the indeterminate marquee is a separate
+       element. -->
+  <ControlTheme x:Key="{x:Type ProgressBar}" TargetType="ProgressBar">
+    <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.HighlightBrush}" />
+    <Setter Property="BorderBrush" Value="{x:Static wpf:ClassicBorderDecorator.ClassicBorderBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <wpf:ClassicBorderDecorator Name="TemplateRoot"
+                                    BorderStyle="ThinPressed"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    UseLayoutRounding="True">
+          <Panel Name="PART_Track" Margin="0,0,2,2">
+            <Border Name="PART_Indicator" HorizontalAlignment="Left" ClipToBounds="True">
+              <LayoutTransformControl Name="IndicatorTransform">
+                <Rectangle Name="IndicatorBlocks">
+                  <Rectangle.Fill>
+                    <MultiBinding>
+                      <MultiBinding.Converter>
+                        <wpf:ProgressBarBrushConverter />
+                      </MultiBinding.Converter>
+                      <Binding Path="Foreground" RelativeSource="{RelativeSource TemplatedParent}" />
+                      <Binding Path="IsIndeterminate" RelativeSource="{RelativeSource TemplatedParent}" />
+                      <Binding ElementName="IndicatorBlocks" Path="Bounds.Width" />
+                      <Binding ElementName="IndicatorBlocks" Path="Bounds.Height" />
+                      <Binding ElementName="MarqueeBlocks" Path="Bounds.Width" />
+                    </MultiBinding>
+                  </Rectangle.Fill>
+                </Rectangle>
+              </LayoutTransformControl>
+            </Border>
+            <LayoutTransformControl Name="Marquee" Opacity="0" ClipToBounds="True">
+              <Rectangle Name="MarqueeBlocks">
+                <Rectangle.Fill>
+                  <MultiBinding>
+                    <MultiBinding.Converter>
+                      <wpf:ProgressBarBrushConverter />
+                    </MultiBinding.Converter>
+                    <Binding Path="Foreground" RelativeSource="{RelativeSource TemplatedParent}" />
+                    <Binding Path="IsIndeterminate" RelativeSource="{RelativeSource TemplatedParent}" />
+                    <Binding ElementName="MarqueeBlocks" Path="Bounds.Width" />
+                    <Binding ElementName="MarqueeBlocks" Path="Bounds.Height" />
+                    <Binding ElementName="MarqueeBlocks" Path="Bounds.Width" />
+                  </MultiBinding>
+                </Rectangle.Fill>
+              </Rectangle>
+            </LayoutTransformControl>
+          </Panel>
+        </wpf:ClassicBorderDecorator>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:vertical">
+      <Style Selector="^ /template/ Border#PART_Indicator">
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Bottom" />
+      </Style>
+      <Style Selector="^ /template/ LayoutTransformControl#IndicatorTransform">
+        <Setter Property="LayoutTransform">
+          <RotateTransform Angle="-90" />
+        </Setter>
+      </Style>
+      <Style Selector="^ /template/ LayoutTransformControl#Marquee">
+        <Setter Property="LayoutTransform">
+          <RotateTransform Angle="-90" />
+        </Setter>
+      </Style>
+    </Style>
+    <Style Selector="^:indeterminate">
+      <Style Selector="^ /template/ Border#PART_Indicator">
+        <Setter Property="Opacity" Value="0" />
+      </Style>
+      <Style Selector="^ /template/ LayoutTransformControl#Marquee">
+        <Setter Property="Opacity" Value="1" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

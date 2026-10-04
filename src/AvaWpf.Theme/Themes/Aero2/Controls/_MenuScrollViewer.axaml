@@ -1,0 +1,78 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!--
+    WPF MenuItem.xaml MenuScrollButton and MenuScrollViewer, Aero2.NormalColor. WPF's buttons use ClickMode Hover;
+    Avalonia's RepeatButton has no hover mode, so they repeat while pressed.
+  -->
+  <ControlTheme x:Key="Aero2.MenuScrollButton" TargetType="RepeatButton">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="templateRoot"
+                UseLayoutRounding="True"
+                Background="Transparent"
+                BorderBrush="Transparent"
+                BorderThickness="1">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            Margin="6"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Aero2.MenuScrollViewer" TargetType="ScrollViewer">
+    <Setter Property="HorizontalScrollBarVisibility" Value="Hidden" />
+    <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+    <Setter Property="IsScrollChainingEnabled" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid UseLayoutRounding="True">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+          </Grid.RowDefinitions>
+          <Border Grid.Column="0" Grid.Row="1">
+            <ScrollContentPresenter Name="PART_ContentPresenter" Margin="{TemplateBinding Padding}" />
+          </Border>
+          <RepeatButton Grid.Column="0"
+                        Grid.Row="0"
+                        Theme="{StaticResource Aero2.MenuScrollButton}"
+                        Command="{Binding LineUp, RelativeSource={RelativeSource TemplatedParent}}"
+                        Focusable="False">
+            <RepeatButton.IsVisible>
+              <MultiBinding ConverterParameter="0" Converter="{x:Static wpf:MenuScrollingVisibilityConverter.Instance}" FallbackValue="False">
+                <Binding Path="VerticalScrollBarVisibility" RelativeSource="{RelativeSource TemplatedParent}" />
+                <Binding Path="Offset.Y" RelativeSource="{RelativeSource TemplatedParent}" />
+                <Binding Path="Extent.Height" RelativeSource="{RelativeSource TemplatedParent}" />
+                <Binding Path="Viewport.Height" RelativeSource="{RelativeSource TemplatedParent}" />
+              </MultiBinding>
+            </RepeatButton.IsVisible>
+            <Path Data="{DynamicResource Aero2.UpArrow}" Fill="{DynamicResource Aero2.Menu.Static.Foreground}" />
+          </RepeatButton>
+          <RepeatButton Grid.Column="0"
+                        Grid.Row="2"
+                        Theme="{StaticResource Aero2.MenuScrollButton}"
+                        Command="{Binding LineDown, RelativeSource={RelativeSource TemplatedParent}}"
+                        Focusable="False">
+            <RepeatButton.IsVisible>
+              <MultiBinding ConverterParameter="100" Converter="{x:Static wpf:MenuScrollingVisibilityConverter.Instance}" FallbackValue="False">
+                <Binding Path="VerticalScrollBarVisibility" RelativeSource="{RelativeSource TemplatedParent}" />
+                <Binding Path="Offset.Y" RelativeSource="{RelativeSource TemplatedParent}" />
+                <Binding Path="Extent.Height" RelativeSource="{RelativeSource TemplatedParent}" />
+                <Binding Path="Viewport.Height" RelativeSource="{RelativeSource TemplatedParent}" />
+              </MultiBinding>
+            </RepeatButton.IsVisible>
+            <Path Data="{DynamicResource Aero2.DownArrow}" Fill="{DynamicResource Aero2.Menu.Static.Foreground}" />
+          </RepeatButton>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

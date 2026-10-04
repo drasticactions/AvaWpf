@@ -1,0 +1,45 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:chrome="using:AvaWpf.Chrome.Royale">
+  <!--
+    WPF DataGridColumnHeader, drawn by the Royale DataGridHeaderBorder chrome. Background and BorderBrush stay unset;
+    setting either draws a plain border, as in WPF.
+  -->
+  <ControlTheme x:Key="{x:Type DataGridColumnHeader}" TargetType="DataGridColumnHeader">
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <chrome:DataGridHeaderBorder x:Name="HeaderBorder"
+                                     Background="{TemplateBinding Background}"
+                                     BorderBrush="{TemplateBinding BorderBrush}"
+                                     BorderThickness="{TemplateBinding BorderThickness}"
+                                     Padding="{TemplateBinding Padding}"
+                                     IsSeparatorVisible="{TemplateBinding AreSeparatorsVisible}"
+                                     SeparatorBrush="{TemplateBinding SeparatorBrush}">
+          <ContentPresenter x:Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            RecognizesAccessKey="True" />
+        </chrome:DataGridHeaderBorder>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ chrome|DataGridHeaderBorder#HeaderBorder">
+      <Setter Property="IsHovered" Value="True" />
+    </Style>
+    <Style Selector="^:pressed /template/ chrome|DataGridHeaderBorder#HeaderBorder">
+      <Setter Property="IsPressed" Value="True" />
+    </Style>
+    <Style Selector="^:sortascending /template/ chrome|DataGridHeaderBorder#HeaderBorder">
+      <Setter Property="SortDirection" Value="Ascending" />
+    </Style>
+    <Style Selector="^:sortdescending /template/ chrome|DataGridHeaderBorder#HeaderBorder">
+      <Setter Property="SortDirection" Value="Descending" />
+    </Style>
+    <Style Selector="^:dragIndicator">
+      <Setter Property="Opacity" Value="0.6" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

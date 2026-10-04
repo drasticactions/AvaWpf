@@ -1,0 +1,118 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!--
+    WPF ProgressBar.xaml, [[Aero.NormalColor]]: the Windows 7 glass bar with the moving PART_GlowRect glow.
+    WPF rotates the template for a vertical bar; here a vertical indicator grows from the bottom.
+    The indicator sits in a 1 px inset host so Avalonia's indicator sizing measures the track.
+  -->
+  <ControlTheme x:Key="{x:Type ProgressBar}" TargetType="ProgressBar">
+    <Setter Property="Foreground" Value="{DynamicResource Aero.ProgressBar.ProgressBar.Setter.Self.Foreground}" />
+    <Setter Property="Background" Value="{DynamicResource Aero.ProgressBarBackground}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Aero.ProgressBarBorderBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="MinHeight" Value="10" />
+    <Setter Property="wpf:ProgressBarGlow.IsEnabled" Value="True" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Name="TemplateRoot" UseLayoutRounding="True">
+          <!-- Background -->
+          <Rectangle Fill="{TemplateBinding Background}" RadiusX="2" RadiusY="2" />
+          <!-- Glassy highlight -->
+          <Border Background="{DynamicResource Aero.ProgressBarGlassyHighlight}" Margin="1" CornerRadius="2" />
+          <!-- Edges and top highlight -->
+          <Border BorderBrush="{DynamicResource Aero.ProgressBar.ProgressBar.Border#2.BorderBrush}"
+                  Background="{DynamicResource Aero.ProgressBarTopHighlight}"
+                  BorderThickness="1,0,1,1"
+                  Margin="1" />
+          <Panel Name="PART_Track" Margin="1">
+            <!-- Indicator -->
+            <Border Name="PART_Indicator" HorizontalAlignment="Left">
+              <Grid Name="Foreground">
+                <!-- Indicator background -->
+                <Rectangle Name="Indicator" Fill="{TemplateBinding Foreground}" />
+                <!-- Animated background -->
+                <Grid Name="Animation" ClipToBounds="True">
+                  <!-- Animated white glow -->
+                  <Rectangle Name="PART_GlowRect"
+                             Width="100"
+                             Fill="{DynamicResource Aero.ProgressBarIndicatorAnimatedFill}"
+                             Margin="-100,0,0,0"
+                             HorizontalAlignment="Left" />
+                </Grid>
+                <Grid Name="Overlay">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition MaxWidth="15" />
+                    <ColumnDefinition Width="0.1*" />
+                    <ColumnDefinition MaxWidth="15" />
+                  </Grid.ColumnDefinitions>
+                  <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                  </Grid.RowDefinitions>
+                  <!-- Dark edges -->
+                  <Rectangle Name="LeftDark"
+                             Grid.RowSpan="2"
+                             Fill="{DynamicResource Aero.ProgressBarIndicatorDarkEdgeLeft}"
+                             RadiusX="1" RadiusY="1"
+                             Margin="1,1,0,1" />
+                  <Rectangle Name="RightDark"
+                             Grid.RowSpan="2"
+                             Grid.Column="2"
+                             RadiusX="1" RadiusY="1"
+                             Fill="{DynamicResource Aero.ProgressBarIndicatorDarkEdgeRight}"
+                             Margin="0,1,1,1" />
+                  <!-- Lighting effect (WPF's Grid.Row 2 clamps to the second row). -->
+                  <Rectangle Name="LeftLight" Grid.Column="0" Grid.Row="1" Fill="{DynamicResource Aero.ProgressBarIndicatorLightingEffectLeft}" />
+                  <Rectangle Name="CenterLight" Grid.Column="1" Grid.Row="1" Fill="{DynamicResource Aero.ProgressBarIndicatorLightingEffect}" />
+                  <Rectangle Name="RightLight" Grid.Column="2" Grid.Row="1" Fill="{DynamicResource Aero.ProgressBarIndicatorLightingEffectRight}" />
+                  <!-- Glassy highlight -->
+                  <Border Name="Highlight1" Grid.RowSpan="2" Grid.ColumnSpan="3" Background="{DynamicResource Aero.ProgressBarIndicatorGlassyHighlight}" />
+                  <Border Name="Highlight2" Grid.RowSpan="2" Grid.ColumnSpan="3" Background="{DynamicResource Aero.ProgressBarTopHighlight}" />
+                </Grid>
+              </Grid>
+            </Border>
+          </Panel>
+          <Border BorderThickness="{TemplateBinding BorderThickness}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  CornerRadius="2" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:vertical">
+      <Setter Property="MinWidth" Value="10" />
+      <Setter Property="MinHeight" Value="0" />
+      <Style Selector="^ /template/ Border#PART_Indicator">
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Bottom" />
+      </Style>
+    </Style>
+    <Style Selector="^:indeterminate">
+      <Style Selector="^ /template/ Border#PART_Indicator">
+        <Setter Property="MinWidth" Value="{Binding $parent[Panel].Bounds.Width}" />
+        <Setter Property="MinHeight" Value="{Binding $parent[Panel].Bounds.Height}" />
+      </Style>
+      <Style Selector="^ /template/ Rectangle#LeftDark">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+      <Style Selector="^ /template/ Rectangle#RightDark">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+      <Style Selector="^ /template/ Rectangle#LeftLight">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+      <Style Selector="^ /template/ Rectangle#CenterLight">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+      <Style Selector="^ /template/ Rectangle#RightLight">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+      <Style Selector="^ /template/ Rectangle#Indicator">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+    </Style>
+    <Style Selector="^:not(:indeterminate) /template/ Grid#Animation">
+      <Setter Property="Background" Value="{DynamicResource Aero.ProgressBar.ProgressBar.Animation.Background.IsIndeterminate_false}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

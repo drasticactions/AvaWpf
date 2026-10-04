@@ -1,0 +1,7 @@
+{
+  "control": "ComboBox",
+  "width": 160,
+  "height": 50,
+  "properties": { "Items": ["Item 1", "Item 2", "Item 3"], "SelectedIndex": 0, "Width": 120 },
+  "states": ["normal", "hover", "focused", "disabled"]
+}

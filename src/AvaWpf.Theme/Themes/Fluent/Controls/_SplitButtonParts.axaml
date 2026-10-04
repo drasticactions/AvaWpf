@@ -1,0 +1,106 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="using:Avalonia.Controls.Converters"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!--
+    The halves of SplitButton and ToggleSplitButton. Tag marks the state: flyout-open (pressed look), checked (accent
+    look), checked-flyout-open. The converters split the corner radius and border between the halves and the divider.
+  -->
+  <converters:MarginMultiplierConverter x:Key="Fluent.SplitButton.PrimaryBorderMultiplier" Left="True" Top="True" Bottom="True" Indent="1" />
+  <converters:MarginMultiplierConverter x:Key="Fluent.SplitButton.SecondaryBorderMultiplier" Right="True" Top="True" Bottom="True" Indent="1" />
+  <converters:MarginMultiplierConverter x:Key="Fluent.SplitButton.SeparatorBorderMultiplier" Top="True" Bottom="True" Indent="1" />
+  <converters:CornerRadiusFilterConverter x:Key="Fluent.SplitButton.LeftCornerRadiusFilter" Filter="TopLeft, BottomLeft" />
+  <converters:CornerRadiusFilterConverter x:Key="Fluent.SplitButton.RightCornerRadiusFilter" Filter="TopRight, BottomRight" />
+
+  <ControlTheme x:Key="Fluent.SplitButtonComponent" TargetType="Button">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="ContentBorder"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                Padding="{TemplateBinding Padding}"
+                UseLayoutRounding="True">
+          <Border.Transitions>
+            <Transitions>
+              <BrushTransition Property="Background" Duration="{x:Static wpf:FluentTimings.Faster}" Easing="0,0,0,1" />
+            </Transitions>
+          </Border.Transitions>
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Foreground="{TemplateBinding Foreground}"
+                            RecognizesAccessKey="True"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^:pointerover">
+      <Style Selector="^ /template/ Border#ContentBorder">
+        <Setter Property="Background" Value="{DynamicResource Fluent.ButtonBackgroundPointerOver}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.ButtonBorderBrushPointerOver}" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.ButtonForegroundPointerOver}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Style Selector="^ /template/ Border#ContentBorder">
+        <Setter Property="Background" Value="{DynamicResource Fluent.ButtonBackgroundDisabled}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.ButtonBorderBrushDisabled}" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.ButtonForegroundDisabled}" />
+      </Style>
+    </Style>
+    <Style Selector="^:pressed, ^[Tag=flyout-open]">
+      <Style Selector="^ /template/ Border#ContentBorder">
+        <Setter Property="Background" Value="{DynamicResource Fluent.ButtonBackgroundPressed}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.ButtonBorderBrushPressed}" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.ButtonForegroundPressed}" />
+      </Style>
+    </Style>
+
+    <Style Selector="^[Tag=checked], ^[Tag=checked-flyout-open]">
+      <Style Selector="^ /template/ Border#ContentBorder">
+        <Setter Property="Background" Value="{DynamicResource Fluent.AccentButtonBackground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.AccentButtonBorderBrush}" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.AccentButtonForeground}" />
+      </Style>
+      <Style Selector="^:pointerover">
+        <Style Selector="^ /template/ Border#ContentBorder">
+          <Setter Property="Background" Value="{DynamicResource Fluent.AccentButtonBackgroundPointerOver}" />
+          <Setter Property="BorderBrush" Value="{DynamicResource Fluent.AccentButtonBorderBrushPointerOver}" />
+        </Style>
+        <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+          <Setter Property="Foreground" Value="{DynamicResource Fluent.AccentButtonForegroundPointerOver}" />
+        </Style>
+      </Style>
+      <Style Selector="^:pressed, ^[Tag=checked-flyout-open]">
+        <Style Selector="^ /template/ Border#ContentBorder">
+          <Setter Property="Background" Value="{DynamicResource Fluent.AccentButtonBackgroundPressed}" />
+          <Setter Property="BorderBrush" Value="{DynamicResource Fluent.AccentButtonBorderBrushPressed}" />
+        </Style>
+        <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+          <Setter Property="Foreground" Value="{DynamicResource Fluent.AccentButtonForegroundPressed}" />
+        </Style>
+      </Style>
+      <Style Selector="^:disabled">
+        <Style Selector="^ /template/ Border#ContentBorder">
+          <Setter Property="Background" Value="{DynamicResource Fluent.AccentButtonBackgroundDisabled}" />
+          <Setter Property="BorderBrush" Value="{DynamicResource Fluent.AccentButtonBorderBrushDisabled}" />
+        </Style>
+        <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+          <Setter Property="Foreground" Value="{DynamicResource Fluent.AccentButtonForegroundDisabled}" />
+        </Style>
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

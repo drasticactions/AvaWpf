@@ -1,0 +1,71 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf"
+                    xmlns:primitives="clr-namespace:AvaWpf.Ribbon.Primitives;assembly=AvaWpf.Ribbon">
+  <!-- WPF InRibbonGallery.xaml, [[Generic]]: one row of items with scroll up, scroll down and expand buttons on the right. -->
+  <ControlTheme x:Key="{x:Type wpf:InRibbonGallery}" TargetType="wpf:InRibbonGallery">
+    <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.TextBox.Overlay}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource $F.Invented.Ribbon.BorderBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Margin" Value="1,3,1,3" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Name="MainGrid" ColumnDefinitions="*,Auto" Height="60">
+          <Border Name="ItemsBorder"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="1,1,0,1"
+                  CornerRadius="2,0,0,2">
+            <primitives:RibbonScrollHost Name="PART_InRibbonHost" Margin="1">
+              <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
+            </primitives:RibbonScrollHost>
+          </Border>
+          <Grid Grid.Column="1" RowDefinitions="*,*,*" Width="15">
+            <Button Name="PART_LineUpButton" Theme="{StaticResource $F.Ribbon.SplitButtonPart}" BorderBrush="{TemplateBinding BorderBrush}" Background="{DynamicResource $F.Invented.Ribbon.InRibbonGallery.Button.Background}" CornerRadius="0,2,0,0">
+              <Path Data="{DynamicResource $F.Invented.Ribbon.Glyph.UpArrow}" Fill="{DynamicResource $F.Invented.Ribbon.InRibbonGallery.Glyph}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Button>
+            <Button Name="PART_LineDownButton" Grid.Row="1" Theme="{StaticResource $F.Ribbon.SplitButtonPart}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1,0,1,1" Background="{DynamicResource $F.Invented.Ribbon.InRibbonGallery.Button.Background}">
+              <Path Data="{DynamicResource $F.Invented.Ribbon.Glyph.DownArrow}" Fill="{DynamicResource $F.Invented.Ribbon.InRibbonGallery.Glyph}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Button>
+            <ToggleButton Name="PART_ToggleButton" Grid.Row="2" Theme="{StaticResource $F.Ribbon.SplitButtonPart}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1,0,1,1" Background="{DynamicResource $F.Invented.Ribbon.InRibbonGallery.Button.Background}" CornerRadius="0,0,2,0" ClickMode="Press" IsChecked="{TemplateBinding IsDropDownOpen, Mode=TwoWay}">
+              <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Rectangle Height="1" Width="5" Fill="{DynamicResource $F.Invented.Ribbon.InRibbonGallery.Glyph}" Margin="0,0,0,1" />
+                <Path Data="{DynamicResource $F.Invented.Ribbon.Glyph.DownArrow}" Fill="{DynamicResource $F.Invented.Ribbon.InRibbonGallery.Glyph}" HorizontalAlignment="Center" />
+              </StackPanel>
+            </ToggleButton>
+          </Grid>
+          <Popup Name="PART_Popup"
+                 Placement="BottomEdgeAlignedLeft"
+                 PlacementTarget="{Binding #MainGrid}"
+                 VerticalOffset="-60"
+                 IsLightDismissEnabled="True"
+                 IsOpen="{TemplateBinding IsDropDownOpen, Mode=TwoWay}"
+                 wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.MenuPopupAnimation}">
+            <wpf:SystemDropShadowChrome Margin="0,0,5,5">
+              <Border BorderBrush="{DynamicResource $F.Invented.Ribbon.BorderBrush}"
+                      Background="{DynamicResource $F.Invented.Ribbon.Background}"
+                      BorderThickness="1"
+                      CornerRadius="{DynamicResource $F.Invented.Ribbon.Popup.CornerRadius}">
+                <Border Background="{DynamicResource $F.Invented.Ribbon.DropDown.Background}" CornerRadius="{DynamicResource $F.Invented.Ribbon.Popup.CornerRadius}">
+                  <Decorator Name="PART_PopupHost" Margin="1" Height="{TemplateBinding DropDownHeight}" />
+                </Border>
+              </Border>
+            </wpf:SystemDropShadowChrome>
+          </Popup>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^ /template/ Button:pointerover">
+      <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.MouseOver.Background}" />
+    </Style>
+    <Style Selector="^ /template/ Button:pressed">
+      <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.Pressed.Background}" />
+    </Style>
+    <Style Selector="^ /template/ ToggleButton:checked">
+      <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.Pressed.Background}" />
+    </Style>
+    <Style Selector="^:collapsed">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

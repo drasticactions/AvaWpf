@@ -1,0 +1,32 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:wpf="https://github.com/avawpf"
+             x:Class="AvaWpf.Gallery.Pages.ContainersPage">
+  <StackPanel Spacing="12" Width="420" HorizontalAlignment="Left">
+    <TextBlock Classes="Subtitle" Text="Group box" />
+    <GroupBox Header="Options">
+      <StackPanel Margin="6" Spacing="4">
+        <CheckBox Content="Enable" IsChecked="True" />
+        <CheckBox Content="Remember" />
+      </StackPanel>
+    </GroupBox>
+    <TextBlock Classes="Subtitle" Text="Expanders" />
+    <Expander Header="Details" IsExpanded="True"><TextBlock Margin="8" Text="Expanded content" /></Expander>
+    <Expander Header="Collapsed"><TextBlock Margin="8" Text="Hidden" /></Expander>
+    <Expander Header="Up" ExpandDirection="Up"><TextBlock Margin="8" Text="Up" /></Expander>
+    <TextBlock Classes="Subtitle" Text="Headered content and separator" />
+    <HeaderedContentControl Header="Header" Content="Content" />
+    <Separator />
+    <TextBlock Classes="Subtitle" Text="Split view" />
+    <SplitView IsPaneOpen="True" DisplayMode="Inline" OpenPaneLength="120" Height="100">
+      <SplitView.Pane><TextBlock Margin="8" Text="Pane" /></SplitView.Pane>
+      <TextBlock Margin="8" Text="Content" />
+    </SplitView>
+    <TextBlock Classes="Subtitle" Text="Grid splitter" />
+    <Grid ColumnDefinitions="*,4,*" Height="60">
+      <Border Background="{DynamicResource WpfControlBackgroundBrush}" BorderBrush="{DynamicResource WpfBorderBrush}" BorderThickness="1" />
+      <GridSplitter Grid.Column="1" />
+      <Border Grid.Column="2" Background="{DynamicResource WpfControlBackgroundBrush}" BorderBrush="{DynamicResource WpfBorderBrush}" BorderThickness="1" />
+    </Grid>
+  </StackPanel>
+</UserControl>

@@ -1,0 +1,419 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:wpf="https://github.com/avawpf"
+             xmlns:vm="using:AvaWpf.Explorer.ViewModels"
+             xmlns:samples="using:AvaWpf.Samples"
+             x:Class="AvaWpf.Explorer.MainView"
+             x:DataType="vm:ExplorerViewModel">
+
+  <UserControl.Resources>
+    <!-- XP's green navigation arrows, drawn as vectors (no bitmaps). -->
+    <LinearGradientBrush x:Key="NavGreen" StartPoint="0%,0%" EndPoint="0%,100%">
+      <GradientStop Offset="0" Color="#7DD36B" />
+      <GradientStop Offset="1" Color="#2F8F22" />
+    </LinearGradientBrush>
+
+    <ItemsPanelTemplate x:Key="DetailsPanel">
+      <VirtualizingStackPanel />
+    </ItemsPanelTemplate>
+    <ItemsPanelTemplate x:Key="IconsPanel">
+      <WrapPanel Orientation="Horizontal" />
+    </ItemsPanelTemplate>
+    <ItemsPanelTemplate x:Key="ListPanel">
+      <WrapPanel Orientation="Vertical" />
+    </ItemsPanelTemplate>
+
+    <DataTemplate x:Key="IconsTemplate" x:DataType="vm:FileItem">
+      <StackPanel Width="76" Margin="2,4" Spacing="3" Classes.cut="{Binding IsCut}">
+        <Image Source="{Binding LargeIcon}" Width="32" Height="32" HorizontalAlignment="Center" />
+        <Panel>
+          <TextBlock Text="{Binding Name}" TextWrapping="Wrap" TextAlignment="Center" MaxLines="2" TextTrimming="CharacterEllipsis"
+                     IsVisible="{Binding !IsRenaming}" />
+          <TextBox Classes="rename" Text="{Binding EditName}" IsVisible="{Binding IsRenaming}" MinWidth="0" Padding="1" TextWrapping="Wrap">
+            <TextBox.KeyBindings>
+              <KeyBinding Gesture="Enter" Command="{Binding CommitRenameCommand}" />
+              <KeyBinding Gesture="Escape" Command="{Binding CancelRenameCommand}" />
+            </TextBox.KeyBindings>
+          </TextBox>
+        </Panel>
+      </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ListTemplate" x:DataType="vm:FileItem">
+      <StackPanel Width="190" Orientation="Horizontal" Spacing="4" Classes.cut="{Binding IsCut}">
+        <Image Source="{Binding SmallIcon}" Width="16" Height="16" />
+        <Panel>
+          <TextBlock Text="{Binding Name}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" IsVisible="{Binding !IsRenaming}" />
+          <TextBox Classes="rename" Text="{Binding EditName}" IsVisible="{Binding IsRenaming}" MinWidth="120" Padding="1">
+            <TextBox.KeyBindings>
+              <KeyBinding Gesture="Enter" Command="{Binding CommitRenameCommand}" />
+              <KeyBinding Gesture="Escape" Command="{Binding CancelRenameCommand}" />
+            </TextBox.KeyBindings>
+          </TextBox>
+        </Panel>
+      </StackPanel>
+    </DataTemplate>
+
+    <wpf:GridView x:Key="DetailsView" AllowsColumnReorder="True">
+      <wpf:GridView.ColumnHeaderTemplate>
+        <DataTemplate x:DataType="vm:SortHeader">
+          <StackPanel Orientation="Horizontal" Spacing="6">
+            <TextBlock Text="{Binding Text}" />
+            <Path Data="M0,4 L4,0 L8,4 Z" Fill="{DynamicResource SystemColors.GrayTextBrush}" VerticalAlignment="Center" IsVisible="{Binding IsAscending}" />
+            <Path Data="M0,0 L8,0 L4,4 Z" Fill="{DynamicResource SystemColors.GrayTextBrush}" VerticalAlignment="Center" IsVisible="{Binding IsDescending}" />
+          </StackPanel>
+        </DataTemplate>
+      </wpf:GridView.ColumnHeaderTemplate>
+      <wpf:GridViewColumn Width="210">
+        <wpf:GridViewColumn.CellTemplate>
+          <DataTemplate x:DataType="vm:FileItem">
+            <StackPanel Orientation="Horizontal" Spacing="4" Classes.cut="{Binding IsCut}">
+              <Image Source="{Binding SmallIcon}" Width="16" Height="16" />
+              <Panel>
+                <TextBlock Text="{Binding Name}" VerticalAlignment="Center" IsVisible="{Binding !IsRenaming}" />
+                <TextBox Classes="rename" Text="{Binding EditName}" IsVisible="{Binding IsRenaming}" MinWidth="150" Padding="1">
+                  <TextBox.KeyBindings>
+                    <KeyBinding Gesture="Enter" Command="{Binding CommitRenameCommand}" />
+                    <KeyBinding Gesture="Escape" Command="{Binding CancelRenameCommand}" />
+                  </TextBox.KeyBindings>
+                </TextBox>
+              </Panel>
+            </StackPanel>
+          </DataTemplate>
+        </wpf:GridViewColumn.CellTemplate>
+      </wpf:GridViewColumn>
+      <wpf:GridViewColumn Width="80">
+        <wpf:GridViewColumn.CellTemplate>
+          <DataTemplate x:DataType="vm:FileItem">
+            <TextBlock Text="{Binding SizeText}" TextAlignment="Right" HorizontalAlignment="Stretch" />
+          </DataTemplate>
+        </wpf:GridViewColumn.CellTemplate>
+      </wpf:GridViewColumn>
+      <wpf:GridViewColumn Width="130">
+        <wpf:GridViewColumn.CellTemplate>
+          <DataTemplate x:DataType="vm:FileItem">
+            <TextBlock Text="{Binding TypeText}" />
+          </DataTemplate>
+        </wpf:GridViewColumn.CellTemplate>
+      </wpf:GridViewColumn>
+      <wpf:GridViewColumn Width="140">
+        <wpf:GridViewColumn.CellTemplate>
+          <DataTemplate x:DataType="vm:FileItem">
+            <TextBlock Text="{Binding ModifiedText}" />
+          </DataTemplate>
+        </wpf:GridViewColumn.CellTemplate>
+      </wpf:GridViewColumn>
+    </wpf:GridView>
+
+    <ContextMenu x:Key="ItemMenu" x:DataType="vm:ExplorerViewModel">
+      <MenuItem Header="_Open" FontWeight="Bold" Command="{Binding OpenCommand}" />
+      <Separator />
+      <MenuItem Header="Cu_t" Command="{Binding CutCommand}" />
+      <MenuItem Header="_Copy" Command="{Binding CopyCommand}" />
+      <Separator />
+      <MenuItem Header="_Delete" Command="{Binding DeleteCommand}" />
+      <MenuItem Header="Rena_me" Command="{Binding RenameCommand}" />
+      <Separator />
+      <MenuItem Header="P_roperties" Command="{Binding PropertiesCommand}" />
+    </ContextMenu>
+
+    <ContextMenu x:Key="BackgroundMenu" x:DataType="vm:ExplorerViewModel">
+      <MenuItem Header="_View">
+        <MenuItem Header="_Icons" ToggleType="Radio" GroupName="ContextViews" IsChecked="{Binding IsIconsView, Mode=TwoWay}" />
+        <MenuItem Header="_List" ToggleType="Radio" GroupName="ContextViews" IsChecked="{Binding IsListView, Mode=TwoWay}" />
+        <MenuItem Header="_Details" ToggleType="Radio" GroupName="ContextViews" IsChecked="{Binding IsDetailsView, Mode=TwoWay}" />
+      </MenuItem>
+      <MenuItem Header="Arrange _Icons By">
+        <MenuItem Header="_Name" Command="{Binding SortByCommand}" CommandParameter="Name" />
+        <MenuItem Header="_Size" Command="{Binding SortByCommand}" CommandParameter="Size" />
+        <MenuItem Header="_Type" Command="{Binding SortByCommand}" CommandParameter="Type" />
+        <MenuItem Header="_Modified" Command="{Binding SortByCommand}" CommandParameter="Modified" />
+      </MenuItem>
+      <Separator />
+      <MenuItem Header="R_efresh" Command="{Binding RefreshCommand}" />
+      <Separator />
+      <MenuItem Header="_Paste" Command="{Binding PasteCommand}" />
+      <Separator />
+      <MenuItem Header="Ne_w">
+        <MenuItem Header="_Folder" Command="{Binding NewFolderCommand}">
+          <MenuItem.Icon><Image Source="{samples:Icon folder}" /></MenuItem.Icon>
+        </MenuItem>
+        <MenuItem Header="Text Document" Command="{Binding NewTextDocumentCommand}">
+          <MenuItem.Icon><Image Source="{samples:Icon text}" /></MenuItem.Icon>
+        </MenuItem>
+      </MenuItem>
+      <Separator />
+      <MenuItem Header="Prope_rties" Command="{Binding PropertiesCommand}" />
+    </ContextMenu>
+  </UserControl.Resources>
+
+  <UserControl.Styles>
+    <Style Selector="Button:disabled Panel.navicon">
+      <Setter Property="Opacity" Value="0.35" />
+    </Style>
+    <Style Selector="StackPanel.cut">
+      <Setter Property="Opacity" Value="0.5" />
+    </Style>
+    <Style Selector="TreeViewItem" x:DataType="vm:FolderItem">
+      <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+    </Style>
+  </UserControl.Styles>
+
+  <UserControl.KeyBindings>
+    <KeyBinding Gesture="Alt+Left" Command="{Binding GoBackCommand}" />
+    <KeyBinding Gesture="Alt+Right" Command="{Binding GoForwardCommand}" />
+    <KeyBinding Gesture="Alt+Up" Command="{Binding GoUpCommand}" />
+    <KeyBinding Gesture="F5" Command="{Binding RefreshCommand}" />
+  </UserControl.KeyBindings>
+
+  <Panel>
+    <!-- Explorer's frame (toolbars, splitter, status bar) sits on the 3D face color, not the white window background. -->
+    <DockPanel Background="{DynamicResource SystemColors.ControlBrush}">
+      <Menu DockPanel.Dock="Top">
+        <MenuItem Header="_File">
+          <MenuItem Header="Ne_w">
+            <MenuItem Header="_Folder" Command="{Binding NewFolderCommand}">
+              <MenuItem.Icon><Image Source="{samples:Icon folder}" /></MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Text Document" Command="{Binding NewTextDocumentCommand}">
+              <MenuItem.Icon><Image Source="{samples:Icon text}" /></MenuItem.Icon>
+            </MenuItem>
+          </MenuItem>
+          <Separator />
+          <MenuItem Header="_Delete" Command="{Binding DeleteCommand}" />
+          <MenuItem Header="Rena_me" Command="{Binding RenameCommand}" InputGesture="F2" />
+          <MenuItem Header="P_roperties" Command="{Binding PropertiesCommand}" />
+          <Separator />
+          <MenuItem Header="_Close" Name="CloseItem" />
+        </MenuItem>
+        <MenuItem Header="_Edit">
+          <MenuItem Header="_Undo" IsEnabled="False" InputGesture="Ctrl+Z" />
+          <Separator />
+          <MenuItem Header="Cu_t" Command="{Binding CutCommand}" InputGesture="Ctrl+X">
+            <MenuItem.Icon><Image Source="{samples:Icon cut}" /></MenuItem.Icon>
+          </MenuItem>
+          <MenuItem Header="_Copy" Command="{Binding CopyCommand}" InputGesture="Ctrl+C">
+            <MenuItem.Icon><Image Source="{samples:Icon copy}" /></MenuItem.Icon>
+          </MenuItem>
+          <MenuItem Header="_Paste" Command="{Binding PasteCommand}" InputGesture="Ctrl+V">
+            <MenuItem.Icon><Image Source="{samples:Icon paste}" /></MenuItem.Icon>
+          </MenuItem>
+          <Separator />
+          <MenuItem Header="Select _All" Name="SelectAllItem" InputGesture="Ctrl+A" />
+          <MenuItem Header="_Invert Selection" Name="InvertSelectionItem" />
+        </MenuItem>
+        <MenuItem Header="_View">
+          <MenuItem Header="_Toolbars">
+            <MenuItem Header="_Standard Buttons" ToggleType="CheckBox" IsChecked="{Binding ShowStandardButtons, Mode=TwoWay}" />
+            <MenuItem Header="_Address Bar" ToggleType="CheckBox" IsChecked="{Binding ShowAddressBar, Mode=TwoWay}" />
+          </MenuItem>
+          <MenuItem Header="Status _Bar" ToggleType="CheckBox" IsChecked="{Binding ShowStatusBar, Mode=TwoWay}" />
+          <MenuItem Header="E_xplorer Bar">
+            <MenuItem Header="_Folders" ToggleType="CheckBox" IsChecked="{Binding ShowFolders, Mode=TwoWay}" />
+          </MenuItem>
+          <Separator />
+          <MenuItem Header="Ico_ns" ToggleType="Radio" GroupName="MenuViews" IsChecked="{Binding IsIconsView, Mode=TwoWay}" />
+          <MenuItem Header="_List" ToggleType="Radio" GroupName="MenuViews" IsChecked="{Binding IsListView, Mode=TwoWay}" />
+          <MenuItem Header="_Details" ToggleType="Radio" GroupName="MenuViews" IsChecked="{Binding IsDetailsView, Mode=TwoWay}" />
+          <Separator />
+          <MenuItem Header="Arrange _Icons By">
+            <MenuItem Header="_Name" Command="{Binding SortByCommand}" CommandParameter="Name" />
+            <MenuItem Header="_Size" Command="{Binding SortByCommand}" CommandParameter="Size" />
+            <MenuItem Header="_Type" Command="{Binding SortByCommand}" CommandParameter="Type" />
+            <MenuItem Header="_Modified" Command="{Binding SortByCommand}" CommandParameter="Modified" />
+          </MenuItem>
+          <Separator />
+          <MenuItem Header="_Go To">
+            <MenuItem Header="_Back" Command="{Binding GoBackCommand}" InputGesture="Alt+Left" />
+            <MenuItem Header="_Forward" Command="{Binding GoForwardCommand}" InputGesture="Alt+Right" />
+            <MenuItem Header="_Up One Level" Command="{Binding GoUpCommand}" />
+          </MenuItem>
+          <MenuItem Header="_Refresh" Command="{Binding RefreshCommand}" InputGesture="F5" />
+          <Separator />
+          <MenuItem Header="T_heme" Name="ThemeMenu" />
+        </MenuItem>
+        <MenuItem Header="F_avorites">
+          <MenuItem Header="_Add to Favorites..." IsEnabled="False" />
+          <MenuItem Header="_Organize Favorites..." IsEnabled="False" />
+          <Separator />
+          <MenuItem Header="My Documents" Command="{Binding NavigateToCommand}" CommandParameter="Desktop\My Documents">
+            <MenuItem.Icon><Image Source="{samples:Icon folder}" /></MenuItem.Icon>
+          </MenuItem>
+          <MenuItem Header="My Pictures" Command="{Binding NavigateToCommand}" CommandParameter="Desktop\My Documents\My Pictures">
+            <MenuItem.Icon><Image Source="{samples:Icon picture}" /></MenuItem.Icon>
+          </MenuItem>
+          <MenuItem Header="My Computer" Command="{Binding NavigateToCommand}" CommandParameter="Desktop\My Computer">
+            <MenuItem.Icon><Image Source="{samples:Icon computer}" /></MenuItem.Icon>
+          </MenuItem>
+          <MenuItem Header="Local Disk (C:)" Command="{Binding NavigateToCommand}" CommandParameter="Desktop\My Computer\Local Disk (C:)">
+            <MenuItem.Icon><Image Source="{samples:Icon drive}" /></MenuItem.Icon>
+          </MenuItem>
+        </MenuItem>
+        <MenuItem Header="_Tools">
+          <MenuItem Header="_Map Network Drive..." IsEnabled="False" />
+          <MenuItem Header="_Disconnect Network Drive..." IsEnabled="False" />
+          <Separator />
+          <MenuItem Header="Folder _Options..." IsEnabled="False" />
+        </MenuItem>
+        <MenuItem Header="_Help">
+          <MenuItem Header="_About AvaWpf Explorer" Command="{Binding AboutCommand}" />
+        </MenuItem>
+      </Menu>
+
+      <wpf:ToolBarTray DockPanel.Dock="Top" Name="Tray">
+        <wpf:ToolBar Band="0" BandIndex="0" IsVisible="{Binding ShowStandardButtons}">
+          <Button Command="{Binding GoBackCommand}" ToolTip.Tip="Back">
+            <StackPanel Orientation="Horizontal" Spacing="4">
+              <Panel Classes="navicon" Width="20" Height="20">
+                <Ellipse Fill="{StaticResource NavGreen}" Stroke="#2B7A1F" StrokeThickness="1" />
+                <Path Data="M4,10 L10,4 L10,8 L16,8 L16,12 L10,12 L10,16 Z" Fill="White" />
+              </Panel>
+              <TextBlock Text="Back" VerticalAlignment="Center" />
+            </StackPanel>
+          </Button>
+          <Button Command="{Binding GoForwardCommand}" ToolTip.Tip="Forward">
+            <Panel Classes="navicon" Width="20" Height="20">
+              <Ellipse Fill="{StaticResource NavGreen}" Stroke="#2B7A1F" StrokeThickness="1" />
+              <Path Data="M16,10 L10,4 L10,8 L4,8 L4,12 L10,12 L10,16 Z" Fill="White" />
+            </Panel>
+          </Button>
+          <Button Command="{Binding GoUpCommand}" ToolTip.Tip="Up">
+            <Panel Classes="navicon" Width="20" Height="20">
+              <Image Source="{samples:Icon folder}" Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+              <Path Data="M14,0 L20,6 L16.5,6 L16.5,11 L11.5,11 L11.5,6 L8,6 Z" Fill="{StaticResource NavGreen}" Stroke="#2B7A1F" StrokeThickness="0.75" />
+            </Panel>
+          </Button>
+          <Separator />
+          <Button Command="{Binding SearchCommand}" ToolTip.Tip="Search">
+            <StackPanel Orientation="Horizontal" Spacing="4">
+              <Image Source="{samples:Icon find}" Width="16" Height="16" />
+              <TextBlock Text="Search" VerticalAlignment="Center" />
+            </StackPanel>
+          </Button>
+          <ToggleButton IsChecked="{Binding ShowFolders, Mode=TwoWay}" ToolTip.Tip="Folders">
+            <StackPanel Orientation="Horizontal" Spacing="4">
+              <Image Source="{samples:Icon folder-open}" Width="16" Height="16" />
+              <TextBlock Text="Folders" VerticalAlignment="Center" />
+            </StackPanel>
+          </ToggleButton>
+          <Separator />
+          <Menu ToolTip.Tip="Views">
+            <MenuItem>
+              <MenuItem.Header>
+                <StackPanel Orientation="Horizontal" Spacing="4">
+                  <Path Data="M0,0 h6 v6 h-6 Z M8,0 h6 v6 h-6 Z M0,8 h6 v6 h-6 Z M8,8 h6 v6 h-6 Z" Fill="#3A6EA5" VerticalAlignment="Center" />
+                  <Path Data="M0,0 L6,0 L3,3 Z" Fill="{DynamicResource SystemColors.ControlTextBrush}" VerticalAlignment="Center" />
+                </StackPanel>
+              </MenuItem.Header>
+              <MenuItem Header="Ico_ns" ToggleType="Radio" GroupName="ToolBarViews" IsChecked="{Binding IsIconsView, Mode=TwoWay}" />
+              <MenuItem Header="_List" ToggleType="Radio" GroupName="ToolBarViews" IsChecked="{Binding IsListView, Mode=TwoWay}" />
+              <MenuItem Header="_Details" ToggleType="Radio" GroupName="ToolBarViews" IsChecked="{Binding IsDetailsView, Mode=TwoWay}" />
+            </MenuItem>
+          </Menu>
+        </wpf:ToolBar>
+        <wpf:ToolBar Band="1" BandIndex="0" IsVisible="{Binding ShowAddressBar}">
+          <Label Content="A_ddress" Target="{Binding #AddressBox}" VerticalAlignment="Center" Padding="2,0,4,0" />
+          <ComboBox Name="AddressBox" IsEditable="True" Width="420" ItemsSource="{Binding AddressHistory}"
+                    Text="{Binding AddressText, Mode=TwoWay}">
+            <ComboBox.KeyBindings>
+              <KeyBinding Gesture="Enter" Command="{Binding GoCommand}" />
+            </ComboBox.KeyBindings>
+          </ComboBox>
+          <Button Command="{Binding GoCommand}" ToolTip.Tip="Go to the address">
+            <StackPanel Orientation="Horizontal" Spacing="4">
+              <Border Width="16" Height="16" CornerRadius="2" Background="{StaticResource NavGreen}" BorderBrush="#2B7A1F" BorderThickness="1">
+                <Path Data="M3,4 L7,4 L7,1 L12,6.5 L7,12 L7,9 L3,9 Z" Fill="White" />
+              </Border>
+              <TextBlock Text="Go" VerticalAlignment="Center" />
+            </StackPanel>
+          </Button>
+        </wpf:ToolBar>
+      </wpf:ToolBarTray>
+
+      <wpf:StatusBar DockPanel.Dock="Bottom" IsVisible="{Binding ShowStatusBar}">
+        <wpf:StatusBarItem DockPanel.Dock="Right" Padding="0" VerticalAlignment="Bottom">
+          <wpf:ResizeGrip />
+        </wpf:StatusBarItem>
+        <wpf:StatusBarItem DockPanel.Dock="Right" Width="150">
+          <StackPanel Orientation="Horizontal" Spacing="4">
+            <Image Source="{samples:Icon computer}" Width="16" Height="16" />
+            <TextBlock Text="My Computer" VerticalAlignment="Center" />
+          </StackPanel>
+        </wpf:StatusBarItem>
+        <Separator DockPanel.Dock="Right" />
+        <wpf:StatusBarItem DockPanel.Dock="Right" Width="100">
+          <TextBlock Text="{Binding StatusSize}" />
+        </wpf:StatusBarItem>
+        <Separator DockPanel.Dock="Right" />
+        <wpf:StatusBarItem>
+          <TextBlock Text="{Binding StatusText}" />
+        </wpf:StatusBarItem>
+      </wpf:StatusBar>
+
+      <Grid Name="Panes" ColumnDefinitions="220,Auto,*">
+        <DockPanel Grid.Column="0" Name="FolderPane" IsVisible="{Binding ShowFolders}">
+          <Border DockPanel.Dock="Top" Background="{DynamicResource SystemColors.ControlBrush}" Padding="6,3,2,3">
+            <DockPanel>
+              <Button DockPanel.Dock="Right" Command="{Binding ToggleFoldersCommand}" ToolTip.Tip="Close" Padding="3" MinWidth="0" MinHeight="0"
+                      Background="Transparent" BorderThickness="0">
+                <Path Data="M0,0 L7,7 M7,0 L0,7" Stroke="{DynamicResource SystemColors.ControlTextBrush}" StrokeThickness="1.5" />
+              </Button>
+              <TextBlock Text="Folders" VerticalAlignment="Center" />
+            </DockPanel>
+          </Border>
+          <TreeView Name="FolderTree" ItemsSource="{Binding Folders}" SelectedItem="{Binding SelectedFolder, Mode=TwoWay}">
+            <TreeView.ItemTemplate>
+              <TreeDataTemplate DataType="vm:FolderItem" ItemsSource="{Binding Children}">
+                <StackPanel Orientation="Horizontal" Spacing="4">
+                  <Image Source="{Binding Icon}" Width="16" Height="16" />
+                  <TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
+                </StackPanel>
+              </TreeDataTemplate>
+            </TreeView.ItemTemplate>
+          </TreeView>
+        </DockPanel>
+        <GridSplitter Grid.Column="1" Width="4" ResizeDirection="Columns" IsVisible="{Binding ShowFolders}" />
+        <wpf:ListView Grid.Column="2" Name="FileList" ItemsSource="{Binding Items}">
+          <wpf:ListView.KeyBindings>
+            <KeyBinding Gesture="Enter" Command="{Binding OpenCommand}" />
+            <KeyBinding Gesture="Back" Command="{Binding GoUpCommand}" />
+            <KeyBinding Gesture="Delete" Command="{Binding DeleteCommand}" />
+            <KeyBinding Gesture="F2" Command="{Binding RenameCommand}" />
+            <KeyBinding Gesture="Ctrl+X" Command="{Binding CutCommand}" />
+            <KeyBinding Gesture="Ctrl+C" Command="{Binding CopyCommand}" />
+            <KeyBinding Gesture="Ctrl+V" Command="{Binding PasteCommand}" />
+          </wpf:ListView.KeyBindings>
+        </wpf:ListView>
+      </Grid>
+    </DockPanel>
+
+    <!-- Properties and About: a dialog frame over the shell, so it works in the Browser head too. -->
+    <Panel Background="Transparent" IsVisible="{Binding Dialog, Converter={x:Static ObjectConverters.IsNotNull}}">
+      <wpf:WindowFrame Name="DialogFrame" Kind="Dialog" Title="{Binding Dialog.Title}" Width="380"
+                       HorizontalAlignment="Center" VerticalAlignment="Center" ShowIcon="False">
+        <DockPanel Margin="10">
+          <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+            <Button Content="OK" Width="75" IsDefault="True" IsCancel="True" Command="{Binding CloseDialogCommand}" />
+          </StackPanel>
+          <StackPanel Spacing="8">
+            <StackPanel Orientation="Horizontal" Spacing="12">
+              <Image Source="{Binding Dialog.Icon}" Width="32" Height="32" />
+              <TextBlock Text="{Binding Dialog.Heading}" FontWeight="Bold" VerticalAlignment="Center" TextWrapping="Wrap" MaxWidth="290" />
+            </StackPanel>
+            <Separator />
+            <ItemsControl ItemsSource="{Binding Dialog.Rows}">
+              <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="vm:DialogRow">
+                  <Grid ColumnDefinitions="80,*" Margin="0,2">
+                    <TextBlock Text="{Binding Label}" />
+                    <TextBlock Grid.Column="1" Text="{Binding Value}" TextWrapping="Wrap" />
+                  </Grid>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+          </StackPanel>
+        </DockPanel>
+      </wpf:WindowFrame>
+    </Panel>
+  </Panel>
+</UserControl>

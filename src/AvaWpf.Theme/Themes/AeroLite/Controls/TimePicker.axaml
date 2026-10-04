@@ -1,0 +1,109 @@
+
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:sys="using:System">
+  <!-- Avalonia's spinner TimePicker drawn as an AeroLite ComboBox; the drop-down is a TimePickerPresenter. -->
+  <ControlTheme x:Key="{x:Type TimePicker}" TargetType="TimePicker">
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.WindowTextBrush}" />
+    <Setter Property="Background" Value="{DynamicResource AeroLite.ComboBox.Static.Background}"/>
+    <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.ComboBox.Static.Border}"/>
+    <Setter Property="BorderThickness" Value="{DynamicResource AeroLite.TimePickerBorderThemeThickness}"/>
+    <Setter Property="CornerRadius" Value="0" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="MinWidth" Value="{DynamicResource AeroLite.TimePickerThemeMinWidth}" />
+    <Setter Property="MaxWidth" Value="{DynamicResource AeroLite.TimePickerThemeMaxWidth}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DataValidationErrors>
+          <Grid Name="LayoutRoot" Margin="{TemplateBinding Padding}">
+            <Button x:Name="PART_FlyoutButton"
+                    Theme="{StaticResource AeroLite.FluentTimePickerFlyoutButton}"
+                    Foreground="{TemplateBinding Foreground}"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="{TemplateBinding CornerRadius}"
+                    IsEnabled="{TemplateBinding IsEnabled}"
+                    MinWidth="{TemplateBinding MinWidth}"
+                    MaxWidth="{TemplateBinding MaxWidth}"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch">
+              <Grid Name="PART_FlyoutButtonContentGrid">
+                <Border x:Name="PART_FirstPickerHost"
+                        Grid.Column="0"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch">
+                  <TextBlock x:Name="PART_HourTextBlock"
+                      Text="hour"
+                      HorizontalAlignment="Center"
+                      Padding="{DynamicResource AeroLite.TimePickerHostPadding}" />
+                </Border>
+                <Rectangle Name="PART_FirstColumnDivider"
+                           Fill="{DynamicResource AeroLite.ComboBox.Static.Border}"
+                           HorizontalAlignment="Center"
+                           Width="{DynamicResource AeroLite.TimePickerSpacerThemeWidth}"
+                           Grid.Column="1" />
+                <Border x:Name="PART_SecondPickerHost"
+                        Grid.Column="2"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch">
+                  <TextBlock x:Name="PART_MinuteTextBlock"
+                             Text="minute"
+                             HorizontalAlignment="Center"
+                             Padding="{DynamicResource AeroLite.TimePickerHostPadding}"/>
+                </Border>
+                <Rectangle Name="PART_SecondColumnDivider"
+                           Fill="{DynamicResource AeroLite.ComboBox.Static.Border}"
+                           HorizontalAlignment="Center"
+                           Width="{DynamicResource AeroLite.TimePickerSpacerThemeWidth}"
+                           Grid.Column="3" />
+                <Border x:Name="PART_ThirdPickerHost"
+                        Grid.Column="4"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch">
+                  <TextBlock x:Name="PART_SecondTextBlock"
+                             Text="second"
+                             HorizontalAlignment="Center"
+                             Padding="{DynamicResource AeroLite.TimePickerHostPadding}"/>
+                </Border>
+                <Rectangle Name="PART_ThirdColumnDivider"
+                           Fill="{DynamicResource AeroLite.ComboBox.Static.Border}"
+                           HorizontalAlignment="Center"
+                           Width="{DynamicResource AeroLite.TimePickerSpacerThemeWidth}"
+                           Grid.Column="5" />
+                <Border x:Name="PART_FourthPickerHost"
+                        Grid.Column="6"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch">
+                  <TextBlock x:Name="PART_PeriodTextBlock"
+                             HorizontalAlignment="Center"
+                             Padding="{DynamicResource AeroLite.TimePickerHostPadding}" />
+                </Border>
+              </Grid>
+            </Button>
+            <Popup Name="PART_Popup"
+                   WindowManagerAddShadowHint="False"
+                   IsLightDismissEnabled="True"
+                   PlacementTarget="{TemplateBinding}"
+                   Placement="Bottom">
+              <TimePickerPresenter Name="PART_PickerPresenter" />
+            </Popup>
+          </Grid>
+        </DataValidationErrors>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:disabled /template/ Rectangle">
+      <Setter Property="Fill" Value="{DynamicResource AeroLite.ComboBox.Disabled.Border}"/>
+    </Style>
+    <Style Selector="^ /template/ Button#PART_FlyoutButton TextBlock">
+      <Setter Property="VerticalAlignment" Value="{TemplateBinding VerticalContentAlignment}"/>
+    </Style>
+    <Style Selector="^:hasnotime /template/ Button#PART_FlyoutButton TextBlock">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}"/>
+    </Style>
+    <Style Selector="^:error /template/ Button#PART_FlyoutButton">
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.Invented.Validation.Error.Foreground}"/>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

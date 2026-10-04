@@ -1,0 +1,48 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/ToolTip.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!-- WPF DefaultToolTipStyle. WPF's #202020 shadow color is drawn as the effect's default black. -->
+  <ControlTheme x:Key="{x:Type ToolTip}" TargetType="ToolTip">
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.ToolTipForegroundBrush}" />
+    <Setter Property="FontFamily" Value="{DynamicResource SystemFonts.StatusFontFamily}" />
+    <Setter Property="FontSize" Value="{DynamicResource SystemFonts.StatusFontSize}" />
+    <Setter Property="Background" Value="{DynamicResource Fluent.ToolTipBackgroundBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Fluent.ToolTipBorderBrush}" />
+    <Setter Property="BorderThickness" Value="{DynamicResource Fluent.ToolTipBorderThemeThickness}" />
+    <Setter Property="Padding" Value="{DynamicResource Fluent.ToolTipBorderPadding}" />
+    <Setter Property="MaxWidth" Value="{DynamicResource Fluent.ToolTipMaxWidth}" />
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="CornerRadius" Value="4" />
+    <Setter Property="Opacity" Value="0" />
+    <Setter Property="Transitions">
+      <Transitions>
+        <DoubleTransition Property="Opacity" Duration="0:0:0.2" />
+      </Transitions>
+    </Setter>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="Border"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                UseLayoutRounding="True">
+          <Border.Effect>
+            <DropShadowEffect BlurRadius="30" OffsetX="0" OffsetY="0" Opacity="0.4" />
+          </Border.Effect>
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Margin="{TemplateBinding Padding}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            TextWrapping="Wrap" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:open">
+      <Setter Property="Opacity" Value="1" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

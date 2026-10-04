@@ -1,0 +1,46 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:royale="using:AvaWpf.Chrome.Royale">
+  <!-- Royale.DateTimePickerFlyoutButton: the closed Royale ComboBox (WPF ComboBox.xaml [[Royale.NormalColor]]) for
+       DatePicker and TimePicker. -->
+  <ControlTheme x:Key="Royale.DateTimePickerFlyoutButton" TargetType="Button">
+    <Setter Property="Background" Value="{DynamicResource SystemColors.WindowBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Royale.ListBorder}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="FocusAdorner" Value="{DynamicResource Royale.ComboBoxFocusVisual}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="Bd"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Padding="1"
+                UseLayoutRounding="True">
+          <Grid ColumnDefinitions="*,Auto">
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Content="{TemplateBinding Content}"
+                              Foreground="{TemplateBinding Foreground}"
+                              HorizontalContentAlignment="Stretch"
+                              VerticalContentAlignment="Stretch" />
+            <royale:ScrollChrome Name="Chrome"
+                               Grid.Column="1"
+                               HasOuterBorder="False"
+                               RenderMouseOver="{TemplateBinding IsPointerOver}"
+                               RenderPressed="{TemplateBinding IsPressed}"
+                               Width="{DynamicResource SystemParameters.VerticalScrollBarWidth}"
+                               Padding="1,0,0,0" />
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^ /template/ royale|ScrollChrome#Chrome">
+      <Setter Property="royale:ScrollChrome.ScrollGlyph" Value="DownArrow" />
+    </Style>
+    <Style Selector="^:pointerover /template/ Border#Bd">
+      <Setter Property="BorderBrush" Value="{DynamicResource Royale.ComboBox.ComboBox.Bd.BorderBrush.IsMouseOver_true}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Border#Bd">
+      <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

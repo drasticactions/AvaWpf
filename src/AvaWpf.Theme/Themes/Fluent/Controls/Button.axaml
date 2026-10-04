@@ -1,0 +1,77 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/Button.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!--
+    Button, BasedOn DefaultButtonStyle (_ButtonBase.axaml). Class accent: AccentButtonStyle. Class toolbar:
+    ToolBar.ButtonStyleKey.
+  -->
+  <ControlTheme x:Key="{x:Type Button}" TargetType="Button" BasedOn="{StaticResource Fluent.BaseButtonStyle}">
+    <Style Selector="^.accent">
+      <Setter Property="Background" Value="{DynamicResource Fluent.AccentButtonBackground}" />
+      <Setter Property="Foreground" Value="{DynamicResource Fluent.AccentButtonForeground}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Fluent.AccentButtonBorderBrush}" />
+      <Style Selector="^:pointerover">
+        <Style Selector="^ /template/ Border#ContentBorder">
+          <Setter Property="Background" Value="{DynamicResource Fluent.AccentButtonBackgroundPointerOver}" />
+          <Setter Property="BorderBrush" Value="{DynamicResource Fluent.AccentButtonBorderBrushPointerOver}" />
+        </Style>
+        <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+          <Setter Property="Foreground" Value="{DynamicResource Fluent.AccentButtonForegroundPointerOver}" />
+        </Style>
+      </Style>
+      <Style Selector="^:pressed">
+        <Style Selector="^ /template/ Border#ContentBorder">
+          <Setter Property="Background" Value="{DynamicResource Fluent.AccentButtonBackgroundPressed}" />
+          <Setter Property="BorderBrush" Value="{DynamicResource Fluent.AccentButtonBorderBrushPressed}" />
+        </Style>
+        <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+          <Setter Property="Foreground" Value="{DynamicResource Fluent.AccentButtonForegroundPressed}" />
+        </Style>
+      </Style>
+      <Style Selector="^:disabled">
+        <Style Selector="^ /template/ Border#ContentBorder">
+          <Setter Property="Background" Value="{DynamicResource Fluent.AccentButtonBackgroundDisabled}" />
+          <Setter Property="BorderBrush" Value="{DynamicResource Fluent.AccentButtonBorderBrushDisabled}" />
+        </Style>
+        <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+          <Setter Property="Foreground" Value="{DynamicResource Fluent.AccentButtonForegroundDisabled}" />
+        </Style>
+      </Style>
+    </Style>
+
+    <Style Selector="^.toolbar">
+      <Setter Property="Background" Value="{DynamicResource Fluent.ToolBar.ToolBarButtonBaseStyle.Setter.Self.Background}" />
+      <Setter Property="BorderBrush" Value="Transparent" />
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="Padding" Value="12,6" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Border Name="Border"
+                  Padding="{TemplateBinding Padding}"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  UseLayoutRounding="True">
+            <Border.Transitions>
+              <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.16" />
+              </Transitions>
+            </Border.Transitions>
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Margin="2"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Foreground="{TemplateBinding Foreground}"
+                              RecognizesAccessKey="True" />
+          </Border>
+        </ControlTemplate>
+      </Setter>
+      <Style Selector="^:pointerover /template/ Border#Border">
+        <Setter Property="Background" Value="{DynamicResource Fluent.ControlFillColorDefaultBrush}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

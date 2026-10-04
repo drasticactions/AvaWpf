@@ -1,0 +1,37 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dialogs="using:Avalonia.Dialogs"
+        xmlns:internal="using:Avalonia.Dialogs.Internal">
+  <!-- The overwrite confirmation of the managed file chooser. -->
+  <ControlTheme x:Key="{x:Type dialogs:ManagedFileChooserOverwritePrompt}" TargetType="dialogs:ManagedFileChooserOverwritePrompt">
+    <Setter Property="MinWidth" Value="270" />
+    <Setter Property="MaxWidth" Value="400" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                Padding="{TemplateBinding Padding}">
+          <StackPanel Spacing="10">
+            <TextBlock TextWrapping="Wrap" Text="{Binding FileName, RelativeSource={RelativeSource TemplatedParent}, StringFormat='{}{0} already exists. Do you want to replace it?'}" />
+            <StackPanel HorizontalAlignment="Right"
+                        Spacing="10"
+                        Orientation="Horizontal">
+              <Button Classes="accent" Content="Yes"
+                      MinWidth="80"
+                      HorizontalContentAlignment="Center"
+                      IsDefault="True"
+                      Command="{Binding Confirm, RelativeSource={RelativeSource TemplatedParent}}" />
+              <Button Content="No"
+                      MinWidth="80"
+                      IsCancel="True"
+                      HorizontalContentAlignment="Center"
+                      Command="{Binding Cancel, RelativeSource={RelativeSource TemplatedParent}}"  />
+            </StackPanel>
+          </StackPanel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,67 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Two AeroLite Button halves (_SplitButtonComponent.axaml) sharing one outline; they light up separately. -->
+  <ControlTheme x:Key="{x:Type SplitButton}" TargetType="SplitButton">
+    <Setter Property="Background" Value="{DynamicResource AeroLite.Button.Static.Background}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.Button.Static.Border}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="KeyboardNavigation.IsTabStop" Value="True" />
+    <Setter Property="Focusable" Value="True" />
+    <Setter Property="Padding" Value="4,1" />
+    <Setter Property="FocusAdorner" Value="{DynamicResource AeroLite.FocusVisual}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid ColumnDefinitions="*,Auto">
+          <ContentPresenter Name="PART_ContentPresenter" IsVisible="False" />
+          <Button Name="PART_PrimaryButton"
+                  Grid.Column="0"
+                  Theme="{StaticResource AeroLite.SplitButtonComponent}"
+                  Foreground="{TemplateBinding Foreground}"
+                  Background="{TemplateBinding Background}"
+                  BorderThickness="1,1,0,1"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  Content="{TemplateBinding Content}"
+                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                  Command="{TemplateBinding Command}"
+                  CommandParameter="{TemplateBinding CommandParameter}"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                  Padding="{TemplateBinding Padding}"
+                  KeyboardNavigation.IsTabStop="False" />
+          <Button Name="PART_SecondaryButton"
+                  Grid.Column="1"
+                  Theme="{StaticResource AeroLite.SplitButtonComponent}"
+                  Width="{DynamicResource SystemParameters.VerticalScrollBarWidth}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  Foreground="{TemplateBinding Foreground}"
+                  Background="{TemplateBinding Background}"
+                  BorderThickness="1"
+                  Padding="0"
+                  HorizontalContentAlignment="Center"
+                  VerticalContentAlignment="Center"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  KeyboardNavigation.IsTabStop="False">
+            <Path Data="{StaticResource AeroLite.ArrowDownGeometry}" Fill="{Binding $parent[Button].Foreground}" />
+          </Button>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:flyout-open /template/ Button">
+      <Setter Property="Tag" Value="flyout-open" />
+    </Style>
+    <Style Selector="^:checked /template/ Button">
+      <Setter Property="Tag" Value="checked" />
+    </Style>
+    <Style Selector="^:checked:flyout-open /template/ Button">
+      <Setter Property="Tag" Value="checked-flyout-open" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

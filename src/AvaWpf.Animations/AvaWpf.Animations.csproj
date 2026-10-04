@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>AvaWpf.Animations</RootNamespace>
+    <PackageId>AvaWpf.Animations</PackageId>
+    <Description>The WPF theme motion, popup animations and window animations for AvaWpf.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="AvaWpf.Theme" />
+    <InternalsVisibleTo Include="AvaWpf.Controls" />
+    <InternalsVisibleTo Include="AvaWpf.DataGrid" />
+    <InternalsVisibleTo Include="AvaWpf.Ribbon" />
+    <InternalsVisibleTo Include="AvaWpf.Animations.Tests" />
+    <InternalsVisibleTo Include="AvaWpf.Theme.Tests" />
+  </ItemGroup>
+
+</Project>

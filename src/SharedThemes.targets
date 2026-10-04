@@ -1,0 +1,140 @@
+<Project>
+  <!--
+    The family dictionaries (Themes/<Family>/_Family.axaml, class <RootNamespace>.Themes.<Family>.FamilyControls) are
+    generated: they merge every Themes/<Family>/Controls/*.axaml, so a new control file needs no registration. Each
+    family keeps its own _Family.axaml.cs partial class.
+
+    Shared ControlThemes. A file in Themes/Shared/<Group>/<Type>.axaml is written once for every family of the group
+    (the group folder names the families joined by '+', or AllClassic, or All for every family). "$F" in the file is replaced by the family name,
+    so the family-prefixed token keys stay per family. The expanded copy is compiled as
+    avares://<assembly>/Themes/<Family>/Controls/<Type>.axaml. A family with its own file of that name keeps its own.
+  -->
+  <PropertyGroup>
+    <AvaWpfThemeFamilies Condition="'$(AvaWpfThemeFamilies)' == ''">Aero2;AeroLite;Aero;Luna;Royale;Classic;Fluent</AvaWpfThemeFamilies>
+    <AvaWpfThemeNamespace Condition="'$(AvaWpfThemeNamespace)' == ''">$(RootNamespace).Themes</AvaWpfThemeNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AvaloniaXaml Remove="Themes/*/_Family.axaml" />
+    <AvaloniaXaml Remove="Themes/Shared/**" />
+    <AvaloniaResource Remove="Themes/Shared/**" />
+    <None Include="Themes/Shared/**/*.axaml" />
+    <_AvaWpfSharedTheme Include="Themes/Shared/*/*.axaml" />
+  </ItemGroup>
+
+  <UsingTask TaskName="AvaWpfExpandSharedThemes" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)/Microsoft.Build.Tasks.Core.dll">
+    <ParameterGroup>
+      <Sources ParameterType="Microsoft.Build.Framework.ITaskItem[]" Required="true" />
+      <ProjectDir ParameterType="System.String" Required="true" />
+      <AssemblyName ParameterType="System.String" Required="true" />
+      <Namespace ParameterType="System.String" Required="true" />
+      <Families ParameterType="System.String" Required="true" />
+      <OutputDir ParameterType="System.String" Required="true" />
+      <Expanded ParameterType="Microsoft.Build.Framework.ITaskItem[]" Output="true" />
+    </ParameterGroup>
+    <Task>
+      <Using Namespace="System" />
+      <Using Namespace="System.IO" />
+      <Using Namespace="System.Collections.Generic" />
+      <Code Type="Fragment" Language="cs"><![CDATA[
+        var all = new[] { "Aero2", "AeroLite", "Aero", "Luna", "Royale", "Classic" };
+        var allWithFluent = new[] { "Aero2", "AeroLite", "Aero", "Luna", "Royale", "Classic", "Fluent" };
+        var result = new List<Microsoft.Build.Framework.ITaskItem>();
+        foreach (var src in Sources)
+        {
+            var path = src.GetMetadata("FullPath");
+            var group = Path.GetFileName(Path.GetDirectoryName(path));
+            var families = group == "AllClassic" ? all : group == "All" ? allWithFluent : group.Split('+');
+            var name = Path.GetFileName(path);
+            var text = File.ReadAllText(path);
+            foreach (var family in families)
+            {
+                var link = "Themes/" + family + "/Controls/" + name;
+                if (File.Exists(Path.Combine(ProjectDir, link)))
+                {
+                    continue;
+                }
+
+                var target = Path.Combine(OutputDir, family, name);
+                Directory.CreateDirectory(Path.GetDirectoryName(target));
+                var expanded = "<!-- Expanded from " + group + "/" + name + " for " + family + ". -->\n" + text.Replace("$F", family);
+                if (!File.Exists(target) || File.ReadAllText(target) != expanded)
+                {
+                    File.WriteAllText(target, expanded);
+                }
+
+                var item = new Microsoft.Build.Utilities.TaskItem(target);
+                item.SetMetadata("Link", link);
+                result.Add(item);
+            }
+        }
+
+        // The family dictionaries: every Controls/*.axaml of the family, own and expanded, helpers ("_" prefix) first
+        // so a StaticResource BasedOn finds them. The inner plain ResourceDictionary lets the XAML compiler merge the
+        // files at build time.
+        foreach (var family in Families.Split(';'))
+        {
+            var names = new SortedSet<string>(StringComparer.Ordinal);
+            var own = Path.Combine(ProjectDir, "Themes", family, "Controls");
+            if (Directory.Exists(own))
+            {
+                foreach (var f in Directory.GetFiles(own, "*.axaml"))
+                {
+                    names.Add(Path.GetFileName(f));
+                }
+            }
+
+            foreach (var item in result)
+            {
+                var link = item.GetMetadata("Link");
+                if (link.StartsWith("Themes/" + family + "/Controls/"))
+                {
+                    names.Add(Path.GetFileName(link));
+                }
+            }
+
+            var ordered = new List<string>();
+            foreach (var n in names) { if (n.StartsWith("_")) ordered.Add(n); }
+            foreach (var n in names) { if (!n.StartsWith("_")) ordered.Add(n); }
+
+            var sb = new System.Text.StringBuilder();
+            sb.Append("<ResourceDictionary xmlns=\"https://github.com/avaloniaui\"\n");
+            sb.Append("                    xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\"\n");
+            sb.Append("                    x:Class=\"" + Namespace + "." + family + ".FamilyControls\"\n");
+            sb.Append("                    x:ClassModifier=\"internal\">\n");
+            sb.Append("  <!-- Generated at build time by SharedThemes.targets: the ControlThemes of the " + family + " family. -->\n");
+            sb.Append("  <ResourceDictionary.MergedDictionaries>\n    <ResourceDictionary>\n      <ResourceDictionary.MergedDictionaries>\n");
+            foreach (var n in ordered)
+            {
+                sb.Append("        <MergeResourceInclude Source=\"avares://" + AssemblyName + "/Themes/" + family + "/Controls/" + n + "\" />\n");
+            }
+
+            sb.Append("      </ResourceDictionary.MergedDictionaries>\n    </ResourceDictionary>\n  </ResourceDictionary.MergedDictionaries>\n</ResourceDictionary>\n");
+            var target = Path.Combine(OutputDir, family, "_Family.axaml");
+            Directory.CreateDirectory(Path.GetDirectoryName(target));
+            var text = sb.ToString();
+            if (!File.Exists(target) || File.ReadAllText(target) != text)
+            {
+                File.WriteAllText(target, text);
+            }
+
+            var familyItem = new Microsoft.Build.Utilities.TaskItem(target);
+            familyItem.SetMetadata("Link", "Themes/" + family + "/_Family.axaml");
+            result.Add(familyItem);
+        }
+
+        Expanded = result.ToArray();
+      ]]></Code>
+    </Task>
+  </UsingTask>
+
+  <Target Name="AvaWpfExpandSharedThemes" BeforeTargets="_GenerateAvaloniaResourcesDependencyCache;GenerateAvaloniaResources;_InjectAvaloniaAdditionalFiles" Condition="'$(AvaWpfThemeFamilies)' != ''">
+    <AvaWpfExpandSharedThemes Sources="@(_AvaWpfSharedTheme)" ProjectDir="$(MSBuildProjectDirectory)" AssemblyName="$(AssemblyName)" Namespace="$(AvaWpfThemeNamespace)" Families="$(AvaWpfThemeFamilies)" OutputDir="$(IntermediateOutputPath)SharedThemes">
+      <Output TaskParameter="Expanded" ItemName="_AvaWpfExpandedTheme" />
+    </AvaWpfExpandSharedThemes>
+    <ItemGroup>
+      <AvaloniaXaml Include="@(_AvaWpfExpandedTheme)" />
+      <FileWrites Include="@(_AvaWpfExpandedTheme)" />
+    </ItemGroup>
+  </Target>
+</Project>

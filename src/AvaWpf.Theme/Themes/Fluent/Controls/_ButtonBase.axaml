@@ -1,0 +1,74 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/Button.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!--
+    WPF DefaultButtonStyle (the ButtonBase style). Triggers are in WPF order, so the later one wins. Button-like
+    controls are BasedOn this theme.
+  -->
+  <ControlTheme x:Key="Fluent.BaseButtonStyle" TargetType="Button">
+    <Setter Property="FocusAdorner" Value="{DynamicResource Fluent.FocusVisual}" />
+    <Setter Property="Background" Value="{DynamicResource Fluent.ButtonBackground}" />
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.ButtonForeground}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Fluent.ButtonBorderBrush}" />
+    <Setter Property="BorderThickness" Value="{DynamicResource Fluent.ButtonBorderThemeThickness}" />
+    <Setter Property="Padding" Value="{DynamicResource Fluent.ButtonPadding}" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="FontWeight" Value="Normal" />
+    <Setter Property="CornerRadius" Value="{DynamicResource Fluent.ControlCornerRadius}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="ContentBorder"
+                Padding="{TemplateBinding Padding}"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                UseLayoutRounding="True">
+          <Border.Transitions>
+            <Transitions>
+              <BrushTransition Property="Background" Duration="{x:Static wpf:FluentTimings.Faster}" Easing="0,0,0,1" />
+            </Transitions>
+          </Border.Transitions>
+          <ContentPresenter Name="PART_ContentPresenter"
+                            RecognizesAccessKey="True"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Foreground="{TemplateBinding Foreground}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover">
+      <Style Selector="^ /template/ Border#ContentBorder">
+        <Setter Property="Background" Value="{DynamicResource Fluent.ButtonBackgroundPointerOver}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.ButtonBorderBrushPointerOver}" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.ButtonForegroundPointerOver}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Style Selector="^ /template/ Border#ContentBorder">
+        <Setter Property="Background" Value="{DynamicResource Fluent.ButtonBackgroundDisabled}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.ButtonBorderBrushDisabled}" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.ButtonForegroundDisabled}" />
+      </Style>
+    </Style>
+    <Style Selector="^:pressed">
+      <Style Selector="^ /template/ Border#ContentBorder">
+        <Setter Property="Background" Value="{DynamicResource Fluent.ButtonBackgroundPressed}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.ButtonBorderBrushPressed}" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.ButtonForegroundPressed}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

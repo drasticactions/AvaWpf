@@ -1,0 +1,124 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- TabbedPage parts: the tab control, tab item and tab focus rectangle (WPF TabControl.xaml and TabItem.xaml
+       [[Classic]]). -->
+  <FocusAdornerTemplate x:Key="Classic.TabbedPageTabItemFocusVisual">
+    <Rectangle Margin="4,4,4,2"
+               StrokeThickness="1"
+               Stroke="{DynamicResource SystemColors.ControlTextBrush}"
+               StrokeDashArray="1,2"
+               UseLayoutRounding="True" />
+  </FocusAdornerTemplate>
+
+  <ControlTheme x:Key="Classic.TabbedPageTabControl" TargetType="TabControl">
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+    <Setter Property="BorderBrush" Value="{x:Static wpf:ClassicBorderDecorator.ClassicBorderBrush}" />
+    <Setter Property="BorderThickness" Value="3" />
+    <Setter Property="Padding" Value="2" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DockPanel UseLayoutRounding="True" ClipToBounds="True">
+          <ItemsPresenter Name="PART_ItemsPresenter"
+                          ZIndex="1"
+                          Margin="2,2,2,0"
+                          DockPanel.Dock="{TemplateBinding TabStripPlacement}">
+            <ItemsPresenter.ItemsPanel>
+              <ItemsPanelTemplate>
+                <WrapPanel />
+              </ItemsPanelTemplate>
+            </ItemsPresenter.ItemsPanel>
+          </ItemsPresenter>
+          <wpf:ClassicBorderDecorator BorderStyle="Raised"
+                                      Background="{TemplateBinding Background}"
+                                      BorderThickness="{TemplateBinding BorderThickness}"
+                                      BorderBrush="{TemplateBinding BorderBrush}">
+            <Panel ClipToBounds="True" Margin="{TemplateBinding Padding}">
+              <ContentPresenter Name="PART_SelectedContentHost2"
+                                HorizontalContentAlignment="Stretch"
+                                VerticalContentAlignment="Stretch"
+                                IsVisible="False" />
+              <ContentPresenter Name="PART_SelectedContentHost"
+                                HorizontalContentAlignment="Stretch"
+                                VerticalContentAlignment="Stretch" />
+            </Panel>
+          </wpf:ClassicBorderDecorator>
+        </DockPanel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^[TabStripPlacement=Bottom] /template/ ItemsPresenter#PART_ItemsPresenter">
+      <Setter Property="Margin" Value="2,0,2,2" />
+    </Style>
+    <Style Selector="^[TabStripPlacement=Left] /template/ ItemsPresenter#PART_ItemsPresenter">
+      <Setter Property="Margin" Value="2,2,0,2" />
+    </Style>
+    <Style Selector="^[TabStripPlacement=Right] /template/ ItemsPresenter#PART_ItemsPresenter">
+      <Setter Property="Margin" Value="0,2,2,2" />
+    </Style>
+    <Style Selector="^[TabStripPlacement=Left] /template/ ItemsPresenter#PART_ItemsPresenter > WrapPanel,
+           ^[TabStripPlacement=Right] /template/ ItemsPresenter#PART_ItemsPresenter > WrapPanel">
+      <Setter Property="Orientation" Value="Vertical" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Classic.TabbedPageTabItem" TargetType="TabItem">
+    <Setter Property="FocusAdorner" Value="{DynamicResource Classic.TabbedPageTabItemFocusVisual}" />
+    <Setter Property="Padding" Value="12,2,12,2" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <wpf:ClassicBorderDecorator Name="ClassicBorder"
+                                    BorderStyle="TabTop"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{x:Static wpf:ClassicBorderDecorator.ClassicBorderBrush}"
+                                    BorderThickness="2"
+                                    UseLayoutRounding="True">
+          <StackPanel Name="PART_HeaderPanel"
+                      Margin="{TemplateBinding Padding}"
+                      Spacing="2"
+                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+            <ContentPresenter Name="PART_IconPresenter"
+                              Content="{TemplateBinding Icon}"
+                              ContentTemplate="{TemplateBinding IconTemplate}"
+                              HorizontalAlignment="Center"
+                              IsVisible="{TemplateBinding Icon, Converter={x:Static ObjectConverters.IsNotNull}}"
+                              Width="16"
+                              Height="16" />
+            <ContentPresenter Name="PART_ContentPresenter"
+                              HorizontalAlignment="Center"
+                              Content="{TemplateBinding Header}"
+                              ContentTemplate="{TemplateBinding HeaderTemplate}"
+                              RecognizesAccessKey="True" />
+          </StackPanel>
+        </wpf:ClassicBorderDecorator>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:selected">
+      <Setter Property="ZIndex" Value="1" />
+      <Setter Property="Margin" Value="-2" />
+    </Style>
+    <Style Selector="^[TabStripPlacement=Bottom] /template/ wpf|ClassicBorderDecorator#ClassicBorder">
+      <Setter Property="BorderStyle" Value="TabBottom" />
+    </Style>
+    <Style Selector="^[TabStripPlacement=Left] /template/ wpf|ClassicBorderDecorator#ClassicBorder">
+      <Setter Property="BorderStyle" Value="TabLeft" />
+    </Style>
+    <Style Selector="^[TabStripPlacement=Right] /template/ wpf|ClassicBorderDecorator#ClassicBorder">
+      <Setter Property="BorderStyle" Value="TabRight" />
+    </Style>
+    <Style Selector="^[TabStripPlacement=Left]:selected">
+      <Setter Property="Padding" Value="11,2,14,2" />
+    </Style>
+    <Style Selector="^[TabStripPlacement=Right]:selected">
+      <Setter Property="Padding" Value="14,2,11,2" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

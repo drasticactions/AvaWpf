@@ -1,0 +1,131 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF RibbonTextBox.xaml, [[Generic]]. -->
+  <ControlTheme x:Key="{x:Type wpf:RibbonTextBox}" TargetType="wpf:RibbonTextBox">
+    <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.TextBox.Overlay}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource $F.Invented.Ribbon.BorderBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="TextBoxWidth" Value="80" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="SelectionBrush" Value="{DynamicResource SystemColors.HighlightBrush}" />
+    <Setter Property="SelectionForegroundBrush" Value="{DynamicResource SystemColors.HighlightTextBrush}" />
+    <Setter Property="CaretBrush" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="QuickAccessToolBarControlSizeDefinition">
+      <wpf:RibbonControlSizeDefinition ImageSize="Collapsed" IsLabelVisible="True" />
+    </Setter>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="MainBorder" Margin="1" Background="Transparent">
+          <Grid Margin="1,0,1,0" ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto">
+            <Image Name="Image"
+                   Source="{TemplateBinding LargeImageSource}"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Grid.Column="1"
+                   Margin="1"
+                   Width="32"
+                   Height="32" />
+            <Grid Name="Grid" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+              <Grid Name="InnerGrid" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="1" ColumnDefinitions="Auto,Auto">
+                <wpf:RibbonTwoLineText Name="TwoLineText"
+                                       VerticalAlignment="Center"
+                                       Text="{TemplateBinding Label}"
+                                       TextAlignment="Center"
+                                       LineHeight="13"
+                                       Margin="2,0,2,0" />
+                <Border Name="Border"
+                        Grid.Column="1"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        Background="{TemplateBinding Background}"
+                        Height="20"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Margin="2,0,2,0">
+                  <TextPresenter Name="PART_TextPresenter"
+                                 Width="{TemplateBinding TextBoxWidth}"
+                                 Margin="2,1,2,1"
+                                 Text="{TemplateBinding Text, Mode=TwoWay}"
+                                 CaretBlinkInterval="{TemplateBinding CaretBlinkInterval}"
+                                 CaretIndex="{TemplateBinding CaretIndex}"
+                                 SelectionStart="{TemplateBinding SelectionStart}"
+                                 SelectionEnd="{TemplateBinding SelectionEnd}"
+                                 TextAlignment="{TemplateBinding TextAlignment}"
+                                 TextWrapping="{TemplateBinding TextWrapping}"
+                                 PasswordChar="{TemplateBinding PasswordChar}"
+                                 RevealPassword="{TemplateBinding RevealPassword}"
+                                 SelectionBrush="{TemplateBinding SelectionBrush}"
+                                 SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
+                                 CaretBrush="{TemplateBinding CaretBrush}"
+                                 VerticalAlignment="Center" />
+                </Border>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^:large">
+      <Setter Property="MinWidth" Value="44" />
+      <Setter Property="Height" Value="66" />
+      <Style Selector="^ /template/ Grid#Grid">
+        <Setter Property="MinHeight" Value="26" />
+      </Style>
+      <Style Selector="^ /template/ wpf|RibbonTwoLineText#TwoLineText">
+        <Setter Property="HasTwoLines" Value="True" />
+      </Style>
+    </Style>
+    <Style Selector="^:small">
+      <Setter Property="Height" Value="22" />
+      <Style Selector="^ /template/ Image#Image">
+        <Setter Property="Source" Value="{TemplateBinding SmallImageSource}" />
+        <Setter Property="Height" Value="16" />
+        <Setter Property="Width" Value="16" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="Margin" Value="2,0,1,0" />
+        <Setter Property="Grid.Column" Value="0" />
+        <Setter Property="Grid.Row" Value="1" />
+      </Style>
+      <Style Selector="^ /template/ wpf|RibbonTwoLineText#TwoLineText">
+        <Setter Property="Margin" Value="2,0,1,0" />
+      </Style>
+      <Style Selector="^ /template/ Grid#InnerGrid">
+        <Setter Property="Margin" Value="0" />
+      </Style>
+    </Style>
+    <Style Selector="^:small:inqat">
+      <Setter Property="Height" Value="NaN" />
+    </Style>
+    <Style Selector="^:noimage">
+      <Setter Property="Height" Value="22" />
+      <Style Selector="^ /template/ Image#Image">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+    </Style>
+    <Style Selector="^:nolabel /template/ wpf|RibbonTwoLineText#TwoLineText">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:collapsed">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:pointerover /template/ Border#Border">
+      <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.TextBox.MouseOver.Background}" />
+    </Style>
+    <Style Selector="^:focus-within /template/ Border#Border">
+      <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.TextBox.MouseOver.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource $F.Invented.Ribbon.TextBox.Focused.BorderBrush}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource $F.Invented.Ribbon.Disabled.Foreground}" />
+      <Style Selector="^ /template/ Border#Border">
+        <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.TextBox.Disabled.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource $F.Invented.Ribbon.TextBox.Disabled.BorderBrush}" />
+      </Style>
+      <Style Selector="^ /template/ Image">
+        <Setter Property="Opacity" Value="0.5" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

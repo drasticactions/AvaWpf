@@ -1,0 +1,71 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:royale="using:AvaWpf.Chrome.Royale">
+  <!-- WPF ScrollBar.xaml [[Royale.NormalColor]] parts; classes up, down, left, right, vertical and horizontal pick the
+       glyph. -->
+  <ControlTheme x:Key="Royale.ScrollBarLineButton" TargetType="RepeatButton">
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <royale:ScrollChrome Name="Chrome"
+                             RenderMouseOver="{TemplateBinding IsPointerOver}"
+                             RenderPressed="{TemplateBinding IsPressed}"
+                             royale:ScrollChrome.ScrollGlyph="{TemplateBinding royale:ScrollChrome.ScrollGlyph}"
+                             UseLayoutRounding="True" />
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^.up /template/ royale|ScrollChrome#Chrome">
+      <Setter Property="royale:ScrollChrome.ScrollGlyph" Value="UpArrow" />
+    </Style>
+    <Style Selector="^.down /template/ royale|ScrollChrome#Chrome">
+      <Setter Property="royale:ScrollChrome.ScrollGlyph" Value="DownArrow" />
+    </Style>
+    <Style Selector="^.left /template/ royale|ScrollChrome#Chrome">
+      <Setter Property="royale:ScrollChrome.ScrollGlyph" Value="LeftArrow" />
+    </Style>
+    <Style Selector="^.right /template/ royale|ScrollChrome#Chrome">
+      <Setter Property="royale:ScrollChrome.ScrollGlyph" Value="RightArrow" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Royale.ScrollBarThumb" TargetType="Thumb">
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <royale:ScrollChrome Name="Chrome"
+                             RenderMouseOver="{TemplateBinding IsPointerOver}"
+                             royale:ScrollChrome.ScrollGlyph="{TemplateBinding royale:ScrollChrome.ScrollGlyph}"
+                             UseLayoutRounding="True" />
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pressed /template/ royale|ScrollChrome#Chrome">
+      <Setter Property="RenderPressed" Value="True" />
+    </Style>
+    <Style Selector="^.vertical /template/ royale|ScrollChrome#Chrome">
+      <Setter Property="royale:ScrollChrome.ScrollGlyph" Value="VerticalGripper" />
+    </Style>
+    <Style Selector="^.horizontal /template/ royale|ScrollChrome#Chrome">
+      <Setter Property="royale:ScrollChrome.ScrollGlyph" Value="HorizontalGripper" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Royale.ScrollBarPageButton" TargetType="RepeatButton">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Rectangle Name="Bg" Fill="{TemplateBinding Background}" />
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^.horizontal:pressed /template/ Rectangle#Bg">
+      <Setter Property="Fill" Value="{DynamicResource Royale.HorizontalScrollBarPageButtonPressed}" />
+    </Style>
+    <Style Selector="^.vertical:pressed /template/ Rectangle#Bg">
+      <Setter Property="Fill" Value="{DynamicResource Royale.VerticalScrollBarPageButtonPressed}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

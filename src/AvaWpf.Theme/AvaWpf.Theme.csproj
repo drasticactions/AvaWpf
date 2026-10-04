@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>AvaWpf</RootNamespace>
+    <PackageId>AvaWpf.Theme</PackageId>
+    <Description>The WPF themes (Aero2, AeroLite, Aero, Luna, Royale, Classic and Fluent) for every stock Avalonia control.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AvaWpf.Animations\AvaWpf.Animations.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="AvaWpf.Controls" />
+    <InternalsVisibleTo Include="AvaWpf.DataGrid" />
+    <InternalsVisibleTo Include="AvaWpf.Ribbon" />
+    <InternalsVisibleTo Include="AvaWpf.Theme.Tests" />
+    <InternalsVisibleTo Include="AvaWpf.Controls.Tests" />
+    <InternalsVisibleTo Include="AvaWpf.DataGrid.Tests" />
+    <InternalsVisibleTo Include="AvaWpf.Ribbon.Tests" />
+  </ItemGroup>
+
+  <Import Project="..\SharedThemes.targets" />
+
+</Project>

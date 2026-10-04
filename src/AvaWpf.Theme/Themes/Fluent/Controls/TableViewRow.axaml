@@ -1,0 +1,62 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/ListViewItem.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!--
+    WPF GridView.GridViewItemContainerStyleKey. WPF does not define keys for the selected pointer-over fill, minimum height
+    and disabled opacity; SubtleFillColorTertiary, 32 px and TextFillColorDisabled stand in.
+    The hidden content presenter satisfies the ContentControl contract; the cells presenter draws the row.
+  -->
+  <ControlTheme x:Key="{x:Type TableViewRow}" TargetType="TableViewRow">
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.ListViewItemForeground}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="CornerRadius" Value="{DynamicResource Fluent.ControlCornerRadius}" />
+    <Setter Property="MinHeight" Value="32" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Margin" Value="{DynamicResource Fluent.ListViewItemMargin}" />
+    <Setter Property="Padding" Value="6,0,6,0" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="FocusAdorner" Value="{DynamicResource Fluent.CollectionFocusVisual}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="RootBorder"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Background="{TemplateBinding Background}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                UseLayoutRounding="True">
+          <Grid Name="ContentGrid">
+            <TableViewCellsPresenter Name="PART_CellsPresenter"
+                                     Margin="{TemplateBinding Padding}"
+                                     VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+            <ContentPresenter Name="PART_ContentPresenter" IsVisible="False" />
+            <Rectangle Name="ActiveRectangle"
+                       Width="3" Height="16"
+                       Margin="0"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Fill="{DynamicResource Fluent.ListViewItemPillFillBrush}"
+                       RadiusX="2" RadiusY="2"
+                       IsVisible="False" />
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#RootBorder">
+      <Setter Property="Background" Value="{DynamicResource Fluent.ListViewItemBackgroundPointerOver}" />
+    </Style>
+    <Style Selector="^:selected">
+      <Style Selector="^ /template/ Border#RootBorder">
+        <Setter Property="Background" Value="{DynamicResource Fluent.ListViewItemBackgroundPointerOver}" />
+      </Style>
+      <Style Selector="^ /template/ Rectangle#ActiveRectangle">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+    </Style>
+    <Style Selector="^:selected:pointerover /template/ Border#RootBorder">
+      <Setter Property="Background" Value="{DynamicResource Fluent.SubtleFillColorTertiaryBrush}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource Fluent.TextFillColorDisabledBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,10 @@
+# Literal colors of the chrome in $W/Themes/Shared/Microsoft/Windows/Themes (code-drawn, not in any XAML).
+families = ["Aero2", "AeroLite", "Aero", "Luna", "Royale", "Classic"]
+
+[light]
+# SystemDropShadowChrome.ColorProperty default: Color.FromArgb(0x71, 0x00, 0x00, 0x00).
+"SystemDropShadowChrome.Color" = "#71000000"
+
+[dark]
+# A shadow stays black on a dark surface.
+"SystemDropShadowChrome.Color" = "#71000000"

@@ -1,0 +1,50 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!--
+    WPF ListBoxItem.xaml, Aero2.NormalColor, in WPF trigger order. wpf:SelectionState stands in for WPF
+    Selector.IsSelectionActive. Avalonia's ListBox has no content alignment, so the item uses the WPF ListBox values
+    (Left, Center).
+  -->
+  <ControlTheme x:Key="{x:Type ListBoxItem}" TargetType="ListBoxItem">
+    <Setter Property="Padding" Value="4,1" />
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="FocusAdorner" Value="{DynamicResource Aero2.FocusVisual}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="Bd"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Background="{TemplateBinding Background}"
+                Padding="{TemplateBinding Padding}"
+                UseLayoutRounding="True">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            UseLayoutRounding="True" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#Bd">
+      <Setter Property="Background" Value="{DynamicResource Aero2.Item.MouseOver.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero2.Item.MouseOver.Border}" />
+    </Style>
+    <Style Selector="^:selected /template/ Border#Bd">
+      <Setter Property="Background" Value="{DynamicResource Aero2.Item.SelectedInactive.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero2.Item.SelectedInactive.Border}" />
+    </Style>
+    <Style Selector="^[(wpf|SelectionState.IsSelectionActive)=True]:selected /template/ Border#Bd">
+      <Setter Property="Background" Value="{DynamicResource Aero2.Item.SelectedActive.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero2.Item.SelectedActive.Border}" />
+    </Style>
+    <Style Selector="^:disabled /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

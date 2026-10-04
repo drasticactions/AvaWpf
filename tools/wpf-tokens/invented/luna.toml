@@ -1,0 +1,277 @@
+# Layer 2 tokens of the Luna family: parts WPF does not draw.
+# Keys become Luna.Invented.<key>.
+#
+# The window frame (WindowFrame) is a vector redraw of the Windows XP Luna frame. XP draws it from the theme bitmaps
+# (FRAMECAPTION, FRAMELEFT/RIGHT/BOTTOM, CAPTIONBUTTON, CLOSEBUTTON of luna.msstyles), not from SystemColors, so the
+# colors are sampled from those bitmaps: the caption is the 29-row FRAMECAPTION column, the frame sides the 5 px
+# FRAMELEFT strip (outer edge, face, inner edge), the buttons the 21 x 21 cells. The invented tokens are per family,
+# so each scheme has its own keys (WindowFrame.<Scheme>.*); the frame template picks them with the
+# AvaWpf.ColorScheme resource.
+
+[light]
+"WindowFrame.CaptionHeight" = 28
+"WindowFrame.ToolCaptionHeight" = 20
+"WindowFrame.ButtonSize" = 21
+"WindowFrame.ToolButtonSize" = 15
+"WindowFrame.CornerRadius" = "radius 8,8,0,0"
+"WindowFrame.CaptionCornerRadius" = "radius 7,7,0,0"
+"WindowFrame.ButtonCornerRadius" = "radius 3"
+"WindowFrame.MinimizeGlyph" = "geometry M 1 6 L 7 6 L 7 9 L 1 9 Z"
+"WindowFrame.MaximizeGlyph" = "geometry F0 M 0 0 L 9 0 L 9 9 L 0 9 Z M 1 3 L 1 8 L 8 8 L 8 3 Z"
+"WindowFrame.RestoreGlyph" = "geometry F0 M 3 0 L 9 0 L 9 6 L 8 6 L 8 2 L 4 2 L 4 3 L 3 3 Z M 0 3 L 6 3 L 6 9 L 0 9 Z M 1 5 L 1 8 L 5 8 L 5 5 Z"
+"WindowFrame.CloseGlyph" = "geometry M 0 0 L 2 0 L 4.5 2.5 L 7 0 L 9 0 L 9 1 L 5.5 4.5 L 9 8 L 9 9 L 7 9 L 4.5 6.5 L 2 9 L 0 9 L 0 8 L 3.5 4.5 L 0 1 Z"
+
+# Luna Blue (NormalColor).
+"WindowFrame.NormalColor.Caption.Active" = "linear 0,0 0,1 #FF0058EB@0 #FF3F97FF@0.034 #FF278DFF@0.069 #FF0073FD@0.103 #FF0365F1@0.138 #FF005AE7@0.172 #FF0054E3@0.207 #FF0050E2@0.276 #FF0051E5@0.414 #FF0055F1@0.552 #FF005CF9@0.655 #FF0060FC@0.724 #FF026AFE@0.793 #FF0065FD@0.862 #FF005CF9@0.931 #FF0046E0@0.966 #FF0043CF@1"
+"WindowFrame.NormalColor.Caption.Inactive" = "linear 0,0 0,1 #FF688DE0@0 #FF9BB7EA@0.07 #FF7EA2E4@0.14 #FF7996DE@0.24 #FF7993DE@0.38 #FF7B99E1@0.55 #FF7FA2E6@0.7 #FF82A9E9@0.79 #FF7D9BE3@0.9 #FF7A93DF@1"
+"WindowFrame.NormalColor.Edge.Active" = "#FF0019CF"
+"WindowFrame.NormalColor.Face.Active" = "#FF1254E7"
+"WindowFrame.NormalColor.InnerEdge.Active" = "#FF0855DD"
+"WindowFrame.NormalColor.Edge.Inactive" = "#FF5B68CD"
+"WindowFrame.NormalColor.Face.Inactive" = "#FF7589DE"
+"WindowFrame.NormalColor.InnerEdge.Inactive" = "#FF758CDC"
+"WindowFrame.NormalColor.Title.Active" = "#FFFFFFFF"
+"WindowFrame.NormalColor.Title.Inactive" = "#FFD8E4F8"
+"WindowFrame.NormalColor.Title.Shadow" = "#FF0A1883"
+"WindowFrame.NormalColor.Title.InactiveShadow" = "#00000000"
+"WindowFrame.NormalColor.Button.Border" = "#FFFFFFFF"
+"WindowFrame.NormalColor.Button.Glyph" = "#FFFFFFFF"
+"WindowFrame.NormalColor.Button.Normal" = "linear 0,0 0,1 #FF3E73F5@0 #FF628EF7@0.1 #FF3A71F5@0.4 #FF3D7EF6@0.65 #FF2A70F2@0.9 #FF1E5EE2@0.96 #FF1045BE@1"
+"WindowFrame.NormalColor.Button.Hot" = "linear 0,0 0,1 #FF4684FF@0 #FF6D9EFF@0.1 #FF4A95FF@0.5 #FF4FA4FF@0.75 #FF3990FC@0.93 #FF1858C8@1"
+"WindowFrame.NormalColor.Button.Pressed" = "linear 0,0 0,1 #FF002F6C@0 #FF0046A5@0.15 #FF0057BC@0.65 #FF0050B5@1"
+"WindowFrame.NormalColor.Button.Inactive" = "linear 0,0 0,1 #FF6988E1@0 #FF5A80E8@0.1 #FF4770D2@1"
+"WindowFrame.NormalColor.Button.InactiveBorder" = "#FFC8D6F5"
+"WindowFrame.NormalColor.Close.Glyph" = "#FFFFFFFF"
+"WindowFrame.NormalColor.Close.Normal" = "linear 0,0 0,1 #FFE45F3E@0 #FFE97C62@0.1 #FFE45E3A@0.5 #FFE65D32@0.85 #FFD2451E@0.95 #FFAE3110@1"
+"WindowFrame.NormalColor.Close.Hot" = "linear 0,0 0,1 #FFFF6F5F@0 #FFFF8E81@0.1 #FFFF7D69@0.5 #FFFF967C@0.75 #FFF16750@0.95 #FFD34936@1"
+"WindowFrame.NormalColor.Close.Pressed" = "linear 0,0 0,1 #FF752511@0 #FFB23719@0.1 #FFC74520@0.6 #FFC13F1D@1"
+"WindowFrame.NormalColor.Close.Inactive" = "linear 0,0 0,1 #FFB27A8D@0 #FFAE768C@1"
+
+# Luna Silver (Metallic): a light caption with near-black title text and silver buttons with dark glyphs.
+"WindowFrame.Metallic.Caption.Active" = "linear 0,0 0,1 #FF66667E@0 #FFA8A7BF@0.03 #FFFFFFFF@0.07 #FFD7D8E2@0.1 #FFBCBCCF@0.14 #FFA4A3BE@0.21 #FFAFAEC7@0.31 #FFB7B9C9@0.45 #FFC4C8D4@0.59 #FFDCDEE5@0.72 #FFF0F1F4@0.83 #FFFFFFFF@0.9 #FFE4E3E3@0.93 #FFBCBDCD@0.97 #FF777792@1"
+"WindowFrame.Metallic.Caption.Inactive" = "linear 0,0 0,1 #FFBABAC5@0 #FFECEEF5@0.03 #FFFFFFFF@0.07 #FFD7D7E3@0.14 #FFDEE0E6@0.35 #FFE8E9F1@0.55 #FFF6F6F6@0.75 #FFFFFFFF@0.9 #FFEAEDF5@0.93 #FFCCCBD9@1"
+"WindowFrame.Metallic.Edge.Active" = "#FF66667E"
+"WindowFrame.Metallic.Face.Active" = "#FFFBFCFD"
+"WindowFrame.Metallic.InnerEdge.Active" = "#FF66667E"
+"WindowFrame.Metallic.Edge.Inactive" = "#FFC9C9D7"
+"WindowFrame.Metallic.Face.Inactive" = "#FFFDFFFC"
+"WindowFrame.Metallic.InnerEdge.Inactive" = "#FFC9C9D7"
+"WindowFrame.Metallic.Title.Active" = "#FF0E1010"
+"WindowFrame.Metallic.Title.Inactive" = "#FFA2A1A1"
+"WindowFrame.Metallic.Title.Shadow" = "#FFC7C2D1"
+"WindowFrame.Metallic.Title.InactiveShadow" = "#00000000"
+"WindowFrame.Metallic.Button.Border" = "#FF8589B0"
+"WindowFrame.Metallic.Button.Glyph" = "#FF2E2E3E"
+"WindowFrame.Metallic.Button.Normal" = "linear 0,0 0,1 #FFFFFFFF@0 #FFE0DFEA@0.2 #FFCFD0DD@0.5 #FFB2B2CA@0.8 #FF9C9EBE@0.95 #FF8589B0@1"
+"WindowFrame.Metallic.Button.Hot" = "linear 0,0 0,1 #FFFFFFFF@0 #FFEAEAF8@0.4 #FFDBDDED@0.7 #FFBEBED8@0.9 #FF8488B1@1"
+"WindowFrame.Metallic.Button.Pressed" = "linear 0,0 0,1 #FF8D90AE@0 #FFAEB0C3@0.4 #FFC7C7D9@0.8 #FFFFFFFF@1"
+"WindowFrame.Metallic.Button.Inactive" = "linear 0,0 0,1 #FFF3F2F6@0 #FFBDBED2@1"
+"WindowFrame.Metallic.Button.InactiveBorder" = "#FFA9ADB9"
+"WindowFrame.Metallic.Close.Glyph" = "#FFFFFFFF"
+"WindowFrame.Metallic.Close.Normal" = "linear 0,0 0,1 #FFF9E9B6@0 #FFEDB49B@0.1 #FFE4706E@0.3 #FFDC6565@0.6 #FFCD595E@0.9 #FFAA3C55@1"
+"WindowFrame.Metallic.Close.Hot" = "linear 0,0 0,1 #FFFFCBA4@0 #FFFE8A71@0.25 #FFFB806B@0.6 #FFE7685C@0.9 #FFDF6157@1"
+"WindowFrame.Metallic.Close.Pressed" = "linear 0,0 0,1 #FFEB695C@0 #FFFB7F6C@0.5 #FFFFAE91@0.85 #FFFFCBA4@1"
+"WindowFrame.Metallic.Close.Inactive" = "linear 0,0 0,1 #FFBFA3AA@0 #FFAB8E91@1"
+
+# Luna Olive Green (Homestead).
+"WindowFrame.Homestead.Caption.Active" = "linear 0,0 0,1 #FF8BA169@0 #FFEAF5C9@0.036 #FFDBE3B2@0.07 #FFBEC98F@0.11 #FFABBA83@0.18 #FFA7B580@0.25 #FFAAB883@0.45 #FFADBD85@0.55 #FFB3C48B@0.65 #FFBAC88E@0.72 #FFC2CD95@0.83 #FFBBC98F@0.9 #FFA3B27F@0.965 #FF96A867@1"
+"WindowFrame.Homestead.Caption.Inactive" = "linear 0,0 0,1 #FFD6D9BC@0 #FFF1F2DB@0.036 #FFEBEBD1@0.07 #FFDFDEC1@0.11 #FFD4D6BA@0.25 #FFD4D7BB@0.45 #FFD8DCBE@0.65 #FFDDDFC1@0.83 #FFE0E1C3@0.87 #FFD0D5B9@0.965 #FFCBCEB6@1"
+"WindowFrame.Homestead.Edge.Active" = "#FF758D5E"
+"WindowFrame.Homestead.Face.Active" = "#FFABBD85"
+"WindowFrame.Homestead.InnerEdge.Active" = "#FFA4B27F"
+"WindowFrame.Homestead.Edge.Inactive" = "#FFC8D0B7"
+"WindowFrame.Homestead.Face.Inactive" = "#FFDBDFC5"
+"WindowFrame.Homestead.InnerEdge.Inactive" = "#FFD6D8BE"
+"WindowFrame.Homestead.Title.Active" = "#FFFFFFFF"
+"WindowFrame.Homestead.Title.Inactive" = "#FFFFFFFF"
+"WindowFrame.Homestead.Title.Shadow" = "#FF41400A"
+"WindowFrame.Homestead.Title.InactiveShadow" = "#00000000"
+"WindowFrame.Homestead.Button.Border" = "#FFFFFFFF"
+"WindowFrame.Homestead.Button.Glyph" = "#FFFFFFFF"
+"WindowFrame.Homestead.Button.Normal" = "linear 0,0 0,1 #FF98A77B@0 #FFAFBB96@0.1 #FF9AA878@0.5 #FF8F9E6C@0.9 #FF768753@1"
+"WindowFrame.Homestead.Button.Hot" = "linear 0,0 0,1 #FFBBD092@0 #FFD3E5B0@0.1 #FFBED08F@0.5 #FFA9BE77@0.9 #FF9AAE69@1"
+"WindowFrame.Homestead.Button.Pressed" = "linear 0,0 0,1 #FF505340@0 #FF676D51@0.2 #FF6E7354@0.6 #FF6B7152@1"
+"WindowFrame.Homestead.Button.Inactive" = "linear 0,0 0,1 #FFCBD7B4@0 #FFAFB998@1"
+"WindowFrame.Homestead.Button.InactiveBorder" = "#FFEAF4DB"
+"WindowFrame.Homestead.Close.Glyph" = "#FFFFFFFF"
+"WindowFrame.Homestead.Close.Normal" = "linear 0,0 0,1 #FFD56F4D@0 #FFDC896E@0.1 #FFD56F4A@0.5 #FFD56C42@0.85 #FFC1552E@0.95 #FF9F3F1E@1"
+"WindowFrame.Homestead.Close.Hot" = "linear 0,0 0,1 #FFF37448@0 #FFF08B6A@0.15 #FFF18557@0.5 #FFF0814E@0.9 #FFCB5024@1"
+"WindowFrame.Homestead.Close.Pressed" = "linear 0,0 0,1 #FF9B6040@0 #FFB8744F@0.1 #FFB94F26@0.5 #FFB84E26@1"
+"WindowFrame.Homestead.Close.Inactive" = "linear 0,0 0,1 #FFBC9B9D@0 #FFAB8E91@1"
+
+# The left arrow for shared templates (WPF MenuItem.xaml has Up, Down and Right only): RightArrow mirrored.
+"ArrowLeft" = "geometry M 4,0 L 0,3.5 L 4,7 Z"
+
+# Calendar.xaml, [[Aero.NormalColor, Aero2.NormalColor, Luna.*, Royale.NormalColor]]: the colors the VisualStateManager
+# storyboards animate to. The extractor reads no storyboard values, so they are listed here under the element and
+# property they animate, with the state as the last part.
+"Calendar.CalendarItem.path.Fill.MouseOver" = "#FF73A9D8"
+"Calendar.CalendarItem.buttonContent.Foreground.MouseOver" = "#FF73A9D8"
+"Calendar.CalendarDayButton.NormalText.Foreground.Inactive" = "#FF777777"
+"Calendar.CalendarDayButton.NormalText.Foreground.Today" = "#FFFFFFFF"
+"Calendar.CalendarButton.NormalText.Foreground.Inactive" = "#FF777777"
+
+# DatePicker.xaml, [[Aero.NormalColor, Aero2.NormalColor, Luna.*, Royale.NormalColor, Classic]]: the colors the
+# VisualStateManager storyboards of the drop-down button and DatePickerTextBox animate to. The extractor reads no
+# storyboard values, so they are listed here under the element and property they animate, with the state last.
+"DatePicker.DatePicker.Background.Background.MouseOver" = "#FF448DCA"
+"DatePicker.DatePicker.Background.Background.Pressed" = "#FF448DCA"
+"DatePicker.DatePicker.BackgroundGradient.Background.MouseOver" = "linear 0.7,0 0.7,1 #FFFFFFFF@0 #F2FFFFFF@0.375 #CCFFFFFF@0.625 #7FFFFFFF@1"
+"DatePicker.DatePicker.BackgroundGradient.Background.Pressed" = "linear 0.7,0 0.7,1 #F4FFFFFF@0 #EAFFFFFF@0.375 #C6FFFFFF@0.625 #6BFFFFFF@1"
+"DatePicker.DatePickerTextBox.ContentElement.BorderBrush.MouseOver" = "#FF99C1E2"
+"DatePicker.DatePickerTextBox.watermark_decorator.BorderBrush.MouseOver" = "#FF99C1E2"
+
+
+# Invented controls (DataValidationErrors, RefreshVisualizer, DrawerPage, ManagedFileChooser).
+# WPF Validation.ErrorTemplate (Validation.cs CreateDefaultErrorTemplate): a 1 px Red border around the control.
+"ValidationError.Border" = "#FFFF0000"
+# The circular refresh arrow of the pull-to-refresh indicator and the file chooser Refresh button.
+"RefreshVisualizer.Arrow" = "geometry M18.6195264,3.31842271 C19.0080059,3.31842271 19.3290603,3.60710385 19.3798716,3.9816481 L19.3868766,4.08577298 L19.3868766,6.97963208 C19.3868766,7.36811161 19.0981955,7.68916605 18.7236513,7.73997735 L18.6195264,7.74698235 L15.7256673,7.74698235 C15.3018714,7.74698235 14.958317,7.40342793 14.958317,6.97963208 C14.958317,6.59115255 15.2469981,6.27009811 15.6215424,6.21928681 L15.7256673,6.21228181 L16.7044011,6.21182461 C13.7917384,3.87107476 9.52212532,4.05209336 6.81933829,6.75488039 C3.92253872,9.65167996 3.92253872,14.34832 6.81933829,17.2451196 C9.71613786,20.1419192 14.4127779,20.1419192 17.3095775,17.2451196 C19.0725398,15.4821573 19.8106555,12.9925923 19.3476248,10.58925 C19.2674502,10.173107 19.5398064,9.77076216 19.9559494,9.69058758 C20.3720923,9.610413 20.7744372,9.88276918 20.8546118,10.2989121 C21.4129973,13.1971899 20.5217103,16.2033812 18.3947747,18.3303168 C14.8986373,21.8264542 9.23027854,21.8264542 5.73414113,18.3303168 C2.23800371,14.8341794 2.23800371,9.16582064 5.73414113,5.66968323 C9.05475132,2.34907304 14.3349409,2.18235834 17.8523166,5.16953912 L17.8521761,4.08577298 C17.8521761,3.66197713 18.1957305,3.31842271 18.6195264,3.31842271 Z"
+# The three-bar drawer toggle glyph, 12 x 12.
+"DrawerPage.MenuIcon" = "geometry M 0 1 L 12 1 L 12 3 L 0 3 Z M 0 5 L 12 5 L 12 7 L 0 7 Z M 0 9 L 12 9 L 12 11 L 0 11 Z"
+# File chooser icons, 16 x 16, after the Windows XP shell icons: the manila folder, a dog-eared page and a drive.
+"FileChooser.FolderIcon" = "geometry M 0.5 2.5 L 5.5 2.5 L 7 4 L 15.5 4 L 15.5 13.5 L 0.5 13.5 Z"
+"FileChooser.FileIcon" = "geometry M 2.5 0.5 L 9.5 0.5 L 13.5 4.5 L 13.5 15.5 L 2.5 15.5 Z M 9.5 0.5 L 9.5 4.5 L 13.5 4.5"
+"FileChooser.VolumeIcon" = "geometry M 1.5 6.5 L 14.5 6.5 L 14.5 12.5 L 1.5 12.5 Z"
+"FileChooser.Folder.Fill" = "#FFF6D671"
+"FileChooser.Folder.Stroke" = "#FFC79B2E"
+
+
+# Ribbon.xaml
+"Ribbon.Background" = "#FFDFE9F5"
+"Ribbon.BorderBrush" = "#FFB9C9DA"
+"Ribbon.InnerBorderBrush" = "#60FFFFFF"
+"Ribbon.OverlayBackground" = "linear 0.5,0 0.5,1 #EEFFFFFF@0 #BBFFFFFF@0.1 #05FFFFFF@0.5 #20FFFFFF@1"
+"Ribbon.TitleBar.Height" = 23
+"Ribbon.QatTopHost.Margin" = "thickness 0"
+"Ribbon.QatTopHost.Cap.Background" = "#77222222"
+"Ribbon.QatTopHost.Cap.BorderBrush" = "#66CCCCCC"
+"Ribbon.QatTopHost.Cap.Width" = 3
+
+# RibbonSharedResources.xaml: the visual states every control shares
+"Ribbon.MouseOver.Background" = "linear 0,0 0,1 #FFFEFBF4@0 #FFFDE7CE@0.19 #FFFDDEB8@0.39 #FFFFCE6B@0.39 #FFFFDE9A@0.79 #FFFFEBAA@1"
+"Ribbon.MouseOver.BorderBrush" = "#FFFFB700"
+"Ribbon.Pressed.Background" = "linear 0,0 0,1 #FFE3C085@0 #FFF4CC89@0.19 #FFF5C777@0.36 #FFF5BB56@0.36 #FFF4CE9A@0.79 #FFF3E28D@1"
+"Ribbon.Pressed.BorderBrush" = "#FFC29B29"
+"Ribbon.Checked.Background" = "linear 0,0 0,1 #FFFFDCA0@0 #FFFFD692@0.18 #FFFFC45D@0.39 #FFFFD178@1"
+"Ribbon.Checked.BorderBrush" = "#FFC29B29"
+"Ribbon.Focused.Background" = "linear 0,0 0,1 #FFFEFBF4@0 #FFFDE7CE@0.19 #FFFDDEB8@0.39 #FFFFCE6B@0.39 #FFFFDE9A@0.79 #FFFFEBAA@1"
+"Ribbon.Focused.BorderBrush" = "#FFFFB700"
+"Ribbon.Button.MouseOver.InnerBorderBrush" = "#80FFFFFF"
+"Ribbon.Button.CornerRadius" = "radius 2"
+"Ribbon.Popup.CornerRadius" = "radius 2"
+"Ribbon.Disabled.Foreground" = "#FF9E9E9E"
+"Ribbon.DropDown.Background" = "#F0FFFFFF"
+"Ribbon.ToggleButton.Checked.InnerBorderBrush" = "linear 0,0 0,1 #FFE7CBAD@0 #FFF7D7B5@0.1 #FFFFD38C@0.36 #FFFFC75A@0.36 #FFFFEFA5@1"
+"Ribbon.HighlightedSelected.Background" = "linear 0,0 0,1 #40FFFEFE@0 #40FFFEFE@0.39 #20FFCE68@0.39 #20FFCE68@0.69 #10FFFFFF@1"
+"Ribbon.ToolTip.Overlay" = "linear 0,0 0,1 #CAFFFFFF@0 #20FFFFFF@1"
+"Ribbon.Separator.Highlight" = "#FFFFFFFF"
+
+# RibbonTabHeader.xaml, RibbonContextualTabGroup.xaml
+"Ribbon.TabHeader.Checked.Background" = "linear 0,0 0,1 #AAFFFFFF@0 #FFFFFFFF@1"
+"Ribbon.TabHeader.MouseOver.InnerBorderBrush" = "#88FFFFFF"
+"Ribbon.ContextualTabGroup.HeaderOverlay" = "radial 0.5,1 0.5,1 #FFFFFFFF@0 #77FFFFFF@1"
+
+# RibbonGroup.xaml
+"Ribbon.Group.MouseOver.Background" = "linear 0,0.5 1,0.5 #01FFFFFF@0 #80FFFFFF@0.5 #01FFFFFF@1"
+"Ribbon.Group.Header.Foreground" = "#FF9E9E9E"
+"Ribbon.Group.Collapsed.ButtonInnerBorderBrush" = "#FFEAF1FB"
+"Ribbon.Group.Collapsed.MouseOver.Background" = "#40FFFFFF"
+"Ribbon.Group.Collapsed.LabelBackground" = "radial 0.5,0.5 1,0.5 #30FFFFFF@0 #08808080@1"
+"Ribbon.Group.Collapsed.PressedLabelBackground" = "radial 0.5,1 0.9,0.5 #AAFFFFFF@0 #40BBBBBB@1"
+"Ribbon.Group.Collapsed.Pressed.ImageBackground" = "#20BBBBBB"
+"Ribbon.Group.Collapsed.OuterIconBorder.Background" = "linear 0,0 0,1 #88FFFFFF@0 #88DBE7F4@1"
+"Ribbon.Group.Collapsed.OuterIconBorder.BorderBrush" = "#FFAEBECF"
+"Ribbon.Group.Collapsed.InnerIconBorder.Background" = "#50FFFFFF"
+"Ribbon.Group.Collapsed.InnerIconBorder.BorderBrush" = "#FFFCFCFC"
+
+# RibbonTextBox.xaml, RibbonComboBox.xaml, RibbonCheckBox.xaml
+"Ribbon.TextBox.Overlay" = "#EEFFFFFF"
+"Ribbon.TextBox.MouseOver.Background" = "#FFFFFFFF"
+"Ribbon.TextBox.Focused.BorderBrush" = "#FFB9C9DA"
+"Ribbon.TextBox.Disabled.Background" = "#90DEDEDE"
+"Ribbon.TextBox.Disabled.BorderBrush" = "#90B1BBC6"
+"Ribbon.ComboBox.ToggleButton.MouseOver.Background" = "linear 0,0 0,1 #FFE4F0FE@0 #FFE4F0FE@0.5 #FFCFDFF3@0.5 #FFE8F1FD@1"
+"Ribbon.CheckBox.BorderBrush" = "#FFB5BEDE"
+"Ribbon.CheckBox.Background" = "linear 0,0 1,1 #FFE7E7F7@0 #FFFFFFFF@1"
+"Ribbon.CheckBox.InnerBorderBrush" = "linear 0,0 1,1 #80F7F7FF@0 #F0F7F7FF@1"
+"Ribbon.CheckBox.Box.Background" = "#FFFFFFFF"
+
+# RibbonMenuItem.xaml, RibbonSplitButton.xaml
+"Ribbon.MenuItem.Overlay" = "linear 0,0 1,0 #A0FFFFFF@0 #80FFFFFF@0.4 #0AFFFFFF@0.8 #08FFFFFF@1"
+"Ribbon.SplitButton.MouseOver.Background" = "linear 0,0 0,1 #FFFFFFFF@0 #AAFFFFFF@0.19 #77FFFFFF@0.39 #77FFFFFF@0.39 #AAFFFFFF@0.79 #FFFFFFFF@1"
+"Ribbon.SplitButton.Header.CornerRadius" = "radius 2,2,0,0"
+"Ribbon.SplitButton.DropDown.CornerRadius" = "radius 0,0,2,2"
+"Ribbon.SplitButton.SmallHeader.CornerRadius" = "radius 2,0,0,2"
+"Ribbon.SplitButton.SmallDropDown.CornerRadius" = "radius 0,2,2,0"
+
+# RibbonGallery*.xaml, InRibbonGallery.xaml, RibbonFilterMenuButton.xaml
+"Ribbon.GalleryCategory.HeaderBackground" = "#0C000000"
+"Ribbon.GalleryItem.PressedOverlay" = "#30FFFFFF"
+"Ribbon.GalleryItem.CornerRadius" = "radius 0"
+"Ribbon.InRibbonGallery.Button.Background" = "linear 0,0 0,1 #DDFFFFFF@0 #BBFFFFFF@1"
+"Ribbon.InRibbonGallery.Glyph" = "#FF808080"
+"Ribbon.FilterMenuButton.Arrow" = "#FF959595"
+"Ribbon.FilterMenuButton.Arrow.MouseOver" = "#FFFFD232"
+
+# RibbonApplicationMenu.xaml
+"Ribbon.ApplicationMenu.Button.Background" = "#FF114EAF"
+"Ribbon.ApplicationMenu.Button.BorderBrush" = "#FF114EAF"
+"Ribbon.ApplicationMenu.Button.CornerRadius" = "radius 0,2,0,0"
+"Ribbon.ApplicationMenu.Button.Overlay" = "linear 0,0 0,1 #90FFFFFF@0 #30FFFFFF@0.5 #00FFFFFF@0.5 #70FFFFFF@1"
+"Ribbon.ApplicationMenu.Button.OverlayBorderBrush" = "linear 0,0 0,1 #60FFFFFF@0 #20FFFFFF@0.5 #00FFFFFF@0.5 #00FFFFFF@1"
+"Ribbon.ApplicationMenu.Button.Arrow" = "radial 0.5,0.5 0.5,0.5 #FFD3D3D3@0 #FFFFFFFF@0.4"
+"Ribbon.ApplicationMenu.MouseOver.Background" = "linear 0,0 0,1 #A0FFFFFF@0 #60FFFFFF@0.5 #00FFFFFF@0.5 #D0FFFFFF@1"
+"Ribbon.ApplicationMenu.MouseOver.BorderBrush" = "linear 0,0 0,1 #90FFFFFF@0 #20FFFFFF@0.5 #00FFFFFF@0.5 #00FFFFFF@1"
+"Ribbon.ApplicationMenu.Pane.Background" = "#B8FFFFFF"
+"Ribbon.ApplicationMenu.Divider" = "#FFFFFFFF"
+"Ribbon.ApplicationMenu.Footer.Overlay" = "linear 0,0 0,1 #A0FFFFFF@0 #90FFFFFF@0.2 #80FFFFFF@0.4 #50FFFFFF@0.6 #00FFFFFF@0.8 #30FFFFFF@1"
+
+# Glyphs (RibbonSharedResources.xaml geometries)
+"Ribbon.Glyph.DownArrow" = "geometry M 0 0 L 2.5 3 L 5 0 Z"
+"Ribbon.Glyph.UpArrow" = "geometry M 0 3 L 2.5 0 L 5 3 Z"
+"Ribbon.Glyph.RightArrow" = "geometry M 0,0 L 4,3.5 L 0,7 Z"
+"Ribbon.Glyph.CheckMark" = "geometry M 0,5.1 L 1.7,5.2 L 3.4,7.1 L 8,0.4 L 9.2,0 L 3.3,10.8 Z"
+"Ribbon.Glyph.Overflow" = "geometry M 0,0 L 2,2 L 0,4 M 4,0 L 6,2 L 4,4"
+"Ribbon.ApplicationMenu.Glyph.DownArrow" = "geometry M 0 0 L 2.25 3 L 4.5 0 Z"
+
+[dark]
+# Dark keeps the caption text, glyphs and button rims light (the derivation would turn the white text dark); the
+# caption gradients and button faces are derived from the light values.
+"WindowFrame.NormalColor.Title.Active" = "#FFFFFFFF"
+"WindowFrame.NormalColor.Title.Inactive" = "#FFC4D2EC"
+"WindowFrame.NormalColor.Title.Shadow" = "#FF0A1883"
+"WindowFrame.NormalColor.Button.Border" = "#FFDDE6FA"
+"WindowFrame.NormalColor.Button.InactiveBorder" = "#FFA8B8E0"
+"WindowFrame.NormalColor.Button.Glyph" = "#FFFFFFFF"
+"WindowFrame.NormalColor.Close.Glyph" = "#FFFFFFFF"
+"WindowFrame.Metallic.Title.Inactive" = "#FF8A8A96"
+"WindowFrame.Metallic.Close.Glyph" = "#FFFFFFFF"
+"WindowFrame.Homestead.Title.Active" = "#FFFFFFFF"
+"WindowFrame.Homestead.Title.Inactive" = "#FFD8DCC4"
+"WindowFrame.Homestead.Title.Shadow" = "#FF41400A"
+"WindowFrame.Homestead.Button.Border" = "#FFE8EEDA"
+"WindowFrame.Homestead.Button.InactiveBorder" = "#FFB8C0A4"
+"WindowFrame.Homestead.Button.Glyph" = "#FFFFFFFF"
+"WindowFrame.Homestead.Close.Glyph" = "#FFFFFFFF"
+# Olive's inactive caption is a light greige; derived it would turn near black, darker than the active caption.
+"WindowFrame.Homestead.Caption.Inactive" = "linear 0,0 0,1 #FF5E6A4A@0 #FF7C8866@0.036 #FF727E5C@0.07 #FF6A7656@0.25 #FF687452@0.6 #FF6C7856@0.87 #FF606B4C@1"
+"WindowFrame.Homestead.Edge.Inactive" = "#FF4E573C"
+"WindowFrame.Homestead.Face.Inactive" = "#FF66704F"
+"WindowFrame.Homestead.InnerEdge.Inactive" = "#FF5C664A"
+"WindowFrame.Homestead.Button.Inactive" = "linear 0,0 0,1 #FF8A9670@0 #FF707C58@1"
+"WindowFrame.Homestead.Close.Inactive" = "linear 0,0 0,1 #FF8C6E70@0 #FF7A6064@1"
+
+"Ribbon.Background" = "#FF2B3542"
+"Ribbon.BorderBrush" = "#FF4A5A6C"
+"Ribbon.InnerBorderBrush" = "#18FFFFFF"
+"Ribbon.OverlayBackground" = "linear 0.5,0 0.5,1 #22FFFFFF@0 #18FFFFFF@0.1 #02FFFFFF@0.5 #08FFFFFF@1"
+"Ribbon.DropDown.Background" = "#F0262E38"
+"Ribbon.TextBox.Overlay" = "#EE1F262E"
+"Ribbon.TextBox.MouseOver.Background" = "#FF1B2128"
+"Ribbon.ApplicationMenu.Pane.Background" = "#B81F262E"
+"Ribbon.CheckBox.Box.Background" = "#FF1F262E"
+"Ribbon.Separator.Highlight" = "#20FFFFFF"
+"Ribbon.TabHeader.Checked.Background" = "linear 0,0 0,1 #18FFFFFF@0 #30FFFFFF@1"
+"Ribbon.Group.Header.Foreground" = "#FFA8B4C0"
+"Ribbon.Disabled.Foreground" = "#FF6E7884"

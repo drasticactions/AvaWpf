@@ -1,0 +1,26 @@
+# Windows XP Media Center Royale (royale.msstyles) SystemColors, Light.
+# Values marked royale normalcolor.ini are the msstyles [SysMetrics] section (R G B), as listed in the author's palette notes;
+# the rest are the Windows XP SP3 defaults, which the visual style does not override.
+name = "Royale.NormalColor"
+base = "xp-defaults"
+
+[colors]
+Window = { value = "#FFFFFF", source = "royale normalcolor.ini [SysMetrics]" }
+MenuBar = { value = "#EBE9ED", source = "royale normalcolor.ini [SysMetrics]" }
+Menu = { value = "#FFFFFF", source = "royale normalcolor.ini [SysMetrics]" }
+Desktop = { value = "#000040", source = "royale normalcolor.ini [SysMetrics]" }
+Control = { value = "#EBE9ED", source = "royale normalcolor.ini [SysMetrics]" }
+Highlight = { value = "#335EA8", source = "royale normalcolor.ini [SysMetrics]" }
+ActiveCaption = { value = "#335EA8", source = "royale normalcolor.ini [SysMetrics]" }
+ActiveCaptionText = { value = "#FFFFFF", source = "royale normalcolor.ini [SysMetrics]" }
+InactiveCaption = { value = "#6FA1D9", source = "royale normalcolor.ini [SysMetrics]" }
+InactiveCaptionText = { value = "#FFFFFF", source = "royale normalcolor.ini [SysMetrics]" }
+GradientActiveCaption = { value = "#70B1EB", source = "royale normalcolor.ini [SysMetrics]" }
+GradientInactiveCaption = { value = "#83B7E3", source = "royale normalcolor.ini [SysMetrics]" }
+HighlightText = { value = "#FFFFFF", source = "royale normalcolor.ini [SysMetrics]" }
+MenuHighlight = { value = "#335EA8", source = "royale normalcolor.ini [SysMetrics]" }
+ControlDark = { value = "#A7A6AA", source = "royale normalcolor.ini [SysMetrics]" }
+GrayText = { value = "#A7A6AA", source = "royale normalcolor.ini [SysMetrics]" }
+ControlLightLight = { value = "#FFFFFF", source = "royale normalcolor.ini [SysMetrics]" }
+ControlDarkDark = { value = "#85878C", source = "royale normalcolor.ini [SysMetrics]" }
+ControlLight = { value = "#DCDFE4", source = "royale normalcolor.ini [SysMetrics]" }

@@ -1,0 +1,160 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:aero="using:AvaWpf.Chrome.Aero">
+  <!--
+    WPF ComboBox.xaml, [[Aero.NormalColor]]: ComboBoxReadonlyToggleButton and ComboBoxToggleButton.
+    WPF uses ClickMode Press, but Avalonia's ComboBox closes an open drop-down on any press,
+    so a press-mode toggle would reopen and close in one click; Release avoids that.
+  -->
+  <ControlTheme x:Key="Aero.ComboBoxReadonlyToggleButton" TargetType="ToggleButton">
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="ClickMode" Value="Release" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <aero:ButtonChrome Name="Chrome"
+                           Background="{TemplateBinding Background}"
+                           BorderBrush="{TemplateBinding BorderBrush}"
+                           RenderMouseOver="{TemplateBinding IsPointerOver}"
+                           RenderPressed="{TemplateBinding IsPressed}"
+                           UseLayoutRounding="True">
+          <Grid Width="{DynamicResource SystemParameters.VerticalScrollBarWidth}" HorizontalAlignment="Right">
+            <Path Name="Arrow"
+                  Margin="3,1,0,0"
+                  Fill="{DynamicResource Aero.ComboBox.ComboBoxReadonlyToggleButton.Arrow.Fill}"
+                  Data="{DynamicResource Aero.DownArrowGeometry}"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center" />
+          </Grid>
+        </aero:ButtonChrome>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:checked /template/ aero|ButtonChrome#Chrome">
+      <Setter Property="RenderPressed" Value="True" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#Arrow">
+      <Setter Property="Fill" Value="{DynamicResource Aero.ComboBox.ComboBoxReadonlyToggleButton.Arrow.Fill.IsEnabled_false}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Aero.ComboBoxToggleButton" TargetType="ToggleButton">
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="ClickMode" Value="Release" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <aero:ButtonChrome Name="Chrome"
+                           Width="{DynamicResource SystemParameters.VerticalScrollBarWidth}"
+                           Background="{TemplateBinding Background}"
+                           BorderBrush="{TemplateBinding BorderBrush}"
+                           RenderMouseOver="{TemplateBinding IsPointerOver}"
+                           RenderPressed="{TemplateBinding IsPressed}"
+                           RoundCorners="False"
+                           UseLayoutRounding="True">
+          <Path Name="Arrow"
+                Margin="0,1,0,0"
+                Fill="{DynamicResource Aero.ComboBox.ComboBoxToggleButton.Arrow.Fill}"
+                Data="{DynamicResource Aero.DownArrowGeometry}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center" />
+        </aero:ButtonChrome>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:checked /template/ aero|ButtonChrome#Chrome">
+      <Setter Property="RenderPressed" Value="True" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#Arrow">
+      <Setter Property="Fill" Value="{DynamicResource Aero.ComboBox.ComboBoxToggleButton.Arrow.Fill.IsEnabled_false}" />
+    </Style>
+  </ControlTheme>
+
+  <!-- WPF ComboBox.xaml ComboBoxEditableTextBox (shared section): a bare scroll host, no border or background. -->
+  <ControlTheme x:Key="Aero.ComboBoxEditableTextBox" TargetType="TextBox">
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="CaretBrush" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="SelectionBrush" Value="{DynamicResource SystemColors.HighlightBrush}" />
+    <Setter Property="SelectionForegroundBrush" Value="{DynamicResource SystemColors.HighlightTextBrush}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ScrollViewer Name="PART_ScrollViewer"
+                      Focusable="False"
+                      HorizontalScrollBarVisibility="Hidden"
+                      VerticalScrollBarVisibility="Hidden"
+                      Background="Transparent">
+          <Panel Margin="2,0,2,0">
+            <TextBlock Name="PART_Placeholder"
+                       Foreground="{TemplateBinding PlaceholderForeground}"
+                       Text="{TemplateBinding PlaceholderText}"
+                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                       IsVisible="{TemplateBinding Text, Converter={x:Static StringConverters.IsNullOrEmpty}}" />
+            <TextPresenter Name="PART_TextPresenter"
+                           Text="{TemplateBinding Text, Mode=TwoWay}"
+                           CaretBlinkInterval="{TemplateBinding CaretBlinkInterval}"
+                           CaretIndex="{TemplateBinding CaretIndex}"
+                           SelectionStart="{TemplateBinding SelectionStart}"
+                           SelectionEnd="{TemplateBinding SelectionEnd}"
+                           TextAlignment="{TemplateBinding TextAlignment}"
+                           TextWrapping="{TemplateBinding TextWrapping}"
+                           LineHeight="{TemplateBinding LineHeight}"
+                           LetterSpacing="{TemplateBinding LetterSpacing}"
+                           PasswordChar="{TemplateBinding PasswordChar}"
+                           RevealPassword="{TemplateBinding RevealPassword}"
+                           SelectionBrush="{TemplateBinding SelectionBrush}"
+                           SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
+                           CaretBrush="{TemplateBinding CaretBrush}"
+                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+          </Panel>
+        </ScrollViewer>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <!-- WPF ToolBar.xaml ToolBarComboBoxTransparentButtonStyle: a 13 px arrow column in the toolbar hover colors. -->
+  <ControlTheme x:Key="Aero.ToolBarComboBoxTransparentButtonStyle" TargetType="ToggleButton">
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="ClickMode" Value="Release" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Background="Transparent" ColumnDefinitions="*,Auto">
+          <Border Name="Chrome"
+                  Grid.Column="1"
+                  Width="13"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  UseLayoutRounding="True">
+            <Path Name="ArrowDownPath"
+                  Data="{DynamicResource Aero.ToolBar.ToolBarComboBoxTransparentButtonStyle.ArrowDownPath.Data}"
+                  Fill="{DynamicResource Aero.ToolBar.ToolBarComboBoxTransparentButtonStyle.ArrowDownPath.Fill}"
+                  VerticalAlignment="Center" />
+          </Border>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:disabled /template/ Border#Chrome">
+      <Setter Property="BorderBrush" Value="{x:Null}" />
+    </Style>
+    <Style Selector="^:pointerover:not(:checked) /template/ Border#Chrome">
+      <Setter Property="Background" Value="{DynamicResource Aero.ToolBarButtonHover}" />
+    </Style>
+    <Style Selector="^:checked /template/ Border#Chrome">
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero.ToolBarButtonPressedBorder}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Border#Chrome">
+      <Setter Property="Background" Value="{DynamicResource Aero.ToolBarButtonPressed}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#ArrowDownPath">
+      <Setter Property="Fill" Value="{DynamicResource Aero.ToolBarDisabledBorder}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

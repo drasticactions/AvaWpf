@@ -1,0 +1,113 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF GridViewColumnHeaderGripper, Royale.NormalColor. -->
+  <ControlTheme x:Key="Royale.GridViewColumnHeaderGripper" TargetType="Thumb">
+    <Setter Property="Width" Value="18" />
+    <Setter Property="HorizontalAlignment" Value="Right" />
+    <Setter Property="Margin" Value="0,0,-9,0" />
+    <Setter Property="Padding" Value="0,3,0,3" />
+    <Setter Property="Cursor" Value="SizeWestEast" />
+    <Setter Property="Background" Value="{DynamicResource Royale.ListView.GridViewColumnHeaderGripper.Setter.Self.Background}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Padding="{TemplateBinding Padding}"
+                Background="Transparent"
+                UseLayoutRounding="True">
+          <Rectangle HorizontalAlignment="Center"
+                     Width="1"
+                     Fill="{TemplateBinding Background}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <!--
+    WPF GridViewColumnHeader, Royale.NormalColor. The 20 px minimum height applies only while Height is Auto, as in
+    WPF.
+  -->
+  <ControlTheme x:Key="{x:Type wpf:GridViewColumnHeader}" TargetType="wpf:GridViewColumnHeader">
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Background" Value="{DynamicResource Royale.GridViewColumnHeaderBackground}" />
+    <Setter Property="BorderThickness" Value="0,0,0,1" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Royale.GridViewColumnHeaderBorder}" />
+    <Setter Property="Padding" Value="2,0,2,0" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="MinHeight" Value="20" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid UseLayoutRounding="True">
+          <Border BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}">
+            <Grid Background="{TemplateBinding Background}">
+              <Border Name="HighlightBorder"
+                      VerticalAlignment="Bottom"
+                      Height="3"
+                      BorderThickness="0" />
+              <Border Padding="{TemplateBinding Padding}">
+                <ContentPresenter Name="PART_ContentPresenter"
+                                  Content="{TemplateBinding Content}"
+                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                  Margin="0,0,0,1"
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  RecognizesAccessKey="True" />
+              </Border>
+            </Grid>
+          </Border>
+          <Panel Name="GripperHost">
+            <Thumb Name="PART_HeaderGripper"
+                   Theme="{StaticResource Royale.GridViewColumnHeaderGripper}" />
+          </Panel>
+          <Border Name="HeaderPressBorder"
+                  BorderThickness="1" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^:pointerover /template/ Border#HighlightBorder">
+      <Setter Property="BorderBrush" Value="{DynamicResource Royale.ListView.GridViewColumnHeader.HighlightBorder.BorderBrush.IsMouseOver_true}" />
+      <Setter Property="Background" Value="{DynamicResource Royale.ListView.GridViewColumnHeader.HighlightBorder.Background.IsMouseOver_true}" />
+      <Setter Property="BorderThickness" Value="0,1,0,1" />
+    </Style>
+    <Style Selector="^:pressed:not(:padding)">
+      <Setter Property="Background" Value="{DynamicResource Royale.GridViewColumnHeaderBackground}" />
+      <Style Selector="^ /template/ Border#HighlightBorder">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Background" Value="{DynamicResource Royale.GridViewColumnHeaderBackground}" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Margin" Value="1,1,0,0" />
+      </Style>
+      <Style Selector="^ /template/ Border#HeaderPressBorder">
+        <Setter Property="BorderBrush" Value="{DynamicResource Royale.ListView.GridViewColumnHeader.HeaderPressBorder.BorderBrush.IsPressed_true}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+
+    <!-- Role Floating: the copy of the dragged header, painted from the source into the canvas. -->
+    <Style Selector="^:floating">
+      <Setter Property="Opacity" Value="0.7" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Canvas Name="PART_FloatingHeaderCanvas" />
+        </ControlTemplate>
+      </Setter>
+    </Style>
+
+    <!-- Role Padding: the plain face without gripper or content. -->
+    <Style Selector="^:padding">
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Border BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  Background="{TemplateBinding Background}"
+                  UseLayoutRounding="True" />
+        </ControlTemplate>
+      </Setter>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,10 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    The adorner layer; its default focus adorner is the WPF FocusVisualStyleKey dotted rectangle
+    (AeroLite.FocusVisualStyle).
+  -->
+  <ControlTheme x:Key="{x:Type AdornerLayer}" TargetType="AdornerLayer">
+    <Setter Property="DefaultFocusAdorner" Value="{DynamicResource AeroLite.FocusVisualStyle}" />
+  </ControlTheme>
+</ResourceDictionary>

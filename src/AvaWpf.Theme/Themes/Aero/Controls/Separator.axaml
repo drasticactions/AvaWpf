@@ -1,0 +1,63 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    WPF Separator.xaml. Class toolbar: ToolBar.SeparatorStyleKey. Class statusbar: StatusBar.SeparatorStyleKey.
+    :menu (a Separator in a menu, see SeparatorState): MenuItem.SeparatorStyleKey.
+  -->
+  <ControlTheme x:Key="{x:Type Separator}" TargetType="Separator">
+    <Setter Property="Background" Value="{DynamicResource SystemColors.ControlDarkBrush}" />
+    <Setter Property="Margin" Value="0,2,0,2" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                UseLayoutRounding="True"
+                Height="1" />
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^:menu">
+      <Setter Property="Margin" Value="0" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Grid UseLayoutRounding="False" Margin="0,6,0,4">
+            <Rectangle Height="1" Margin="30,0,1,1" Fill="{DynamicResource Aero.MenuItem.MenuItem.SeparatorStyleKey.Rectangle#1.Fill}" />
+            <Rectangle Height="1" Margin="30,1,1,0" Fill="{DynamicResource Aero.MenuItem.MenuItem.SeparatorStyleKey.Rectangle#2.Fill}" />
+          </Grid>
+        </ControlTemplate>
+      </Setter>
+    </Style>
+
+    <Style Selector="^.toolbar">
+      <Setter Property="Background" Value="{DynamicResource Aero.ToolBarSeparatorFill}" />
+      <Setter Property="MinWidth" Value="1" />
+      <Setter Property="MinHeight" Value="1" />
+      <Setter Property="Margin" Value="2,2,2,2" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Border Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  UseLayoutRounding="True" />
+        </ControlTemplate>
+      </Setter>
+    </Style>
+
+    <Style Selector="^.statusbar">
+      <Setter Property="Background" Value="{DynamicResource SystemColors.ControlDarkDarkBrush}" />
+      <Setter Property="MinWidth" Value="1" />
+      <Setter Property="MinHeight" Value="1" />
+      <Setter Property="Margin" Value="2" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Border Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  UseLayoutRounding="True" />
+        </ControlTemplate>
+      </Setter>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

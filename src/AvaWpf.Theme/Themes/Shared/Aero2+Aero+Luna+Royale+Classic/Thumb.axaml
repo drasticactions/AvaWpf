@@ -1,0 +1,26 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- WPF Thumb.xaml: the classic raised edge drawn with nested borders. -->
+  <ControlTheme x:Key="{x:Type Thumb}" TargetType="Thumb">
+    <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}">
+          <Grid>
+            <Border BorderThickness="0,0,1,1"
+                    Background="{DynamicResource SystemColors.ControlBrush}"
+                    BorderBrush="{DynamicResource SystemColors.ControlDarkDarkBrush}" />
+            <Border BorderThickness="0,0,1,1"
+                    Margin="1"
+                    Background="{DynamicResource SystemColors.ControlLightLightBrush}"
+                    BorderBrush="{DynamicResource SystemColors.ControlDarkBrush}" />
+            <Border Margin="2" Background="{TemplateBinding Background}" />
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

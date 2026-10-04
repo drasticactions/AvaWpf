@@ -1,0 +1,42 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/Window.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!--
+    WPF DefaultWindowStyle. WPF leaves the background Transparent for Mica and falls back to WindowBackground; there is
+    no Mica here, so the fallback is the background. wpf:ThemeWindow draws the frame.
+  -->
+  <ControlTheme x:Key="{x:Type Window}" TargetType="Window">
+    <Setter Property="Background" Value="{DynamicResource Fluent.WindowBackground}" />
+    <Setter Property="TransparencyBackgroundFallback" Value="{DynamicResource Fluent.WindowBackground}" />
+    <Setter Property="TopLevel.SystemBarColor" Value="{DynamicResource Fluent.WindowBackground}" />
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.WindowForeground}" />
+    <Setter Property="FontFamily" Value="{DynamicResource SystemFonts.MessageFontFamily}" />
+    <!--
+      WPF Fluent sets no window font: text takes the system message font (14 px Segoe UI Variable; 11 px Tahoma in high
+      contrast).
+    -->
+    <Setter Property="FontSize" Value="{DynamicResource SystemFonts.MessageFontSize}" />
+    <Setter Property="FontWeight" Value="{DynamicResource SystemFonts.MessageFontWeight}" />
+    <Setter Property="FontStyle" Value="{DynamicResource SystemFonts.MessageFontStyle}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <Border Name="PART_TransparencyFallback" IsHitTestVisible="False" />
+          <Border Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  IsHitTestVisible="False" />
+          <Panel Background="Transparent" Margin="{TemplateBinding WindowDecorationMargin}" />
+          <VisualLayerManager Name="PART_VisualLayerManager">
+            <ContentPresenter Name="PART_ContentPresenter"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Content="{TemplateBinding Content}"
+                              Margin="{TemplateBinding Padding}"
+                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+          </VisualLayerManager>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

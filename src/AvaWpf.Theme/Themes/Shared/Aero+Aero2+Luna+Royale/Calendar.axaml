@@ -1,0 +1,20 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- WPF Calendar.xaml Calendar: PART_Root holds the CalendarItem, which draws everything. -->
+  <ControlTheme x:Key="{x:Type Calendar}" TargetType="Calendar">
+    <Setter Property="Foreground" Value="{DynamicResource $F.Calendar.Calendar.Setter.Self.Foreground}" />
+    <Setter Property="Background" Value="{DynamicResource $F.Calendar.Calendar.Setter.Self.Background}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource $F.Calendar.Calendar.Setter.Self.BorderBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <StackPanel Name="PART_Root" HorizontalAlignment="Center">
+          <CalendarItem Name="PART_CalendarItem"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}" />
+        </StackPanel>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

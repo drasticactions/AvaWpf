@@ -1,0 +1,165 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    WPF DatePicker.xaml parts, AeroLite.NormalColor: AeroLite.DatePickerDropDownButton (DropDownButtonTemplate) and
+    AeroLite.DatePickerTextBox (DatePickerTextBox).
+  -->
+  <ControlTheme x:Key="AeroLite.DatePickerDropDownButton" TargetType="Button">
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Background="Transparent">
+          <Grid Height="18"
+                Width="19"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Margin="0"
+                Background="{DynamicResource AeroLite.DatePicker.DatePicker.Grid#2.Background}"
+                FlowDirection="LeftToRight"
+                ColumnDefinitions="20*,20*,20*,20*"
+                RowDefinitions="23*,19*,19*,19*">
+            <Border Name="Highlight"
+                    Margin="-1"
+                    Grid.ColumnSpan="4"
+                    Grid.Row="0"
+                    Grid.RowSpan="4"
+                    BorderThickness="1"
+                    BorderBrush="{DynamicResource AeroLite.Button.Pressed.Border}"
+                    Opacity="0" />
+            <Border Name="Background"
+                    Margin="0,-1,0,0"
+                    Grid.ColumnSpan="4"
+                    Grid.Row="1"
+                    Grid.RowSpan="3"
+                    BorderThickness="1"
+                    BorderBrush="{DynamicResource AeroLite.Button.Static.Border}"
+                    Opacity="1"
+                    Background="{DynamicResource AeroLite.Button.Static.Background}">
+              <Border.Transitions>
+                <Transitions>
+                  <BrushTransition Property="Background" Duration="0:0:0.1" />
+                </Transitions>
+              </Border.Transitions>
+            </Border>
+            <Rectangle Grid.ColumnSpan="4"
+                       Grid.RowSpan="1"
+                       StrokeThickness="1"
+                       Stroke="{DynamicResource AeroLite.DatePicker.DatePicker.Rectangle#1.Stroke}"
+                       Fill="{DynamicResource AeroLite.DatePicker.DatePicker.Rectangle#1.Fill}" />
+            <Path HorizontalAlignment="Center"
+                  Margin="4,3,4,3"
+                  VerticalAlignment="Center"
+                  RenderTransformOrigin="50%,50%"
+                  Grid.Column="0"
+                  Grid.Row="1"
+                  Fill="{DynamicResource AeroLite.DatePicker.DatePicker.Path#1.Fill}"
+                  Stretch="Fill"
+                  Data="{DynamicResource AeroLite.DatePicker.DatePicker.Path#1.Data}"
+                  Grid.ColumnSpan="4"
+                  Grid.RowSpan="3" />
+            <Ellipse HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Fill="{DynamicResource AeroLite.DatePicker.DatePicker.Ellipse#1.Fill}"
+                     StrokeThickness="0"
+                     Grid.ColumnSpan="4"
+                     Width="3"
+                     Height="3" />
+            <Border Name="DisabledVisual"
+                    Grid.ColumnSpan="4"
+                    Grid.Row="0"
+                    Grid.RowSpan="4"
+                    BorderThickness="1"
+                    BorderBrush="{DynamicResource AeroLite.DatePicker.DatePicker.DisabledVisual.BorderBrush}"
+                    Opacity="0" />
+          </Grid>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#Background">
+      <Setter Property="Background" Value="{DynamicResource AeroLite.Button.MouseOver.Background}" />
+    </Style>
+    <Style Selector="^:pressed">
+      <Style Selector="^ /template/ Border#Background">
+        <Setter Property="Background" Value="{DynamicResource AeroLite.Button.Pressed.Background}" />
+      </Style>
+      <Style Selector="^ /template/ Border#Highlight">
+        <Setter Property="Opacity" Value="1" />
+      </Style>
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="AeroLite.DatePickerTextBox" TargetType="TextBox">
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.WindowTextBrush}" />
+    <Setter Property="Background" Value="{DynamicResource SystemColors.WindowBrush}" />
+    <Setter Property="CaretBrush" Value="{Binding $self.Foreground}" />
+    <Setter Property="SelectionBrush" Value="{DynamicResource SystemColors.HighlightBrush}" />
+    <Setter Property="SelectionForegroundBrush" Value="{DynamicResource SystemColors.HighlightTextBrush}" />
+    <Setter Property="PlaceholderForeground" Value="{DynamicResource AeroLite.WatermarkBrush}" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="ContextFlyout" Value="{DynamicResource AeroLite.TextBoxContextFlyout}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid>
+          <Border Name="Border"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  Padding="{TemplateBinding Padding}">
+            <Grid Name="WatermarkContent"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch">
+              <Border Name="ContentElement"
+                      BorderThickness="1"
+                      BorderBrush="{DynamicResource AeroLite.DatePicker.DatePickerTextBox.ContentElement.BorderBrush}">
+                <Border.Transitions>
+                  <Transitions>
+                    <BrushTransition Property="BorderBrush" Duration="0:0:0.1" />
+                  </Transitions>
+                </Border.Transitions>
+              </Border>
+              <Border Name="watermark_decorator"
+                      BorderThickness="1"
+                      BorderBrush="{DynamicResource AeroLite.DatePicker.DatePickerTextBox.watermark_decorator.BorderBrush}">
+                <TextBlock Name="PART_Watermark"
+                           Padding="2"
+                           IsHitTestVisible="False"
+                           Foreground="{TemplateBinding PlaceholderForeground}"
+                           Text="{TemplateBinding PlaceholderText}"
+                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                           IsVisible="{TemplateBinding Text, Converter={x:Static StringConverters.IsNullOrEmpty}}" />
+              </Border>
+              <ScrollViewer Name="PART_ScrollViewer"
+                            Margin="0"
+                            Padding="2,1"
+                            HorizontalScrollBarVisibility="Hidden"
+                            VerticalScrollBarVisibility="Hidden"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
+                <TextPresenter Name="PART_TextPresenter"
+                               Text="{TemplateBinding Text, Mode=TwoWay}"
+                               CaretBlinkInterval="{TemplateBinding CaretBlinkInterval}"
+                               CaretIndex="{TemplateBinding CaretIndex}"
+                               SelectionStart="{TemplateBinding SelectionStart}"
+                               SelectionEnd="{TemplateBinding SelectionEnd}"
+                               TextAlignment="{TemplateBinding TextAlignment}"
+                               TextWrapping="{TemplateBinding TextWrapping}"
+                               PasswordChar="{TemplateBinding PasswordChar}"
+                               SelectionBrush="{TemplateBinding SelectionBrush}"
+                               SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
+                               CaretBrush="{TemplateBinding CaretBrush}"
+                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+              </ScrollViewer>
+            </Grid>
+          </Border>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover">
+      <Style Selector="^ /template/ Border#ContentElement">
+        <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.Invented.DatePickerTextBox.MouseOver.Border}" />
+      </Style>
+      <Style Selector="^ /template/ Border#watermark_decorator">
+        <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.Invented.DatePickerTextBox.MouseOver.Border}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

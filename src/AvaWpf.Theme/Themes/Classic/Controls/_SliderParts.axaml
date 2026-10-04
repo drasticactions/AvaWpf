@@ -1,0 +1,164 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF Slider.xaml [[Classic]] parts: page buttons and the plain and pointed thumbs. Dragging or disabled lays
+       ControlLightLight over the face at 50 %, the checkered thumb of Windows 9x. -->
+  <ControlTheme x:Key="Classic.SliderRepeatButton" TargetType="RepeatButton">
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}" />
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Classic.SliderThumb.Horizontal" TargetType="Thumb">
+    <Setter Property="Foreground" Value="{x:Null}" />
+    <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+    <Setter Property="Width" Value="11" />
+    <Setter Property="Height" Value="21" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <wpf:ClassicBorderDecorator BorderStyle="Raised"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{x:Static wpf:ClassicBorderDecorator.ClassicBorderBrush}"
+                                    BorderThickness="3">
+          <Rectangle Name="ForegroundRect" Fill="{TemplateBinding Foreground}" Opacity="0.5" Margin="-1" />
+        </wpf:ClassicBorderDecorator>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pressed">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlLightLightBrush}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlLightLightBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Classic.SliderThumb.HorizontalUp" TargetType="Thumb">
+    <Setter Property="Foreground" Value="{x:Null}" />
+    <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+    <Setter Property="Width" Value="11" />
+    <Setter Property="Height" Value="21" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Canvas UseLayoutRounding="True">
+          <Path Fill="{TemplateBinding Background}" Data="{DynamicResource Classic.Slider.HorizontalSliderUpThumbStyle.Path#1.Data}" />
+          <Path Stroke="{DynamicResource SystemColors.ControlLightLightBrush}" StrokeThickness="1" Data="{DynamicResource Classic.Slider.HorizontalSliderUpThumbStyle.Path#2.Data}" />
+          <Path Stroke="{DynamicResource SystemColors.ControlDarkDarkBrush}" StrokeThickness="1" Data="{DynamicResource Classic.Slider.HorizontalSliderUpThumbStyle.Path#3.Data}" />
+          <Path Stroke="{DynamicResource SystemColors.ControlLightBrush}" StrokeThickness="1" Data="{DynamicResource Classic.Slider.HorizontalSliderUpThumbStyle.Path#4.Data}" />
+          <Path Stroke="{DynamicResource SystemColors.ControlDarkBrush}" StrokeThickness="1" Data="{DynamicResource Classic.Slider.HorizontalSliderUpThumbStyle.Path#5.Data}" />
+          <Path Fill="{TemplateBinding Foreground}" Opacity="0.5" Data="{DynamicResource Classic.Slider.HorizontalSliderUpThumbStyle.Path#6.Data}" />
+        </Canvas>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pressed">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlLightLightBrush}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlLightLightBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Classic.SliderThumb.HorizontalDown" TargetType="Thumb">
+    <Setter Property="Foreground" Value="{x:Null}" />
+    <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+    <Setter Property="Width" Value="11" />
+    <Setter Property="Height" Value="21" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Canvas UseLayoutRounding="True">
+          <Path Fill="{TemplateBinding Background}" Data="{DynamicResource Classic.Slider.HorizontalSliderDownThumbStyle.Path#1.Data}" />
+          <Path Stroke="{DynamicResource SystemColors.ControlLightLightBrush}" StrokeThickness="1" Data="{DynamicResource Classic.Slider.HorizontalSliderDownThumbStyle.Path#2.Data}" />
+          <Path Stroke="{DynamicResource SystemColors.ControlDarkDarkBrush}" StrokeThickness="1" Data="{DynamicResource Classic.Slider.HorizontalSliderDownThumbStyle.Path#3.Data}" />
+          <Path Stroke="{DynamicResource SystemColors.ControlLightBrush}" StrokeThickness="1" Data="{DynamicResource Classic.Slider.HorizontalSliderDownThumbStyle.Path#4.Data}" />
+          <Path Stroke="{DynamicResource SystemColors.ControlDarkBrush}" StrokeThickness="1" Data="{DynamicResource Classic.Slider.HorizontalSliderDownThumbStyle.Path#5.Data}" />
+          <Path Fill="{TemplateBinding Foreground}" Opacity="0.5" Data="{DynamicResource Classic.Slider.HorizontalSliderDownThumbStyle.Path#6.Data}" />
+        </Canvas>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pressed">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlLightLightBrush}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlLightLightBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Classic.SliderThumb.Vertical" TargetType="Thumb">
+    <Setter Property="Foreground" Value="{x:Null}" />
+    <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+    <Setter Property="Width" Value="21" />
+    <Setter Property="Height" Value="11" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <wpf:ClassicBorderDecorator BorderStyle="Raised"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{x:Static wpf:ClassicBorderDecorator.ClassicBorderBrush}"
+                                    BorderThickness="3">
+          <Rectangle Name="ForegroundRect" Fill="{TemplateBinding Foreground}" Opacity="0.5" Margin="-1" />
+        </wpf:ClassicBorderDecorator>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pressed">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlLightLightBrush}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlLightLightBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Classic.SliderThumb.VerticalLeft" TargetType="Thumb">
+    <Setter Property="Foreground" Value="{x:Null}" />
+    <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+    <Setter Property="Width" Value="21" />
+    <Setter Property="Height" Value="11" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Canvas UseLayoutRounding="True">
+          <Path Fill="{TemplateBinding Background}" Data="{DynamicResource Classic.Slider.VerticalSliderLeftThumbStyle.Path#1.Data}" />
+          <Path Stroke="{DynamicResource SystemColors.ControlLightLightBrush}" StrokeThickness="1" Data="{DynamicResource Classic.Slider.VerticalSliderLeftThumbStyle.Path#2.Data}" />
+          <Path Stroke="{DynamicResource SystemColors.ControlDarkDarkBrush}" StrokeThickness="1" Data="{DynamicResource Classic.Slider.VerticalSliderLeftThumbStyle.Path#3.Data}" />
+          <Path Stroke="{DynamicResource SystemColors.ControlLightBrush}" StrokeThickness="1" Data="{DynamicResource Classic.Slider.VerticalSliderLeftThumbStyle.Path#4.Data}" />
+          <Path Stroke="{DynamicResource SystemColors.ControlDarkBrush}" StrokeThickness="1" Data="{DynamicResource Classic.Slider.VerticalSliderLeftThumbStyle.Path#5.Data}" />
+          <Path Fill="{TemplateBinding Foreground}" Opacity="0.5" Data="{DynamicResource Classic.Slider.VerticalSliderLeftThumbStyle.Path#6.Data}" />
+        </Canvas>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pressed">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlLightLightBrush}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlLightLightBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Classic.SliderThumb.VerticalRight" TargetType="Thumb">
+    <Setter Property="Foreground" Value="{x:Null}" />
+    <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+    <Setter Property="Width" Value="21" />
+    <Setter Property="Height" Value="11" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Canvas UseLayoutRounding="True">
+          <Path Fill="{TemplateBinding Background}" Data="{DynamicResource Classic.Slider.VerticalSliderRightThumbStyle.Path#1.Data}" />
+          <Path Stroke="{DynamicResource SystemColors.ControlLightLightBrush}" StrokeThickness="1" Data="{DynamicResource Classic.Slider.VerticalSliderRightThumbStyle.Path#2.Data}" />
+          <Path Stroke="{DynamicResource SystemColors.ControlDarkDarkBrush}" StrokeThickness="1" Data="{DynamicResource Classic.Slider.VerticalSliderRightThumbStyle.Path#3.Data}" />
+          <Path Stroke="{DynamicResource SystemColors.ControlLightBrush}" StrokeThickness="1" Data="{DynamicResource Classic.Slider.VerticalSliderRightThumbStyle.Path#4.Data}" />
+          <Path Stroke="{DynamicResource SystemColors.ControlDarkBrush}" StrokeThickness="1" Data="{DynamicResource Classic.Slider.VerticalSliderRightThumbStyle.Path#5.Data}" />
+          <Path Fill="{TemplateBinding Foreground}" Opacity="0.5" Data="{DynamicResource Classic.Slider.VerticalSliderRightThumbStyle.Path#6.Data}" />
+        </Canvas>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pressed">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlLightLightBrush}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlLightLightBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

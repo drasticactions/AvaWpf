@@ -1,0 +1,32 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        x:Class="AvaWpf.Themes.GlobalStyles"
+        x:ClassModifier="internal"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Global styles of every family. The TextBlock type classes follow WPF Fluent's TextBlock.xaml. -->
+  <Style Selector="TextBlock.Caption, SelectableTextBlock.Caption">
+    <Setter Property="FontSize" Value="12" />
+  </Style>
+  <Style Selector="TextBlock.Body, SelectableTextBlock.Body">
+    <Setter Property="FontSize" Value="14" />
+  </Style>
+  <Style Selector="TextBlock.BodyStrong, SelectableTextBlock.BodyStrong">
+    <Setter Property="FontSize" Value="14" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+  </Style>
+  <Style Selector="TextBlock.Subtitle, SelectableTextBlock.Subtitle">
+    <Setter Property="FontSize" Value="20" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+  </Style>
+  <Style Selector="TextBlock.Title, SelectableTextBlock.Title">
+    <Setter Property="FontSize" Value="28" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+  </Style>
+  <Style Selector="TextBlock.TitleLarge, SelectableTextBlock.TitleLarge">
+    <Setter Property="FontSize" Value="40" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+  </Style>
+  <Style Selector="TextBlock.Display, SelectableTextBlock.Display">
+    <Setter Property="FontSize" Value="68" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+  </Style>
+</Styles>

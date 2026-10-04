@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Headless.XUnit" />
+    <PackageReference Include="Avalonia.Skia" />
+    <PackageReference Include="Avalonia.HarfBuzz" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\AvaWpf.Ribbon\AvaWpf.Ribbon.csproj" />
+    <ProjectReference Include="..\..\src\AvaWpf.Theme\AvaWpf.Theme.csproj" />
+    <ProjectReference Include="..\..\src\AvaWpf.Fonts\AvaWpf.Fonts.csproj" />
+    <ProjectReference Include="..\..\src\AvaWpf.Animations\AvaWpf.Animations.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- The Ribbon theme XAML is read at test time to enumerate the resource keys each template consumes. -->
+    <Content Include="..\..\src\AvaWpf.Ribbon\Themes\**\*.axaml" Link="RibbonXaml\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

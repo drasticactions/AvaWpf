@@ -1,0 +1,63 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!--
+    WPF ContextMenu.xaml, [[Aero.NormalColor, Aero2.NormalColor]].
+    WPF's OpaqueRect is not ported: it only affects ClearType, which Avalonia does not use in popups.
+  -->
+  <ControlTheme x:Key="{x:Type ContextMenu}" TargetType="ContextMenu">
+    <Setter Property="Background" Value="{DynamicResource $F.ContextMenu.ContextMenu.Setter.Self.Background}" />
+    <Setter Property="FontFamily" Value="{DynamicResource SystemFonts.MenuFontFamily}" />
+    <Setter Property="FontSize" Value="{DynamicResource SystemFonts.MenuFontSize}" />
+    <Setter Property="FontWeight" Value="{DynamicResource SystemFonts.MenuFontWeight}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.MenuTextBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="BorderBrush" Value="{DynamicResource $F.ContextMenu.ContextMenu.Setter.Self.BorderBrush}" />
+    <Setter Property="Padding" Value="2" />
+    <Setter Property="Grid.IsSharedSizeScope" Value="True" />
+    <Setter Property="Focusable" Value="True" />
+    <Setter Property="WindowManagerAddShadowHint" Value="False" />
+    <Setter Property="wpf:PopupAnimation.Kind" Value="{DynamicResource SystemParameters.MenuPopupAnimation}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <wpf:SystemDropShadowChrome Name="Shdw"
+                                    Classes.dropshadow="{DynamicResource SystemParameters.DropShadow}"
+                                    UseLayoutRounding="True">
+          <Border Name="ContextMenuBorder"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}">
+            <ScrollViewer Name="ContextMenuScrollViewer"
+                          Margin="1,0"
+                          Theme="{DynamicResource $F.MenuScrollViewer}">
+              <Grid>
+                <Rectangle Fill="{DynamicResource $F.ContextMenu.ContextMenu.Rectangle#1.Fill}"
+                           HorizontalAlignment="Left"
+                           Width="28"
+                           Margin="1,2"
+                           RadiusX="2"
+                           RadiusY="2" />
+                <Rectangle HorizontalAlignment="Left"
+                           Width="1"
+                           Margin="29,2,0,2"
+                           Fill="{DynamicResource $F.ContextMenu.ContextMenu.Rectangle#2.Fill}" />
+                <Rectangle HorizontalAlignment="Left"
+                           Width="1"
+                           Margin="30,2,0,2"
+                           Fill="{DynamicResource $F.ContextMenu.ContextMenu.Rectangle#3.Fill}" />
+                <ItemsPresenter Name="PART_ItemsPresenter"
+                                ItemsPanel="{TemplateBinding ItemsPanel}"
+                                Margin="{TemplateBinding Padding}"
+                                KeyboardNavigation.TabNavigation="Continue"
+                                UseLayoutRounding="True" />
+              </Grid>
+            </ScrollViewer>
+          </Border>
+        </wpf:SystemDropShadowChrome>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^ /template/ wpf|SystemDropShadowChrome#Shdw.dropshadow">
+      <Setter Property="Margin" Value="0,0,5,5" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

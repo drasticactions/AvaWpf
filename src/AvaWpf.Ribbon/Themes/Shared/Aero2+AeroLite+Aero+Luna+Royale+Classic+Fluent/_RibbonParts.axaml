@@ -1,0 +1,147 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- Helper themes, merged first: $F.Ribbon.SplitButtonPart (a part of the split buttons) and $F.Ribbon.CollapsedGroupToggleButton (WPF CollapsedRibbonGroupToggleButtonStyle). -->
+  <ControlTheme x:Key="$F.Ribbon.SplitButtonPart" TargetType="Button">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="PartBorder"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                Padding="{TemplateBinding Padding}">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="$F.Ribbon.CollapsedGroupToggleButton" TargetType="wpf:RibbonToggleButton">
+    <Setter Property="Focusable" Value="True" />
+    <Setter Property="BorderBrush" Value="{DynamicResource $F.Invented.Ribbon.BorderBrush}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="ClickMode" Value="Press" />
+    <Setter Property="CanAddToQuickAccessToolBarDirectly" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel Name="MainGrid">
+          <Border Name="ButtonInnerBorder"
+                  CornerRadius="{DynamicResource $F.Invented.Ribbon.Button.CornerRadius}"
+                  BorderThickness="1"
+                  Margin="1"
+                  BorderBrush="{DynamicResource $F.Invented.Ribbon.Group.Collapsed.ButtonInnerBorderBrush}" />
+          <Border Name="ButtonOuterBorder"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  Background="{TemplateBinding Background}"
+                  CornerRadius="{DynamicResource $F.Invented.Ribbon.Button.CornerRadius}"
+                  BorderThickness="1" />
+          <Border Name="PART_HotBackground"
+                  Opacity="0"
+                  CornerRadius="{DynamicResource $F.Invented.Ribbon.Button.CornerRadius}"
+                  BorderThickness="1"
+                  Background="{DynamicResource $F.Invented.Ribbon.Group.Collapsed.MouseOver.Background}" />
+          <Grid Margin="2" RowDefinitions="Auto,*">
+            <Border Name="ImageOuterBorder">
+              <Border Name="ImageMiddleBorder"
+                      Margin="3"
+                      VerticalAlignment="Top"
+                      HorizontalAlignment="Center"
+                      BorderBrush="{DynamicResource $F.Invented.Ribbon.Group.Collapsed.OuterIconBorder.BorderBrush}"
+                      BorderThickness="0"
+                      Width="32"
+                      Height="32"
+                      CornerRadius="3">
+                <Panel>
+                  <Border Name="ImageInnerBorder"
+                          BorderBrush="{DynamicResource $F.Invented.Ribbon.Group.Collapsed.InnerIconBorder.BorderBrush}"
+                          BorderThickness="0"
+                          CornerRadius="3" />
+                  <Image Name="GroupImage"
+                         Source="{TemplateBinding LargeImageSource}"
+                         Width="32"
+                         Height="32"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center" />
+                </Panel>
+              </Border>
+            </Border>
+            <Border Name="LabelBorder" Grid.Row="1" Background="{DynamicResource $F.Invented.Ribbon.Group.Collapsed.LabelBackground}">
+              <wpf:RibbonTwoLineText Name="TwoLineText"
+                                     Text="{TemplateBinding Label}"
+                                     Margin="2,4,2,0"
+                                     TextAlignment="Center"
+                                     VerticalAlignment="Top"
+                                     LineHeight="13"
+                                     HasTwoLines="True"
+                                     PathFill="{TemplateBinding Foreground}"
+                                     PathData="{DynamicResource $F.Invented.Ribbon.Glyph.DownArrow}" />
+            </Border>
+          </Grid>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:not(:haslargeimage)">
+      <Style Selector="^ /template/ Image#GroupImage">
+        <Setter Property="Source" Value="{TemplateBinding SmallImageSource}" />
+        <Setter Property="Width" Value="16" />
+        <Setter Property="Height" Value="16" />
+      </Style>
+      <Style Selector="^ /template/ Border#ImageMiddleBorder">
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.Group.Collapsed.OuterIconBorder.Background}" />
+      </Style>
+      <Style Selector="^ /template/ Border#ImageInnerBorder">
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.Group.Collapsed.InnerIconBorder.Background}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource $F.Invented.Ribbon.Disabled.Foreground}" />
+      <Style Selector="^ /template/ Image#GroupImage">
+        <Setter Property="Opacity" Value="0.5" />
+      </Style>
+    </Style>
+    <Style Selector="^:pointerover:not(:checked) /template/ Border#PART_HotBackground">
+      <Setter Property="Opacity" Value="1" />
+    </Style>
+    <Style Selector="^:checked /template/ Border#LabelBorder">
+      <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.Group.Collapsed.PressedLabelBackground}" />
+    </Style>
+    <Style Selector="^:checked /template/ Border#ImageOuterBorder">
+      <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.Group.Collapsed.Pressed.ImageBackground}" />
+    </Style>
+  </ControlTheme>
+  <ControlTheme x:Key="$F.Ribbon.EditableTextBox" TargetType="TextBox">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="SelectionBrush" Value="{DynamicResource SystemColors.HighlightBrush}" />
+    <Setter Property="SelectionForegroundBrush" Value="{DynamicResource SystemColors.HighlightTextBrush}" />
+    <Setter Property="CaretBrush" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+          <TextPresenter Name="PART_TextPresenter"
+                         Text="{TemplateBinding Text, Mode=TwoWay}"
+                         CaretBlinkInterval="{TemplateBinding CaretBlinkInterval}"
+                         CaretIndex="{TemplateBinding CaretIndex}"
+                         SelectionStart="{TemplateBinding SelectionStart}"
+                         SelectionEnd="{TemplateBinding SelectionEnd}"
+                         TextAlignment="{TemplateBinding TextAlignment}"
+                         SelectionBrush="{TemplateBinding SelectionBrush}"
+                         SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
+                         CaretBrush="{TemplateBinding CaretBrush}"
+                         VerticalAlignment="Center" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

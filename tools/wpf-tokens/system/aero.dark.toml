@@ -1,0 +1,12 @@
+# Windows 7 Dark: invented. The Windows 10 dark surfaces with the Windows 7 selection blue.
+name = "Aero.Dark"
+base = "aero2.dark"
+
+[colors]
+Highlight = "#3399FF"
+MenuHighlight = "#3399FF"
+HotTrack = "#66B3FF"
+
+[parameters]
+CaptionHeight = 22
+SmallCaptionHeight = 22

@@ -1,0 +1,7 @@
+{
+  "control": "ScrollBar",
+  "width": 180,
+  "height": 40,
+  "properties": { "Orientation": "Horizontal", "Minimum": 0, "Maximum": 100, "ViewportSize": 30, "Value": 50, "Width": 150 },
+  "states": ["normal", "hover", "pressed", "disabled"]
+}

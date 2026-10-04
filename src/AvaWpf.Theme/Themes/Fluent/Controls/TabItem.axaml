@@ -1,0 +1,67 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/TabControl.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!--
+    WPF DefaultTabItemStyle. Placement uses the item's own TabStripPlacement instead of WPF's MultiDataTriggers on the
+    parent. The Disabled storyboard is a 160 ms opacity transition on the header Border.
+  -->
+  <ControlTheme x:Key="{x:Type TabItem}" TargetType="TabItem">
+    <Setter Property="Background" Value="{DynamicResource Fluent.TabViewItemHeaderBackground}" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Stretch" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="FocusAdorner" Value="{DynamicResource Fluent.FocusVisual}" />
+    <Setter Property="Focusable" Value="True" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Name="Root">
+          <Border Name="Border"
+                  MinHeight="32"
+                  Padding="6"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="1,1,1,0"
+                  CornerRadius="8,8,0,0">
+            <Border.Transitions>
+              <Transitions>
+                <DoubleTransition Property="Opacity" Duration="0:0:0.16" />
+              </Transitions>
+            </Border.Transitions>
+            <ContentPresenter Name="PART_ContentPresenter"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              Content="{TemplateBinding Header}"
+                              ContentTemplate="{TemplateBinding HeaderTemplate}"
+                              Margin="{TemplateBinding Padding}"
+                              RecognizesAccessKey="True" />
+          </Border>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:disabled /template/ Border#Border">
+      <Setter Property="Opacity" Value="0.5" />
+    </Style>
+    <Style Selector="^:selected">
+      <Setter Property="ZIndex" Value="100" />
+      <Setter Property="Foreground" Value="{DynamicResource Fluent.TabViewItemForegroundSelected}" />
+      <Style Selector="^ /template/ Border#Border">
+        <Setter Property="Background" Value="{DynamicResource Fluent.TabViewItemHeaderBackgroundSelected}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.TabViewSelectedItemBorderBrush}" />
+      </Style>
+    </Style>
+    <Style Selector="^[TabStripPlacement=Bottom] /template/ Border#Border">
+      <Setter Property="BorderThickness" Value="1,0,1,1" />
+      <Setter Property="CornerRadius" Value="0,0,8,8" />
+    </Style>
+    <Style Selector="^[TabStripPlacement=Left] /template/ Border#Border">
+      <Setter Property="BorderThickness" Value="1,1,0,1" />
+      <Setter Property="CornerRadius" Value="8,0,0,8" />
+    </Style>
+    <Style Selector="^[TabStripPlacement=Right] /template/ Border#Border">
+      <Setter Property="BorderThickness" Value="1,1,0,1" />
+      <Setter Property="CornerRadius" Value="0,8,8,0" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

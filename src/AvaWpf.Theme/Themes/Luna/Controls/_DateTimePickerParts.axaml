@@ -1,0 +1,44 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:luna="using:AvaWpf.Chrome.Luna">
+  <!-- Luna.DateTimePickerFlyoutButton: the closed Luna ComboBox (WPF ComboBox.xaml [[Luna.*]]) for DatePicker and
+       TimePicker. -->
+  <ControlTheme x:Key="Luna.DateTimePickerFlyoutButton" TargetType="Button">
+    <Setter Property="Background" Value="{DynamicResource SystemColors.WindowBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Luna.ListBorder}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="FocusAdorner" Value="{DynamicResource Luna.ComboBoxFocusVisual}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="Bd"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Padding="1"
+                UseLayoutRounding="True">
+          <Grid ColumnDefinitions="*,Auto">
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Content="{TemplateBinding Content}"
+                              Foreground="{TemplateBinding Foreground}"
+                              HorizontalContentAlignment="Stretch"
+                              VerticalContentAlignment="Stretch" />
+            <luna:ScrollChrome Name="Chrome"
+                               Grid.Column="1"
+                               ThemeColor="{DynamicResource Luna.ThemeColor}"
+                               HasOuterBorder="False"
+                               RenderMouseOver="{TemplateBinding IsPointerOver}"
+                               RenderPressed="{TemplateBinding IsPressed}"
+                               Width="{DynamicResource SystemParameters.VerticalScrollBarWidth}"
+                               Padding="1,0,0,0" />
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^ /template/ luna|ScrollChrome#Chrome">
+      <Setter Property="luna:ScrollChrome.ScrollGlyph" Value="DownArrow" />
+    </Style>
+    <Style Selector="^:disabled /template/ Border#Bd">
+      <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

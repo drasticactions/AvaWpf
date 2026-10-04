@@ -1,0 +1,108 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF RibbonApplicationSplitMenuItem.xaml, [[Generic]]: the image and header invoke the item; the arrow column opens the submenu. -->
+  <ControlTheme x:Key="{x:Type wpf:RibbonApplicationSplitMenuItem}" TargetType="wpf:RibbonApplicationSplitMenuItem">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Padding" Value="2" />
+    <Setter Property="MinWidth" Value="200" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel Name="MainGrid">
+          <Border Name="Border"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{DynamicResource $F.Invented.Ribbon.Button.CornerRadius}"
+                  Padding="{TemplateBinding Padding}">
+            <Grid ColumnDefinitions="Auto,*,14">
+              <Button Name="PART_HeaderButton"
+                      Grid.ColumnSpan="2"
+                      Theme="{StaticResource $F.Ribbon.SplitButtonPart}"
+                      BorderThickness="0"
+                      Padding="0"
+                      HorizontalContentAlignment="Stretch"
+                      wpf:KeyTipService.KeyTip="{TemplateBinding HeaderKeyTip}">
+                <Grid ColumnDefinitions="Auto,*">
+              <Image Name="Image"
+                     Source="{TemplateBinding ImageSource}"
+                     Width="32"
+                     Height="32"
+                     Margin="2,0,6,0"
+                     VerticalAlignment="Center" />
+              <ContentPresenter Name="PART_HeaderPresenter"
+                                Grid.Column="1"
+                                Content="{TemplateBinding Header}"
+                                ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                VerticalAlignment="Center"
+                                RecognizesAccessKey="True" />
+                </Grid>
+              </Button>
+              <Border Name="ArrowDivider" Grid.Column="2" Width="1" HorizontalAlignment="Left" Background="{DynamicResource $F.Invented.Ribbon.BorderBrush}" />
+              <Path Name="Arrow"
+                    Grid.Column="2"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Fill="{TemplateBinding Foreground}"
+                    Data="{DynamicResource $F.Invented.Ribbon.Glyph.RightArrow}" />
+            </Grid>
+          </Border>
+          <Popup Name="PART_Popup"
+                 Placement="RightEdgeAlignedTop"
+                 IsLightDismissEnabled="False"
+                 IsOpen="{TemplateBinding IsSubMenuOpen, Mode=TwoWay}"
+                 wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.MenuPopupAnimation}">
+            <wpf:SystemDropShadowChrome Margin="0,0,5,5">
+              <Border BorderBrush="{DynamicResource $F.Invented.Ribbon.BorderBrush}"
+                      Background="{DynamicResource $F.Invented.Ribbon.ApplicationMenu.Pane.Background}"
+                      BorderThickness="1"
+                      MinWidth="300"
+                      CornerRadius="{DynamicResource $F.Invented.Ribbon.Popup.CornerRadius}">
+                <ItemsPresenter Name="PART_ItemsPresenter" Margin="2" ItemsPanel="{TemplateBinding ItemsPanel}" Grid.IsSharedSizeScope="True" />
+              </Border>
+            </wpf:SystemDropShadowChrome>
+          </Popup>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:middle /template/ ContentPresenter#PART_HeaderPresenter">
+      <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+    <Style Selector="^:sub">
+      <Setter Property="MinWidth" Value="0" />
+      <Setter Property="Padding" Value="3,2,3,2" />
+      <Style Selector="^ /template/ Image#Image">
+        <Setter Property="Width" Value="16" />
+        <Setter Property="Height" Value="16" />
+        <Setter Property="Margin" Value="2,0,6,0" />
+      </Style>
+    </Style>
+    <Style Selector="^[ItemCount=0]">
+      <Style Selector="^ /template/ Path#Arrow">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+      <Style Selector="^ /template/ Border#ArrowDivider">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+    </Style>
+    <Style Selector="^ /template/ Button#PART_HeaderButton:pointerover">
+      <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.MouseOver.Background}" />
+    </Style>
+    <Style Selector="^:selected /template/ Border#Border">
+      <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.MouseOver.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource $F.Invented.Ribbon.MouseOver.BorderBrush}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Border#Border">
+      <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.Pressed.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource $F.Invented.Ribbon.Pressed.BorderBrush}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource $F.Invented.Ribbon.Disabled.Foreground}" />
+      <Style Selector="^ /template/ Image#Image">
+        <Setter Property="Opacity" Value="0.5" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

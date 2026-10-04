@@ -1,0 +1,59 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    WPF ComboBoxItem.xaml, Aero2.NormalColor, in WPF trigger order. The alignment follows the owning ComboBox, as in
+    WPF.
+  -->
+  <ControlTheme x:Key="{x:Type ComboBoxItem}" TargetType="ComboBoxItem" x:DataType="ComboBoxItem">
+    <Setter Property="Padding" Value="4,1" />
+    <Setter Property="HorizontalContentAlignment" Value="{Binding ((ComboBox)Parent).HorizontalContentAlignment, RelativeSource={RelativeSource Self}, FallbackValue=Left}" />
+    <Setter Property="VerticalContentAlignment" Value="{Binding ((ComboBox)Parent).VerticalContentAlignment, RelativeSource={RelativeSource Self}, FallbackValue=Top}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="FocusAdorner" Value="{DynamicResource Aero2.FocusVisual}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="Bd"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Background="{TemplateBinding Background}"
+                Padding="{TemplateBinding Padding}"
+                UseLayoutRounding="True">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            UseLayoutRounding="True" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:disabled /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+    <Style Selector="^:not(:selected):pointerover:not(:focus) /template/ Border#Bd">
+      <Setter Property="Background" Value="{DynamicResource Aero2.ComboBoxItem.ItemsviewHover.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ComboBoxItem.ItemsviewHover.Border}" />
+    </Style>
+    <Style Selector="^:selected:not(:pointerover):focus /template/ Border#Bd">
+      <Setter Property="Background" Value="{DynamicResource Aero2.ComboBoxItem.ItemsviewSelected.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ComboBoxItem.ItemsviewSelected.Border}" />
+    </Style>
+    <Style Selector="^:selected:pointerover /template/ Border#Bd">
+      <Setter Property="Background" Value="{DynamicResource Aero2.ComboBoxItem.ItemsviewSelectedHover.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ComboBoxItem.ItemsviewSelectedHover.Border}" />
+    </Style>
+    <Style Selector="^:selected:not(:pointerover):not(:focus) /template/ Border#Bd">
+      <Setter Property="Background" Value="{DynamicResource Aero2.ComboBoxItem.ItemsviewSelectedNoFocus.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ComboBoxItem.ItemsviewSelectedNoFocus.Border}" />
+    </Style>
+    <Style Selector="^:not(:selected):not(:pointerover):focus /template/ Border#Bd">
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ComboBoxItem.ItemsviewFocus.Border}" />
+    </Style>
+    <Style Selector="^:not(:selected):pointerover:focus /template/ Border#Bd">
+      <Setter Property="Background" Value="{DynamicResource Aero2.ComboBoxItem.ItemsviewHoverFocus.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ComboBoxItem.ItemsviewHoverFocus.Border}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,101 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!--
+    An hour / minute / second / period picker in the Aero2 ComboBox look; the TimePickerPresenter drops down below it.
+  -->
+  <ControlTheme x:Key="{x:Type TimePicker}" TargetType="TimePicker">
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.WindowTextBrush}" />
+    <Setter Property="Background" Value="{DynamicResource Aero2.ComboBox.Static.Background}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ComboBox.Static.Border}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="MinWidth" Value="160" />
+    <Setter Property="MaxWidth" Value="456" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DataValidationErrors>
+          <Grid Name="LayoutRoot" Margin="{TemplateBinding Padding}">
+            <Button Name="PART_FlyoutButton"
+                    Theme="{StaticResource Aero2.DateTimePickerFlyoutButton}"
+                    Classes.open="{Binding #PART_Popup.IsOpen}"
+                    Foreground="{TemplateBinding Foreground}"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    IsEnabled="{TemplateBinding IsEnabled}"
+                    MinWidth="{TemplateBinding MinWidth}"
+                    MaxWidth="{TemplateBinding MaxWidth}"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    TemplatedControl.IsTemplateFocusTarget="True">
+              <Grid Name="PART_FlyoutButtonContentGrid">
+                <!-- Column definitions are set in code. -->
+                <Border Name="PART_FirstPickerHost" Grid.Column="0">
+                  <TextBlock Name="PART_HourTextBlock"
+                             Text="{DynamicResource StringTimePickerHourText}"
+                             HorizontalAlignment="Center"
+                             Padding="4,3" />
+                </Border>
+                <Rectangle Name="PART_FirstColumnDivider"
+                           Fill="{DynamicResource Aero2.ComboBox.Static.Border}"
+                           HorizontalAlignment="Center"
+                           Width="1"
+                           Margin="0,3"
+                           Grid.Column="1" />
+                <Border Name="PART_SecondPickerHost" Grid.Column="2">
+                  <TextBlock Name="PART_MinuteTextBlock"
+                             Text="{DynamicResource StringTimePickerMinuteText}"
+                             HorizontalAlignment="Center"
+                             Padding="4,3" />
+                </Border>
+                <Rectangle Name="PART_SecondColumnDivider"
+                           Fill="{DynamicResource Aero2.ComboBox.Static.Border}"
+                           HorizontalAlignment="Center"
+                           Width="1"
+                           Margin="0,3"
+                           Grid.Column="3" />
+                <Border Name="PART_ThirdPickerHost" Grid.Column="4">
+                  <TextBlock Name="PART_SecondTextBlock"
+                             Text="{DynamicResource StringTimePickerSecondText}"
+                             HorizontalAlignment="Center"
+                             Padding="4,3" />
+                </Border>
+                <Rectangle Name="PART_ThirdColumnDivider"
+                           Fill="{DynamicResource Aero2.ComboBox.Static.Border}"
+                           HorizontalAlignment="Center"
+                           Width="1"
+                           Margin="0,3"
+                           Grid.Column="5" />
+                <Border Name="PART_FourthPickerHost" Grid.Column="6">
+                  <TextBlock Name="PART_PeriodTextBlock"
+                             HorizontalAlignment="Center"
+                             Padding="4,3" />
+                </Border>
+              </Grid>
+            </Button>
+            <Popup Name="PART_Popup"
+                   WindowManagerAddShadowHint="False"
+                   IsLightDismissEnabled="True"
+                   PlacementTarget="{TemplateBinding}"
+                   Placement="Bottom"
+                   wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.ComboBoxPopupAnimation}">
+              <TimePickerPresenter Name="PART_PickerPresenter" />
+            </Popup>
+          </Grid>
+        </DataValidationErrors>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:disabled /template/ Rectangle">
+      <Setter Property="Fill" Value="{DynamicResource Aero2.ComboBox.Disabled.Border}" />
+    </Style>
+    <Style Selector="^ /template/ Button#PART_FlyoutButton TextBlock">
+      <Setter Property="VerticalAlignment" Value="{TemplateBinding VerticalContentAlignment}" />
+    </Style>
+    <Style Selector="^:hasnotime /template/ Button#PART_FlyoutButton TextBlock">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

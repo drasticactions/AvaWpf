@@ -1,0 +1,36 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:collections="using:Avalonia.Collections">
+  <!-- Group header drawn as the family Expander header, because WPF DataGrid.xaml does not style group headers. -->
+  <ControlTheme x:Key="{x:Type DataGridRowGroupHeader}" TargetType="DataGridRowGroupHeader">
+    <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="MinHeight" Value="21" />
+    <Setter Property="Template">
+      <ControlTemplate x:DataType="collections:DataGridCollectionViewGroup">
+        <DataGridFrozenGrid Name="PART_Root"
+                            Background="{TemplateBinding Background}"
+                            MinHeight="{TemplateBinding MinHeight}"
+                            ColumnDefinitions="Auto,Auto,Auto,Auto,*"
+                            RowDefinitions="*,Auto">
+          <Rectangle Name="PART_IndentSpacer" Grid.Column="1" />
+          <ToggleButton Name="PART_ExpanderButton"
+                        Grid.Column="2"
+                        Margin="2,0,0,0"
+                        VerticalAlignment="Center"
+                        Theme="{StaticResource $F.DataGridRowGroupExpanderButton}"
+                        Foreground="{TemplateBinding Foreground}"
+                        IsTabStop="False"
+                        Focusable="False" />
+          <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center" Margin="4,0,0,0">
+            <TextBlock Name="PART_PropertyNameElement" Margin="0,0,4,0" IsVisible="{TemplateBinding IsPropertyNameVisible}" Foreground="{TemplateBinding Foreground}" />
+            <TextBlock Text="{Binding Key}" Foreground="{TemplateBinding Foreground}" />
+            <TextBlock Name="PART_ItemCountElement" Margin="4,0,0,0" IsVisible="{TemplateBinding IsItemCountVisible}" Foreground="{TemplateBinding Foreground}" />
+          </StackPanel>
+          <DataGridRowHeader Name="PART_RowHeader" Grid.RowSpan="2" DataGridFrozenGrid.IsFrozen="True" />
+          <Rectangle Name="PART_BottomGridLine" Grid.Row="1" Grid.ColumnSpan="5" Height="1" />
+        </DataGridFrozenGrid>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

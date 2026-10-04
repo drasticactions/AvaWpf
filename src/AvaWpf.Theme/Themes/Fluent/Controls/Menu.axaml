@@ -1,0 +1,27 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/Menu.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!-- WPF DefaultMenuStyle; items take Fluent.MenuItem.TopLevelHeader. Class toolbar: ToolBar.MenuStyleKey. -->
+  <ControlTheme x:Key="{x:Type Menu}" TargetType="Menu">
+    <Setter Property="Background" Value="{DynamicResource Fluent.MenuBarBackground}" />
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.MenuBarForeground}" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="ItemContainerTheme" Value="{StaticResource Fluent.MenuItem.TopLevelHeader}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                Padding="{TemplateBinding Padding}"
+                UseLayoutRounding="True">
+          <ItemsPresenter Name="PART_ItemsPresenter"
+                          ItemsPanel="{TemplateBinding ItemsPanel}"
+                          ClipToBounds="True"
+                          VerticalAlignment="Stretch"
+                          KeyboardNavigation.TabNavigation="Continue" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,62 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF Button.xaml BaseButtonStyle [[Classic]]; Button, ToggleButton and RepeatButton are BasedOn it. Trigger order
+       is WPF's: focus, defaulted, pressed, checked, disabled. Button.accent draws the default-button look. -->
+  <ControlTheme x:Key="Classic.BaseButtonStyle" TargetType="Button">
+    <Setter Property="FocusAdorner" Value="{DynamicResource Classic.FocusVisual}" />
+    <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="BorderBrush" Value="{x:Static wpf:ClassicBorderDecorator.ClassicBorderBrush}" />
+    <Setter Property="BorderThickness" Value="3" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Padding" Value="0,0,1,1" />
+    <Setter Property="wpf:HighContrastState.IsTracked" Value="True" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <wpf:ClassicBorderDecorator Name="ContentContainer"
+                                    BorderStyle="Raised"
+                                    Background="{TemplateBinding Background}"
+                                    BorderThickness="3"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    UseLayoutRounding="True">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Margin="{TemplateBinding Padding}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            RecognizesAccessKey="True" />
+        </wpf:ClassicBorderDecorator>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:focus /template/ wpf|ClassicBorderDecorator#ContentContainer">
+      <Setter Property="BorderStyle" Value="RaisedFocused" />
+    </Style>
+    <Style Selector="^:defaulted /template/ wpf|ClassicBorderDecorator#ContentContainer">
+      <Setter Property="BorderStyle" Value="RaisedFocused" />
+    </Style>
+    <Style Selector="^.accent /template/ wpf|ClassicBorderDecorator#ContentContainer">
+      <Setter Property="BorderStyle" Value="RaisedFocused" />
+    </Style>
+    <Style Selector="^:pressed /template/ wpf|ClassicBorderDecorator#ContentContainer">
+      <Setter Property="BorderStyle" Value="RaisedPressed" />
+    </Style>
+    <Style Selector="^:checked /template/ wpf|ClassicBorderDecorator#ContentContainer">
+      <Setter Property="BorderStyle" Value="RaisedPressed" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+    <!-- High contrast and disabled: the border takes the (gray) text color, as a Win32 button. -->
+    <Style Selector="^:highcontrast:disabled">
+      <Setter Property="BorderBrush" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+    <!-- High contrast and keyboard focus: Highlight behind HighlightText, as a Win32 button. -->
+    <Style Selector="^:highcontrast:focus">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.HighlightTextBrush}" />
+      <Setter Property="Background" Value="{DynamicResource SystemColors.HighlightBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,44 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    WPF's default Validation.ErrorTemplate: a 1 px red border while the owner has errors; the messages show in a
+    tooltip.
+  -->
+  <ControlTheme x:Key="{x:Type DataValidationErrors}" TargetType="DataValidationErrors">
+    <Setter Property="Template">
+      <ControlTemplate TargetType="DataValidationErrors">
+        <Panel>
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Padding="{TemplateBinding Padding}"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}" />
+          <Border Name="ErrorBorder"
+                  BorderThickness="1"
+                  BorderBrush="{DynamicResource AeroLite.Invented.Validation.Error.Border}"
+                  Background="Transparent"
+                  IsHitTestVisible="False"
+                  DataContext="{TemplateBinding Owner}"
+                  IsVisible="{Binding (DataValidationErrors.HasErrors)}">
+            <ToolTip.Tip>
+              <ContentControl Content="{Binding (DataValidationErrors.Errors)}"
+                              ContentTemplate="{Binding $parent[DataValidationErrors].ErrorTemplate}" />
+            </ToolTip.Tip>
+          </Border>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <Setter Property="ErrorTemplate">
+      <DataTemplate>
+        <ItemsControl Foreground="{DynamicResource AeroLite.Invented.Validation.Error.Foreground}" ItemsSource="{Binding}">
+          <ItemsControl.Styles>
+            <Style Selector="TextBlock">
+              <Setter Property="TextWrapping" Value="Wrap" />
+            </Style>
+          </ItemsControl.Styles>
+        </ItemsControl>
+      </DataTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,11 @@
+name = "Luna.Homestead.Dark"
+base = "xp-dark"
+
+[colors]
+Highlight = "#5E6B3F"
+MenuHighlight = "#5E6B3F"
+ActiveCaption = "#4F6331"
+GradientActiveCaption = "#6B7F46"
+InactiveCaption = "#45483A"
+GradientInactiveCaption = "#525542"
+HotTrack = "#B6C88A"

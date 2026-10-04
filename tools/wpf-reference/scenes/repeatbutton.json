@@ -1,0 +1,7 @@
+{
+  "control": "RepeatButton",
+  "width": 120,
+  "height": 50,
+  "properties": { "Content": "Repeat", "Width": 75, "Height": 23 },
+  "states": ["normal", "hover", "pressed", "focused", "disabled"]
+}

@@ -1,0 +1,74 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF ScrollBar.xaml [[Classic]] parts: line buttons (classes up, down, left and right pick the arrow), page
+       buttons and thumb. -->
+  <ControlTheme x:Key="Classic.ScrollBarLineButton" TargetType="RepeatButton">
+    <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="BorderBrush" Value="{x:Static wpf:ClassicBorderDecorator.ClassicBorderBrush}" />
+    <Setter Property="BorderThickness" Value="2" />
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <wpf:ClassicBorderDecorator Name="ClassicBorder"
+                                    BorderStyle="AltRaised"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+          <Path Name="Arrow"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Fill="{TemplateBinding Foreground}" />
+        </wpf:ClassicBorderDecorator>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^.up /template/ Path#Arrow">
+      <Setter Property="Data" Value="{DynamicResource Classic.ArrowUpGeometry}" />
+    </Style>
+    <Style Selector="^.down /template/ Path#Arrow">
+      <Setter Property="Data" Value="{DynamicResource Classic.ArrowDownGeometry}" />
+    </Style>
+    <Style Selector="^.left /template/ Path#Arrow">
+      <Setter Property="Data" Value="{DynamicResource Classic.ArrowLeftGeometry}" />
+    </Style>
+    <Style Selector="^.right /template/ Path#Arrow">
+      <Setter Property="Data" Value="{DynamicResource Classic.ArrowRightGeometry}" />
+    </Style>
+    <Style Selector="^:pressed /template/ wpf|ClassicBorderDecorator#ClassicBorder">
+      <Setter Property="BorderStyle" Value="AltPressed" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlDarkBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Classic.ScrollBarPageButton" TargetType="RepeatButton">
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Rectangle Name="PageButtonBackground" Fill="Transparent" />
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pressed /template/ Rectangle#PageButtonBackground">
+      <Setter Property="Fill" Value="{DynamicResource SystemColors.ControlDarkDarkBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Classic.ScrollBarThumb" TargetType="Thumb">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <wpf:ClassicBorderDecorator BorderStyle="Raised"
+                                    Background="{DynamicResource SystemColors.ControlBrush}"
+                                    BorderThickness="3"
+                                    BorderBrush="{x:Static wpf:ClassicBorderDecorator.ClassicBorderBrush}" />
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

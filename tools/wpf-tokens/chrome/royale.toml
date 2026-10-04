@@ -1,0 +1,60 @@
+# Literal brushes of the Royale code-drawn chrome (AvaWpf.Chrome.Royale.* and the shared AvaWpf.Chrome.Luna.BulletChrome), from
+# $W/Themes/PresentationFramework.Royale/Microsoft/Windows/Themes/{ButtonChrome,ScrollChrome,DataGridHeaderBorder}.cs and
+# $W/Themes/Shared/Microsoft/Windows/Themes/BulletChrome.cs. Names follow the WPF Common* properties. Pen thicknesses stay in code.
+families = ["Royale"]
+
+[light]
+# ButtonChrome
+"ButtonChrome.DisabledBorder" = "#FFC6C5C9"
+"ButtonChrome.DefaultedInnerHighlight" = "linear 0.5,0 0.5,1 #FFCEE7FF@0 #FFBCD4F6@0.3 #FF89ADE4@0.97 #FF6982EE@1"
+"ButtonChrome.HoverInnerHighlight" = "linear 0.5,0 0.5,1 #FFFFF0CF@0 #FFFCD279@0.03 #FFF8B73B@0.75 #FFE59700@1"
+"ButtonChrome.BottomShade" = "linear 0.5,0 0.5,1 #00FFFFFF@0.5 #35592F00@1"
+"ButtonChrome.PressedBottomShade" = "linear 0.5,0 0.5,1 #00FFFFFF@0.6 #FFFFFFFF@1"
+"ButtonChrome.RightShade" = "linear 0,0.5 1,0.5 #00FFFFFF@0.5 #FFFFFFFF@1"
+"ButtonChrome.PressedTopShade" = "linear 0.5,1 0.5,0 #00FFFFFF@0.6 #FF978B72@1"
+"ButtonChrome.LeftShade" = "linear 1,0.5 0,0.5 #00FFFFFF@0.5 #FFFFFFFF@1"
+"ButtonChrome.PressedLeftShade" = "linear 1,0.5 0,0.5 #00FFFFFF@0.6 #FFAA9D87@1"
+"ButtonChrome.DisabledFill" = "#FFFFFFFF"
+"ButtonChrome.PressedFill" = "linear 0.5,1 0.5,0 #FFFFFFFF@0 #FFE3EBF3@0.5 #FFD0DCEB@0.5 #FFA6B8CF@1"
+
+# ScrollChrome
+"ScrollChrome.VerticalFill" = "linear 0,0 1,0 #FFFFFFFF@0 #FFBDD1E9@0.8"
+"ScrollChrome.HorizontalFill" = "linear 0.5,0 0.5,1 #FFFFFFFF@0 #FFC1D5ED@0.7"
+"ScrollChrome.HoverVerticalFill" = "linear 0,0 1,0 #FFFFFFFF@0.2 #FFBDD1E9@1"
+"ScrollChrome.HoverHorizontalFill" = "linear 0.5,0 0.5,1 #FFFFFFFF@0.3 #FFC1D5ED@1"
+"ScrollChrome.PressedVerticalFill" = "linear 1,0 0,0 #FFFFFFFF@0.2 #FFC1D5ED@0.7"
+"ScrollChrome.PressedHorizontalFill" = "linear 0,1 0,0 #FFFFFFFF@0.3 #FFC1D5ED@0.7"
+"ScrollChrome.DisabledFill" = "linear 0,0 1,1 #FFF2F7FF@0 #FFD5E7FF@1"
+"ScrollChrome.DisabledGlyph" = "#FFB7CBE3"
+"ScrollChrome.ArrowGlyph" = "#FF5B6473"
+"ScrollChrome.HoverArrowGlyph" = "#FF6B7B84"
+"ScrollChrome.GripperGlyph" = "#FFFFFFFF"
+"ScrollChrome.DisabledGripperGlyphShadow" = "#FFB9B9B2"
+"ScrollChrome.GripperGlyphShadow" = "#FF8397AF"
+"ScrollChrome.DisabledOuterBorder" = "linear 0,0 1,1 #FFE1EEFF@0.5 #FFB1C5DD@1"
+"ScrollChrome.OuterBorder" = "#FF8599B1"
+"ScrollChrome.HoverOuterBorder" = "#FF52667E"
+"ScrollChrome.InnerBorder" = "#FFFFFFFF"
+
+# DataGridHeaderBorder
+"DataGridHeaderBorder.NormalBackground" = "linear 0,0 0,1 #FFF9FAFD@0 #FFF9FAFD@0.85 #FFBDBECE@1"
+"DataGridHeaderBorder.HoveredBackground" = "linear 0,0 0,1 #FFFEFEFE@0 #FFFEFEFE@0.85 #FFBDBECE@1"
+"DataGridHeaderBorder.PressedBackground" = "linear 0,0 0,1 #FFB9B9C8@0 #FFECECF3@0.1 #FFECECF3@1"
+"DataGridHeaderBorder.TabStroke" = "#FFF8A900"
+"DataGridHeaderBorder.TabFill" = "linear 0,0 1,0 #FFFCE0A6@0 #FFF6C456@0.1 #FFF6C456@0.9 #FFDF9700@1"
+"DataGridHeaderBorder.PressedBorder" = "#FF808099"
+"DataGridHeaderBorder.HorizontalGripper" = "linear 0,0 1,0 #FFFFFFFF@0 #FFFFFFFF@0.25 #FFC7C5B2@0.75 #FFC7C5B2@1"
+"DataGridHeaderBorder.VerticalGripper" = "linear 0,0 1,0 #FFC7C5B2@0 #FFC7C5B2@0.25 #FFFFFFFF@0.75 #FFFFFFFF@1"
+"DataGridHeaderBorder.ArrowFill" = "#FFACA899"
+
+# BulletChrome
+"BulletChrome.CheckMarkFill" = "#FF21A121"
+"BulletChrome.CheckMarkPressedFill" = "#FF1A7E18"
+"BulletChrome.RadioButtonGlyphFill" = "linear 0,0 1,1 #FF60CF5D@0 #FFACEFAA@0.302469134 #FF139210@1"
+"BulletChrome.PressedBackground" = "linear 0,0 1,1 #FFB2B2A9@0 #FFEBEADA@1"
+"BulletChrome.DisabledBackground" = "#FFFFFFFF"
+"BulletChrome.DisabledBorder" = "#FFCAC8BB"
+"BulletChrome.CheckBoxHoverHighlight" = "linear 0,0 1,1 #FFFFF0CF@0 #FFF8B330@1"
+"BulletChrome.RadioButtonHoverHighlight" = "linear 0,0 1,1 #FFFEDF9C@0 #FFF9BB43@1"
+"BulletChrome.IndeterminateFill" = "#FF73C273"
+"BulletChrome.IndeterminatePressedFill" = "linear 0,0 1,1 #FF17747A@0 #FF218BC3@1"

@@ -1,0 +1,33 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF Ribbon.xaml QatTopHost, [[Generic]]: the Quick Access Toolbar in the RibbonWindow caption. The items take the caption text color the frame sets on the slot. Fluent has no caps. -->
+  <ControlTheme x:Key="{x:Type wpf:RibbonCaptionQuickAccessToolBarHost}" TargetType="wpf:RibbonCaptionQuickAccessToolBarHost">
+    <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Name="QatTopHost" ColumnDefinitions="Auto,*,Auto">
+          <Border Name="QatTopHostLeftBorder"
+                  Margin="8,2,0,2"
+                  Width="{DynamicResource $F.Invented.Ribbon.QatTopHost.Cap.Width}"
+                  Background="{DynamicResource $F.Invented.Ribbon.QatTopHost.Cap.Background}"
+                  BorderBrush="{DynamicResource $F.Invented.Ribbon.QatTopHost.Cap.BorderBrush}"
+                  BorderThickness="1,0,1,1"
+                  CornerRadius="0,0,2,2" />
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Grid.Column="1"
+                            Content="{TemplateBinding Content}"
+                            VerticalAlignment="Center" />
+          <Border Name="QatTopHostRightBorder"
+                  Grid.Column="2"
+                  Margin="0,2,1,2"
+                  Width="{DynamicResource $F.Invented.Ribbon.QatTopHost.Cap.Width}"
+                  Background="{DynamicResource $F.Invented.Ribbon.QatTopHost.Cap.Background}"
+                  BorderBrush="{DynamicResource $F.Invented.Ribbon.QatTopHost.Cap.BorderBrush}"
+                  BorderThickness="1,0,1,1"
+                  CornerRadius="0,0,2,2" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

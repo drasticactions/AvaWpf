@@ -1,0 +1,7 @@
+{
+  "control": "TextBox",
+  "width": 160,
+  "height": 50,
+  "properties": { "Text": "Text", "Width": 120 },
+  "states": ["normal", "hover", "disabled"]
+}

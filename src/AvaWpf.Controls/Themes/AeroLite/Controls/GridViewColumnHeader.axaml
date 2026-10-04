@@ -1,0 +1,102 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!--
+    WPF GridViewColumnHeaderGripper, AeroLite.NormalColor. The header background is Transparent, so the line never
+    shows.
+  -->
+  <ControlTheme x:Key="AeroLite.GridViewColumnHeaderGripper" TargetType="Thumb">
+    <Setter Property="Width" Value="18" />
+    <Setter Property="HorizontalAlignment" Value="Right" />
+    <Setter Property="Margin" Value="0,0,-9,0" />
+    <Setter Property="Padding" Value="0,3,0,4" />
+    <Setter Property="Cursor" Value="SizeWestEast" />
+    <Setter Property="Background" Value="{DynamicResource AeroLite.ListView.GridViewColumnHeaderGripper.Setter.Self.Background}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Padding="{TemplateBinding Padding}"
+                Background="Transparent">
+          <Rectangle HorizontalAlignment="Center"
+                     Width="1"
+                     Fill="{TemplateBinding Background}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <!--
+    WPF GridViewColumnHeader, AeroLite.NormalColor. The 20 px minimum height applies only while Height is Auto, as in
+    WPF.
+  -->
+  <ControlTheme x:Key="{x:Type wpf:GridViewColumnHeader}" TargetType="wpf:GridViewColumnHeader">
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Background" Value="{DynamicResource AeroLite.ListView.GridViewColumnHeader.Setter.Self.Background}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.ListView.GridViewColumnHeader.Setter.Self.BorderBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Padding" Value="2,0,2,0" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="MinHeight" Value="20" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid UseLayoutRounding="True">
+          <Border Name="ContentContainer"
+                  Background="{TemplateBinding Background}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  BorderBrush="{TemplateBinding BorderBrush}">
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Margin="{TemplateBinding Padding}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              RecognizesAccessKey="True" />
+          </Border>
+          <Panel Name="GripperHost">
+            <Thumb Name="PART_HeaderGripper"
+                   Theme="{StaticResource AeroLite.GridViewColumnHeaderGripper}"
+                   Background="Transparent" />
+          </Panel>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^:pointerover /template/ Border#ContentContainer">
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.ListView.GridViewColumnHeader.ContentContainer.BorderBrush.IsMouseOver_true}" />
+      <Setter Property="Background" Value="{DynamicResource AeroLite.ListView.GridViewColumnHeader.ContentContainer.Background.IsMouseOver_true}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Border#ContentContainer">
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.ListView.GridViewColumnHeader.ContentContainer.BorderBrush.IsPressed_true}" />
+      <Setter Property="Background" Value="{DynamicResource AeroLite.ListView.GridViewColumnHeader.ContentContainer.Background.IsPressed_true}" />
+    </Style>
+    <Style Selector="^:disabled /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+
+    <!-- Role Padding: the normal header without gripper or content. -->
+    <Style Selector="^:padding">
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Border Background="{TemplateBinding Background}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  BorderBrush="{TemplateBinding BorderBrush}" />
+        </ControlTemplate>
+      </Setter>
+    </Style>
+
+    <!-- Role Floating: the copy of the dragged header, painted from the source into the canvas. -->
+    <Style Selector="^:floating">
+      <Setter Property="Opacity" Value="0.5056" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Canvas Name="PART_FloatingHeaderCanvas">
+            <Rectangle Opacity="0.3034"
+                       Fill="{DynamicResource AeroLite.ListView.GridViewColumnHeader.Rectangle#1.Fill}"
+                       Width="{TemplateBinding Width}"
+                       Height="{TemplateBinding Height}" />
+          </Canvas>
+        </ControlTemplate>
+      </Setter>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

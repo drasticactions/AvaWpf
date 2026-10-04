@@ -1,0 +1,83 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf"
+                    xmlns:primitives="clr-namespace:AvaWpf.Ribbon.Primitives;assembly=AvaWpf.Ribbon"
+                    xmlns:controls="clr-namespace:AvaWpf.Controls;assembly=AvaWpf.Controls">
+  <!-- WPF RibbonQuickAccessToolBar.xaml, [[Generic]]. On overflow a toggle (KeyTip "00") replaces the customize button. WPF's glow (a DropShadowEffect) is not drawn. In a caption (:incaption) the toolbar is as tall as its items. -->
+  <ControlTheme x:Key="{x:Type wpf:RibbonQuickAccessToolBar}" TargetType="wpf:RibbonQuickAccessToolBar">
+    <Setter Property="Margin" Value="3,0,3,0" />
+    <Setter Property="MinHeight" Value="22" />
+    <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.Background}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource $F.Invented.Ribbon.BorderBrush}" />
+    <Setter Property="ItemsPanel">
+      <ItemsPanelTemplate>
+        <primitives:RibbonQuickAccessToolBarPanel />
+      </ItemsPanelTemplate>
+    </Setter>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid ColumnDefinitions="*,1,Auto">
+          <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" VerticalAlignment="Center" />
+          <ContentPresenter Name="MainCustomizeMenuHost" Grid.Column="2" Content="{TemplateBinding CustomizeMenuButton}" />
+          <Panel Name="OverflowButtonHost" Grid.Column="2" IsVisible="False">
+            <wpf:RibbonToggleButton Name="PART_OverflowButton"
+                                    Width="12"
+                                    ClickMode="Press"
+                                    KeyTip="00"
+                                    CanAddToQuickAccessToolBarDirectly="False"
+                                    ToolTip.Tip="More controls"
+                                    IsChecked="{TemplateBinding IsOverflowOpen, Mode=TwoWay}">
+              <wpf:RibbonToggleButton.ControlSizeDefinition>
+                <wpf:RibbonControlSizeDefinition ImageSize="Collapsed" IsLabelVisible="True" />
+              </wpf:RibbonToggleButton.ControlSizeDefinition>
+            </wpf:RibbonToggleButton>
+            <Path HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  Margin="1,0,0,0"
+                  IsHitTestVisible="False"
+                  Width="7"
+                  Height="5"
+                  Fill="{TemplateBinding Foreground}"
+                  Stroke="{TemplateBinding Foreground}"
+                  Stretch="Fill"
+                  Data="{DynamicResource $F.Invented.Ribbon.Glyph.Overflow}" />
+            <Popup Name="PART_OverflowPopup"
+                   Placement="BottomEdgeAlignedLeft"
+                   PlacementTarget="{Binding #PART_OverflowButton}"
+                   IsLightDismissEnabled="True"
+                   IsOpen="{TemplateBinding IsOverflowOpen, Mode=TwoWay}"
+                   wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.MenuPopupAnimation}">
+              <wpf:SystemDropShadowChrome Name="Shdw" Margin="0,0,5,5">
+                <Border Name="PopupBorder"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        CornerRadius="2"
+                        BorderThickness="1"
+                        Padding="2">
+                  <DockPanel>
+                    <ContentPresenter Name="OverflowCustomizeMenuHost" DockPanel.Dock="Right" />
+                    <controls:ToolBarOverflowPanel Name="PART_OverflowPanel" />
+                  </DockPanel>
+                </Border>
+              </wpf:SystemDropShadowChrome>
+            </Popup>
+          </Panel>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:incaption">
+      <Setter Property="MinHeight" Value="0" />
+    </Style>
+    <Style Selector="^:overflow">
+      <Style Selector="^ /template/ Panel#OverflowButtonHost">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#MainCustomizeMenuHost">
+        <Setter Property="Content" Value="{x:Null}" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#OverflowCustomizeMenuHost">
+        <Setter Property="Content" Value="{TemplateBinding CustomizeMenuButton}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

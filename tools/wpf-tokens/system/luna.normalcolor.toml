@@ -1,0 +1,26 @@
+# Windows XP Luna Blue (luna.msstyles normalblue.ini) SystemColors, Light.
+# Values marked normalblue.ini are the msstyles [SysMetrics] section (R G B), as listed in the author's palette notes;
+# the rest are the Windows XP SP3 defaults, which the visual style does not override.
+name = "Luna.NormalColor"
+base = "xp-defaults"
+
+[colors]
+Window = { value = "#FFFFFF", source = "normalblue.ini [SysMetrics]" }
+MenuBar = { value = "#ECE9D8", source = "normalblue.ini [SysMetrics]" }
+Menu = { value = "#FFFFFF", source = "normalblue.ini [SysMetrics]" }
+Desktop = { value = "#004E98", source = "normalblue.ini [SysMetrics]" }
+Control = { value = "#ECE9D8", source = "normalblue.ini [SysMetrics]" }
+Highlight = { value = "#316AC5", source = "normalblue.ini [SysMetrics]" }
+ActiveCaption = { value = "#0054E3", source = "normalblue.ini [SysMetrics]" }
+ActiveCaptionText = { value = "#FFFFFF", source = "normalblue.ini [SysMetrics]" }
+InactiveCaption = { value = "#7A96DF", source = "normalblue.ini [SysMetrics]" }
+InactiveCaptionText = { value = "#D8E4F8", source = "normalblue.ini [SysMetrics]" }
+GradientActiveCaption = { value = "#3D95FF", source = "normalblue.ini [SysMetrics]" }
+GradientInactiveCaption = { value = "#9DB9EB", source = "normalblue.ini [SysMetrics]" }
+HighlightText = { value = "#FFFFFF", source = "normalblue.ini [SysMetrics]" }
+MenuHighlight = { value = "#316AC5", source = "normalblue.ini [SysMetrics]" }
+ControlDark = { value = "#ACA899", source = "normalblue.ini [SysMetrics]" }
+GrayText = { value = "#ACA899", source = "normalblue.ini [SysMetrics]" }
+ControlLightLight = { value = "#FFFFFF", source = "normalblue.ini [SysMetrics]" }
+ControlDarkDark = { value = "#716F64", source = "normalblue.ini [SysMetrics]" }
+ControlLight = { value = "#F1EFE2", source = "normalblue.ini [SysMetrics]" }

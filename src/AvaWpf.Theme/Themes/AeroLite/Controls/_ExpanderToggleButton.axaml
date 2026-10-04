@@ -1,0 +1,187 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    WPF Expander.xaml header toggles, AeroLite.NormalColor. ExpanderDownHeaderStyle is AeroLite.ExpanderToggleButton;
+    the Up, Left and Right styles rotate the chevron.
+  -->
+  <FocusAdornerTemplate x:Key="AeroLite.ExpanderHeaderFocusVisual">
+    <Border>
+      <Rectangle Margin="0"
+                 UseLayoutRounding="True"
+                 Stroke="{DynamicResource AeroLite.Expander.ExpanderHeaderFocusVisual.Rectangle#1.Stroke}"
+                 StrokeThickness="1"
+                 StrokeDashArray="1,2" />
+    </Border>
+  </FocusAdornerTemplate>
+
+  <ControlTheme x:Key="AeroLite.ExpanderToggleButton" TargetType="ToggleButton">
+    <Setter Property="FocusAdorner" Value="{StaticResource AeroLite.ExpanderHeaderFocusVisual}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="RootVisual" Padding="{TemplateBinding Padding}">
+          <Grid Background="Transparent" ColumnDefinitions="19,*">
+            <Path Name="arrow"
+                Width="8.71"
+                Height="6.41"
+                UseLayoutRounding="False"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  Data="{DynamicResource AeroLite.Expander.ExpanderDownHeaderStyle.arrow.Data}"
+                  Stroke="{DynamicResource AeroLite.Expander.Static.Glyph}"
+                  StrokeThickness="2" />
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Grid.Column="1"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Center"
+                              Margin="4,0,0,0"
+                              RecognizesAccessKey="True" />
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:checked /template/ Path#arrow">
+      <Setter Property="Data" Value="{DynamicResource AeroLite.Expander.ExpanderDownHeaderStyle.arrow.Data.IsChecked_true}" />
+      <Setter Property="Height" Value="5.21" />
+    </Style>
+    <Style Selector="^:pointerover /template/ Path#arrow">
+      <Setter Property="Stroke" Value="{DynamicResource AeroLite.Expander.MouseOver.Glyph}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Path#arrow">
+      <Setter Property="Stroke" Value="{DynamicResource AeroLite.Expander.Pressed.Glyph}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="AeroLite.ExpanderUpHeaderStyle" TargetType="ToggleButton">
+    <Setter Property="FocusAdorner" Value="{StaticResource AeroLite.ExpanderHeaderFocusVisual}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="RootVisual" Padding="{TemplateBinding Padding}">
+          <Grid Background="Transparent" ColumnDefinitions="19,*">
+            <LayoutTransformControl HorizontalAlignment="Center" VerticalAlignment="Center">
+              <LayoutTransformControl.LayoutTransform>
+                <RotateTransform Angle="180" />
+              </LayoutTransformControl.LayoutTransform>
+              <Path Name="arrow"
+                Width="8.71"
+                Height="6.41"
+                UseLayoutRounding="False"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Data="{DynamicResource AeroLite.Expander.ExpanderUpHeaderStyle.arrow.Data}"
+                    Stroke="{DynamicResource AeroLite.Expander.Static.Glyph}"
+                    StrokeThickness="2" />
+            </LayoutTransformControl>
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Grid.Column="1"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Center"
+                              Margin="4,0,0,0"
+                              RecognizesAccessKey="True" />
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:checked /template/ Path#arrow">
+      <Setter Property="Data" Value="{DynamicResource AeroLite.Expander.ExpanderUpHeaderStyle.arrow.Data.IsChecked_true}" />
+      <Setter Property="Height" Value="5.21" />
+    </Style>
+    <Style Selector="^:pointerover /template/ Path#arrow">
+      <Setter Property="Stroke" Value="{DynamicResource AeroLite.Expander.MouseOver.Glyph}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Path#arrow">
+      <Setter Property="Stroke" Value="{DynamicResource AeroLite.Expander.Pressed.Glyph}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="AeroLite.ExpanderLeftHeaderStyle" TargetType="ToggleButton">
+    <Setter Property="FocusAdorner" Value="{StaticResource AeroLite.ExpanderHeaderFocusVisual}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="RootVisual" Padding="{TemplateBinding Padding}">
+          <Grid Background="Transparent" RowDefinitions="19,*">
+            <LayoutTransformControl HorizontalAlignment="Center" VerticalAlignment="Center">
+              <LayoutTransformControl.LayoutTransform>
+                <RotateTransform Angle="90" />
+              </LayoutTransformControl.LayoutTransform>
+              <Path Name="arrow"
+                Width="8.71"
+                Height="6.41"
+                UseLayoutRounding="False"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Data="{DynamicResource AeroLite.Expander.ExpanderLeftHeaderStyle.arrow.Data}"
+                    Stroke="{DynamicResource AeroLite.Expander.Static.Glyph}"
+                    StrokeThickness="2" />
+            </LayoutTransformControl>
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Grid.Row="1"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Top"
+                              Margin="0,4,0,0"
+                              RecognizesAccessKey="True" />
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:checked /template/ Path#arrow">
+      <Setter Property="Data" Value="{DynamicResource AeroLite.Expander.ExpanderLeftHeaderStyle.arrow.Data.IsChecked_true}" />
+      <Setter Property="Height" Value="5.21" />
+    </Style>
+    <Style Selector="^:pointerover /template/ Path#arrow">
+      <Setter Property="Stroke" Value="{DynamicResource AeroLite.Expander.MouseOver.Glyph}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Path#arrow">
+      <Setter Property="Stroke" Value="{DynamicResource AeroLite.Expander.Pressed.Glyph}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="AeroLite.ExpanderRightHeaderStyle" TargetType="ToggleButton">
+    <Setter Property="FocusAdorner" Value="{StaticResource AeroLite.ExpanderHeaderFocusVisual}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="RootVisual" Padding="{TemplateBinding Padding}">
+          <Grid Background="Transparent" RowDefinitions="19,*">
+            <LayoutTransformControl HorizontalAlignment="Center" VerticalAlignment="Center">
+              <LayoutTransformControl.LayoutTransform>
+                <RotateTransform Angle="-90" />
+              </LayoutTransformControl.LayoutTransform>
+              <Path Name="arrow"
+                Width="8.71"
+                Height="6.41"
+                UseLayoutRounding="False"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Data="{DynamicResource AeroLite.Expander.ExpanderRightHeaderStyle.arrow.Data}"
+                    Stroke="{DynamicResource AeroLite.Expander.Static.Glyph}"
+                    StrokeThickness="2" />
+            </LayoutTransformControl>
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Grid.Row="1"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Top"
+                              Margin="0,4,0,0"
+                              RecognizesAccessKey="True" />
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:checked /template/ Path#arrow">
+      <Setter Property="Data" Value="{DynamicResource AeroLite.Expander.ExpanderRightHeaderStyle.arrow.Data.IsChecked_true}" />
+      <Setter Property="Height" Value="5.21" />
+    </Style>
+    <Style Selector="^:pointerover /template/ Path#arrow">
+      <Setter Property="Stroke" Value="{DynamicResource AeroLite.Expander.MouseOver.Glyph}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Path#arrow">
+      <Setter Property="Stroke" Value="{DynamicResource AeroLite.Expander.Pressed.Glyph}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

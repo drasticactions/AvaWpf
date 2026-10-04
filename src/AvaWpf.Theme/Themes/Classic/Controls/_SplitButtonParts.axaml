@@ -1,0 +1,45 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- SplitButton parts: the focus rectangle and the push-button half. -->
+  <FocusAdornerTemplate x:Key="Classic.SplitButtonFocusVisual">
+    <Rectangle Margin="4,4,20,4"
+               StrokeThickness="1"
+               Stroke="{DynamicResource SystemColors.ControlTextBrush}"
+               StrokeDashArray="1,2"
+               UseLayoutRounding="True" />
+  </FocusAdornerTemplate>
+
+  <ControlTheme x:Key="Classic.SplitButtonComponent" TargetType="Button">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <wpf:ClassicBorderDecorator Name="ContentContainer"
+                                    BorderStyle="Raised"
+                                    Background="{TemplateBinding Background}"
+                                    BorderThickness="3"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    UseLayoutRounding="True">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Padding="{TemplateBinding Padding}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                            RecognizesAccessKey="True" />
+        </wpf:ClassicBorderDecorator>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pressed /template/ wpf|ClassicBorderDecorator#ContentContainer">
+      <Setter Property="BorderStyle" Value="RaisedPressed" />
+    </Style>
+    <Style Selector="^[Tag=flyout-open] /template/ wpf|ClassicBorderDecorator#ContentContainer">
+      <Setter Property="BorderStyle" Value="RaisedPressed" />
+    </Style>
+    <Style Selector="^[Tag=checked] /template/ wpf|ClassicBorderDecorator#ContentContainer">
+      <Setter Property="BorderStyle" Value="RaisedPressed" />
+    </Style>
+    <Style Selector="^[Tag=checked-flyout-open] /template/ wpf|ClassicBorderDecorator#ContentContainer">
+      <Setter Property="BorderStyle" Value="RaisedPressed" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

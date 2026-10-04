@@ -1,0 +1,43 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- WPF ListViewItem.xaml GridView.GridViewItemContainerStyleKey, AeroLite.NormalColor. -->
+  <ControlTheme x:Key="{x:Type TableViewRow}" TargetType="TableViewRow">
+    <Setter Property="Padding" Value="4,1" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="FocusAdorner" Value="{DynamicResource AeroLite.FocusVisual}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="Bd"
+                Classes.active="{Binding $parent[TableView].IsKeyboardFocusWithin, FallbackValue=False}"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Padding="{TemplateBinding Padding}"
+                UseLayoutRounding="True">
+          <Panel>
+            <TableViewCellsPresenter Name="PART_CellsPresenter" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+            <ContentPresenter Name="PART_ContentPresenter" IsVisible="False" />
+          </Panel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#Bd">
+      <Setter Property="Background" Value="{DynamicResource AeroLite.Item.MouseOver.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.Item.MouseOver.Border}" />
+    </Style>
+    <Style Selector="^:selected /template/ Border#Bd">
+      <Setter Property="Background" Value="{DynamicResource AeroLite.Item.SelectedInactive.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.Item.SelectedInactive.Border}" />
+    </Style>
+    <Style Selector="^:selected /template/ Border#Bd.active">
+      <Setter Property="Background" Value="{DynamicResource AeroLite.Item.SelectedActive.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.Item.SelectedActive.Border}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Border#Bd">
+      <Setter Property="TextElement.Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

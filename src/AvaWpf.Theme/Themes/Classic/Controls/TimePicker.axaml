@@ -1,0 +1,76 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- TimePicker drawn as a Classic combo box (Classic.DateTimePickerFlyoutButton) with hour, minute, second and AM/PM
+       fields. -->
+  <ControlTheme x:Key="{x:Type TimePicker}" TargetType="TimePicker">
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.WindowTextBrush}" />
+    <Setter Property="Background" Value="{DynamicResource SystemColors.WindowBrush}" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="MinWidth" Value="140" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DataValidationErrors>
+          <Grid Name="LayoutRoot" Margin="{TemplateBinding Padding}">
+            <Button Name="PART_FlyoutButton"
+                    Theme="{StaticResource Classic.DateTimePickerFlyoutButton}"
+                    Foreground="{TemplateBinding Foreground}"
+                    Background="{TemplateBinding Background}"
+                    IsEnabled="{TemplateBinding IsEnabled}"
+                    MinWidth="{TemplateBinding MinWidth}"
+                    MaxWidth="{TemplateBinding MaxWidth}"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    TemplatedControl.IsTemplateFocusTarget="True">
+              <Grid Name="PART_FlyoutButtonContentGrid">
+                <Border Name="PART_FirstPickerHost" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                  <TextBlock Name="PART_HourTextBlock" Text="hour" HorizontalAlignment="Center" Padding="2,1" />
+                </Border>
+                <Rectangle Name="PART_FirstColumnDivider"
+                           Fill="{DynamicResource SystemColors.ControlLightBrush}"
+                           HorizontalAlignment="Center"
+                           Width="1"
+                           Grid.Column="1" />
+                <Border Name="PART_SecondPickerHost" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                  <TextBlock Name="PART_MinuteTextBlock" Text="minute" HorizontalAlignment="Center" Padding="2,1" />
+                </Border>
+                <Rectangle Name="PART_SecondColumnDivider"
+                           Fill="{DynamicResource SystemColors.ControlLightBrush}"
+                           HorizontalAlignment="Center"
+                           Width="1"
+                           Grid.Column="3" />
+                <Border Name="PART_ThirdPickerHost" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                  <TextBlock Name="PART_SecondTextBlock" Text="second" HorizontalAlignment="Center" Padding="2,1" />
+                </Border>
+                <Rectangle Name="PART_ThirdColumnDivider"
+                           Fill="{DynamicResource SystemColors.ControlLightBrush}"
+                           HorizontalAlignment="Center"
+                           Width="1"
+                           Grid.Column="5" />
+                <Border Name="PART_FourthPickerHost" Grid.Column="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                  <TextBlock Name="PART_PeriodTextBlock" HorizontalAlignment="Center" Padding="2,1" />
+                </Border>
+              </Grid>
+            </Button>
+            <Popup Name="PART_Popup"
+                   WindowManagerAddShadowHint="False"
+                   IsLightDismissEnabled="True"
+                   PlacementTarget="{TemplateBinding}"
+                   Placement="Bottom"
+                   wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.ComboBoxPopupAnimation}">
+              <TimePickerPresenter Name="PART_PickerPresenter" />
+            </Popup>
+          </Grid>
+        </DataValidationErrors>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^ /template/ Button#PART_FlyoutButton TextBlock">
+      <Setter Property="VerticalAlignment" Value="{TemplateBinding VerticalContentAlignment}" />
+    </Style>
+    <Style Selector="^:hasnotime /template/ Button#PART_FlyoutButton TextBlock">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

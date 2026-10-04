@@ -1,0 +1,368 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf"
+                    xmlns:conv="using:Avalonia.Controls.Converters">
+  <!--
+    WPF MenuItem.xaml, Aero2.NormalColor: the four role templates and the separator. Avalonia has no MenuItem.Role, so
+    the Menu item theme (TopLevelHeader) switches to TopLevelItem when :empty, and the MenuItem theme (SubmenuItem)
+    switches to SubmenuHeader when it has children. WPF's OpaqueRect and IsSuspendingPopupAnimation are omitted;
+    InputGesture is shown where WPF shows InputGestureText.
+  -->
+  <conv:PlatformKeyGestureConverter x:Key="Aero2.KeyGestureConverter" />
+
+  <!-- WPF MenuItem.SeparatorStyleKey: used for a MenuItem whose header is "-" (Avalonia :separator). -->
+  <ControlTemplate x:Key="Aero2.MenuItem.SeparatorTemplate" TargetType="MenuItem">
+    <Border Background="{DynamicResource Aero2.Menu.Static.Separator}"
+            BorderBrush="{DynamicResource Aero2.Menu.Static.Separator}"
+            MinHeight="1"
+            UseLayoutRounding="True"
+            Margin="30,0,0,0" />
+  </ControlTemplate>
+
+  <ControlTemplate x:Key="Aero2.MenuItem.TopLevelItemTemplateKey" TargetType="MenuItem">
+    <Border Name="templateRoot"
+            UseLayoutRounding="True"
+            BorderThickness="{TemplateBinding BorderThickness}"
+            Background="{TemplateBinding Background}"
+            BorderBrush="{TemplateBinding BorderBrush}">
+      <Grid VerticalAlignment="Center">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <ContentPresenter Name="Icon"
+                          Content="{TemplateBinding Icon}"
+                          IsVisible="False"
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Center"
+                          Width="16"
+                          Height="16"
+                          Margin="3" />
+        <Path Name="GlyphPanel"
+              Data="{DynamicResource Aero2.Checkmark}"
+              FlowDirection="LeftToRight"
+              Margin="3"
+              IsVisible="False"
+              VerticalAlignment="Center"
+              Fill="{DynamicResource Aero2.Menu.Static.Foreground}" />
+        <ContentPresenter Name="PART_HeaderPresenter"
+                          Grid.Column="1"
+                          Content="{TemplateBinding Header}"
+                          ContentTemplate="{TemplateBinding HeaderTemplate}"
+                          RecognizesAccessKey="True"
+                          Margin="{TemplateBinding Padding}"
+                          UseLayoutRounding="True" />
+      </Grid>
+    </Border>
+  </ControlTemplate>
+
+  <ControlTemplate x:Key="Aero2.MenuItem.TopLevelHeaderTemplateKey" TargetType="MenuItem">
+    <Border Name="templateRoot"
+            UseLayoutRounding="True"
+            BorderThickness="{TemplateBinding BorderThickness}"
+            Background="{TemplateBinding Background}"
+            BorderBrush="{TemplateBinding BorderBrush}">
+      <Grid VerticalAlignment="Center">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <ContentPresenter Name="Icon"
+                          Content="{TemplateBinding Icon}"
+                          IsVisible="False"
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Center"
+                          Width="16"
+                          Height="16"
+                          Margin="3" />
+        <Path Name="GlyphPanel"
+              Data="{DynamicResource Aero2.Checkmark}"
+              FlowDirection="LeftToRight"
+              Margin="3"
+              IsVisible="False"
+              VerticalAlignment="Center"
+              Fill="{TemplateBinding Foreground}" />
+        <ContentPresenter Name="PART_HeaderPresenter"
+                          Grid.Column="1"
+                          Content="{TemplateBinding Header}"
+                          ContentTemplate="{TemplateBinding HeaderTemplate}"
+                          RecognizesAccessKey="True"
+                          Margin="{TemplateBinding Padding}"
+                          UseLayoutRounding="True" />
+        <Popup Name="PART_Popup"
+               Focusable="False"
+               IsOpen="{TemplateBinding IsSubMenuOpen, Mode=TwoWay}"
+               Placement="BottomEdgeAlignedLeft"
+               PlacementTarget="templateRoot"
+               IsLightDismissEnabled="True"
+               OverlayInputPassThroughElement="{Binding $parent[Menu]}"
+               WindowManagerAddShadowHint="False"
+               wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.MenuPopupAnimation}">
+          <Border Name="SubMenuBorder"
+                  Background="{DynamicResource Aero2.Menu.Static.Background}"
+                  BorderBrush="{DynamicResource Aero2.Menu.Static.Border}"
+                  BorderThickness="1"
+                  Padding="2">
+            <ScrollViewer Name="SubMenuScrollViewer" Theme="{StaticResource Aero2.MenuScrollViewer}">
+              <Grid>
+                <Rectangle HorizontalAlignment="Left"
+                           Width="1"
+                           Margin="29,2,0,2"
+                           Fill="{DynamicResource Aero2.Menu.Static.Separator}" />
+                <ItemsPresenter Name="PART_ItemsPresenter"
+                                ItemsPanel="{TemplateBinding ItemsPanel}"
+                                KeyboardNavigation.TabNavigation="Cycle"
+                                Grid.IsSharedSizeScope="True"
+                                UseLayoutRounding="True" />
+              </Grid>
+            </ScrollViewer>
+          </Border>
+        </Popup>
+      </Grid>
+    </Border>
+  </ControlTemplate>
+
+  <ControlTemplate x:Key="Aero2.MenuItem.SubmenuItemTemplateKey" TargetType="MenuItem">
+    <Border Name="templateRoot"
+            UseLayoutRounding="True"
+            BorderThickness="{TemplateBinding BorderThickness}"
+            Background="{TemplateBinding Background}"
+            BorderBrush="{TemplateBinding BorderBrush}">
+      <Grid Margin="-1">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition MinWidth="22" SharedSizeGroup="MenuItemIconColumnGroup" Width="Auto" />
+          <ColumnDefinition Width="13" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="30" />
+          <ColumnDefinition SharedSizeGroup="MenuItemIGTColumnGroup" Width="Auto" />
+          <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+        <ContentPresenter Name="Icon"
+                          Content="{TemplateBinding Icon}"
+                          IsVisible="False"
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Center"
+                          Width="16"
+                          Height="16"
+                          Margin="3" />
+        <Border Name="GlyphPanel"
+                Opacity="0"
+                Height="22"
+                Width="22"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Background="{DynamicResource Aero2.MenuItem.Selected.Background}"
+                BorderBrush="{DynamicResource Aero2.MenuItem.Selected.Border}"
+                BorderThickness="1"
+                ClipToBounds="False"
+                Margin="-1,0,0,0">
+          <Path Name="Glyph"
+                Data="{DynamicResource Aero2.Checkmark}"
+                FlowDirection="LeftToRight"
+                Height="11"
+                Width="10"
+                Fill="{DynamicResource Aero2.Menu.Static.Foreground}" />
+        </Border>
+        <ContentPresenter Name="PART_HeaderPresenter"
+                          Grid.Column="2"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Center"
+                          Content="{TemplateBinding Header}"
+                          ContentTemplate="{TemplateBinding HeaderTemplate}"
+                          RecognizesAccessKey="True"
+                          Margin="{TemplateBinding Padding}"
+                          UseLayoutRounding="True" />
+        <TextBlock Name="menuGestureText"
+                   Grid.Column="4"
+                   Text="{TemplateBinding InputGesture, Converter={StaticResource Aero2.KeyGestureConverter}}"
+                   Margin="{TemplateBinding Padding}"
+                   VerticalAlignment="Center"
+                   Opacity="0.7" />
+      </Grid>
+    </Border>
+  </ControlTemplate>
+
+  <ControlTemplate x:Key="Aero2.MenuItem.SubmenuHeaderTemplateKey" TargetType="MenuItem">
+    <Border Name="templateRoot"
+            UseLayoutRounding="True"
+            BorderThickness="{TemplateBinding BorderThickness}"
+            Background="{TemplateBinding Background}"
+            BorderBrush="{TemplateBinding BorderBrush}">
+      <Grid Margin="-1">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition MinWidth="22" SharedSizeGroup="MenuItemIconColumnGroup" Width="Auto" />
+          <ColumnDefinition Width="13" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="30" />
+          <ColumnDefinition SharedSizeGroup="MenuItemIGTColumnGroup" Width="Auto" />
+          <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+        <ContentPresenter Name="Icon"
+                          Content="{TemplateBinding Icon}"
+                          IsVisible="False"
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Center"
+                          Width="16"
+                          Height="16"
+                          Margin="3" />
+        <Border Name="GlyphPanel"
+                BorderThickness="1"
+                Height="22"
+                Width="22"
+                Opacity="0"
+                VerticalAlignment="Center"
+                Margin="-1,0,0,0"
+                BorderBrush="{DynamicResource Aero2.MenuItem.Highlight.Border}"
+                Background="{DynamicResource Aero2.MenuItem.Highlight.Background}">
+          <Path Name="Glyph"
+                Data="{DynamicResource Aero2.Checkmark}"
+                FlowDirection="LeftToRight"
+                Height="11"
+                Width="9"
+                Fill="{DynamicResource Aero2.Menu.Static.Foreground}" />
+        </Border>
+        <ContentPresenter Name="PART_HeaderPresenter"
+                          Grid.Column="2"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Center"
+                          Content="{TemplateBinding Header}"
+                          ContentTemplate="{TemplateBinding HeaderTemplate}"
+                          RecognizesAccessKey="True"
+                          Margin="{TemplateBinding Padding}"
+                          UseLayoutRounding="True" />
+        <TextBlock Grid.Column="4"
+                   Text="{TemplateBinding InputGesture, Converter={StaticResource Aero2.KeyGestureConverter}}"
+                   VerticalAlignment="Center"
+                   Margin="{TemplateBinding Padding}"
+                   Opacity="0.7" />
+        <Path Name="RightArrow"
+              Grid.Column="5"
+              Data="{DynamicResource Aero2.RightArrow}"
+              Margin="10,0,0,0"
+              VerticalAlignment="Center"
+              HorizontalAlignment="Left"
+              Fill="{DynamicResource Aero2.Menu.Static.Foreground}" />
+        <Popup Name="PART_Popup"
+               Focusable="False"
+               IsOpen="{TemplateBinding IsSubMenuOpen, Mode=TwoWay}"
+               Placement="RightEdgeAlignedTop"
+               HorizontalOffset="-2"
+               VerticalOffset="-3"
+               IsLightDismissEnabled="False"
+               WindowManagerAddShadowHint="False"
+               wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.MenuPopupAnimation}">
+          <Border Name="SubMenuBorder"
+                  Background="{DynamicResource Aero2.Menu.Static.Background}"
+                  BorderBrush="{DynamicResource Aero2.Menu.Static.Border}"
+                  BorderThickness="1"
+                  Padding="2">
+            <ScrollViewer Name="SubMenuScrollViewer" Theme="{StaticResource Aero2.MenuScrollViewer}">
+              <Grid>
+                <Rectangle HorizontalAlignment="Left"
+                           Width="1"
+                           Margin="29,2,0,2"
+                           Fill="{DynamicResource SystemColors.ControlDarkBrush}" />
+                <ItemsPresenter Name="PART_ItemsPresenter"
+                                ItemsPanel="{TemplateBinding ItemsPanel}"
+                                KeyboardNavigation.TabNavigation="Cycle"
+                                Grid.IsSharedSizeScope="True"
+                                UseLayoutRounding="True" />
+              </Grid>
+            </ScrollViewer>
+          </Border>
+        </Popup>
+      </Grid>
+    </Border>
+  </ControlTemplate>
+
+  <!-- WPF MenuItem style, Role TopLevelHeader and TopLevelItem: the item container theme of Menu. -->
+  <ControlTheme x:Key="Aero2.MenuItem.TopLevelHeader" TargetType="MenuItem">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Padding" Value="6,0" />
+    <Setter Property="Template" Value="{StaticResource Aero2.MenuItem.TopLevelHeaderTemplateKey}" />
+    <Style Selector="^:empty">
+      <Setter Property="Template" Value="{StaticResource Aero2.MenuItem.TopLevelItemTemplateKey}" />
+    </Style>
+    <Style Selector="^:separator">
+      <Setter Property="Template" Value="{StaticResource Aero2.MenuItem.SeparatorTemplate}" />
+    </Style>
+
+    <Style Selector="^:icon /template/ ContentPresenter#Icon">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:checked">
+      <Style Selector="^ /template/ Path#GlyphPanel">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#Icon">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+    </Style>
+    <Style Selector="^:selected /template/ Border#templateRoot">
+      <Setter Property="Background" Value="{DynamicResource Aero2.MenuItem.Highlight.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero2.MenuItem.Highlight.Border}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Style Selector="^ /template/ Border#templateRoot">
+        <Setter Property="TextElement.Foreground" Value="{DynamicResource Aero2.Menu.Disabled.Foreground}" />
+      </Style>
+      <Style Selector="^ /template/ Path#GlyphPanel">
+        <Setter Property="Fill" Value="{DynamicResource Aero2.Menu.Disabled.Foreground}" />
+      </Style>
+    </Style>
+    <!-- TopLevelItem only. -->
+    <Style Selector="^:empty:selected:disabled /template/ Border#templateRoot">
+      <Setter Property="Background" Value="{DynamicResource Aero2.MenuItem.Highlight.Disabled.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero2.MenuItem.Highlight.Disabled.Border}" />
+    </Style>
+  </ControlTheme>
+
+  <!-- WPF MenuItem style, Role SubmenuItem and SubmenuHeader. -->
+  <ControlTheme x:Key="{x:Type MenuItem}" TargetType="MenuItem">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Template" Value="{StaticResource Aero2.MenuItem.SubmenuItemTemplateKey}" />
+    <Style Selector="^:not(:empty)">
+      <Setter Property="Template" Value="{StaticResource Aero2.MenuItem.SubmenuHeaderTemplateKey}" />
+    </Style>
+    <Style Selector="^:separator">
+      <Setter Property="Template" Value="{StaticResource Aero2.MenuItem.SeparatorTemplate}" />
+    </Style>
+
+    <Style Selector="^:icon /template/ ContentPresenter#Icon">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:checked">
+      <Style Selector="^ /template/ Border#GlyphPanel">
+        <Setter Property="Opacity" Value="1" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#Icon">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+    </Style>
+    <Style Selector="^:selected /template/ Border#templateRoot">
+      <Setter Property="Background" Value="{DynamicResource Aero2.MenuItem.Highlight.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero2.MenuItem.Highlight.Border}" />
+    </Style>
+    <!-- SubmenuHeader: a highlighted header keeps a transparent fill. -->
+    <Style Selector="^:not(:empty):selected /template/ Border#templateRoot">
+      <Setter Property="Background" Value="Transparent" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Style Selector="^ /template/ Border#templateRoot">
+        <Setter Property="TextElement.Foreground" Value="{DynamicResource Aero2.Menu.Disabled.Foreground}" />
+      </Style>
+      <Style Selector="^ /template/ Path#Glyph, ^ /template/ Path#RightArrow">
+        <Setter Property="Fill" Value="{DynamicResource Aero2.Menu.Disabled.Foreground}" />
+      </Style>
+    </Style>
+    <!-- SubmenuItem only. -->
+    <Style Selector="^:empty:selected:disabled /template/ Border#templateRoot">
+      <Setter Property="Background" Value="{DynamicResource Aero2.MenuItem.Highlight.Disabled.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero2.MenuItem.Highlight.Disabled.Border}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

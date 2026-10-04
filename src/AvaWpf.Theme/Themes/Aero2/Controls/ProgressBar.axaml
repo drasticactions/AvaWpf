@@ -1,0 +1,77 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    WPF ProgressBar.xaml, Aero2.NormalColor; indeterminate runs WPF's Indeterminate storyboard forever. Avalonia sizes
+    PART_Indicator only in determinate mode, so the sweeping block is clipped to its own full-track host.
+  -->
+  <ControlTheme x:Key="{x:Type ProgressBar}" TargetType="ProgressBar">
+    <Setter Property="Foreground" Value="{DynamicResource Aero2.ProgressBar.Progress}" />
+    <Setter Property="Background" Value="{DynamicResource Aero2.ProgressBar.Background}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ProgressBar.Border}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Name="TemplateRoot">
+          <Border BorderThickness="{TemplateBinding BorderThickness}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  Background="{TemplateBinding Background}" />
+          <Rectangle Name="PART_Track" />
+          <Border Name="PART_Indicator" HorizontalAlignment="Left" ClipToBounds="True">
+            <Rectangle Name="Indicator" Fill="{TemplateBinding Foreground}" />
+          </Border>
+          <Border Name="AnimationHost" ClipToBounds="True" IsVisible="False">
+            <Rectangle Name="Animation"
+                       RenderTransformOrigin="50%,50%"
+                       RenderTransform="scaleX(0.25)"
+                       Fill="{TemplateBinding Foreground}" />
+          </Border>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:vertical /template/ Border#PART_Indicator">
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+      <Setter Property="VerticalAlignment" Value="Bottom" />
+    </Style>
+    <Style Selector="^:vertical /template/ Rectangle#Animation">
+      <Setter Property="RenderTransform" Value="scaleY(0.25)" />
+    </Style>
+    <Style Selector="^:indeterminate">
+      <Style Selector="^ /template/ Rectangle#Indicator">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+      <Style Selector="^ /template/ Border#AnimationHost">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+    </Style>
+    <Style Selector="^:indeterminate:horizontal /template/ Rectangle#Animation">
+      <Style.Animations>
+        <Animation Duration="0:0:2" IterationCount="Infinite">
+          <KeyFrame Cue="0%">
+            <Setter Property="RenderTransformOrigin" Value="-50%,50%" />
+          </KeyFrame>
+          <KeyFrame Cue="50%">
+            <Setter Property="RenderTransformOrigin" Value="50%,50%" />
+          </KeyFrame>
+          <KeyFrame Cue="100%">
+            <Setter Property="RenderTransformOrigin" Value="150%,50%" />
+          </KeyFrame>
+        </Animation>
+      </Style.Animations>
+    </Style>
+    <Style Selector="^:indeterminate:vertical /template/ Rectangle#Animation">
+      <Style.Animations>
+        <Animation Duration="0:0:2" IterationCount="Infinite">
+          <KeyFrame Cue="0%">
+            <Setter Property="RenderTransformOrigin" Value="50%,150%" />
+          </KeyFrame>
+          <KeyFrame Cue="50%">
+            <Setter Property="RenderTransformOrigin" Value="50%,50%" />
+          </KeyFrame>
+          <KeyFrame Cue="100%">
+            <Setter Property="RenderTransformOrigin" Value="50%,-50%" />
+          </KeyFrame>
+        </Animation>
+      </Style.Animations>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

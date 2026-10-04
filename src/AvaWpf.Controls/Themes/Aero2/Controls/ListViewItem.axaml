@@ -1,0 +1,121 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF ListViewItemFocusVisual, Aero2.NormalColor. -->
+  <FocusAdornerTemplate x:Key="Aero2.ListViewItemFocusVisual">
+    <Rectangle StrokeThickness="1"
+               RadiusX="2"
+               RadiusY="2"
+               Stroke="{DynamicResource Aero2.ListViewItem.ListViewItemFocusVisual.Rectangle#1.Stroke}" />
+  </FocusAdornerTemplate>
+
+  <!--
+    WPF ListViewItem, Aero2.NormalColor: the ListBoxItem look without a view, GridView.GridViewItemContainerStyleKey
+    with a GridView. The WPF trigger order is kept.
+  -->
+  <ControlTheme x:Key="{x:Type wpf:ListViewItem}" TargetType="wpf:ListViewItem">
+    <Setter Property="Padding" Value="4,1" />
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="FocusAdorner" Value="{DynamicResource Aero2.FocusVisual}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="Bd"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Background="{TemplateBinding Background}"
+                Padding="{TemplateBinding Padding}"
+                UseLayoutRounding="True">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#Bd">
+      <Setter Property="Background" Value="{DynamicResource Aero2.Item.MouseOver.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero2.Item.MouseOver.Border}" />
+    </Style>
+    <Style Selector="^:selected:not(:selectionactive) /template/ Border#Bd">
+      <Setter Property="Background" Value="{DynamicResource Aero2.Item.SelectedInactive.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero2.Item.SelectedInactive.Border}" />
+    </Style>
+    <Style Selector="^:selected:selectionactive /template/ Border#Bd">
+      <Setter Property="Background" Value="{DynamicResource Aero2.Item.SelectedActive.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero2.Item.SelectedActive.Border}" />
+    </Style>
+    <Style Selector="^:disabled /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+
+    <Style Selector="^:gridview">
+      <Setter Property="FocusAdorner" Value="{StaticResource Aero2.ListViewItemFocusVisual}" />
+      <Setter Property="Margin" Value="0,0,0,1" />
+      <Setter Property="Padding" Value="5,2,5,2" />
+      <Setter Property="VerticalContentAlignment" Value="Center" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Border Name="RowBd"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  Background="{TemplateBinding Background}"
+                  CornerRadius="2"
+                  UseLayoutRounding="True">
+            <Border Name="InnerBorder"
+                    CornerRadius="1"
+                    BorderThickness="1">
+              <Grid>
+                <Grid.RowDefinitions>
+                  <RowDefinition MaxHeight="11" />
+                  <RowDefinition />
+                </Grid.RowDefinitions>
+                <Rectangle Name="UpperHighlight"
+                           IsVisible="False"
+                           Fill="{DynamicResource Aero2.ListViewItem.GridView.GridViewItemContainerStyleKey.UpperHighlight.Fill}" />
+                <!-- WPF leaves out HorizontalAlignment: the header row cannot center or right-align either. -->
+                <wpf:GridViewRowPresenter Name="PART_RowPresenter"
+                                          Grid.RowSpan="2"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          UseLayoutRounding="True" />
+              </Grid>
+            </Border>
+          </Border>
+        </ControlTemplate>
+      </Setter>
+      <Style Selector="^:pointerover">
+        <Setter Property="Background" Value="{DynamicResource Aero2.ListItemHoverFill}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ListViewItem.GridView.GridViewItemContainerStyleKey.Self.BorderBrush.IsMouseOver_true}" />
+        <Style Selector="^ /template/ Rectangle#UpperHighlight">
+          <Setter Property="IsVisible" Value="True" />
+        </Style>
+      </Style>
+      <Style Selector="^:selected">
+        <Setter Property="Background" Value="{DynamicResource Aero2.ListItemSelectedFill}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ListViewItem.GridView.GridViewItemContainerStyleKey.Self.BorderBrush.IsSelected_true}" />
+        <Style Selector="^ /template/ Border#InnerBorder">
+          <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ListViewItem.GridView.GridViewItemContainerStyleKey.InnerBorder.BorderBrush.IsSelected_true}" />
+        </Style>
+        <Style Selector="^ /template/ Rectangle#UpperHighlight">
+          <Setter Property="IsVisible" Value="True" />
+          <Setter Property="Fill" Value="{DynamicResource Aero2.ListViewItem.GridView.GridViewItemContainerStyleKey.UpperHighlight.Fill.IsSelected_true}" />
+        </Style>
+      </Style>
+      <Style Selector="^:selected:not(:selectionactive)">
+        <Setter Property="Background" Value="{DynamicResource Aero2.ListItemSelectedInactiveFill}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ListViewItem.GridView.GridViewItemContainerStyleKey.Self.BorderBrush.IsSelected_true_IsSelectionActive_false}" />
+      </Style>
+      <Style Selector="^:selected:pointerover">
+        <Setter Property="Background" Value="{DynamicResource Aero2.ListItemSelectedHoverFill}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero2.ListViewItem.GridView.GridViewItemContainerStyleKey.Self.BorderBrush.IsSelected_true_IsMouseOver_true}" />
+      </Style>
+      <Style Selector="^:disabled">
+        <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

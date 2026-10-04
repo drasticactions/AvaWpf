@@ -1,0 +1,25 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:wpf="https://github.com/avawpf"
+             x:Class="AvaWpf.Gallery.Pages.AvaloniaOnlyPage">
+  <StackPanel Spacing="12" Width="480" HorizontalAlignment="Left">
+    <TextBlock Classes="Subtitle" Text="Controls only Avalonia has" />
+    <TextBlock TextWrapping="Wrap" Text="WPF has no counterpart for these. Each family draws them from its own parts." />
+    <CommandBar>
+      <CommandBar.PrimaryCommands>
+        <CommandBarButton Label="Cut" />
+        <CommandBarButton Label="Copy" />
+        <CommandBarSeparator />
+        <CommandBarToggleButton Label="Bold" />
+      </CommandBar.PrimaryCommands>
+    </CommandBar>
+    <PipsPager NumberOfPages="6" />
+    <ButtonSpinner Content="Spinner" />
+    <Carousel Height="60">
+      <TextBlock Text="Slide one" />
+      <TextBlock Text="Slide two" />
+    </Carousel>
+    <TransitioningContentControl Content="Transitioning content" />
+    <PathIcon Data="M 0 0 L 16 0 L 8 12 Z" />
+  </StackPanel>
+</UserControl>

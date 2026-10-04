@@ -1,0 +1,41 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/DataGrid.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!--
+    WPF Fluent DefaultDataGridRowHeaderStyle, with no hover or selection look. A "!" follows the content while the row
+    is invalid (WPF ValidationErrorTemplate).
+  -->
+  <ControlTheme x:Key="{x:Type DataGridRowHeader}" TargetType="DataGridRowHeader">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Fluent.ControlElevationBorderBrush}" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid x:Name="PART_Root">
+          <Border x:Name="rowHeaderBorder"
+                  MinWidth="10"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="0,0,1,0">
+            <StackPanel Orientation="Horizontal">
+              <ContentPresenter x:Name="PART_ContentPresenter"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                VerticalAlignment="Center"
+                                RecognizesAccessKey="True" />
+              <TextBlock x:Name="ValidationError"
+                         Margin="2,0,0,0"
+                         VerticalAlignment="Center"
+                         Foreground="{DynamicResource Fluent.SystemFillColorCriticalBrush}"
+                         Text="!"
+                         IsVisible="False" />
+            </StackPanel>
+          </Border>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:invalid /template/ TextBlock#ValidationError">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,7 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Default focus adorner: WPF FocusVisual.xaml FocusVisualStyleKey, a 1 px dotted ControlText rectangle. -->
+  <ControlTheme x:Key="{x:Type AdornerLayer}" TargetType="AdornerLayer">
+    <Setter Property="DefaultFocusAdorner" Value="{DynamicResource $F.FocusVisualStyle}" />
+  </ControlTheme>
+</ResourceDictionary>

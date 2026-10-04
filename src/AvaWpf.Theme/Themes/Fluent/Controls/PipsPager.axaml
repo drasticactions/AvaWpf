@@ -1,0 +1,98 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- The Windows 11 PipsPager. The navigation buttons hide on the first and last page. -->
+  <ControlTheme x:Key="{x:Type PipsPager}" TargetType="PipsPager">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Top" />
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="PreviousButtonTheme" Value="{StaticResource Fluent.PipsPagerNavigationButton}" />
+    <Setter Property="NextButtonTheme" Value="{StaticResource Fluent.PipsPagerNavigationButton}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <StackPanel Name="PART_RootPanel"
+                    Orientation="{TemplateBinding Orientation}"
+                    Background="{TemplateBinding Background}"
+                    ClipToBounds="False">
+          <Button Name="PART_PreviousButton"
+                  Theme="{TemplateBinding PreviousButtonTheme}"
+                  IsVisible="{TemplateBinding IsPreviousButtonVisible}"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Center">
+            <TextBlock Name="PreviousButtonIcon"
+                       FontFamily="{DynamicResource Fluent.SymbolThemeFontFamily}"
+                       FontSize="10"
+                       Text="{x:Static wpf:FluentGlyph.ChevronLeft}" />
+          </Button>
+          <ListBox Name="PART_PipsPagerList"
+                   Background="Transparent"
+                   BorderThickness="0"
+                   Padding="0"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                   ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                   ItemsSource="{Binding TemplateSettings.Pips, RelativeSource={RelativeSource TemplatedParent}}"
+                   SelectedIndex="{Binding SelectedPageIndex, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                   AutoScrollToSelectedItem="False"
+                   ClipToBounds="False"
+                   ItemContainerTheme="{StaticResource Fluent.PipsPagerItem}">
+            <ListBox.Styles>
+              <Style Selector="ScrollViewer">
+                <Setter Property="ClipToBounds" Value="False" />
+              </Style>
+            </ListBox.Styles>
+            <ListBox.ItemsPanel>
+              <ItemsPanelTemplate>
+                <StackPanel Orientation="{Binding Orientation, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=PipsPager}}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Spacing="0" />
+              </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+          </ListBox>
+          <Button Name="PART_NextButton"
+                  Theme="{TemplateBinding NextButtonTheme}"
+                  IsVisible="{TemplateBinding IsNextButtonVisible}"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Center">
+            <TextBlock Name="NextButtonIcon"
+                       FontFamily="{DynamicResource Fluent.SymbolThemeFontFamily}"
+                       FontSize="10"
+                       Text="{x:Static wpf:FluentGlyph.ChevronRight}" />
+          </Button>
+        </StackPanel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:horizontal /template/ StackPanel#PART_RootPanel">
+      <Setter Property="Orientation" Value="Horizontal" />
+    </Style>
+    <Style Selector="^:vertical /template/ ListBox ListBoxItem">
+      <Setter Property="Width" Value="24" />
+      <Setter Property="Height" Value="12" />
+    </Style>
+    <Style Selector="^:vertical /template/ StackPanel#PART_RootPanel">
+      <Setter Property="Orientation" Value="Vertical" />
+      <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="^:vertical /template/ TextBlock#PreviousButtonIcon">
+      <Setter Property="Text" Value="{x:Static wpf:FluentGlyph.ChevronUp}" />
+    </Style>
+    <Style Selector="^:vertical /template/ TextBlock#NextButtonIcon">
+      <Setter Property="Text" Value="{x:Static wpf:FluentGlyph.ChevronDown}" />
+    </Style>
+    <Style Selector="^:first-page /template/ Button#PART_PreviousButton">
+      <Setter Property="Opacity" Value="0" />
+      <Setter Property="IsHitTestVisible" Value="False" />
+    </Style>
+    <Style Selector="^:last-page /template/ Button#PART_NextButton">
+      <Setter Property="Opacity" Value="0" />
+      <Setter Property="IsHitTestVisible" Value="False" />
+    </Style>
+    <Style Selector="^ /template/ Button#PART_PreviousButton:pressed, ^ /template/ Button#PART_NextButton:pressed">
+      <Setter Property="RenderTransformOrigin" Value="50%,50%" />
+      <Setter Property="RenderTransform" Value="scale(0.875)" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

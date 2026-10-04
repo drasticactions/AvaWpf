@@ -1,0 +1,154 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!--
+    The Windows 8 window frame: a flat solid frame with caption buttons hanging from the top edge. Maximized, the
+    borders and shadow go away and the caption is 22 px.
+  -->
+  <ControlTheme x:Key="{x:Type wpf:WindowFrame}" TargetType="wpf:WindowFrame">
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.Invented.WindowFrame.Border}" />
+    <Setter Property="Background" Value="{DynamicResource AeroLite.Invented.WindowFrame.Background}" />
+    <Setter Property="Padding" Value="{DynamicResource AeroLite.Invented.WindowFrame.Padding}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.WindowTextBrush}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel Name="root">
+          <Border Name="frame"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  Padding="{TemplateBinding Padding}"
+                  UseLayoutRounding="True">
+            <DockPanel>
+              <Grid Name="PART_Caption"
+                    DockPanel.Dock="Top"
+                    Height="{DynamicResource AeroLite.Invented.WindowFrame.CaptionHeight}"
+                    Background="Transparent"
+                    ColumnDefinitions="Auto,Auto,Auto,*,Auto">
+                <Image Name="icon"
+                       Grid.Column="0"
+                       Source="{TemplateBinding Icon}"
+                       Width="16"
+                       Height="16"
+                       Margin="1,0,0,0"
+                       VerticalAlignment="Center" />
+                <!-- Caption slots (a RibbonWindow puts its Quick Access Toolbar and contextual tab group headers here). Empty
+                     areas are not hit, so they still drag the window through PART_Caption. -->
+                <ContentPresenter Name="PART_CaptionContentPresenter" Grid.Column="1"
+                                  Content="{TemplateBinding CaptionContent}"
+                                  VerticalAlignment="Center"
+                                  IsVisible="{TemplateBinding CaptionContent, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                <ContentPresenter Name="PART_CaptionOverlayPresenter" Grid.Column="2"
+                                  Content="{TemplateBinding CaptionOverlay}"
+                                  VerticalAlignment="Stretch"
+                                  IsVisible="{TemplateBinding CaptionOverlay, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                <TextBlock Name="title"
+                           Grid.Column="3"
+                           Text="{TemplateBinding Title}"
+                           Margin="8,0,8,0"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           TextTrimming="CharacterEllipsis"
+                           FontFamily="{DynamicResource SystemFonts.CaptionFontFamily}"
+                           FontSize="{DynamicResource SystemFonts.CaptionFontSize}"
+                           Foreground="{DynamicResource AeroLite.Invented.WindowFrame.Caption.Foreground}" />
+                <StackPanel Grid.Column="4" Orientation="Horizontal" VerticalAlignment="Top">
+                  <Button Name="PART_MinimizeButton"
+                          Theme="{StaticResource AeroLite.WindowFrame.CaptionButton}"
+                          Content="{DynamicResource AeroLite.Invented.WindowFrame.MinimizeGlyph}"
+                          IsVisible="{TemplateBinding IsMinimizeButtonVisible}" />
+                  <Button Name="PART_MaximizeButton"
+                          Theme="{StaticResource AeroLite.WindowFrame.CaptionButton}"
+                          Content="{DynamicResource AeroLite.Invented.WindowFrame.MaximizeGlyph}"
+                          IsVisible="{TemplateBinding IsMaximizeButtonVisible}" />
+                  <Button Name="PART_CloseButton"
+                          Theme="{StaticResource AeroLite.WindowFrame.CaptionButton}"
+                          Classes="close"
+                          Content="{DynamicResource AeroLite.Invented.WindowFrame.CloseGlyph}" />
+                </StackPanel>
+              </Grid>
+              <ContentPresenter Name="menu"
+                                DockPanel.Dock="Top"
+                                Content="{TemplateBinding MenuBar}"
+                                IsVisible="{TemplateBinding MenuBar, Converter={x:Static ObjectConverters.IsNotNull}}" />
+              <Border Name="client"
+                      BorderThickness="1"
+                      BorderBrush="{DynamicResource AeroLite.Invented.WindowFrame.Client.Border}">
+                <ContentPresenter Name="PART_ContentPresenter"
+                                  Background="{DynamicResource SystemColors.ControlBrush}"
+                                  Content="{TemplateBinding Content}"
+                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                  HorizontalContentAlignment="Stretch"
+                                  VerticalContentAlignment="Stretch" />
+              </Border>
+            </DockPanel>
+          </Border>
+          <!-- Resize borders: 8 px corners and 4 px edges, inside the frame. -->
+          <Panel Name="resize">
+            <Border wpf:WindowFrame.ResizeEdge="North" Height="4" VerticalAlignment="Top" Background="Transparent" />
+            <Border wpf:WindowFrame.ResizeEdge="South" Height="4" VerticalAlignment="Bottom" Background="Transparent" />
+            <Border wpf:WindowFrame.ResizeEdge="West" Width="4" HorizontalAlignment="Left" Background="Transparent" />
+            <Border wpf:WindowFrame.ResizeEdge="East" Width="4" HorizontalAlignment="Right" Background="Transparent" />
+            <Border wpf:WindowFrame.ResizeEdge="NorthWest" Width="8" Height="8" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Transparent" />
+            <Border wpf:WindowFrame.ResizeEdge="NorthEast" Width="8" Height="8" HorizontalAlignment="Right" VerticalAlignment="Top" Background="Transparent" />
+            <Border wpf:WindowFrame.ResizeEdge="SouthWest" Width="8" Height="8" HorizontalAlignment="Left" VerticalAlignment="Bottom" Background="Transparent" />
+            <Border wpf:WindowFrame.ResizeEdge="SouthEast" Width="8" Height="8" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="Transparent" />
+          </Panel>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:inactive">
+      <Setter Property="Background" Value="{DynamicResource AeroLite.Invented.WindowFrame.Inactive.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.Invented.WindowFrame.Inactive.Border}" />
+      <Style Selector="^ /template/ TextBlock#title">
+        <Setter Property="Foreground" Value="{DynamicResource AeroLite.Invented.WindowFrame.Caption.Inactive.Foreground}" />
+      </Style>
+      <Style Selector="^ /template/ Border#client">
+        <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.Invented.WindowFrame.Client.Inactive.Border}" />
+      </Style>
+      <Style Selector="^ /template/ Button">
+        <Setter Property="Foreground" Value="{DynamicResource AeroLite.Invented.WindowFrame.Button.Glyph.Inactive}" />
+      </Style>
+      <Style Selector="^ /template/ Button.close">
+        <Setter Property="Background" Value="{DynamicResource AeroLite.Invented.WindowFrame.Close.Inactive.Background}" />
+        <Setter Property="Foreground" Value="{DynamicResource AeroLite.Invented.WindowFrame.Close.Glyph}" />
+      </Style>
+    </Style>
+    <Style Selector="^:noicon /template/ Image#icon">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:shadow /template/ Border#frame">
+      <Setter Property="Margin" Value="{DynamicResource AeroLite.Invented.WindowFrame.ShadowMargin}" />
+      <Setter Property="BoxShadow" Value="{DynamicResource AeroLite.Invented.WindowFrame.Shadow}" />
+    </Style>
+    <Style Selector="^:shadow /template/ Panel#resize">
+      <Setter Property="Margin" Value="{DynamicResource AeroLite.Invented.WindowFrame.ShadowMargin}" />
+    </Style>
+    <Style Selector="^:maximized">
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="Padding" Value="{DynamicResource AeroLite.Invented.WindowFrame.Maximized.Padding}" />
+      <Style Selector="^ /template/ Panel#resize">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+      <Style Selector="^ /template/ Grid#PART_Caption">
+        <Setter Property="Height" Value="{DynamicResource AeroLite.Invented.WindowFrame.Maximized.CaptionHeight}" />
+      </Style>
+      <Style Selector="^ /template/ Border#client">
+        <Setter Property="BorderThickness" Value="0" />
+      </Style>
+      <Style Selector="^ /template/ Button#PART_MaximizeButton">
+        <Setter Property="Content" Value="{DynamicResource AeroLite.Invented.WindowFrame.RestoreGlyph}" />
+      </Style>
+    </Style>
+    <Style Selector="^:tool">
+      <Style Selector="^ /template/ Grid#PART_Caption">
+        <Setter Property="Height" Value="{DynamicResource SystemParameters.SmallCaptionHeight}" />
+      </Style>
+      <Style Selector="^ /template/ TextBlock#title">
+        <Setter Property="FontFamily" Value="{DynamicResource SystemFonts.SmallCaptionFontFamily}" />
+        <Setter Property="FontSize" Value="{DynamicResource SystemFonts.SmallCaptionFontSize}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

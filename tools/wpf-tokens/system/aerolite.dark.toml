@@ -1,0 +1,3 @@
+# Windows 8 Dark: invented, as Windows 7 Dark.
+name = "AeroLite.Dark"
+base = "aero.dark"

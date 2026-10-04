@@ -1,0 +1,7 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- ThemeVariantScope sets the text color of its variant, so content of a Dark scope inside a Light window reads. -->
+  <ControlTheme x:Key="{x:Type ThemeVariantScope}" TargetType="ThemeVariantScope">
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource Fluent.TextFillColorPrimaryBrush}" />
+  </ControlTheme>
+</ResourceDictionary>

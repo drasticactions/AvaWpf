@@ -1,0 +1,434 @@
+{
+  "$comment": "Families and schemes the WPF reference shooter renders. <family>.<scheme> is the shot file prefix. 'dictionary' is the WPF theme dictionary the shooter merges explicitly. 'snapshot' is the AvaWpf Layer 0 snapshot (src/AvaWpf.Theme/System/Snapshots.g.cs) that run.py writes into the Wine prefix registry. 'accent' is set explicitly (no WinRT under Wine). 'surface' is what a scene's \"background\": \"auto\" means. 'avawpf' is the matching AvaWpf family, scheme and variant.",
+  "entries": [
+    {
+      "family": "Aero2",
+      "scheme": "Default",
+      "dictionary": "/PresentationFramework.Aero2;component/themes/aero2.normalcolor.xaml",
+      "snapshot": "Aero2",
+      "accent": "#0078D7",
+      "surface": "Control",
+      "avawpf": {
+        "family": "Aero2",
+        "scheme": "Default",
+        "variant": "Light"
+      }
+    },
+    {
+      "family": "AeroLite",
+      "scheme": "Default",
+      "dictionary": "/PresentationFramework.AeroLite;component/themes/aerolite.normalcolor.xaml",
+      "snapshot": "AeroLite",
+      "accent": "#0078D7",
+      "surface": "Control",
+      "avawpf": {
+        "family": "AeroLite",
+        "scheme": "Default",
+        "variant": "Light"
+      }
+    },
+    {
+      "family": "Aero",
+      "scheme": "Default",
+      "dictionary": "/PresentationFramework.Aero;component/themes/aero.normalcolor.xaml",
+      "snapshot": "Aero",
+      "accent": "#0078D7",
+      "surface": "Control",
+      "avawpf": {
+        "family": "Aero",
+        "scheme": "Default",
+        "variant": "Light"
+      }
+    },
+    {
+      "family": "Luna",
+      "scheme": "NormalColor",
+      "dictionary": "/PresentationFramework.Luna;component/themes/luna.normalcolor.xaml",
+      "snapshot": "Luna.NormalColor",
+      "accent": "#0078D7",
+      "surface": "Control",
+      "avawpf": {
+        "family": "Luna",
+        "scheme": "NormalColor",
+        "variant": "Light"
+      }
+    },
+    {
+      "family": "Luna",
+      "scheme": "Metallic",
+      "dictionary": "/PresentationFramework.Luna;component/themes/luna.metallic.xaml",
+      "snapshot": "Luna.Metallic",
+      "accent": "#0078D7",
+      "surface": "Control",
+      "avawpf": {
+        "family": "Luna",
+        "scheme": "Metallic",
+        "variant": "Light"
+      }
+    },
+    {
+      "family": "Luna",
+      "scheme": "Homestead",
+      "dictionary": "/PresentationFramework.Luna;component/themes/luna.homestead.xaml",
+      "snapshot": "Luna.Homestead",
+      "accent": "#0078D7",
+      "surface": "Control",
+      "avawpf": {
+        "family": "Luna",
+        "scheme": "Homestead",
+        "variant": "Light"
+      }
+    },
+    {
+      "family": "Royale",
+      "scheme": "NormalColor",
+      "dictionary": "/PresentationFramework.Royale;component/themes/royale.normalcolor.xaml",
+      "snapshot": "Royale.NormalColor",
+      "accent": "#0078D7",
+      "surface": "Control",
+      "avawpf": {
+        "family": "Royale",
+        "scheme": "NormalColor",
+        "variant": "Light"
+      }
+    },
+    {
+      "family": "Classic",
+      "scheme": "Brick",
+      "dictionary": "/PresentationFramework.Classic;component/themes/classic.xaml",
+      "snapshot": "Classic.Brick",
+      "accent": "#0078D7",
+      "surface": "Control",
+      "avawpf": {
+        "family": "Classic",
+        "scheme": "Brick",
+        "variant": "Light"
+      }
+    },
+    {
+      "family": "Classic",
+      "scheme": "Desert",
+      "dictionary": "/PresentationFramework.Classic;component/themes/classic.xaml",
+      "snapshot": "Classic.Desert",
+      "accent": "#0078D7",
+      "surface": "Control",
+      "avawpf": {
+        "family": "Classic",
+        "scheme": "Desert",
+        "variant": "Light"
+      }
+    },
+    {
+      "family": "Classic",
+      "scheme": "Eggplant",
+      "dictionary": "/PresentationFramework.Classic;component/themes/classic.xaml",
+      "snapshot": "Classic.Eggplant",
+      "accent": "#0078D7",
+      "surface": "Control",
+      "avawpf": {
+        "family": "Classic",
+        "scheme": "Eggplant",
+        "variant": "Light"
+      }
+    },
+    {
+      "family": "Classic",
+      "scheme": "HighContrast1",
+      "dictionary": "/PresentationFramework.Classic;component/themes/classic.xaml",
+      "snapshot": "Classic.HighContrast1",
+      "accent": "#0078D7",
+      "surface": "Control",
+      "avawpf": {
+        "family": "Classic",
+        "scheme": "HighContrast1",
+        "variant": "Light"
+      }
+    },
+    {
+      "family": "Classic",
+      "scheme": "HighContrast2",
+      "dictionary": "/PresentationFramework.Classic;component/themes/classic.xaml",
+      "snapshot": "Classic.HighContrast2",
+      "accent": "#0078D7",
+      "surface": "Control",
+      "avawpf": {
+        "family": "Classic",
+        "scheme": "HighContrast2",
+        "variant": "Light"
+      }
+    },
+    {
+      "family": "Classic",
+      "scheme": "HighContrastBlack",
+      "dictionary": "/PresentationFramework.Classic;component/themes/classic.xaml",
+      "snapshot": "Classic.HighContrastBlack",
+      "accent": "#0078D7",
+      "surface": "Control",
+      "avawpf": {
+        "family": "Classic",
+        "scheme": "HighContrastBlack",
+        "variant": "Light"
+      }
+    },
+    {
+      "family": "Classic",
+      "scheme": "HighContrastWhite",
+      "dictionary": "/PresentationFramework.Classic;component/themes/classic.xaml",
+      "snapshot": "Classic.HighContrastWhite",
+      "accent": "#0078D7",
+      "surface": "Control",
+      "avawpf": {
+        "family": "Classic",
+        "scheme": "HighContrastWhite",
+        "variant": "Light"
+      }
+    },
+    {
+      "family": "Classic",
+      "scheme": "Lilac",
+      "dictionary": "/PresentationFramework.Classic;component/themes/classic.xaml",
+      "snapshot": "Classic.Lilac",
+      "accent": "#0078D7",
+      "surface": "Control",
+      "avawpf": {
+        "family": "Classic",
+        "scheme": "Lilac",
+        "variant": "Light"
+      }
+    },
+    {
+      "family": "Classic",
+      "scheme": "Maple",
+      "dictionary": "/PresentationFramework.Classic;component/themes/classic.xaml",
+      "snapshot": "Classic.Maple",
+      "accent": "#0078D7",
+      "surface": "Control",
+      "avawpf": {
+        "family": "Classic",
+        "scheme": "Maple",
+        "variant": "Light"
+      }
+    },
+    {
+      "family": "Classic",
+      "scheme": "Marine",
+      "dictionary": "/PresentationFramework.Classic;component/themes/classic.xaml",
+      "snapshot": "Classic.Marine",
+      "accent": "#0078D7",
+      "surface": "Control",
+      "avawpf": {
+        "family": "Classic",
+        "scheme": "Marine",
+        "variant": "Light"
+      }
+    },
+    {
+      "family": "Classic",
+      "scheme": "Plum",
+      "dictionary": "/PresentationFramework.Classic;component/themes/classic.xaml",
+      "snapshot": "Classic.Plum",
+      "accent": "#0078D7",
+      "surface": "Control",
+      "avawpf": {
+        "family": "Classic",
+        "scheme": "Plum",
+        "variant": "Light"
+      }
+    },
+    {
+      "family": "Classic",
+      "scheme": "Pumpkin",
+      "dictionary": "/PresentationFramework.Classic;component/themes/classic.xaml",
+      "snapshot": "Classic.Pumpkin",
+      "accent": "#0078D7",
+      "surface": "Control",
+      "avawpf": {
+        "family": "Classic",
+        "scheme": "Pumpkin",
+        "variant": "Light"
+      }
+    },
+    {
+      "family": "Classic",
+      "scheme": "RainyDay",
+      "dictionary": "/PresentationFramework.Classic;component/themes/classic.xaml",
+      "snapshot": "Classic.RainyDay",
+      "accent": "#0078D7",
+      "surface": "Control",
+      "avawpf": {
+        "family": "Classic",
+        "scheme": "RainyDay",
+        "variant": "Light"
+      }
+    },
+    {
+      "family": "Classic",
+      "scheme": "RedWhiteBlue",
+      "dictionary": "/PresentationFramework.Classic;component/themes/classic.xaml",
+      "snapshot": "Classic.RedWhiteBlue",
+      "accent": "#0078D7",
+      "surface": "Control",
+      "avawpf": {
+        "family": "Classic",
+        "scheme": "RedWhiteBlue",
+        "variant": "Light"
+      }
+    },
+    {
+      "family": "Classic",
+      "scheme": "Rose",
+      "dictionary": "/PresentationFramework.Classic;component/themes/classic.xaml",
+      "snapshot": "Classic.Rose",
+      "accent": "#0078D7",
+      "surface": "Control",
+      "avawpf": {
+        "family": "Classic",
+        "scheme": "Rose",
+        "variant": "Light"
+      }
+    },
+    {
+      "family": "Classic",
+      "scheme": "Slate",
+      "dictionary": "/PresentationFramework.Classic;component/themes/classic.xaml",
+      "snapshot": "Classic.Slate",
+      "accent": "#0078D7",
+      "surface": "Control",
+      "avawpf": {
+        "family": "Classic",
+        "scheme": "Slate",
+        "variant": "Light"
+      }
+    },
+    {
+      "family": "Classic",
+      "scheme": "Spruce",
+      "dictionary": "/PresentationFramework.Classic;component/themes/classic.xaml",
+      "snapshot": "Classic.Spruce",
+      "accent": "#0078D7",
+      "surface": "Control",
+      "avawpf": {
+        "family": "Classic",
+        "scheme": "Spruce",
+        "variant": "Light"
+      }
+    },
+    {
+      "family": "Classic",
+      "scheme": "Storm",
+      "dictionary": "/PresentationFramework.Classic;component/themes/classic.xaml",
+      "snapshot": "Classic.Storm",
+      "accent": "#0078D7",
+      "surface": "Control",
+      "avawpf": {
+        "family": "Classic",
+        "scheme": "Storm",
+        "variant": "Light"
+      }
+    },
+    {
+      "family": "Classic",
+      "scheme": "Teal",
+      "dictionary": "/PresentationFramework.Classic;component/themes/classic.xaml",
+      "snapshot": "Classic.Teal",
+      "accent": "#0078D7",
+      "surface": "Control",
+      "avawpf": {
+        "family": "Classic",
+        "scheme": "Teal",
+        "variant": "Light"
+      }
+    },
+    {
+      "family": "Classic",
+      "scheme": "Wheat",
+      "dictionary": "/PresentationFramework.Classic;component/themes/classic.xaml",
+      "snapshot": "Classic.Wheat",
+      "accent": "#0078D7",
+      "surface": "Control",
+      "avawpf": {
+        "family": "Classic",
+        "scheme": "Wheat",
+        "variant": "Light"
+      }
+    },
+    {
+      "family": "Classic",
+      "scheme": "WindowsClassic",
+      "dictionary": "/PresentationFramework.Classic;component/themes/classic.xaml",
+      "snapshot": "Classic.WindowsClassic",
+      "accent": "#0078D7",
+      "surface": "Control",
+      "avawpf": {
+        "family": "Classic",
+        "scheme": "WindowsClassic",
+        "variant": "Light"
+      }
+    },
+    {
+      "family": "Classic",
+      "scheme": "WindowsStandard",
+      "dictionary": "/PresentationFramework.Classic;component/themes/classic.xaml",
+      "snapshot": "Classic.WindowsStandard",
+      "accent": "#0078D7",
+      "surface": "Control",
+      "avawpf": {
+        "family": "Classic",
+        "scheme": "WindowsStandard",
+        "variant": "Light"
+      }
+    },
+    {
+      "family": "Classic",
+      "scheme": "Dark",
+      "dictionary": "/PresentationFramework.Classic;component/themes/classic.xaml",
+      "snapshot": "Classic.Dark",
+      "accent": "#0078D7",
+      "surface": "Control",
+      "avawpf": {
+        "family": "Classic",
+        "scheme": "WindowsStandard",
+        "variant": "Dark"
+      }
+    },
+    {
+      "family": "Fluent",
+      "scheme": "Default",
+      "dictionary": "/PresentationFramework.Fluent;component/Themes/Fluent.Light.xaml",
+      "snapshot": "Fluent",
+      "accent": "#0078D4",
+      "surface": "resource:ApplicationBackgroundBrush",
+      "avawpf": {
+        "family": "Fluent",
+        "scheme": "Default",
+        "variant": "Light"
+      }
+    },
+    {
+      "family": "Fluent",
+      "scheme": "Dark",
+      "dictionary": "/PresentationFramework.Fluent;component/Themes/Fluent.Dark.xaml",
+      "snapshot": "Fluent.Dark",
+      "accent": "#0078D4",
+      "surface": "resource:ApplicationBackgroundBrush",
+      "avawpf": {
+        "family": "Fluent",
+        "scheme": "Default",
+        "variant": "Dark"
+      }
+    },
+    {
+      "family": "Fluent",
+      "scheme": "HighContrast",
+      "dictionary": "/PresentationFramework.Fluent;component/Themes/Fluent.HC.xaml",
+      "snapshot": "Classic.HighContrastBlack",
+      "accent": "#0078D4",
+      "surface": "resource:ApplicationBackgroundBrush",
+      "avawpf": {
+        "family": "Fluent",
+        "scheme": "Default",
+        "variant": "HighContrast"
+      }
+    }
+  ]
+}

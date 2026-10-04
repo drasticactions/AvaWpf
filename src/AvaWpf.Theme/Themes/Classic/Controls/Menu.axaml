@@ -1,0 +1,32 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- WPF Menu.xaml [[Classic]]; items use the TopLevelHeader/TopLevelItem roles. Menu.toolbar is WPF ToolBar.xaml
+       MenuStyleKey: no background, flat tool bar menu items. -->
+  <ControlTheme x:Key="{x:Type Menu}" TargetType="Menu">
+    <Setter Property="Background" Value="{DynamicResource SystemColors.MenuBrush}" />
+    <Setter Property="FontFamily" Value="{DynamicResource SystemFonts.MenuFontFamily}" />
+    <Setter Property="FontSize" Value="{DynamicResource SystemFonts.MenuFontSize}" />
+    <Setter Property="FontStyle" Value="{DynamicResource SystemFonts.MenuFontStyle}" />
+    <Setter Property="FontWeight" Value="{DynamicResource SystemFonts.MenuFontWeight}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.MenuTextBrush}" />
+    <Setter Property="ItemContainerTheme" Value="{StaticResource Classic.MenuItem.TopLevelHeader}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Padding="{TemplateBinding Padding}"
+                UseLayoutRounding="True">
+          <ItemsPresenter Name="PART_ItemsPresenter"
+                          ItemsPanel="{TemplateBinding ItemsPanel}"
+                          VerticalAlignment="Stretch"
+                          KeyboardNavigation.TabNavigation="Continue" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^.toolbar">
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="ItemContainerTheme" Value="{StaticResource Classic.MenuItem.ToolBarTopLevelHeader}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

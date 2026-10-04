@@ -1,0 +1,116 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- NavigationPage after the Windows XP Explorer navigation band. Pages slide in horizontally in 300 ms and modal
+       pages vertically in 250 ms (Avalonia's navigation motion). -->
+  <ControlTheme x:Key="{x:Type NavigationPage}" TargetType="NavigationPage">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="PageTransition">
+      <Setter.Value>
+        <PageSlide Duration="0:0:0.3" Orientation="Horizontal" FillMode="Forward" />
+      </Setter.Value>
+    </Setter>
+    <Setter Property="ModalTransition">
+      <Setter.Value>
+        <PageSlide Duration="0:0:0.25" Orientation="Vertical" FillMode="Forward" />
+      </Setter.Value>
+    </Setter>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel ClipToBounds="True">
+          <DockPanel>
+            <Border Name="PART_NavBarSpacer"
+                    Height="{TemplateBinding EffectiveBarHeight}"
+                    IsVisible="False"
+                    DockPanel.Dock="Top" />
+            <ContentPresenter Name="PART_BottomCommandBar"
+                              DockPanel.Dock="Bottom"
+                              HorizontalContentAlignment="Stretch"
+                              Background="{TemplateBinding Background}"
+                              Content="{Binding CurrentPage?.(NavigationPage.BottomCommandBar), RelativeSource={RelativeSource TemplatedParent}, FallbackValue={x:Null}}" />
+            <Grid Name="PART_ContentHost"
+                  Background="{TemplateBinding Background}"
+                  ClipToBounds="True">
+              <ContentPresenter Name="PART_PageBackPresenter"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch" />
+              <ContentPresenter Name="PART_PagePresenter"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch" />
+            </Grid>
+          </DockPanel>
+          <Border Name="PART_NavigationBar"
+                  ZIndex="1"
+                  VerticalAlignment="Top"
+                  ClipToBounds="True"
+                  Background="{DynamicResource $F.ToolBarHorizontalBackground}"
+                  Height="{TemplateBinding EffectiveBarHeight}">
+            <Grid Margin="4,0,0,0" ColumnDefinitions="Auto,*,Auto">
+              <Button Name="PART_BackButton"
+                      Grid.Column="0"
+                      Classes="toolbar"
+                      Margin="0,0,6,0"
+                      Padding="6,2"
+                      IsVisible="{TemplateBinding IsBackButtonEffectivelyVisible}"
+                      ToolTip.Tip="{x:Null}">
+                <Panel Background="Transparent">
+                  <Path Name="PART_BackButtonDefaultIcon"
+                        Data="{DynamicResource $F.ArrowLeftGeometry}"
+                        Fill="{Binding $parent[Button].Foreground}"
+                        Width="8"
+                        Height="14"
+                        Stretch="Uniform"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center" />
+                  <ContentPresenter Name="PART_BackButtonContentPresenter"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center" />
+                </Panel>
+              </Button>
+              <ContentPresenter Name="PART_Header"
+                                Grid.Column="1"
+                                FontWeight="Bold"
+                                FontSize="13"
+                                Content="{Binding CurrentPage?.Header, RelativeSource={RelativeSource TemplatedParent}, FallbackValue={x:Null}}"
+                                ContentTemplate="{Binding CurrentPage?.HeaderTemplate, RelativeSource={RelativeSource TemplatedParent}, FallbackValue={x:Null}}"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Stretch"
+                                Margin="0,0,8,0" />
+              <ContentPresenter Name="PART_TopCommandBar"
+                                Grid.Column="2"
+                                HorizontalAlignment="Right"
+                                VerticalContentAlignment="Stretch"
+                                Content="{Binding CurrentPage?.(NavigationPage.TopCommandBar), RelativeSource={RelativeSource TemplatedParent}, FallbackValue={x:Null}}">
+                <ContentPresenter.Styles>
+                  <Style Selector="CommandBar">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="VerticalAlignment" Value="Stretch" />
+                  </Style>
+                </ContentPresenter.Styles>
+              </ContentPresenter>
+            </Grid>
+          </Border>
+          <Border Name="PART_NavBarShadow"
+                  ZIndex="1"
+                  VerticalAlignment="Top"
+                  IsVisible="False"
+                  Height="1"
+                  Background="{DynamicResource SystemColors.ControlDarkBrush}"
+                  IsHitTestVisible="False" />
+          <ContentPresenter Name="PART_ModalBackPresenter"
+                            ZIndex="99"
+                            IsVisible="False"
+                            Background="{TemplateBinding Background}" />
+          <ContentPresenter Name="PART_ModalPresenter"
+                            ZIndex="100"
+                            IsVisible="False"
+                            Background="{TemplateBinding Background}" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:nav-bar-inset /template/ Border#PART_NavBarSpacer">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

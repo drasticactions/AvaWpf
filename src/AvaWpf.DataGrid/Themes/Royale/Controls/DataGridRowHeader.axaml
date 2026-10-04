@@ -1,0 +1,48 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:chrome="using:AvaWpf.Chrome.Royale">
+  <!--
+    WPF DataGridRowHeader: the family DataGridHeaderBorder chrome, horizontal. A red "!" follows the content while the
+    row is invalid (WPF ValidationErrorTemplate).
+  -->
+  <ControlTheme x:Key="{x:Type DataGridRowHeader}" TargetType="DataGridRowHeader">
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid x:Name="PART_Root">
+          <chrome:DataGridHeaderBorder x:Name="HeaderBorder"
+                                       Orientation="Horizontal"
+                                       Background="{TemplateBinding Background}"
+                                       BorderBrush="{TemplateBinding BorderBrush}"
+                                       BorderThickness="{TemplateBinding BorderThickness}"
+                                       Padding="{TemplateBinding Padding}"
+                                       IsSeparatorVisible="{TemplateBinding AreSeparatorsVisible}"
+                                       SeparatorBrush="{TemplateBinding SeparatorBrush}">
+            <StackPanel Orientation="Horizontal">
+              <ContentPresenter x:Name="PART_ContentPresenter"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                VerticalAlignment="Center"
+                                RecognizesAccessKey="True" />
+              <TextBlock x:Name="ValidationError"
+                         Margin="2,0,0,0"
+                         VerticalAlignment="Center"
+                         Foreground="{DynamicResource Royale.DataGrid.DataGridRow.TextBlock#1.Foreground}"
+                         Text="!"
+                         IsVisible="False" />
+            </StackPanel>
+          </chrome:DataGridHeaderBorder>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ chrome|DataGridHeaderBorder#HeaderBorder">
+      <Setter Property="IsHovered" Value="True" />
+    </Style>
+    <Style Selector="^:selected /template/ chrome|DataGridHeaderBorder#HeaderBorder">
+      <Setter Property="IsSelected" Value="True" />
+    </Style>
+    <Style Selector="^:invalid /template/ TextBlock#ValidationError">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

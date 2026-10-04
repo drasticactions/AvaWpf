@@ -1,0 +1,38 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/GroupBox.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!-- WPF DefaultGroupBoxStyle: no frame, a title above the content. -->
+  <ControlTheme x:Key="{x:Type GroupBox}" TargetType="GroupBox">
+    <Setter Property="BorderThickness" Value="{DynamicResource Fluent.GroupBoxBorderThickness}" />
+    <Setter Property="Background" Value="{DynamicResource Fluent.GroupBoxBackground}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Fluent.GroupBoxBorderBrush}" />
+    <Setter Property="Padding" Value="{DynamicResource Fluent.GroupBoxPadding}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Background="{TemplateBinding Background}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                UseLayoutRounding="True">
+          <Grid RowDefinitions="Auto,*">
+            <ContentPresenter Name="PART_HeaderPresenter"
+                              Grid.Row="0"
+                              FontSize="{DynamicResource Fluent.GroupBoxHeaderFontSize}"
+                              Margin="{DynamicResource Fluent.GroupBoxHeaderMargin}"
+                              Content="{TemplateBinding Header}"
+                              ContentTemplate="{TemplateBinding HeaderTemplate}"
+                              Foreground="{DynamicResource Fluent.GroupBoxHeaderForeground}"
+                              RecognizesAccessKey="True" />
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Grid.Row="1"
+                              Margin="{TemplateBinding Padding}"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

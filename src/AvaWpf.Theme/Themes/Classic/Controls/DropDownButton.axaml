@@ -1,0 +1,61 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- DropDownButton: the Classic push button (WPF BaseButtonStyle) with the ComboBox down arrow after the content;
+       RaisedPressed while the flyout is open. -->
+  <ControlTheme x:Key="{x:Type DropDownButton}" TargetType="DropDownButton">
+    <Setter Property="FocusAdorner" Value="{DynamicResource Classic.FocusVisual}" />
+    <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="BorderBrush" Value="{x:Static wpf:ClassicBorderDecorator.ClassicBorderBrush}" />
+    <Setter Property="BorderThickness" Value="3" />
+    <Setter Property="Padding" Value="4,0,4,1" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <wpf:ClassicBorderDecorator Name="ContentContainer"
+                                    BorderStyle="Raised"
+                                    Background="{TemplateBinding Background}"
+                                    BorderThickness="3"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    UseLayoutRounding="True">
+          <Grid ColumnDefinitions="*,Auto">
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Padding="{TemplateBinding Padding}"
+                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                              RecognizesAccessKey="True" />
+            <Path Name="DropDownGlyph"
+                  Grid.Column="1"
+                  Margin="0,0,4,0"
+                  IsHitTestVisible="False"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Center"
+                  Fill="{TemplateBinding Foreground}"
+                  Data="{DynamicResource Classic.DownArrowGeometry}" />
+          </Grid>
+        </wpf:ClassicBorderDecorator>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:focus /template/ wpf|ClassicBorderDecorator#ContentContainer">
+      <Setter Property="BorderStyle" Value="RaisedFocused" />
+    </Style>
+    <Style Selector="^:defaulted /template/ wpf|ClassicBorderDecorator#ContentContainer">
+      <Setter Property="BorderStyle" Value="RaisedFocused" />
+    </Style>
+    <Style Selector="^:pressed /template/ wpf|ClassicBorderDecorator#ContentContainer">
+      <Setter Property="BorderStyle" Value="RaisedPressed" />
+    </Style>
+    <Style Selector="^:flyout-open /template/ wpf|ClassicBorderDecorator#ContentContainer">
+      <Setter Property="BorderStyle" Value="RaisedPressed" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

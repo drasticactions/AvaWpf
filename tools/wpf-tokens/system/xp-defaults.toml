@@ -1,0 +1,61 @@
+# Windows XP SP3 defaults under a visual style: the roles luna.msstyles / royale.msstyles leave alone, and the
+# XP metrics. Base of the Luna and Royale snapshots; not used on its own.
+name = "XP.Defaults"
+
+[colors]
+ActiveBorder = { value = "#D4D0C8", source = "XP SP3 default (HKCU\\Control Panel\\Colors ActiveBorder 212 208 200)" }
+AppWorkspace = { value = "#808080", source = "XP SP3 default (AppWorkspace 128 128 128)" }
+ControlText = { value = "#000000", source = "XP SP3 default (ButtonText 0 0 0)" }
+HotTrack = { value = "#000080", source = "XP SP3 default (HotTrackingColor 0 0 128)" }
+InactiveBorder = { value = "#D4D0C8", source = "XP SP3 default (InactiveBorder 212 208 200)" }
+Info = { value = "#FFFFE1", source = "XP SP3 default (InfoWindow 255 255 225)" }
+InfoText = { value = "#000000", source = "XP SP3 default (InfoText 0 0 0)" }
+MenuText = { value = "#000000", source = "XP SP3 default (MenuText 0 0 0)" }
+ScrollBar = { value = "#D4D0C8", source = "XP SP3 default (Scrollbar 212 208 200)" }
+WindowFrame = { value = "#000000", source = "XP SP3 default (WindowFrame 0 0 0)" }
+WindowText = { value = "#000000", source = "XP SP3 default (WindowText 0 0 0)" }
+
+[parameters]
+VerticalScrollBarWidth = 17
+HorizontalScrollBarHeight = 17
+VerticalScrollBarButtonHeight = 17
+HorizontalScrollBarButtonWidth = 17
+CaptionHeight = 25
+CaptionWidth = 25
+SmallCaptionHeight = 17
+SmallCaptionWidth = 17
+MenuHeight = 19
+BorderWidth = 1
+HighContrast = false
+ClientAreaAnimation = true
+DropShadow = true
+KeyboardCues = false
+MenuPopupAnimation = "Fade"
+ComboBoxPopupAnimation = "Slide"
+ToolTipAnimation = "Fade"
+
+[fonts]
+MessageFontFamily = "Tahoma"
+MessageFontSize = 11
+MessageFontWeight = 400
+MessageFontStyle = "Normal"
+MenuFontFamily = "Tahoma"
+MenuFontSize = 11
+MenuFontWeight = 400
+MenuFontStyle = "Normal"
+StatusFontFamily = "Tahoma"
+StatusFontSize = 11
+StatusFontWeight = 400
+StatusFontStyle = "Normal"
+CaptionFontFamily = "Trebuchet MS"
+CaptionFontSize = 13
+CaptionFontWeight = 700
+CaptionFontStyle = "Normal"
+SmallCaptionFontFamily = "Tahoma"
+SmallCaptionFontSize = 11
+SmallCaptionFontWeight = 700
+SmallCaptionFontStyle = "Normal"
+IconFontFamily = "Tahoma"
+IconFontSize = 11
+IconFontWeight = 400
+IconFontStyle = "Normal"

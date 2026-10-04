@@ -1,0 +1,23 @@
+# Windows 11 SystemColors, Light. WPF Fluent reads only a few SystemColors (GrayText, ControlText, Highlight,
+# HighlightText, Window, WindowText, ActiveCaption/InactiveCaption roles) plus the accent ramp, which AvaWpf's
+# AccentColors provider serves. The rest inherit the Windows 10 table, which Windows 11 keeps.
+name = "Fluent"
+base = "aero2"
+
+[colors]
+Highlight = { value = "#0078D4", source = "Win11 default accent 0 120 212" }
+MenuHighlight = { value = "#0078D4", source = "Win11 default accent 0 120 212" }
+
+[parameters]
+CaptionHeight = 32
+SmallCaptionHeight = 32
+
+[fonts]
+MessageFontFamily = "Segoe UI Variable"
+MessageFontSize = 14
+MenuFontFamily = "Segoe UI Variable"
+MenuFontSize = 14
+StatusFontFamily = "Segoe UI Variable"
+StatusFontSize = 12
+CaptionFontFamily = "Segoe UI Variable"
+CaptionFontSize = 12

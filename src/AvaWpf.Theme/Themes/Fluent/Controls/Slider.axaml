@@ -1,0 +1,233 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/Slider.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!--
+    WPF Slider (HorizontalSliderTemplate / VerticalSliderTemplate). PART_SelectedRange is the Track's decrease button.
+    WPF's IsMouseOver trigger sets the thumb's Foreground, which the template never reads; the dot here takes
+    SliderThumbBackgroundPointerOver. IsSelectionRangeEnabled has no Avalonia counterpart.
+  -->
+  <ControlTheme x:Key="Fluent.SliderButton" TargetType="RepeatButton">
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="Transparent">
+          <Border Name="SelectedRange"
+                  CornerRadius="2"
+                  Background="{TemplateBinding Background}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^.horizontal /template/ Border#SelectedRange">
+      <Setter Property="Height" Value="4" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="^.vertical /template/ Border#SelectedRange">
+      <Setter Property="Width" Value="4" />
+      <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+  </ControlTheme>
+
+  <!-- The outer circle overhangs the thumb by 2 px on each side, so the thumb, the slider and its validation host
+       don't clip. -->
+  <ControlTheme x:Key="Fluent.SliderThumb" TargetType="Thumb">
+    <Setter Property="ClipToBounds" Value="False" />
+    <Setter Property="Height" Value="20" />
+    <Setter Property="Width" Value="20" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Fluent.ControlElevationBorderBrush}" />
+    <Setter Property="Background" Value="{DynamicResource Fluent.SliderThumbBackground}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{DynamicResource Fluent.SliderOuterThumbBackground}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Margin="-2"
+                CornerRadius="16">
+          <Ellipse Name="SliderInnerThumb"
+                   RenderTransformOrigin="50%,50%"
+                   RenderTransform="scale(0.86)"
+                   Width="12"
+                   Height="12"
+                   Fill="{TemplateBinding Background}">
+            <Ellipse.Transitions>
+              <Transitions>
+                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.1" />
+              </Transitions>
+            </Ellipse.Transitions>
+          </Ellipse>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Ellipse#SliderInnerThumb">
+      <Setter Property="RenderTransform" Value="scale(1.167)" />
+    </Style>
+    <Style Selector="^:pressed /template/ Ellipse#SliderInnerThumb">
+      <Setter Property="RenderTransform" Value="scale(0.71)" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type Slider}" TargetType="Slider">
+    <Setter Property="ClipToBounds" Value="False" />
+    <Setter Property="FocusAdorner" Value="{DynamicResource Fluent.FocusVisual}" />
+    <Style Selector="^:horizontal">
+      <Setter Property="MinWidth" Value="104" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <DataValidationErrors ClipToBounds="False">
+            <Grid Name="SliderContainer" Background="Transparent" RowDefinitions="14,Auto,14">
+              <Grid.Styles>
+                <Style Selector="TickBar">
+                  <Setter Property="ReservedSpace" Value="{Binding #PART_Track.Thumb.Bounds}" />
+                </Style>
+              </Grid.Styles>
+              <TickBar Name="TopTick"
+                       Grid.Row="0"
+                       Height="6"
+                       VerticalAlignment="Top"
+                       Fill="{DynamicResource Fluent.SliderTickBarFill}"
+                       Placement="Top"
+                       Ticks="{TemplateBinding Ticks}"
+                       TickFrequency="{TemplateBinding TickFrequency}"
+                       Orientation="{TemplateBinding Orientation}"
+                       Minimum="{TemplateBinding Minimum}"
+                       Maximum="{TemplateBinding Maximum}"
+                       IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
+                       IsVisible="False" />
+              <Border Name="TrackBackground"
+                      Grid.Row="1"
+                      Height="4"
+                      Margin="0"
+                      Background="{DynamicResource Fluent.SliderTrackFill}"
+                      BorderThickness="0"
+                      CornerRadius="2" />
+              <TickBar Name="BottomTick"
+                       Grid.Row="2"
+                       Height="6"
+                       VerticalAlignment="Bottom"
+                       Fill="{DynamicResource Fluent.SliderTickBarFill}"
+                       Placement="Bottom"
+                       Ticks="{TemplateBinding Ticks}"
+                       TickFrequency="{TemplateBinding TickFrequency}"
+                       Orientation="{TemplateBinding Orientation}"
+                       Minimum="{TemplateBinding Minimum}"
+                       Maximum="{TemplateBinding Maximum}"
+                       IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
+                       IsVisible="False" />
+              <Track Name="PART_Track"
+                     Grid.Row="0" Grid.RowSpan="3"
+                     Minimum="{TemplateBinding Minimum}"
+                     Maximum="{TemplateBinding Maximum}"
+                     Value="{TemplateBinding Value, Mode=TwoWay}"
+                     IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
+                     Orientation="Horizontal">
+                <Track.DecreaseButton>
+                  <RepeatButton Name="PART_DecreaseButton"
+                                Classes="horizontal"
+                                Background="{DynamicResource Fluent.SliderThumbBackground}"
+                                Theme="{StaticResource Fluent.SliderButton}" />
+                </Track.DecreaseButton>
+                <Track.IncreaseButton>
+                  <RepeatButton Name="PART_IncreaseButton"
+                                Classes="horizontal"
+                                Theme="{StaticResource Fluent.SliderButton}" />
+                </Track.IncreaseButton>
+                <Thumb Name="Thumb" Theme="{StaticResource Fluent.SliderThumb}" DataContext="{TemplateBinding Value}" />
+              </Track>
+            </Grid>
+          </DataValidationErrors>
+        </ControlTemplate>
+      </Setter>
+    </Style>
+
+    <Style Selector="^:vertical">
+      <Setter Property="MinHeight" Value="104" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <DataValidationErrors ClipToBounds="False">
+            <Grid Name="SliderContainer" Background="Transparent" ColumnDefinitions="14,Auto,14">
+              <Grid.Styles>
+                <Style Selector="TickBar">
+                  <Setter Property="ReservedSpace" Value="{Binding #PART_Track.Thumb.Bounds}" />
+                </Style>
+              </Grid.Styles>
+              <TickBar Name="TopTick"
+                       Grid.Column="0"
+                       Width="6"
+                       HorizontalAlignment="Left"
+                       Fill="{DynamicResource Fluent.SliderTickBarFill}"
+                       Placement="Left"
+                       Ticks="{TemplateBinding Ticks}"
+                       TickFrequency="{TemplateBinding TickFrequency}"
+                       Orientation="{TemplateBinding Orientation}"
+                       Minimum="{TemplateBinding Minimum}"
+                       Maximum="{TemplateBinding Maximum}"
+                       IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
+                       IsVisible="False" />
+              <Border Name="TrackBackground"
+                      Grid.Column="1"
+                      Width="4"
+                      Margin="0"
+                      Background="{DynamicResource Fluent.SliderTrackFill}"
+                      BorderThickness="0"
+                      CornerRadius="2" />
+              <TickBar Name="BottomTick"
+                       Grid.Column="2"
+                       Width="6"
+                       HorizontalAlignment="Right"
+                       Fill="{DynamicResource Fluent.SliderTickBarFill}"
+                       Placement="Right"
+                       Ticks="{TemplateBinding Ticks}"
+                       TickFrequency="{TemplateBinding TickFrequency}"
+                       Orientation="{TemplateBinding Orientation}"
+                       Minimum="{TemplateBinding Minimum}"
+                       Maximum="{TemplateBinding Maximum}"
+                       IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
+                       IsVisible="False" />
+              <Track Name="PART_Track"
+                     Grid.Column="0" Grid.ColumnSpan="3"
+                     Minimum="{TemplateBinding Minimum}"
+                     Maximum="{TemplateBinding Maximum}"
+                     Value="{TemplateBinding Value, Mode=TwoWay}"
+                     IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
+                     Orientation="Vertical">
+                <Track.DecreaseButton>
+                  <RepeatButton Name="PART_DecreaseButton"
+                                Classes="vertical"
+                                Background="{DynamicResource Fluent.SliderThumbBackground}"
+                                Theme="{StaticResource Fluent.SliderButton}" />
+                </Track.DecreaseButton>
+                <Track.IncreaseButton>
+                  <RepeatButton Name="PART_IncreaseButton"
+                                Classes="vertical"
+                                Theme="{StaticResource Fluent.SliderButton}" />
+                </Track.IncreaseButton>
+                <Thumb Name="Thumb" Theme="{StaticResource Fluent.SliderThumb}" DataContext="{TemplateBinding Value}" />
+              </Track>
+            </Grid>
+          </DataValidationErrors>
+        </ControlTemplate>
+      </Setter>
+    </Style>
+
+    <!-- TickPlacement -->
+    <Style Selector="^[TickPlacement=TopLeft] /template/ TickBar#TopTick">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^[TickPlacement=BottomRight] /template/ TickBar#BottomTick">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^[TickPlacement=Outside] /template/ TickBar">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:pointerover">
+      <Style Selector="^ /template/ Border#TrackBackground">
+        <Setter Property="Background" Value="{DynamicResource Fluent.SliderTrackFillPointerOver}" />
+      </Style>
+      <Style Selector="^ /template/ Thumb#Thumb">
+        <Setter Property="Background" Value="{DynamicResource Fluent.SliderThumbBackgroundPointerOver}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

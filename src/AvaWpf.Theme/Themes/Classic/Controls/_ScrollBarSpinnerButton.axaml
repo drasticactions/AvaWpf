@@ -1,0 +1,15 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- ButtonSpinner up-down button: the scroll bar line button with the smaller 5 x 3 arrows. The file name sorts after
+       _ScrollBarParts.axaml so the BasedOn StaticResource resolves. -->
+  <StreamGeometry x:Key="Classic.SpinnerArrowUpGeometry">M 0 3 L 5 3 L 2.5 0 Z</StreamGeometry>
+  <StreamGeometry x:Key="Classic.SpinnerArrowDownGeometry">M 0 0 L 2.5 3 L 5 0 Z</StreamGeometry>
+  <ControlTheme x:Key="Classic.ButtonSpinnerButton" TargetType="RepeatButton" BasedOn="{StaticResource Classic.ScrollBarLineButton}">
+    <Style Selector="^.up /template/ Path#Arrow">
+      <Setter Property="Data" Value="{DynamicResource Classic.SpinnerArrowUpGeometry}" />
+    </Style>
+    <Style Selector="^.down /template/ Path#Arrow">
+      <Setter Property="Data" Value="{DynamicResource Classic.SpinnerArrowDownGeometry}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

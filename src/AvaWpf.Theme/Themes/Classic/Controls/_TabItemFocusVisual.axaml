@@ -1,0 +1,11 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- WPF TabItem.xaml TabItemFocusVisual, [[Classic]]: the dotted ControlText rectangle inset 4,4,4,2 in a tab. -->
+  <FocusAdornerTemplate x:Key="Classic.TabItemFocusVisual">
+    <Rectangle Margin="4,4,4,2"
+               StrokeThickness="1"
+               Stroke="{DynamicResource SystemColors.ControlTextBrush}"
+               StrokeDashArray="1,2"
+               UseLayoutRounding="True" />
+  </FocusAdornerTemplate>
+</ResourceDictionary>

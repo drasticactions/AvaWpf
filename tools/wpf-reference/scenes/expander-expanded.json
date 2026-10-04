@@ -1,0 +1,7 @@
+{
+  "control": "Expander",
+  "width": 180,
+  "height": 80,
+  "properties": { "Header": "Expander", "Content": "Content", "IsExpanded": true, "Width": 150 },
+  "states": ["normal", "disabled"]
+}

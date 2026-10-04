@@ -1,0 +1,11 @@
+name = "Luna.Metallic.Dark"
+base = "xp-dark"
+
+[colors]
+Highlight = "#5A5C68"
+MenuHighlight = "#5A5C68"
+ActiveCaption = "#4E4E54"
+GradientActiveCaption = "#606068"
+InactiveCaption = "#3A3A40"
+GradientInactiveCaption = "#45454C"
+HotTrack = "#8FAEE0"

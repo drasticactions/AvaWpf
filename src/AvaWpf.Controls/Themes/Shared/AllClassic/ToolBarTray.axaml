@@ -1,0 +1,11 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!--
+    WPF ToolBarTray style of the shared classic section. High contrast renders as Classic, so the WPF high-contrast
+    trigger is not ported.
+  -->
+  <ControlTheme x:Key="{x:Type wpf:ToolBarTray}" TargetType="wpf:ToolBarTray">
+    <Setter Property="Background" Value="{DynamicResource $F.ToolBarTrayBackground}" />
+  </ControlTheme>
+</ResourceDictionary>

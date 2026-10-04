@@ -1,0 +1,51 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF RibbonTwoLineText.xaml, [[Generic]]. The 13 px line height is shorter than the font's line, so clipping is off (WPF draws descenders past the line box). LineShift moves each line to WPF's baseline. -->
+  <ControlTheme x:Key="{x:Type wpf:RibbonTwoLineText}" TargetType="wpf:RibbonTwoLineText">
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="HorizontalAlignment" Value="Center" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="ClipToBounds" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid RowDefinitions="*,Auto" Background="{TemplateBinding Background}">
+          <TextBlock Name="PART_TextBlock1"
+                     ClipToBounds="False"
+                     RenderTransform="{TemplateBinding LineShift}"
+                     Text="{TemplateBinding FirstLine}"
+                     LineHeight="{TemplateBinding LineHeight}"
+                     Padding="{TemplateBinding Padding}"
+                     TextAlignment="{TemplateBinding TextAlignment}"
+                     TextWrapping="NoWrap"
+                     IsVisible="False" />
+          <DockPanel Grid.Row="1" HorizontalAlignment="{TemplateBinding HorizontalAlignment}">
+            <Panel Name="pathGrid" MinHeight="{TemplateBinding LineHeight}" Margin="2,0,0,0" DockPanel.Dock="Right" IsVisible="False">
+              <Path Name="PART_Path"
+                    VerticalAlignment="Center"
+                    Data="{TemplateBinding PathData}"
+                    Fill="{TemplateBinding PathFill}"
+                    Stroke="{TemplateBinding PathStroke}" />
+            </Panel>
+            <TextBlock Name="PART_TextBlock2"
+                       ClipToBounds="False"
+                       RenderTransform="{TemplateBinding LineShift}"
+                       Margin="0,0,2,0"
+                       Text="{TemplateBinding SecondLine}"
+                       LineHeight="{TemplateBinding LineHeight}"
+                       Padding="{TemplateBinding Padding}"
+                       TextAlignment="{TemplateBinding TextAlignment}"
+                       TextTrimming="{TemplateBinding TextTrimming}"
+                       TextWrapping="NoWrap" />
+          </DockPanel>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:twolines /template/ TextBlock#PART_TextBlock1">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:haspath /template/ Panel#pathGrid">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

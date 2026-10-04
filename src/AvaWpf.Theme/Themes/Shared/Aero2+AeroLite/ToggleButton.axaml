@@ -1,0 +1,64 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- WPF Button.xaml: BaseButtonStyle. Class toolbar: WPF ToolBar.ToggleButtonStyleKey. -->
+  <ControlTheme x:Key="{x:Type ToggleButton}" TargetType="ToggleButton" BasedOn="{StaticResource $F.BaseButtonStyle}">
+    <Style Selector="^.toolbar">
+      <Setter Property="FocusAdorner" Value="{DynamicResource $F.FocusVisualStyle}" />
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+      <Setter Property="Padding" Value="2" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderBrush" Value="Transparent" />
+      <Setter Property="HorizontalAlignment" Value="Center" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+      <Setter Property="HorizontalContentAlignment" Value="Center" />
+      <Setter Property="VerticalContentAlignment" Value="Center" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Border Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  Padding="{TemplateBinding Padding}"
+                  UseLayoutRounding="True">
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+          </Border>
+        </ControlTemplate>
+      </Setter>
+      <Style Selector="^:checked">
+        <Setter Property="BorderBrush" Value="{DynamicResource $F.ToolBarButtonHoverBorder}" />
+        <Setter Property="Background" Value="{DynamicResource $F.ToolBarButtonChecked}" />
+      </Style>
+      <Style Selector="^:pointerover">
+        <Setter Property="BorderBrush" Value="{DynamicResource $F.ToolBarButtonHoverBorder}" />
+        <Setter Property="Background" Value="{DynamicResource $F.ToolBarButtonHover}" />
+      </Style>
+      <Style Selector="^:focus">
+        <Setter Property="BorderBrush" Value="{DynamicResource $F.ToolBarButtonHoverBorder}" />
+        <Setter Property="Background" Value="{DynamicResource $F.ToolBarButtonHover}" />
+      </Style>
+      <Style Selector="^:pointerover:checked">
+        <Setter Property="BorderBrush" Value="{DynamicResource $F.ToolBarButtonPressedBorder}" />
+        <Setter Property="Background" Value="{DynamicResource $F.ToolBarButtonPressed}" />
+      </Style>
+      <Style Selector="^:focus:checked">
+        <Setter Property="BorderBrush" Value="{DynamicResource $F.ToolBarButtonPressedBorder}" />
+        <Setter Property="Background" Value="{DynamicResource $F.ToolBarButtonPressed}" />
+      </Style>
+      <Style Selector="^:pressed">
+        <Setter Property="BorderBrush" Value="{DynamicResource $F.ToolBarButtonPressedBorder}" />
+        <Setter Property="Background" Value="{DynamicResource $F.ToolBarButtonPressed}" />
+      </Style>
+      <Style Selector="^:disabled">
+        <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+      </Style>
+      <!-- BaseButtonStyle colors a disabled presenter directly; the toolbar look uses the inherited foreground. -->
+      <Style Selector="^:disabled /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

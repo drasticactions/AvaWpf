@@ -1,0 +1,290 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    WPF Slider.xaml, Aero2.NormalColor. The WPF thumb templates are thumb themes that differ only in the grip path.
+    PART_SelectionRange stays hidden (Avalonia's Slider has no selection range), and the track row does not bind
+    MinHeight/MinWidth.
+  -->
+  <ControlTheme x:Key="Aero2.SliderThumbHorizontalDefault" TargetType="Thumb">
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" UseLayoutRounding="True">
+          <Path Name="grip"
+                StrokeThickness="1"
+                VerticalAlignment="Center"
+                UseLayoutRounding="True"
+                Stretch="Fill"
+                Fill="{DynamicResource Aero2.SliderThumb.Static.Background}"
+                Stroke="{DynamicResource Aero2.SliderThumb.Static.Border}" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^ /template/ Path#grip">
+      <Setter Property="Data" Value="{DynamicResource Aero2.Slider.SliderThumbHorizontalDefault.grip.Data}" />
+    </Style>
+    <Style Selector="^:pointerover /template/ Path#grip">
+      <Setter Property="Fill" Value="{DynamicResource Aero2.SliderThumb.MouseOver.Background}" />
+      <Setter Property="Stroke" Value="{DynamicResource Aero2.SliderThumb.MouseOver.Border}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Path#grip">
+      <Setter Property="Fill" Value="{DynamicResource Aero2.SliderThumb.Pressed.Background}" />
+      <Setter Property="Stroke" Value="{DynamicResource Aero2.SliderThumb.Pressed.Border}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#grip">
+      <Setter Property="Fill" Value="{DynamicResource Aero2.SliderThumb.Disabled.Background}" />
+      <Setter Property="Stroke" Value="{DynamicResource Aero2.SliderThumb.Disabled.Border}" />
+    </Style>
+  </ControlTheme>
+  <ControlTheme x:Key="Aero2.SliderThumbHorizontalTop" TargetType="Thumb" BasedOn="{StaticResource Aero2.SliderThumbHorizontalDefault}">
+    <Style Selector="^ /template/ Path#grip">
+      <Setter Property="Data" Value="{DynamicResource Aero2.Slider.SliderThumbHorizontalTop.grip.Data}" />
+    </Style>
+  </ControlTheme>
+  <ControlTheme x:Key="Aero2.SliderThumbHorizontalBottom" TargetType="Thumb" BasedOn="{StaticResource Aero2.SliderThumbHorizontalDefault}">
+    <Style Selector="^ /template/ Path#grip">
+      <Setter Property="Data" Value="{DynamicResource Aero2.Slider.SliderThumbHorizontalBottom.grip.Data}" />
+    </Style>
+  </ControlTheme>
+  <ControlTheme x:Key="Aero2.SliderThumbVerticalDefault" TargetType="Thumb" BasedOn="{StaticResource Aero2.SliderThumbHorizontalDefault}">
+    <Style Selector="^ /template/ Path#grip">
+      <Setter Property="Data" Value="{DynamicResource Aero2.Slider.SliderThumbVerticalDefault.grip.Data}" />
+    </Style>
+  </ControlTheme>
+  <ControlTheme x:Key="Aero2.SliderThumbVerticalLeft" TargetType="Thumb" BasedOn="{StaticResource Aero2.SliderThumbHorizontalDefault}">
+    <Style Selector="^ /template/ Path#grip">
+      <Setter Property="Data" Value="{DynamicResource Aero2.Slider.SliderThumbVerticalLeft.grip.Data}" />
+    </Style>
+  </ControlTheme>
+  <ControlTheme x:Key="Aero2.SliderThumbVerticalRight" TargetType="Thumb" BasedOn="{StaticResource Aero2.SliderThumbHorizontalDefault}">
+    <Style Selector="^ /template/ Path#grip">
+      <Setter Property="Data" Value="{DynamicResource Aero2.Slider.SliderThumbVerticalRight.grip.Data}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type Slider}" TargetType="Slider">
+    <Setter Property="FocusAdorner" Value="{DynamicResource Aero2.FocusVisualStyle}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource Aero2.SliderThumb.Static.Foreground}" />
+    <!-- SliderHorizontal -->
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="border"
+                UseLayoutRounding="True"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}">
+          <Grid RowDefinitions="Auto,Auto,Auto">
+            <TickBar Name="TopTick"
+                     Height="4"
+                     Placement="Top"
+                     Grid.Row="0"
+                     IsVisible="False"
+                     Margin="0,0,0,2"
+                     Fill="{TemplateBinding Foreground}"
+                     Orientation="Horizontal"
+                     Minimum="{TemplateBinding Minimum}"
+                     Maximum="{TemplateBinding Maximum}"
+                     TickFrequency="{TemplateBinding TickFrequency}"
+                     Ticks="{TemplateBinding Ticks}"
+                     IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
+                     ReservedSpace="{Binding #PART_Track.Thumb.Bounds}" />
+            <TickBar Name="BottomTick"
+                     Height="4"
+                     Placement="Bottom"
+                     Grid.Row="2"
+                     IsVisible="False"
+                     Margin="0,2,0,0"
+                     Fill="{TemplateBinding Foreground}"
+                     Orientation="Horizontal"
+                     Minimum="{TemplateBinding Minimum}"
+                     Maximum="{TemplateBinding Maximum}"
+                     TickFrequency="{TemplateBinding TickFrequency}"
+                     Ticks="{TemplateBinding Ticks}"
+                     IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
+                     ReservedSpace="{Binding #PART_Track.Thumb.Bounds}" />
+            <Border Name="TrackBackground"
+                    BorderThickness="1"
+                    Height="4"
+                    Margin="5,0"
+                    Grid.Row="1"
+                    VerticalAlignment="Center"
+                    BorderBrush="{DynamicResource Aero2.SliderThumb.Track.Border}"
+                    Background="{DynamicResource Aero2.SliderThumb.Track.Background}">
+              <Canvas Margin="-6,-1">
+                <Rectangle Name="PART_SelectionRange"
+                           Height="4"
+                           IsVisible="False"
+                           Fill="{DynamicResource SystemColors.HighlightBrush}" />
+              </Canvas>
+            </Border>
+            <Track Name="PART_Track"
+                   Grid.Row="1"
+                   Orientation="Horizontal"
+                   Minimum="{TemplateBinding Minimum}"
+                   Maximum="{TemplateBinding Maximum}"
+                   Value="{TemplateBinding Value, Mode=TwoWay}"
+                   IsDirectionReversed="{TemplateBinding IsDirectionReversed}">
+              <Track.DecreaseButton>
+                <RepeatButton Name="PART_DecreaseButton" Theme="{StaticResource Aero2.ScrollBarPageButton}" />
+              </Track.DecreaseButton>
+              <Track.IncreaseButton>
+                <RepeatButton Name="PART_IncreaseButton" Theme="{StaticResource Aero2.ScrollBarPageButton}" />
+              </Track.IncreaseButton>
+              <Thumb Name="Thumb"
+                     Theme="{StaticResource Aero2.SliderThumbHorizontalDefault}"
+                     VerticalAlignment="Center"
+                     Width="11"
+                     Height="18" />
+            </Track>
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:horizontal[TickPlacement=TopLeft]">
+      <Style Selector="^ /template/ TickBar#TopTick">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="^ /template/ Thumb#Thumb">
+        <Setter Property="Theme" Value="{StaticResource Aero2.SliderThumbHorizontalTop}" />
+      </Style>
+      <Style Selector="^ /template/ Border#TrackBackground">
+        <Setter Property="Margin" Value="5,2,5,0" />
+      </Style>
+    </Style>
+    <Style Selector="^:horizontal[TickPlacement=BottomRight]">
+      <Style Selector="^ /template/ TickBar#BottomTick">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="^ /template/ Thumb#Thumb">
+        <Setter Property="Theme" Value="{StaticResource Aero2.SliderThumbHorizontalBottom}" />
+      </Style>
+      <Style Selector="^ /template/ Border#TrackBackground">
+        <Setter Property="Margin" Value="5,0,5,2" />
+      </Style>
+    </Style>
+    <Style Selector="^:horizontal[TickPlacement=Outside]">
+      <Style Selector="^ /template/ TickBar#TopTick">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="^ /template/ TickBar#BottomTick">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+    </Style>
+    <Style Selector="^:horizontal:focus /template/ Thumb#Thumb">
+      <Setter Property="Foreground" Value="{DynamicResource Aero2.Slider.SliderHorizontal.Thumb.Foreground.IsKeyboardFocused_true}" />
+    </Style>
+
+    <!-- SliderVertical -->
+    <Style Selector="^:vertical">
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Border Name="border"
+                  UseLayoutRounding="True"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}">
+            <Grid ColumnDefinitions="Auto,Auto,Auto">
+              <TickBar Name="TopTick"
+                       Grid.Column="0"
+                       Placement="Left"
+                       IsVisible="False"
+                       Width="4"
+                       Margin="0,0,2,0"
+                       Fill="{TemplateBinding Foreground}"
+                       Orientation="Vertical"
+                       Minimum="{TemplateBinding Minimum}"
+                       Maximum="{TemplateBinding Maximum}"
+                       TickFrequency="{TemplateBinding TickFrequency}"
+                       Ticks="{TemplateBinding Ticks}"
+                       IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
+                       ReservedSpace="{Binding #PART_Track.Thumb.Bounds}" />
+              <TickBar Name="BottomTick"
+                       Grid.Column="2"
+                       Placement="Right"
+                       IsVisible="False"
+                       Width="4"
+                       Margin="2,0,0,0"
+                       Fill="{TemplateBinding Foreground}"
+                       Orientation="Vertical"
+                       Minimum="{TemplateBinding Minimum}"
+                       Maximum="{TemplateBinding Maximum}"
+                       TickFrequency="{TemplateBinding TickFrequency}"
+                       Ticks="{TemplateBinding Ticks}"
+                       IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
+                       ReservedSpace="{Binding #PART_Track.Thumb.Bounds}" />
+              <Border Name="TrackBackground"
+                      BorderThickness="1"
+                      Grid.Column="1"
+                      HorizontalAlignment="Center"
+                      Margin="0,5"
+                      Width="4"
+                      BorderBrush="{DynamicResource Aero2.SliderThumb.Track.Border}"
+                      Background="{DynamicResource Aero2.SliderThumb.Track.Background}">
+                <Canvas Margin="-1,-6">
+                  <Rectangle Name="PART_SelectionRange"
+                             IsVisible="False"
+                             Width="4"
+                             Fill="{DynamicResource SystemColors.HighlightBrush}" />
+                </Canvas>
+              </Border>
+              <Track Name="PART_Track"
+                     Grid.Column="1"
+                     Orientation="Vertical"
+                     Minimum="{TemplateBinding Minimum}"
+                     Maximum="{TemplateBinding Maximum}"
+                     Value="{TemplateBinding Value, Mode=TwoWay}"
+                     IsDirectionReversed="{TemplateBinding IsDirectionReversed}">
+                <Track.DecreaseButton>
+                  <RepeatButton Name="PART_DecreaseButton" Theme="{StaticResource Aero2.ScrollBarPageButton}" />
+                </Track.DecreaseButton>
+                <Track.IncreaseButton>
+                  <RepeatButton Name="PART_IncreaseButton" Theme="{StaticResource Aero2.ScrollBarPageButton}" />
+                </Track.IncreaseButton>
+                <Thumb Name="Thumb"
+                       Theme="{StaticResource Aero2.SliderThumbVerticalDefault}"
+                       VerticalAlignment="Top"
+                       Width="18"
+                       Height="11" />
+              </Track>
+            </Grid>
+          </Border>
+        </ControlTemplate>
+      </Setter>
+    </Style>
+    <Style Selector="^:vertical[TickPlacement=TopLeft]">
+      <Style Selector="^ /template/ TickBar#TopTick">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="^ /template/ Thumb#Thumb">
+        <Setter Property="Theme" Value="{StaticResource Aero2.SliderThumbVerticalLeft}" />
+      </Style>
+      <Style Selector="^ /template/ Border#TrackBackground">
+        <Setter Property="Margin" Value="2,5,0,5" />
+      </Style>
+    </Style>
+    <Style Selector="^:vertical[TickPlacement=BottomRight]">
+      <Style Selector="^ /template/ TickBar#BottomTick">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="^ /template/ Thumb#Thumb">
+        <Setter Property="Theme" Value="{StaticResource Aero2.SliderThumbVerticalRight}" />
+      </Style>
+      <Style Selector="^ /template/ Border#TrackBackground">
+        <Setter Property="Margin" Value="0,5,2,5" />
+      </Style>
+    </Style>
+    <Style Selector="^:vertical[TickPlacement=Outside]">
+      <Style Selector="^ /template/ TickBar#TopTick">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="^ /template/ TickBar#BottomTick">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+    </Style>
+    <Style Selector="^:vertical:focus /template/ Thumb#Thumb">
+      <Setter Property="Foreground" Value="{DynamicResource Aero2.Slider.SliderVertical.Thumb.Foreground.IsKeyboardFocused_true}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

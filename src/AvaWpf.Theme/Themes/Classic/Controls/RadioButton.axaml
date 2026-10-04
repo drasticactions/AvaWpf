@@ -1,0 +1,116 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF RadioButton.xaml [[Classic]]. The circle sits in a wpf:BulletDecorator, centered on the first text line as in
+       WPF. -->
+  <ControlTheme x:Key="{x:Type RadioButton}" TargetType="RadioButton">
+    <Setter Property="FocusAdorner" Value="{DynamicResource Classic.CheckRadioFocusVisual}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.WindowTextBrush}" />
+    <Setter Property="Background" Value="{DynamicResource SystemColors.WindowBrush}" />
+    <Setter Property="Padding" Value="2,0,0,0" />
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+    <Setter Property="VerticalContentAlignment" Value="Top" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <wpf:BulletDecorator Background="Transparent" UseLayoutRounding="True">
+          <wpf:BulletDecorator.Bullet>
+            <wpf:ClassicBorderDecorator Name="Border"
+                                        Width="13"
+                                        Height="13"
+                                        BorderStyle="RadioButton"
+                                        Background="{TemplateBinding Background}"
+                                        BorderThickness="4,4,5,5">
+              <Ellipse Name="Dot"
+                       Opacity="0"
+                       Fill="{TemplateBinding Foreground}"
+                       Width="4"
+                       Height="4" />
+            </wpf:ClassicBorderDecorator>
+          </wpf:BulletDecorator.Bullet>
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Margin="{TemplateBinding Padding}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            RecognizesAccessKey="True" />
+        </wpf:BulletDecorator>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^[Content={x:Null}]">
+      <Setter Property="FocusAdorner" Value="{DynamicResource Classic.EmptyCheckRadioFocusVisual}" />
+    </Style>
+    <Style Selector="^:checked /template/ Ellipse#Dot">
+      <Setter Property="Opacity" Value="1" />
+    </Style>
+    <Style Selector="^:pressed /template/ wpf|ClassicBorderDecorator#Border">
+      <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+      <Style Selector="^ /template/ wpf|ClassicBorderDecorator#Border">
+        <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+      </Style>
+      <Style Selector="^ /template/ Ellipse#Dot">
+        <Setter Property="Fill" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+      </Style>
+    </Style>
+    <!-- .toolbar: WPF ToolBar.RadioButtonStyleKey, the flat toolbar toggle. -->
+    <Style Selector="^.toolbar">
+      <Setter Property="FocusAdorner" Value="{DynamicResource Classic.FocusVisualStyle}" />
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+      <Setter Property="Padding" Value="2" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderBrush" Value="Transparent" />
+      <Setter Property="HorizontalAlignment" Value="Center" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+      <Setter Property="HorizontalContentAlignment" Value="Center" />
+      <Setter Property="VerticalContentAlignment" Value="Center" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Border Name="Bd"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  Padding="{TemplateBinding Padding}"
+                  UseLayoutRounding="True">
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              RecognizesAccessKey="True" />
+          </Border>
+        </ControlTemplate>
+      </Setter>
+      <Style Selector="^:checked /template/ Border#Bd">
+        <Setter Property="BorderBrush" Value="{DynamicResource Classic.ToolBarButtonHoverBorder}" />
+        <Setter Property="Background" Value="{DynamicResource Classic.ToolBarButtonChecked}" />
+      </Style>
+      <Style Selector="^:pointerover /template/ Border#Bd">
+        <Setter Property="BorderBrush" Value="{DynamicResource Classic.ToolBarButtonHoverBorder}" />
+        <Setter Property="Background" Value="{DynamicResource Classic.ToolBarButtonHover}" />
+      </Style>
+      <Style Selector="^:focus /template/ Border#Bd">
+        <Setter Property="BorderBrush" Value="{DynamicResource Classic.ToolBarButtonHoverBorder}" />
+        <Setter Property="Background" Value="{DynamicResource Classic.ToolBarButtonHover}" />
+      </Style>
+      <Style Selector="^:pointerover:checked /template/ Border#Bd">
+        <Setter Property="BorderBrush" Value="{DynamicResource Classic.ToolBarButtonPressedBorder}" />
+        <Setter Property="Background" Value="{DynamicResource Classic.ToolBarButtonPressed}" />
+      </Style>
+      <Style Selector="^:focus:checked /template/ Border#Bd">
+        <Setter Property="BorderBrush" Value="{DynamicResource Classic.ToolBarButtonPressedBorder}" />
+        <Setter Property="Background" Value="{DynamicResource Classic.ToolBarButtonPressed}" />
+      </Style>
+      <Style Selector="^:pressed /template/ Border#Bd">
+        <Setter Property="BorderBrush" Value="{DynamicResource Classic.ToolBarButtonPressedBorder}" />
+        <Setter Property="Background" Value="{DynamicResource Classic.ToolBarButtonPressed}" />
+      </Style>
+      <Style Selector="^:disabled">
+        <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,387 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- WPF Slider.xaml thumbs [[Luna.*, Royale.NormalColor]], plain or pointed toward the ticks, and
+       SliderRepeatButtonStyle. WPF sets the thumb Foreground to Orange on focus; here the Slider sets the thumb's Tag
+       to Focused. -->
+  <ControlTheme x:Key="$F.SliderRepeatButton" TargetType="RepeatButton">
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="Transparent" />
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="$F.SliderThumb.Horizontal" TargetType="Thumb">
+    <Setter Property="Width" Value="11" />
+    <Setter Property="Height" Value="22" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Canvas UseLayoutRounding="True" RenderTransformOrigin="0%,0%">
+          <Canvas.RenderTransform>
+            <TransformGroup>
+              <TranslateTransform X="5.5" Y="11" />
+            </TransformGroup>
+          </Canvas.RenderTransform>
+          <Path Name="Background"
+                Fill="{DynamicResource $F.SliderThumbBackground}"
+                Data="{DynamicResource $F.SliderThumbOuterBorderGeometry}" />
+          <Path Name="TopAccent"
+                Fill="{DynamicResource $F.HorizontalSliderThumbTopAccent}"
+                StrokeThickness="1"
+                Data="{DynamicResource $F.SliderThumbTopAccentGeometry}" />
+          <Path Name="BottomAccent"
+                Fill="{DynamicResource $F.HorizontalSliderThumbBottomAccent}"
+                StrokeThickness="1"
+                Data="{DynamicResource $F.SliderThumbBottomAccentGeometry}" />
+          <Path Name="OuterBorder"
+                Fill="{DynamicResource $F.HorizontalSliderThumbShadeGradient}"
+                Stroke="{DynamicResource $F.HorizontalSliderThumbBorder}"
+                StrokeThickness="1"
+                Data="{DynamicResource $F.SliderThumbOuterBorderGeometry}" />
+        </Canvas>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Path#TopAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.HorizontalSliderThumbTopAccentHover}" />
+    </Style>
+    <Style Selector="^:pointerover /template/ Path#BottomAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.HorizontalSliderThumbBottomAccentHover}" />
+    </Style>
+    <Style Selector="^[Tag=Focused] /template/ Path#TopAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.HorizontalSliderThumbTopAccentHover}" />
+    </Style>
+    <Style Selector="^[Tag=Focused] /template/ Path#BottomAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.HorizontalSliderThumbBottomAccentHover}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Path#TopAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.HorizontalSliderThumbTopAccentPressed}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Path#BottomAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.HorizontalSliderThumbBottomAccentPressed}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#Background">
+      <Setter Property="Fill" Value="{DynamicResource $F.Slider.HorizontalSliderThumbStyle.Background.Fill.IsEnabled_false}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#OuterBorder">
+      <Setter Property="Stroke" Value="{DynamicResource $F.Slider.HorizontalSliderThumbStyle.OuterBorder.Stroke.IsEnabled_false}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#TopAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.Slider.HorizontalSliderThumbStyle.TopAccent.Fill.IsEnabled_false}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#BottomAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.Slider.HorizontalSliderThumbStyle.BottomAccent.Fill.IsEnabled_false}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="$F.SliderThumb.HorizontalUp" TargetType="Thumb">
+    <Setter Property="Width" Value="11" />
+    <Setter Property="Height" Value="22" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Canvas UseLayoutRounding="True" RenderTransformOrigin="0%,0%">
+          <Canvas.RenderTransform>
+            <TransformGroup>
+              <RotateTransform Angle="180" /><TranslateTransform X="5.5" Y="11" />
+            </TransformGroup>
+          </Canvas.RenderTransform>
+          <Path Name="Background"
+                Fill="{DynamicResource $F.SliderThumbBackgroundInverted}"
+                Data="{DynamicResource $F.SliderPointedThumbOuterBorderGeometry}" />
+          <Path Name="TopAccent"
+                Fill="{DynamicResource $F.HorizontalSliderThumbTopAccentInverted}"
+                StrokeThickness="1"
+                Data="{DynamicResource $F.SliderPointedThumbTopAccentGeometry}" />
+          <Path Name="BottomAccent"
+                Fill="{DynamicResource $F.HorizontalSliderThumbBottomAccentInverted}"
+                StrokeThickness="1"
+                Data="{DynamicResource $F.SliderPointedThumbBottomAccentGeometry}" />
+          <Path Name="OuterBorder"
+                Fill="{DynamicResource $F.HorizontalSliderThumbShadeGradientInverted}"
+                Stroke="{DynamicResource $F.HorizontalSliderThumbBorderInverted}"
+                StrokeThickness="1"
+                Data="{DynamicResource $F.SliderPointedThumbOuterBorderGeometry}" />
+        </Canvas>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Path#TopAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.HorizontalSliderThumbTopAccentHoverInverted}" />
+    </Style>
+    <Style Selector="^:pointerover /template/ Path#BottomAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.HorizontalSliderThumbBottomAccentHoverInverted}" />
+    </Style>
+    <Style Selector="^[Tag=Focused] /template/ Path#TopAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.HorizontalSliderThumbTopAccentHoverInverted}" />
+    </Style>
+    <Style Selector="^[Tag=Focused] /template/ Path#BottomAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.HorizontalSliderThumbBottomAccentHoverInverted}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Path#TopAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.HorizontalSliderThumbTopAccentPressedInverted}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Path#BottomAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.HorizontalSliderThumbTopAccentPressedInverted}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#Background">
+      <Setter Property="Fill" Value="{DynamicResource $F.Slider.HorizontalSliderUpThumbStyle.Background.Fill.IsEnabled_false}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#OuterBorder">
+      <Setter Property="Stroke" Value="{DynamicResource $F.Slider.HorizontalSliderUpThumbStyle.OuterBorder.Stroke.IsEnabled_false}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#TopAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.Slider.HorizontalSliderUpThumbStyle.TopAccent.Fill.IsEnabled_false}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#BottomAccent">
+      <Setter Property="Fill" Value="Transparent" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="$F.SliderThumb.HorizontalDown" TargetType="Thumb">
+    <Setter Property="Width" Value="11" />
+    <Setter Property="Height" Value="22" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Canvas UseLayoutRounding="True" RenderTransformOrigin="0%,0%">
+          <Canvas.RenderTransform>
+            <TransformGroup>
+              <TranslateTransform X="5.5" Y="11" />
+            </TransformGroup>
+          </Canvas.RenderTransform>
+          <Path Name="Background"
+                Fill="{DynamicResource $F.SliderThumbBackground}"
+                Data="{DynamicResource $F.SliderPointedThumbOuterBorderGeometry}" />
+          <Path Name="TopAccent"
+                Fill="{DynamicResource $F.HorizontalSliderThumbTopAccent}"
+                StrokeThickness="1"
+                Data="{DynamicResource $F.SliderPointedThumbTopAccentGeometry}" />
+          <Path Name="BottomAccent"
+                Fill="{DynamicResource $F.HorizontalSliderThumbBottomAccent}"
+                StrokeThickness="1"
+                Data="{DynamicResource $F.SliderPointedThumbBottomAccentGeometry}" />
+          <Path Name="OuterBorder"
+                Fill="{DynamicResource $F.HorizontalSliderThumbShadeGradient}"
+                Stroke="{DynamicResource $F.HorizontalSliderThumbBorder}"
+                StrokeThickness="1"
+                Data="{DynamicResource $F.SliderPointedThumbOuterBorderGeometry}" />
+        </Canvas>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Path#TopAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.HorizontalSliderThumbTopAccentHover}" />
+    </Style>
+    <Style Selector="^:pointerover /template/ Path#BottomAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.HorizontalSliderThumbBottomAccentHover}" />
+    </Style>
+    <Style Selector="^[Tag=Focused] /template/ Path#TopAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.HorizontalSliderThumbTopAccentHover}" />
+    </Style>
+    <Style Selector="^[Tag=Focused] /template/ Path#BottomAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.HorizontalSliderThumbBottomAccentHover}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Path#TopAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.HorizontalSliderThumbTopAccentPressed}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Path#BottomAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.HorizontalSliderThumbBottomAccentPressed}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#Background">
+      <Setter Property="Fill" Value="{DynamicResource $F.Slider.HorizontalSliderDownThumbStyle.Background.Fill.IsEnabled_false}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#OuterBorder">
+      <Setter Property="Stroke" Value="{DynamicResource $F.Slider.HorizontalSliderDownThumbStyle.OuterBorder.Stroke.IsEnabled_false}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#TopAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.Slider.HorizontalSliderDownThumbStyle.TopAccent.Fill.IsEnabled_false}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#BottomAccent">
+      <Setter Property="Fill" Value="Transparent" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="$F.SliderThumb.Vertical" TargetType="Thumb">
+    <Setter Property="Width" Value="22" />
+    <Setter Property="Height" Value="11" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Canvas UseLayoutRounding="True" RenderTransformOrigin="0%,0%">
+          <Canvas.RenderTransform>
+            <TransformGroup>
+              <RotateTransform Angle="-90" /><TranslateTransform X="11" Y="5.5" />
+            </TransformGroup>
+          </Canvas.RenderTransform>
+          <Path Name="Background"
+                Fill="{DynamicResource $F.SliderThumbBackgroundInverted}"
+                Data="{DynamicResource $F.SliderThumbOuterBorderGeometry}" />
+          <Path Name="TopAccent"
+                Fill="{DynamicResource $F.VerticalSliderThumbTopAccent}"
+                StrokeThickness="1"
+                Data="{DynamicResource $F.SliderThumbTopAccentGeometry}" />
+          <Path Name="BottomAccent"
+                Fill="{DynamicResource $F.VerticalSliderThumbBottomAccent}"
+                StrokeThickness="1"
+                Data="{DynamicResource $F.SliderThumbBottomAccentGeometry}" />
+          <Path Name="OuterBorder"
+                Fill="{DynamicResource $F.VerticalSliderThumbShadeGradient}"
+                Stroke="{DynamicResource $F.VerticalSliderThumbBorder}"
+                StrokeThickness="1"
+                Data="{DynamicResource $F.SliderThumbOuterBorderGeometry}" />
+        </Canvas>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Path#TopAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.VerticalSliderThumbTopAccentHover}" />
+    </Style>
+    <Style Selector="^:pointerover /template/ Path#BottomAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.VerticalSliderThumbBottomAccentHover}" />
+    </Style>
+    <Style Selector="^[Tag=Focused] /template/ Path#TopAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.VerticalSliderThumbTopAccentHover}" />
+    </Style>
+    <Style Selector="^[Tag=Focused] /template/ Path#BottomAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.VerticalSliderThumbBottomAccentHover}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Path#TopAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.VerticalSliderThumbTopAccentPressed}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Path#BottomAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.VerticalSliderThumbBottomAccentPressed}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#Background">
+      <Setter Property="Fill" Value="{DynamicResource $F.Slider.VerticalSliderThumbStyle.Background.Fill.IsEnabled_false}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#OuterBorder">
+      <Setter Property="Stroke" Value="{DynamicResource $F.Slider.VerticalSliderThumbStyle.OuterBorder.Stroke.IsEnabled_false}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#TopAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.Slider.VerticalSliderThumbStyle.TopAccent.Fill.IsEnabled_false}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#BottomAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.Slider.VerticalSliderThumbStyle.BottomAccent.Fill.IsEnabled_false}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="$F.SliderThumb.VerticalLeft" TargetType="Thumb">
+    <Setter Property="Width" Value="22" />
+    <Setter Property="Height" Value="11" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Canvas UseLayoutRounding="True" RenderTransformOrigin="0%,0%">
+          <Canvas.RenderTransform>
+            <TransformGroup>
+              <RotateTransform Angle="90" /><TranslateTransform X="11" Y="5.5" />
+            </TransformGroup>
+          </Canvas.RenderTransform>
+          <Path Name="Background"
+                Fill="{DynamicResource $F.SliderThumbBackground}"
+                Data="{DynamicResource $F.SliderPointedThumbOuterBorderGeometry}" />
+          <Path Name="TopAccent"
+                Fill="{DynamicResource $F.VerticalSliderThumbTopAccentInverted}"
+                StrokeThickness="1"
+                Data="{DynamicResource $F.SliderPointedThumbTopAccentGeometry}" />
+          <Path Name="BottomAccent"
+                Fill="{DynamicResource $F.VerticalSliderThumbBottomAccentInverted}"
+                StrokeThickness="1"
+                Data="{DynamicResource $F.SliderPointedThumbBottomAccentGeometry}" />
+          <Path Name="OuterBorder"
+                Fill="{DynamicResource $F.VerticalSliderThumbShadeGradientInverted}"
+                Stroke="{DynamicResource $F.VerticalSliderThumbBorderInverted}"
+                StrokeThickness="1"
+                Data="{DynamicResource $F.SliderPointedThumbOuterBorderGeometry}" />
+        </Canvas>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Path#TopAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.VerticalSliderThumbTopAccentHoverInverted}" />
+    </Style>
+    <Style Selector="^:pointerover /template/ Path#BottomAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.VerticalSliderThumbBottomAccentHoverInverted}" />
+    </Style>
+    <Style Selector="^[Tag=Focused] /template/ Path#TopAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.VerticalSliderThumbTopAccentHoverInverted}" />
+    </Style>
+    <Style Selector="^[Tag=Focused] /template/ Path#BottomAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.VerticalSliderThumbBottomAccentHoverInverted}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Path#TopAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.VerticalSliderThumbTopAccentPressedInverted}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Path#BottomAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.VerticalSliderThumbTopAccentPressedInverted}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#Background">
+      <Setter Property="Fill" Value="{DynamicResource $F.Slider.VerticalSliderLeftThumbStyle.Background.Fill.IsEnabled_false}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#OuterBorder">
+      <Setter Property="Stroke" Value="{DynamicResource $F.Slider.VerticalSliderLeftThumbStyle.OuterBorder.Stroke.IsEnabled_false}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#TopAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.Slider.VerticalSliderLeftThumbStyle.TopAccent.Fill.IsEnabled_false}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#BottomAccent">
+      <Setter Property="Fill" Value="Transparent" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="$F.SliderThumb.VerticalRight" TargetType="Thumb">
+    <Setter Property="Width" Value="22" />
+    <Setter Property="Height" Value="11" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Canvas UseLayoutRounding="True" RenderTransformOrigin="0%,0%">
+          <Canvas.RenderTransform>
+            <TransformGroup>
+              <RotateTransform Angle="-90" /><TranslateTransform X="11" Y="5.5" />
+            </TransformGroup>
+          </Canvas.RenderTransform>
+          <Path Name="Background"
+                Fill="{DynamicResource $F.SliderThumbBackgroundInverted}"
+                Data="{DynamicResource $F.SliderPointedThumbOuterBorderGeometry}" />
+          <Path Name="TopAccent"
+                Fill="{DynamicResource $F.VerticalSliderThumbTopAccent}"
+                StrokeThickness="1"
+                Data="{DynamicResource $F.SliderPointedThumbTopAccentGeometry}" />
+          <Path Name="BottomAccent"
+                Fill="{DynamicResource $F.VerticalSliderThumbBottomAccent}"
+                StrokeThickness="1"
+                Data="{DynamicResource $F.SliderPointedThumbBottomAccentGeometry}" />
+          <Path Name="OuterBorder"
+                Fill="{DynamicResource $F.VerticalSliderThumbShadeGradient}"
+                Stroke="{DynamicResource $F.VerticalSliderThumbBorder}"
+                StrokeThickness="1"
+                Data="{DynamicResource $F.SliderPointedThumbOuterBorderGeometry}" />
+        </Canvas>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Path#TopAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.VerticalSliderThumbTopAccentHover}" />
+    </Style>
+    <Style Selector="^:pointerover /template/ Path#BottomAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.VerticalSliderThumbBottomAccentHover}" />
+    </Style>
+    <Style Selector="^[Tag=Focused] /template/ Path#TopAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.VerticalSliderThumbTopAccentHover}" />
+    </Style>
+    <Style Selector="^[Tag=Focused] /template/ Path#BottomAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.VerticalSliderThumbBottomAccentHover}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Path#TopAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.VerticalSliderThumbTopAccentPressed}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Path#BottomAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.VerticalSliderThumbBottomAccentPressed}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#Background">
+      <Setter Property="Fill" Value="{DynamicResource $F.Slider.VerticalSliderRightThumbStyle.Background.Fill.IsEnabled_false}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#OuterBorder">
+      <Setter Property="Stroke" Value="{DynamicResource $F.Slider.VerticalSliderRightThumbStyle.OuterBorder.Stroke.IsEnabled_false}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#TopAccent">
+      <Setter Property="Fill" Value="{DynamicResource $F.Slider.VerticalSliderRightThumbStyle.TopAccent.Fill.IsEnabled_false}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#BottomAccent">
+      <Setter Property="Fill" Value="Transparent" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,45 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf"
+                    xmlns:aero="using:AvaWpf.Chrome.Aero">
+  <!-- DropDownButton: the Aero button glass with the ComboBox down arrow; stays pressed while the flyout is open. -->
+  <ControlTheme x:Key="{x:Type DropDownButton}" TargetType="DropDownButton" BasedOn="{StaticResource Aero.BaseButtonStyle}">
+    <Setter Property="Padding" Value="4,1,1,1" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <aero:ButtonChrome Name="Chrome"
+                           Background="{TemplateBinding Background}"
+                           BorderBrush="{TemplateBinding BorderBrush}"
+                           RenderDefaulted="{TemplateBinding wpf:ButtonState.IsDefaulted}"
+                           RenderMouseOver="{TemplateBinding IsPointerOver}"
+                           RenderPressed="{TemplateBinding IsPressed}"
+                           UseLayoutRounding="True">
+          <Grid ColumnDefinitions="*,Auto">
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Margin="{TemplateBinding Padding}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              RecognizesAccessKey="True" />
+            <Grid Grid.Column="1" Width="{DynamicResource SystemParameters.VerticalScrollBarWidth}">
+              <Path Name="Arrow"
+                    Margin="0,1,0,0"
+                    Fill="{DynamicResource Aero.ComboBox.ComboBoxReadonlyToggleButton.Arrow.Fill}"
+                    Data="{DynamicResource Aero.DownArrowGeometry}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center" />
+            </Grid>
+          </Grid>
+        </aero:ButtonChrome>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:flyout-open /template/ aero|ButtonChrome#Chrome">
+      <Setter Property="RenderPressed" Value="True" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#Arrow">
+      <Setter Property="Fill" Value="{DynamicResource Aero.ComboBox.ComboBoxReadonlyToggleButton.Arrow.Fill.IsEnabled_false}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

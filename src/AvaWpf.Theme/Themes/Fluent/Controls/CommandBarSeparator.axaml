@@ -1,0 +1,27 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/ToolBar.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!-- CommandBarSeparator as WPF ToolBar.SeparatorStyleKey. -->
+  <ControlTheme x:Key="{x:Type CommandBarSeparator}" TargetType="CommandBarSeparator">
+    <Setter Property="Background" Value="{DynamicResource Fluent.SeparatorBorderBrush}" />
+    <Setter Property="Width" Value="1" />
+    <Setter Property="MinHeight" Value="24" />
+    <Setter Property="Margin" Value="8,4" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}"
+                Width="{TemplateBinding Width}"
+                Height="{TemplateBinding Height}"
+                MinHeight="{TemplateBinding MinHeight}" />
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^[IsInOverflow=True]">
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+      <Setter Property="Width" Value="NaN" />
+      <Setter Property="Height" Value="1" />
+      <Setter Property="MinHeight" Value="0" />
+      <Setter Property="Margin" Value="0,2" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

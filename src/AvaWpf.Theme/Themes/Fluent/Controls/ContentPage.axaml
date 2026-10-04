@@ -1,0 +1,31 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- ContentPage: the content on the window client surface with the page's top and bottom command bars. -->
+  <ControlTheme x:Key="{x:Type ContentPage}" TargetType="ContentPage">
+    <Setter Property="Background" Value="{DynamicResource Fluent.WindowBackground}" />
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.WindowForeground}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DockPanel>
+          <ContentPresenter Name="PART_TopCommandBar"
+                            DockPanel.Dock="Top"
+                            HorizontalContentAlignment="Stretch"
+                            IsVisible="False" />
+          <ContentPresenter Name="PART_BottomCommandBar"
+                            DockPanel.Dock="Bottom"
+                            HorizontalContentAlignment="Stretch"
+                            IsVisible="False" />
+          <ContentPresenter Name="PART_ContentPresenter"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            CornerRadius="{TemplateBinding CornerRadius}" />
+        </DockPanel>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

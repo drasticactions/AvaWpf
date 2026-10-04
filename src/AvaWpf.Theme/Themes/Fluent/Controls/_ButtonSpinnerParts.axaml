@@ -1,0 +1,61 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!--
+    Fluent.SpinnerButton: the inline spin button of ButtonSpinner and NumericUpDown in the Windows 11 NumberBox manner.
+    Classes up and down pick the glyph.
+  -->
+  <ControlTheme x:Key="Fluent.SpinnerButton" TargetType="RepeatButton">
+    <Setter Property="Background" Value="{DynamicResource Fluent.TextControlButtonBackground}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Fluent.TextControlButtonBorderBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.TextControlButtonForeground}" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="CornerRadius" Value="{DynamicResource Fluent.ControlCornerRadius}" />
+    <Setter Property="Width" Value="32" />
+    <Setter Property="Height" Value="24" />
+    <Setter Property="Margin" Value="0,0,4,0" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="ContentBorder"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}">
+          <Border.Transitions>
+            <Transitions>
+              <BrushTransition Property="Background" Duration="{x:Static wpf:FluentTimings.Faster}" Easing="0,0,0,1" />
+            </Transitions>
+          </Border.Transitions>
+          <TextBlock Name="Glyph"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     FontFamily="{DynamicResource Fluent.SymbolThemeFontFamily}"
+                     FontSize="12"
+                     Foreground="{TemplateBinding Foreground}"
+                     Text="{TemplateBinding Content}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^.up">
+      <Setter Property="Content" Value="{x:Static wpf:FluentGlyph.ChevronUp}" />
+    </Style>
+    <Style Selector="^.down">
+      <Setter Property="Content" Value="{x:Static wpf:FluentGlyph.ChevronDown}" />
+    </Style>
+    <Style Selector="^:pointerover">
+      <Setter Property="Background" Value="{DynamicResource Fluent.TextControlButtonBackgroundPointerOver}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Fluent.TextControlButtonBorderBrushPointerOver}" />
+      <Setter Property="Foreground" Value="{DynamicResource Fluent.TextControlButtonForegroundPointerOver}" />
+    </Style>
+    <Style Selector="^:pressed">
+      <Setter Property="Background" Value="{DynamicResource Fluent.TextControlButtonBackgroundPressed}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Fluent.TextControlButtonBorderBrushPressed}" />
+      <Setter Property="Foreground" Value="{DynamicResource Fluent.TextControlButtonForegroundPressed}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource Fluent.TextFillColorDisabledBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

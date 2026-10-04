@@ -1,0 +1,10 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    Adorner layer. Its default focus adorner is WPF Fluent's FocusVisualStyleKey ring, for controls that set no
+    FocusAdorner.
+  -->
+  <ControlTheme x:Key="{x:Type AdornerLayer}" TargetType="AdornerLayer">
+    <Setter Property="DefaultFocusAdorner" Value="{DynamicResource Fluent.FocusVisualStyle}" />
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,50 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    WPF ScrollViewer.xaml, [[all classic themes]], with ScrollViewer's built-in template (CreateDefaultControlTemplate).
+  -->
+  <ControlTheme x:Key="{x:Type ScrollViewer}" TargetType="ScrollViewer">
+    <Setter Property="AllowAutoHide" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Name="Grid" Background="{TemplateBinding Background}" ColumnDefinitions="*,Auto" RowDefinitions="*,Auto">
+          <Rectangle Name="Corner"
+                     Grid.Column="1"
+                     Grid.Row="1"
+                     Fill="{DynamicResource SystemColors.ControlBrush}" />
+          <ScrollContentPresenter Name="PART_ContentPresenter"
+                                  Grid.Column="0"
+                                  Grid.Row="0"
+                                  Padding="{TemplateBinding Padding}"
+                                  HorizontalSnapPointsType="{TemplateBinding HorizontalSnapPointsType}"
+                                  VerticalSnapPointsType="{TemplateBinding VerticalSnapPointsType}"
+                                  HorizontalSnapPointsAlignment="{TemplateBinding HorizontalSnapPointsAlignment}"
+                                  VerticalSnapPointsAlignment="{TemplateBinding VerticalSnapPointsAlignment}"
+                                  ScrollViewer.IsScrollInertiaEnabled="{TemplateBinding IsScrollInertiaEnabled}">
+            <ScrollContentPresenter.GestureRecognizers>
+              <ScrollGestureRecognizer CanHorizontallyScroll="{Binding CanHorizontallyScroll, ElementName=PART_ContentPresenter}"
+                                       CanVerticallyScroll="{Binding CanVerticallyScroll, ElementName=PART_ContentPresenter}"
+                                       IsScrollInertiaEnabled="{Binding (ScrollViewer.IsScrollInertiaEnabled), ElementName=PART_ContentPresenter}"
+                                       Offset="{Binding Offset, ElementName=PART_ContentPresenter}"
+                                       Viewport="{Binding Viewport, ElementName=PART_ContentPresenter}"
+                                       Extent="{Binding Extent, ElementName=PART_ContentPresenter}" />
+            </ScrollContentPresenter.GestureRecognizers>
+          </ScrollContentPresenter>
+          <ScrollBar Name="PART_VerticalScrollBar"
+                     Grid.Column="1"
+                     Grid.Row="0"
+                     Orientation="Vertical"
+                     Cursor="Arrow" />
+          <ScrollBar Name="PART_HorizontalScrollBar"
+                     Grid.Column="0"
+                     Grid.Row="1"
+                     Orientation="Horizontal"
+                     Cursor="Arrow" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

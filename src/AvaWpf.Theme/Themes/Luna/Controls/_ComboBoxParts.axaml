@@ -1,0 +1,35 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:luna="using:AvaWpf.Chrome.Luna">
+  <!-- WPF ComboBox.xaml ComboBoxTransparentButtonStyle [[Luna.*]]: a toggle spanning the combo box, transparent except
+       for the ScrollChrome drop-down button. -->
+  <ControlTheme x:Key="Luna.ComboBoxToggleButton" TargetType="ToggleButton">
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="ClickMode" Value="Press" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Background="{TemplateBinding Background}" UseLayoutRounding="True">
+          <!-- SharedSizeGroup ComboBoxButton: the ComboBox reserves this column for the button (WPF). -->
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" SharedSizeGroup="ComboBoxButton" />
+          </Grid.ColumnDefinitions>
+          <luna:ScrollChrome Name="Chrome"
+                             Grid.Column="1"
+                             ThemeColor="{DynamicResource Luna.ThemeColor}"
+                             HasOuterBorder="False"
+                             RenderMouseOver="{TemplateBinding IsPointerOver}"
+                             RenderPressed="{TemplateBinding IsChecked}"
+                             Width="{DynamicResource SystemParameters.VerticalScrollBarWidth}"
+                             Padding="1,0,0,0" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^ /template/ luna|ScrollChrome#Chrome">
+      <Setter Property="luna:ScrollChrome.ScrollGlyph" Value="DownArrow" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

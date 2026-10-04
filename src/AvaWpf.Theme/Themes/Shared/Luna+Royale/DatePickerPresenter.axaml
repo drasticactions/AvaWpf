@@ -1,0 +1,103 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- DatePickerPresenter in the family ComboBox drop-down frame, with looping columns and OK and Cancel buttons. -->
+  <ControlTheme x:Key="{x:Type DatePickerPresenter}" TargetType="DatePickerPresenter">
+    <Setter Property="Width" Value="220" />
+    <Setter Property="MinWidth" Value="220" />
+    <Setter Property="MaxHeight" Value="398" />
+    <Setter Property="Background" Value="{DynamicResource SystemColors.WindowBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource SystemColors.WindowFrameBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <wpf:SystemDropShadowChrome Margin="0,0,5,5" UseLayoutRounding="True">
+        <Border Name="Background" Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Padding="0"
+                MaxHeight="398">
+          <Grid Name="ContentRoot" RowDefinitions="*,Auto">
+            <Grid Name="PART_PickerContainer">
+              <Grid.Styles>
+                <Style Selector="DateTimePickerPanel > ListBoxItem">
+                  <Setter Property="Theme" Value="{StaticResource $F.DateTimePickerItem}" />
+                </Style>
+              </Grid.Styles>
+              <Panel Name="PART_MonthHost">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                              VerticalScrollBarVisibility="Hidden">
+                  <DateTimePickerPanel Name="PART_MonthSelector"
+                                       PanelType="Month"
+                                       ItemHeight="20"
+                                       ShouldLoop="True" />
+                </ScrollViewer>
+                <RepeatButton Name="PART_MonthUpButton" Theme="{StaticResource $F.DateTimePickerUpButton}" Classes="up"/>
+                <RepeatButton Name="PART_MonthDownButton" Theme="{StaticResource $F.DateTimePickerDownButton}" Classes="down"/>
+              </Panel>
+              <Panel Name="PART_DayHost">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                              VerticalScrollBarVisibility="Hidden">
+                  <DateTimePickerPanel Name="PART_DaySelector"
+                                       PanelType="Day"
+                                       ItemHeight="20"
+                                       ShouldLoop="True" />
+                </ScrollViewer>
+                <RepeatButton Name="PART_DayUpButton" Theme="{StaticResource $F.DateTimePickerUpButton}" Classes="up"/>
+                <RepeatButton Name="PART_DayDownButton" Theme="{StaticResource $F.DateTimePickerDownButton}" Classes="down"/>
+              </Panel>
+              <Panel Name="PART_YearHost">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                              VerticalScrollBarVisibility="Hidden">
+                  <DateTimePickerPanel Name="PART_YearSelector"
+                                       PanelType="Year"
+                                       ItemHeight="20"
+                                       ShouldLoop="False" />
+                </ScrollViewer>
+                <RepeatButton Name="PART_YearUpButton" Theme="{StaticResource $F.DateTimePickerUpButton}" Classes="up"/>
+                <RepeatButton Name="PART_YearDownButton" Theme="{StaticResource $F.DateTimePickerDownButton}" Classes="down"/>
+              </Panel>
+              <Rectangle Name="HighlightRect" IsHitTestVisible="False" ZIndex="-1"
+                         Fill="{DynamicResource SystemColors.HighlightBrush}"
+                         Grid.Column="0" Grid.ColumnSpan="5" VerticalAlignment="Center"
+                         Height="20" />
+              <Rectangle Name="PART_FirstSpacer"
+                         Fill="{DynamicResource SystemColors.ControlDarkBrush}"
+                         HorizontalAlignment="Center"
+                         Width="1"
+                         Grid.Column="1" />
+              <Rectangle Name="PART_SecondSpacer"
+                         Fill="{DynamicResource SystemColors.ControlDarkBrush}"
+                         HorizontalAlignment="Center"
+                         Width="1"
+                         Grid.Column="3" />
+            </Grid>
+
+            <Grid Name="AcceptDismissGrid"
+                  Background="{DynamicResource SystemColors.ControlBrush}"
+                  Grid.Row="1"
+                  ColumnDefinitions="*,*">
+              <Rectangle Height="1" 
+                         VerticalAlignment="Top"
+                         Fill="{DynamicResource SystemColors.ControlDarkBrush}"
+                         Grid.ColumnSpan="2"/>
+              <Button Name="PART_AcceptButton"
+                      Grid.Column="0"
+                      Theme="{StaticResource $F.DateTimePickerDialogButton}" Content="OK" />
+              <Button Name="PART_DismissButton"
+                      Grid.Column="1"
+                      Theme="{StaticResource $F.DateTimePickerDialogButton}" Content="Cancel" />
+            </Grid>
+          </Grid>
+        </Border>
+        </wpf:SystemDropShadowChrome>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^ /template/ Panel">
+      <Style Selector="^:pointerover RepeatButton">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

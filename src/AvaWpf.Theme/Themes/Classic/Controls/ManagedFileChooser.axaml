@@ -1,0 +1,149 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf"
+                    xmlns:dialogs="using:Avalonia.Dialogs"
+                    xmlns:internal="using:Avalonia.Dialogs.Internal">
+  <!-- ManagedFileChooser: a simplified Windows 2000 common file dialog. -->
+
+  <ControlTheme x:Key="{x:Type dialogs:ManagedFileChooser}" TargetType="dialogs:ManagedFileChooser">
+    <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="Padding" Value="8" />
+    <Setter Property="Template" x:DataType="internal:ManagedFileChooserViewModel">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Padding="{TemplateBinding Padding}">
+          <Grid ColumnDefinitions="Auto,8,*" RowDefinitions="Auto,6,*,6,Auto">
+            <!-- Look in -->
+            <DockPanel Grid.Row="0" Grid.Column="2">
+              <AccessText DockPanel.Dock="Left" Text="Look _in:" VerticalAlignment="Center" Margin="0,0,6,0" />
+              <Button DockPanel.Dock="Right" Theme="{StaticResource Classic.ManagedFileChooser.ToolButton}" Command="{Binding Refresh}" ToolTip.Tip="Refresh">
+                <Path Data="M 8 2 A 6 6 0 1 0 14 8 L 12 8 A 4 4 0 1 1 8 4 L 8 6 L 11 3 L 8 0 Z" Fill="{Binding $parent[Button].Foreground}" Width="12" Height="12" Stretch="Uniform" />
+              </Button>
+              <Button DockPanel.Dock="Right" Theme="{StaticResource Classic.ManagedFileChooser.ToolButton}" Command="{Binding GoUp}" Margin="4,0,0,0" ToolTip.Tip="Up One Level">
+                <Panel Width="16" Height="16">
+                  <Path Data="M 0.5 3.5 L 5.5 3.5 L 7 2 L 12.5 2 L 13.5 3 L 13.5 4.5 L 15.5 4.5 L 15.5 13.5 L 0.5 13.5 Z"
+                        Fill="{DynamicResource Classic.Invented.FileChooser.Folder}"
+                        Stroke="{DynamicResource Classic.Invented.FileChooser.IconOutline}" StrokeThickness="1" />
+                  <Path Data="M 8 6 L 11 9 L 9 9 L 9 12 L 7 12 L 7 9 L 5 9 Z" Fill="{DynamicResource Classic.Invented.FileChooser.UpArrow}" />
+                </Panel>
+              </Button>
+              <TextBox Name="Location" Text="{Binding Location}">
+                <TextBox.KeyBindings>
+                  <KeyBinding Command="{Binding EnterPressed}" Gesture="Enter" />
+                </TextBox.KeyBindings>
+              </TextBox>
+            </DockPanel>
+
+            <!-- Places bar -->
+            <wpf:ClassicBorderDecorator Grid.Row="0" Grid.RowSpan="5" Grid.Column="0"
+                                        BorderStyle="Sunken" BorderThickness="2"
+                                        Background="{DynamicResource SystemColors.ControlDarkBrush}">
+              <ListBox Name="PART_QuickLinks"
+                       Width="96"
+                       Background="Transparent"
+                       BorderThickness="0"
+                       Focusable="False"
+                       ItemsSource="{Binding QuickLinks}"
+                       SelectedIndex="{Binding QuickLinksSelectedIndex}"
+                       ItemContainerTheme="{StaticResource Classic.ManagedFileChooser.PlacesItem}">
+                <ListBox.Template>
+                  <ControlTemplate>
+                    <ScrollViewer Name="PART_ScrollViewer" HorizontalScrollBarVisibility="Disabled">
+                      <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" Margin="0,4" />
+                    </ScrollViewer>
+                  </ControlTemplate>
+                </ListBox.Template>
+                <ListBox.ItemTemplate>
+                  <DataTemplate x:DataType="internal:ManagedFileChooserItemViewModel">
+                    <StackPanel Spacing="2" Background="Transparent">
+                      <ContentControl HorizontalAlignment="Center" Content="{Binding}" ContentTemplate="{StaticResource Classic.ManagedFileChooser.Icon}" />
+                      <TextBlock Text="{Binding DisplayName}" HorizontalAlignment="Center" TextTrimming="CharacterEllipsis" />
+                    </StackPanel>
+                  </DataTemplate>
+                </ListBox.ItemTemplate>
+              </ListBox>
+            </wpf:ClassicBorderDecorator>
+
+            <!-- File list -->
+            <wpf:ClassicBorderDecorator Grid.Row="2" Grid.Column="2"
+                                        BorderStyle="Sunken" BorderThickness="2"
+                                        Background="{DynamicResource SystemColors.WindowBrush}"
+                                        TextElement.Foreground="{DynamicResource SystemColors.WindowTextBrush}">
+              <DockPanel Grid.IsSharedSizeScope="True">
+                <Grid DockPanel.Dock="Top">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20" SharedSizeGroup="Icon" />
+                    <ColumnDefinition Width="220" SharedSizeGroup="Name" />
+                    <ColumnDefinition Width="140" SharedSizeGroup="Modified" />
+                    <ColumnDefinition Width="110" SharedSizeGroup="Type" />
+                    <ColumnDefinition Width="80" SharedSizeGroup="Size" />
+                  </Grid.ColumnDefinitions>
+                  <ContentControl Grid.Column="0" Grid.ColumnSpan="2" Theme="{StaticResource Classic.ManagedFileChooser.ColumnHeader}" Content="Name" />
+                  <ContentControl Grid.Column="2" Theme="{StaticResource Classic.ManagedFileChooser.ColumnHeader}" Content="Date Modified" />
+                  <ContentControl Grid.Column="3" Theme="{StaticResource Classic.ManagedFileChooser.ColumnHeader}" Content="Type" />
+                  <ContentControl Grid.Column="4" Theme="{StaticResource Classic.ManagedFileChooser.ColumnHeader}" Content="Size" />
+                </Grid>
+                <ListBox Name="PART_Files"
+                         Background="Transparent"
+                         BorderThickness="0"
+                         ItemsSource="{Binding Items}"
+                         SelectionMode="{Binding SelectionMode}"
+                         SelectedItems="{Binding SelectedItems}"
+                         ItemContainerTheme="{StaticResource Classic.ManagedFileChooser.FileItem}"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                  <ListBox.Template>
+                    <ControlTemplate>
+                      <ScrollViewer Name="PART_ScrollViewer" HorizontalScrollBarVisibility="Disabled" AllowAutoHide="False">
+                        <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
+                      </ScrollViewer>
+                    </ControlTemplate>
+                  </ListBox.Template>
+                  <ListBox.ItemTemplate>
+                    <DataTemplate x:DataType="internal:ManagedFileChooserItemViewModel">
+                      <Grid Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                          <ColumnDefinition SharedSizeGroup="Icon" />
+                          <ColumnDefinition SharedSizeGroup="Name" />
+                          <ColumnDefinition SharedSizeGroup="Modified" />
+                          <ColumnDefinition SharedSizeGroup="Type" />
+                          <ColumnDefinition SharedSizeGroup="Size" />
+                        </Grid.ColumnDefinitions>
+                        <ContentControl Content="{Binding}" ContentTemplate="{StaticResource Classic.ManagedFileChooser.Icon}" />
+                        <TextBlock Grid.Column="1" Margin="2,0" Text="{Binding DisplayName}" TextTrimming="CharacterEllipsis" />
+                        <TextBlock Grid.Column="2" Margin="2,0" Text="{Binding Modified}" />
+                        <TextBlock Grid.Column="3" Margin="2,0" Text="{Binding Type}" TextTrimming="CharacterEllipsis" />
+                        <TextBlock Grid.Column="4" Margin="2,0" HorizontalAlignment="Right">
+                          <TextBlock.Text>
+                            <Binding Path="Size">
+                              <Binding.Converter>
+                                <internal:FileSizeStringConverter />
+                              </Binding.Converter>
+                            </Binding>
+                          </TextBlock.Text>
+                        </TextBlock>
+                      </Grid>
+                    </DataTemplate>
+                  </ListBox.ItemTemplate>
+                </ListBox>
+              </DockPanel>
+            </wpf:ClassicBorderDecorator>
+
+            <!-- File name / type / buttons -->
+            <Grid Grid.Row="4" Grid.Column="2" ColumnDefinitions="Auto,6,*,8,Auto" RowDefinitions="Auto,4,Auto,4,Auto">
+              <AccessText Grid.Row="0" Grid.Column="0" Text="File _name:" VerticalAlignment="Center" IsVisible="{Binding !SelectingFolder}" />
+              <TextBox Grid.Row="0" Grid.Column="2" Text="{Binding FileName}" IsVisible="{Binding !SelectingFolder}" />
+              <Button Grid.Row="0" Grid.Column="4" MinWidth="75" Content="_Open" IsDefault="True" Command="{Binding Ok}" />
+              <AccessText Grid.Row="2" Grid.Column="0" Text="Files of _type:" VerticalAlignment="Center" IsVisible="{Binding ShowFilters}" />
+              <ComboBox Grid.Row="2" Grid.Column="2" HorizontalAlignment="Stretch" IsVisible="{Binding ShowFilters}" ItemsSource="{Binding Filters}" SelectedItem="{Binding SelectedFilter}" />
+              <Button Grid.Row="2" Grid.Column="4" MinWidth="75" Content="Cancel" IsCancel="True" Command="{Binding Cancel}" />
+              <CheckBox Grid.Row="4" Grid.Column="2" IsChecked="{Binding ShowHiddenFiles}" Content="Show _hidden files" />
+            </Grid>
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

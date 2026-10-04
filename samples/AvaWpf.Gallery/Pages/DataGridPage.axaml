@@ -1,0 +1,55 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:pages="using:AvaWpf.Gallery.Pages"
+             x:Class="AvaWpf.Gallery.Pages.DataGridPage">
+  <UserControl.Resources>
+    <StreamGeometry x:Key="RatingStars">M6.00,0.30 L7.47,4.28 L11.71,4.45 L8.38,7.07 L9.53,11.15 L6.00,8.80 L2.47,11.15 L3.62,7.07 L0.29,4.45 L4.53,4.28 Z M20.00,0.30 L21.47,4.28 L25.71,4.45 L22.38,7.07 L23.53,11.15 L20.00,8.80 L16.47,11.15 L17.62,7.07 L14.29,4.45 L18.53,4.28 Z M34.00,0.30 L35.47,4.28 L39.71,4.45 L36.38,7.07 L37.53,11.15 L34.00,8.80 L30.47,11.15 L31.62,7.07 L28.29,4.45 L32.53,4.28 Z M48.00,0.30 L49.47,4.28 L53.71,4.45 L50.38,7.07 L51.53,11.15 L48.00,8.80 L44.47,11.15 L45.62,7.07 L42.29,4.45 L46.53,4.28 Z M62.00,0.30 L63.47,4.28 L67.71,4.45 L64.38,7.07 L65.53,11.15 L62.00,8.80 L58.47,11.15 L59.62,7.07 L56.29,4.45 L60.53,4.28 Z</StreamGeometry>
+  </UserControl.Resources>
+  <StackPanel Spacing="12">
+    <TextBlock Classes="Subtitle" Text="Sortable columns, template column, check box column and row details" />
+    <DataGrid x:Name="Employees" Height="230" HorizontalAlignment="Left" Width="560">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="Name" Width="140" Binding="{Binding Name}" x:DataType="pages:Employee" />
+        <DataGridTextColumn Header="Title" Width="150" Binding="{Binding Title}" x:DataType="pages:Employee" />
+        <DataGridTextColumn Header="Age" Binding="{Binding Age}" x:DataType="pages:Employee" />
+        <DataGridCheckBoxColumn Header="Remote" Binding="{Binding IsRemote}" x:DataType="pages:Employee" />
+        <DataGridTemplateColumn Header="Rating" Width="*">
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate x:DataType="pages:Employee">
+              <!-- Five outline stars, the filled stars clipped to the rating, then the rating as a number. -->
+              <StackPanel Margin="2,0" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                <Panel Width="68" Height="12" VerticalAlignment="Center">
+                  <Path Data="{StaticResource RatingStars}" Stroke="#FFB0B0B0" StrokeThickness="1" />
+                  <Border Width="{Binding RatingWidth}" HorizontalAlignment="Left" ClipToBounds="True">
+                    <Path Data="{StaticResource RatingStars}" Fill="#FFF2B01E" Stroke="#FFC98B00" StrokeThickness="1" />
+                  </Border>
+                </Panel>
+                <TextBlock Text="{Binding Rating, StringFormat={}{0:0.0}}" VerticalAlignment="Center" />
+              </StackPanel>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
+      </DataGrid.Columns>
+      <DataGrid.RowDetailsTemplate>
+        <DataTemplate x:DataType="pages:Employee">
+          <TextBlock Margin="6,2" Text="{Binding Details}" />
+        </DataTemplate>
+      </DataGrid.RowDetailsTemplate>
+    </DataGrid>
+    <TextBlock Classes="Subtitle" Text="Grouping" />
+    <DataGrid x:Name="Grouped" Height="230" HorizontalAlignment="Left" Width="560" IsReadOnly="True">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="Name" Width="140" Binding="{Binding Name}" x:DataType="pages:Employee" />
+        <DataGridTextColumn Header="Title" Width="*" Binding="{Binding Title}" x:DataType="pages:Employee" />
+        <DataGridTextColumn Header="Age" Binding="{Binding Age}" x:DataType="pages:Employee" />
+      </DataGrid.Columns>
+    </DataGrid>
+    <TextBlock Classes="Subtitle" Text="Disabled" />
+    <DataGrid x:Name="Disabled" Height="90" HorizontalAlignment="Left" Width="560" IsEnabled="False" HeadersVisibility="Column">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="Name" Width="140" Binding="{Binding Name}" x:DataType="pages:Employee" />
+        <DataGridTextColumn Header="Title" Width="*" Binding="{Binding Title}" x:DataType="pages:Employee" />
+      </DataGrid.Columns>
+    </DataGrid>
+  </StackPanel>
+</UserControl>

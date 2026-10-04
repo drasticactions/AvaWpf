@@ -1,0 +1,13 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- The tray balloon message icons for NotificationCard. -->
+  <StreamGeometry x:Key="Classic.NotificationCard.CircleGeometry">M 8 0.5 A 7.5 7.5 0 1 1 7.99 0.5 Z</StreamGeometry>
+
+  <StreamGeometry x:Key="Classic.NotificationCard.InfoGlyph">M 7 3 L 9 3 L 9 5 L 7 5 Z M 7 6.5 L 9 6.5 L 9 13 L 7 13 Z</StreamGeometry>
+
+  <StreamGeometry x:Key="Classic.NotificationCard.TriangleGeometry">M 8 0.5 L 15.5 15 L 0.5 15 Z</StreamGeometry>
+
+  <StreamGeometry x:Key="Classic.NotificationCard.WarningGlyph">M 7 5 L 9 5 L 8.6 10.5 L 7.4 10.5 Z M 7 11.5 L 9 11.5 L 9 13.5 L 7 13.5 Z</StreamGeometry>
+
+  <StreamGeometry x:Key="Classic.NotificationCard.ErrorGlyph">M 5 4 L 8 7 L 11 4 L 12 5 L 9 8 L 12 11 L 11 12 L 8 9 L 5 12 L 4 11 L 7 8 L 4 5 Z</StreamGeometry>
+</ResourceDictionary>

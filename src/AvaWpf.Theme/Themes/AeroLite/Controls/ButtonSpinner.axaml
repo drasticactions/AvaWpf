@@ -1,0 +1,65 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- The AeroLite TextBox box with two half-height scroll bar line buttons on the right or left. -->
+  <ControlTheme x:Key="{x:Type ButtonSpinner}" TargetType="ButtonSpinner">
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="Padding" Value="2,0" />
+    <Setter Property="Background" Value="{DynamicResource SystemColors.WindowBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.TextBox.Static.Border}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="MinHeight" Value="20" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Focusable" Value="True" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DataValidationErrors>
+          <Border Name="border"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  MinHeight="{TemplateBinding MinHeight}"
+                  UseLayoutRounding="True">
+            <DockPanel>
+              <Grid Name="PART_SpinnerPanel"
+                    DockPanel.Dock="Right"
+                    Width="{DynamicResource SystemParameters.VerticalScrollBarWidth}"
+                    RowDefinitions="*,*"
+                    IsVisible="{TemplateBinding ShowButtonSpinner}">
+                <RepeatButton Name="PART_IncreaseButton"
+                              Classes="up spin"
+                              Theme="{StaticResource AeroLite.ScrollBarLineButton}"
+                              IsTabStop="{TemplateBinding IsTabStop}"
+                              Foreground="{TemplateBinding Foreground}" />
+                <RepeatButton Name="PART_DecreaseButton"
+                              Grid.Row="1"
+                              Classes="down spin"
+                              Theme="{StaticResource AeroLite.ScrollBarLineButton}"
+                              IsTabStop="{TemplateBinding IsTabStop}"
+                              Foreground="{TemplateBinding Foreground}" />
+              </Grid>
+              <ContentPresenter Name="PART_ContentPresenter"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                Content="{TemplateBinding Content}"
+                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Padding="{TemplateBinding Padding}" />
+            </DockPanel>
+          </Border>
+        </DataValidationErrors>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:left /template/ Grid#PART_SpinnerPanel">
+      <Setter Property="DockPanel.Dock" Value="Left" />
+    </Style>
+    <Style Selector="^:pointerover /template/ Border#border">
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.TextBox.MouseOver.Border}" />
+    </Style>
+    <Style Selector="^:focus-within /template/ Border#border">
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.TextBox.Focus.Border}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Border#border">
+      <Setter Property="Opacity" Value="0.56" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

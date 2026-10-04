@@ -1,0 +1,160 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF RibbonSplitButton.xaml, [[Generic]]: a header button and a drop-down toggle in one border. -->
+  <ControlTheme x:Key="{x:Type wpf:RibbonSplitButton}" TargetType="wpf:RibbonSplitButton">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Padding" Value="2,0,2,0" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel Name="MainGrid">
+          <Border Name="OuterBorder" Background="{TemplateBinding Background}" CornerRadius="{DynamicResource $F.Invented.Ribbon.Button.CornerRadius}">
+            <StackPanel Name="StackPanel" Orientation="Vertical">
+              <Button Name="PART_HeaderButton"
+                      Theme="{StaticResource $F.Ribbon.SplitButtonPart}"
+                      wpf:KeyTipService.KeyTip="{TemplateBinding HeaderKeyTip}"
+                      CornerRadius="{DynamicResource $F.Invented.Ribbon.SplitButton.Header.CornerRadius}"
+                      HorizontalContentAlignment="Center"
+                      Padding="{TemplateBinding Padding}">
+                <StackPanel Name="HeaderStack" Orientation="Vertical">
+                  <Image Name="PART_Image"
+                         Source="{TemplateBinding LargeImageSource}"
+                         Width="32"
+                         Height="32"
+                         Margin="1,1,1,0"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center" />
+                  <wpf:RibbonTwoLineText Name="HeaderText"
+                                         Text="{TemplateBinding Label}"
+                                         VerticalAlignment="Center"
+                                         LineHeight="13"
+                                         Margin="1"
+                                         IsVisible="False" />
+                </StackPanel>
+              </Button>
+              <ToggleButton Name="PART_ToggleButton"
+                            Theme="{StaticResource $F.Ribbon.SplitButtonPart}"
+                            ClickMode="Press"
+                            CornerRadius="{DynamicResource $F.Invented.Ribbon.SplitButton.DropDown.CornerRadius}"
+                            HorizontalContentAlignment="Center"
+                            Padding="{TemplateBinding Padding}"
+                            IsChecked="{TemplateBinding IsDropDownOpen, Mode=TwoWay}">
+                <wpf:RibbonTwoLineText Name="ToggleText"
+                                       Text="{TemplateBinding Label}"
+                                       TextAlignment="Center"
+                                       HasTwoLines="True"
+                                       LineHeight="13"
+                                       Margin="1,1,1,0"
+                                       PathFill="{TemplateBinding Foreground}"
+                                       PathData="{DynamicResource $F.Invented.Ribbon.Glyph.DownArrow}" />
+              </ToggleButton>
+            </StackPanel>
+          </Border>
+          <Popup Name="PART_Popup"
+                 HorizontalOffset="1"
+                 VerticalOffset="-1"
+                 Placement="BottomEdgeAlignedLeft"
+                 PlacementTarget="{Binding #MainGrid}"
+                 IsLightDismissEnabled="True"
+                 IsOpen="{TemplateBinding IsDropDownOpen, Mode=TwoWay}"
+                 wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.MenuPopupAnimation}">
+            <wpf:SystemDropShadowChrome Name="Shadow" Margin="0,0,5,5">
+              <Border Name="MenuBorder"
+                      BorderBrush="{DynamicResource $F.Invented.Ribbon.BorderBrush}"
+                      Background="{DynamicResource $F.Invented.Ribbon.Background}"
+                      BorderThickness="1"
+                      CornerRadius="{DynamicResource $F.Invented.Ribbon.Popup.CornerRadius}">
+                <Border Name="SubMenuInnerBorder"
+                        Background="{DynamicResource $F.Invented.Ribbon.DropDown.Background}"
+                        CornerRadius="{DynamicResource $F.Invented.Ribbon.Popup.CornerRadius}">
+                  <ItemsPresenter Name="PART_ItemsPresenter"
+                                  Margin="1"
+                                  Height="{TemplateBinding DropDownHeight}"
+                                  ItemsPanel="{TemplateBinding ItemsPanel}"
+                                  Grid.IsSharedSizeScope="True" />
+                </Border>
+              </Border>
+            </wpf:SystemDropShadowChrome>
+          </Popup>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^:large">
+      <Setter Property="MinWidth" Value="44" />
+      <Setter Property="Height" Value="66" />
+      <Style Selector="^ /template/ ToggleButton#PART_ToggleButton">
+        <Setter Property="MinHeight" Value="28" />
+      </Style>
+    </Style>
+    <Style Selector="^:small">
+      <Setter Property="Height" Value="22" />
+      <Style Selector="^ /template/ StackPanel#StackPanel">
+        <Setter Property="Orientation" Value="Horizontal" />
+      </Style>
+      <Style Selector="^ /template/ StackPanel#HeaderStack">
+        <Setter Property="Orientation" Value="Horizontal" />
+      </Style>
+      <Style Selector="^ /template/ Image#PART_Image">
+        <Setter Property="Source" Value="{TemplateBinding SmallImageSource}" />
+        <Setter Property="Width" Value="16" />
+        <Setter Property="Height" Value="16" />
+        <Setter Property="Margin" Value="1,0,1,0" />
+      </Style>
+      <Style Selector="^ /template/ wpf|RibbonTwoLineText#HeaderText">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="^ /template/ wpf|RibbonTwoLineText#ToggleText">
+        <Setter Property="Text" Value="{x:Null}" />
+        <Setter Property="HasTwoLines" Value="False" />
+        <Setter Property="Margin" Value="0" />
+      </Style>
+      <Style Selector="^ /template/ Button#PART_HeaderButton">
+        <Setter Property="CornerRadius" Value="{DynamicResource $F.Invented.Ribbon.SplitButton.SmallHeader.CornerRadius}" />
+      </Style>
+      <Style Selector="^ /template/ ToggleButton#PART_ToggleButton">
+        <Setter Property="CornerRadius" Value="{DynamicResource $F.Invented.Ribbon.SplitButton.SmallDropDown.CornerRadius}" />
+      </Style>
+    </Style>
+    <Style Selector="^:small:inqat">
+      <Setter Property="Height" Value="NaN" />
+    </Style>
+    <Style Selector="^:nolabel /template/ wpf|RibbonTwoLineText#HeaderText">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:noimage /template/ Image#PART_Image">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:collapsed">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+
+    <Style Selector="^:pointerover /template/ Button">
+      <Setter Property="BorderBrush" Value="{DynamicResource $F.Invented.Ribbon.MouseOver.BorderBrush}" />
+      <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.SplitButton.MouseOver.Background}" />
+    </Style>
+    <Style Selector="^ /template/ Button:pointerover">
+      <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.MouseOver.Background}" />
+    </Style>
+    <Style Selector="^ /template/ Button:pressed">
+      <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.Pressed.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource $F.Invented.Ribbon.Pressed.BorderBrush}" />
+    </Style>
+    <Style Selector="^ /template/ ToggleButton:checked">
+      <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.Pressed.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource $F.Invented.Ribbon.Pressed.BorderBrush}" />
+    </Style>
+    <Style Selector="^:checked /template/ Button#PART_HeaderButton">
+      <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.Checked.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource $F.Invented.Ribbon.Checked.BorderBrush}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource $F.Invented.Ribbon.Disabled.Foreground}" />
+      <Style Selector="^ /template/ Image#PART_Image">
+        <Setter Property="Opacity" Value="0.5" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

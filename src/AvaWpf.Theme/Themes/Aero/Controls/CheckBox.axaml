@@ -1,0 +1,101 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:aero="using:AvaWpf.Chrome.Aero">
+  <!--
+    WPF CheckBox.xaml, [[Aero.NormalColor]]. Avalonia has no BulletDecorator: a two-column Grid centers the bullet.
+    Class toolbar: WPF ToolBar.CheckBoxStyleKey (see ToggleButton).
+  -->
+  <ControlTheme x:Key="{x:Type CheckBox}" TargetType="CheckBox">
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="Background" Value="{DynamicResource Aero.CheckBoxFillNormal}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Aero.CheckBoxStroke}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="FocusAdorner" Value="{DynamicResource Aero.CheckRadioFocusVisual}" />
+    <Setter Property="Padding" Value="4,0,0,0" />
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Name="Bullet" Background="Transparent" ColumnDefinitions="Auto,*" UseLayoutRounding="True">
+          <aero:BulletChrome Name="Chrome"
+                             VerticalAlignment="Center"
+                             Background="{TemplateBinding Background}"
+                             BorderBrush="{TemplateBinding BorderBrush}"
+                             RenderMouseOver="{TemplateBinding IsPointerOver}"
+                             RenderPressed="{TemplateBinding IsPressed}"
+                             IsChecked="{TemplateBinding IsChecked}" />
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Grid.Column="1"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Margin="{TemplateBinding Padding}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            RecognizesAccessKey="True" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:empty">
+      <Setter Property="FocusAdorner" Value="{DynamicResource Aero.EmptyCheckRadioFocusVisual}" />
+      <Setter Property="Padding" Value="0" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+
+    <Style Selector="^.toolbar">
+      <Setter Property="FocusAdorner" Value="{DynamicResource Aero.FocusVisualStyle}" />
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+      <Setter Property="Padding" Value="2" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderBrush" Value="Transparent" />
+      <Setter Property="HorizontalAlignment" Value="Center" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+      <Setter Property="HorizontalContentAlignment" Value="Center" />
+      <Setter Property="VerticalContentAlignment" Value="Center" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Border Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  Padding="{TemplateBinding Padding}"
+                  UseLayoutRounding="True">
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+          </Border>
+        </ControlTemplate>
+      </Setter>
+      <Style Selector="^:checked">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.ToolBarButtonHoverBorder}" />
+        <Setter Property="Background" Value="{DynamicResource Aero.ToolBarButtonChecked}" />
+      </Style>
+      <Style Selector="^:pointerover">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.ToolBarButtonHoverBorder}" />
+        <Setter Property="Background" Value="{DynamicResource Aero.ToolBarButtonHover}" />
+      </Style>
+      <Style Selector="^:focus">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.ToolBarButtonHoverBorder}" />
+        <Setter Property="Background" Value="{DynamicResource Aero.ToolBarButtonHover}" />
+      </Style>
+      <Style Selector="^:pointerover:checked">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.ToolBarButtonPressedBorder}" />
+        <Setter Property="Background" Value="{DynamicResource Aero.ToolBarButtonPressed}" />
+      </Style>
+      <Style Selector="^:focus:checked">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.ToolBarButtonPressedBorder}" />
+        <Setter Property="Background" Value="{DynamicResource Aero.ToolBarButtonPressed}" />
+      </Style>
+      <Style Selector="^:pressed">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.ToolBarButtonPressedBorder}" />
+        <Setter Property="Background" Value="{DynamicResource Aero.ToolBarButtonPressed}" />
+      </Style>
+      <Style Selector="^:disabled">
+        <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

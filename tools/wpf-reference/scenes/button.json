@@ -1,0 +1,7 @@
+{
+  "control": "Button",
+  "width": 120,
+  "height": 50,
+  "properties": { "Content": "Button", "Width": 75, "Height": 23 },
+  "states": ["normal", "hover", "pressed", "focused", "default", "disabled"]
+}

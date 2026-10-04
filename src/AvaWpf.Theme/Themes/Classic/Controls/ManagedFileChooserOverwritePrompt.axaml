@@ -1,0 +1,46 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf"
+                    xmlns:dialogs="using:Avalonia.Dialogs"
+                    xmlns:internal="using:Avalonia.Dialogs.Internal">
+  <!-- ManagedFileChooserOverwritePrompt: the Windows 2000 "Confirm Save As" message box. -->
+  <ControlTheme x:Key="{x:Type dialogs:ManagedFileChooserOverwritePrompt}" TargetType="dialogs:ManagedFileChooserOverwritePrompt">
+    <Setter Property="MinWidth" Value="270" />
+    <Setter Property="MaxWidth" Value="400" />
+    <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="Padding" Value="11" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Padding="{TemplateBinding Padding}">
+          <StackPanel Spacing="11">
+            <DockPanel>
+              <!-- The Win2000 warning icon. -->
+              <Panel DockPanel.Dock="Left" Width="32" Height="32" Margin="0,0,11,0" VerticalAlignment="Top">
+                <Path Data="M 16 1 L 31 30 L 1 30 Z" Fill="{DynamicResource Classic.Invented.Notification.Warning}" Stroke="{DynamicResource Classic.Invented.Notification.IconOutline}" StrokeThickness="1" />
+                <Path Data="M 14.5 10 L 17.5 10 L 17 21 L 15 21 Z M 14.5 23 L 17.5 23 L 17.5 26 L 14.5 26 Z" Fill="{DynamicResource Classic.Invented.Notification.WarningGlyph}" />
+              </Panel>
+              <TextBlock TextWrapping="Wrap" VerticalAlignment="Center">
+                <Run Text="{Binding FileName, RelativeSource={RelativeSource TemplatedParent}}" />
+                <Run Text=" already exists. Do you want to replace it?" />
+              </TextBlock>
+            </DockPanel>
+            <StackPanel HorizontalAlignment="Center" Spacing="6" Orientation="Horizontal">
+              <Button Content="_Yes"
+                      MinWidth="75"
+                      IsDefault="True"
+                      Command="{Binding Confirm, RelativeSource={RelativeSource TemplatedParent}}" />
+              <Button Content="_No"
+                      MinWidth="75"
+                      IsCancel="True"
+                      Command="{Binding Cancel, RelativeSource={RelativeSource TemplatedParent}}" />
+            </StackPanel>
+          </StackPanel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

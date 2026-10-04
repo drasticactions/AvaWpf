@@ -1,0 +1,14 @@
+# Windows 10 SystemColors, Light: the Windows 7 table plus the Windows 10 deltas (spec Appendix C). Windows 10
+# changed the selection color to the default accent blue (#0078D7) and the inactive caption text to black.
+name = "Aero2"
+base = "aero"
+
+[colors]
+Highlight = { value = "#0078D7", source = "Win10 aero.theme Hilight 0 120 215" }
+MenuHighlight = { value = "#0078D7", source = "Win10 aero.theme MenuHilight 0 120 215" }
+HotTrack = { value = "#0066CC", source = "Win10 aero.theme HotTrackingColor 0 102 204" }
+InactiveCaptionText = { value = "#000000", source = "Win10 aero.theme InactiveTitleText 0 0 0" }
+
+[parameters]
+CaptionHeight = 23
+SmallCaptionHeight = 23

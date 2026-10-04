@@ -1,0 +1,101 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    A spin box: an Aero2 TextBoxBase frame with up and down buttons that overlap its edge by 1 px, as Win32 up-down
+    buttons do.
+  -->
+  <ControlTheme x:Key="Aero2.ButtonSpinnerRepeatButton" TargetType="RepeatButton" BasedOn="{StaticResource Aero2.BaseButtonStyle}">
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="Foreground" Value="{DynamicResource Aero2.ComboBox.Static.Glyph}" />
+    <Style Selector="^:pointerover">
+      <Setter Property="Foreground" Value="{DynamicResource Aero2.ComboBox.MouseOver.Glyph}" />
+    </Style>
+    <Style Selector="^:pressed">
+      <Setter Property="Foreground" Value="{DynamicResource Aero2.ComboBox.Pressed.Glyph}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource Aero2.ComboBox.Disabled.Glyph}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type ButtonSpinner}" TargetType="ButtonSpinner">
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="Background" Value="{DynamicResource SystemColors.WindowBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Aero2.TextBox.Static.Border}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Padding" Value="2,1" />
+    <Setter Property="MinHeight" Value="22" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Focusable" Value="True" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DataValidationErrors>
+          <Border Name="border"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  MinHeight="{TemplateBinding MinHeight}"
+                  UseLayoutRounding="True">
+            <DockPanel>
+              <Grid Name="PART_SpinnerPanel"
+                    DockPanel.Dock="Right"
+                    Width="17"
+                    Margin="0,-1,-1,-1"
+                    RowDefinitions="*,*"
+                    TabIndex="2"
+                    IsVisible="{TemplateBinding ShowButtonSpinner}">
+                <RepeatButton Name="PART_IncreaseButton"
+                              Grid.Row="0"
+                              Theme="{StaticResource Aero2.ButtonSpinnerRepeatButton}"
+                              IsTabStop="{TemplateBinding IsTabStop}">
+                  <Path Data="{DynamicResource Aero2.ScrollBar.ScrollBar.ArrowTop.Data}"
+                        Fill="{Binding $parent[Button].Foreground}"
+                        Width="7"
+                        Height="4"
+                        Stretch="Uniform" />
+                </RepeatButton>
+                <RepeatButton Name="PART_DecreaseButton"
+                              Grid.Row="1"
+                              Margin="0,-1,0,0"
+                              Theme="{StaticResource Aero2.ButtonSpinnerRepeatButton}"
+                              IsTabStop="{TemplateBinding IsTabStop}">
+                  <Path Data="{DynamicResource Aero2.ScrollBar.ScrollBar.ArrowBottom.Data}"
+                        Fill="{Binding $parent[Button].Foreground}"
+                        Width="7"
+                        Height="4"
+                        Stretch="Uniform" />
+                </RepeatButton>
+              </Grid>
+              <ContentPresenter Name="PART_ContentPresenter"
+                                TabIndex="1"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                Content="{TemplateBinding Content}"
+                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Padding="{TemplateBinding Padding}" />
+            </DockPanel>
+          </Border>
+        </DataValidationErrors>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:left /template/ Grid#PART_SpinnerPanel">
+      <Setter Property="DockPanel.Dock" Value="Left" />
+      <Setter Property="Margin" Value="-1,-1,0,-1" />
+    </Style>
+    <Style Selector="^:disabled /template/ Border#border">
+      <Setter Property="Opacity" Value="0.56" />
+    </Style>
+    <Style Selector="^:pointerover /template/ Border#border">
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero2.TextBox.MouseOver.Border}" />
+    </Style>
+    <Style Selector="^:focus-within /template/ Border#border">
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero2.TextBox.Focus.Border}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

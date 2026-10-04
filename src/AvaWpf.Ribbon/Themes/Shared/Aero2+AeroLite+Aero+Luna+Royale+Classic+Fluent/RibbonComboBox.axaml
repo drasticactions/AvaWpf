@@ -1,0 +1,116 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF RibbonComboBox.xaml, [[Generic]]: the drop-down is the RibbonMenuButton popup that holds the gallery. -->
+  <ControlTheme x:Key="{x:Type wpf:RibbonComboBox}" TargetType="wpf:RibbonComboBox">
+    <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.TextBox.Overlay}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource $F.Invented.Ribbon.BorderBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="SelectionBoxWidth" Value="80" />
+    <Setter Property="QuickAccessToolBarControlSizeDefinition">
+      <wpf:RibbonControlSizeDefinition ImageSize="Collapsed" IsLabelVisible="True" />
+    </Setter>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Name="MainGrid" Margin="1" ColumnDefinitions="Auto,Auto">
+          <StackPanel Name="LabelPanel" Orientation="Horizontal" VerticalAlignment="Center">
+            <Image Name="Image" Source="{TemplateBinding SmallImageSource}" Width="16" Height="16" Margin="2,0,1,0" VerticalAlignment="Center" />
+            <wpf:RibbonTwoLineText Name="TwoLineText" Text="{TemplateBinding Label}" VerticalAlignment="Center" LineHeight="13" Margin="2,0,2,0" />
+          </StackPanel>
+          <Border Name="Border"
+                  Grid.Column="1"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  Background="{TemplateBinding Background}"
+                  Height="20"
+                  Margin="2,0,2,0"
+                  VerticalAlignment="Center">
+            <Grid ColumnDefinitions="*,Auto">
+              <TextBlock Name="SelectionText"
+                         Text="{TemplateBinding Text}"
+                         Width="{TemplateBinding SelectionBoxWidth}"
+                         Margin="3,0,3,0"
+                         VerticalAlignment="Center"
+                         TextTrimming="CharacterEllipsis" />
+              <TextBox Name="PART_EditableTextBox"
+                       Theme="{StaticResource $F.Ribbon.EditableTextBox}"
+                       Width="{TemplateBinding SelectionBoxWidth}"
+                       Padding="2,0,2,0"
+                       IsReadOnly="{TemplateBinding IsReadOnly}"
+                       Text="{TemplateBinding Text, Mode=TwoWay}"
+                       IsVisible="False" />
+              <ToggleButton Name="PART_ToggleButton"
+                            Grid.Column="1"
+                            Theme="{StaticResource $F.Ribbon.SplitButtonPart}"
+                            BorderThickness="1,0,0,0"
+                            Width="14"
+                            ClickMode="Press"
+                            IsChecked="{TemplateBinding IsDropDownOpen, Mode=TwoWay}">
+                <Path Data="{DynamicResource $F.Invented.Ribbon.Glyph.DownArrow}" Fill="{TemplateBinding Foreground}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+              </ToggleButton>
+            </Grid>
+          </Border>
+          <Popup Name="PART_Popup"
+                 Placement="BottomEdgeAlignedLeft"
+                 PlacementTarget="{Binding #Border}"
+                 IsLightDismissEnabled="True"
+                 IsOpen="{TemplateBinding IsDropDownOpen, Mode=TwoWay}"
+                 wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.ComboBoxPopupAnimation}">
+            <wpf:SystemDropShadowChrome Name="Shadow" Margin="0,0,5,5" MinWidth="{Binding #Border.Bounds.Width}">
+              <Border Name="MenuBorder"
+                      BorderBrush="{DynamicResource $F.Invented.Ribbon.BorderBrush}"
+                      Background="{DynamicResource $F.Invented.Ribbon.Background}"
+                      BorderThickness="1"
+                      CornerRadius="{DynamicResource $F.Invented.Ribbon.Popup.CornerRadius}">
+                <Border Name="SubMenuInnerBorder"
+                        Background="{DynamicResource $F.Invented.Ribbon.DropDown.Background}"
+                        CornerRadius="{DynamicResource $F.Invented.Ribbon.Popup.CornerRadius}">
+                  <ItemsPresenter Name="PART_ItemsPresenter"
+                                  Margin="1"
+                                  Height="{TemplateBinding DropDownHeight}"
+                                  ItemsPanel="{TemplateBinding ItemsPanel}" />
+                </Border>
+              </Border>
+            </wpf:SystemDropShadowChrome>
+          </Popup>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:editable">
+      <Style Selector="^ /template/ TextBlock#SelectionText">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+      <Style Selector="^ /template/ TextBox#PART_EditableTextBox">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+    </Style>
+    <Style Selector="^:noimage /template/ Image#Image">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:nolabel /template/ wpf|RibbonTwoLineText#TwoLineText">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:collapsed">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^ /template/ ToggleButton#PART_ToggleButton">
+      <Setter Property="BorderBrush" Value="{TemplateBinding BorderBrush}" />
+    </Style>
+    <Style Selector="^:pointerover /template/ Border#Border">
+      <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.TextBox.MouseOver.Background}" />
+    </Style>
+    <Style Selector="^ /template/ ToggleButton#PART_ToggleButton:pointerover">
+      <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.ComboBox.ToggleButton.MouseOver.Background}" />
+    </Style>
+    <Style Selector="^ /template/ ToggleButton#PART_ToggleButton:checked">
+      <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.Pressed.Background}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource $F.Invented.Ribbon.Disabled.Foreground}" />
+      <Style Selector="^ /template/ Border#Border">
+        <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.TextBox.Disabled.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource $F.Invented.Ribbon.TextBox.Disabled.BorderBrush}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

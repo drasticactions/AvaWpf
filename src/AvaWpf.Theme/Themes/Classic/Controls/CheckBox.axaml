@@ -1,0 +1,126 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF CheckBox.xaml [[Classic]]. The box sits in a wpf:BulletDecorator, centered on the first text line as in WPF. -->
+  <ControlTheme x:Key="{x:Type CheckBox}" TargetType="CheckBox">
+    <Setter Property="FocusAdorner" Value="{DynamicResource Classic.CheckRadioFocusVisual}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.WindowTextBrush}" />
+    <Setter Property="Background" Value="{DynamicResource SystemColors.WindowBrush}" />
+    <Setter Property="BorderBrush" Value="{x:Static wpf:ClassicBorderDecorator.ClassicBorderBrush}" />
+    <Setter Property="BorderThickness" Value="2" />
+    <Setter Property="Padding" Value="2,0,0,0" />
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+    <Setter Property="VerticalContentAlignment" Value="Top" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <wpf:BulletDecorator Background="Transparent" UseLayoutRounding="True">
+          <wpf:BulletDecorator.Bullet>
+            <wpf:ClassicBorderDecorator Name="CheckMark"
+                                        BorderStyle="Sunken"
+                                        Background="{TemplateBinding Background}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        BorderBrush="{TemplateBinding BorderBrush}">
+              <Path Name="CheckMarkPath"
+                    Margin="1"
+                    Width="7"
+                    Height="7"
+                    FlowDirection="LeftToRight"
+                    Fill="{TemplateBinding Foreground}"
+                    Data="{DynamicResource Classic.CheckBox.CheckBox.CheckMarkPath.Data}" />
+            </wpf:ClassicBorderDecorator>
+          </wpf:BulletDecorator.Bullet>
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Margin="{TemplateBinding Padding}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            RecognizesAccessKey="True" />
+        </wpf:BulletDecorator>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^[Content={x:Null}]">
+      <Setter Property="FocusAdorner" Value="{DynamicResource Classic.EmptyCheckRadioFocusVisual}" />
+    </Style>
+    <Style Selector="^:unchecked /template/ Path#CheckMarkPath">
+      <Setter Property="Opacity" Value="0" />
+    </Style>
+    <Style Selector="^:indeterminate">
+      <Style Selector="^ /template/ wpf|ClassicBorderDecorator#CheckMark">
+        <Setter Property="Background" Value="{DynamicResource SystemColors.ControlLightLightBrush}" />
+      </Style>
+      <Style Selector="^ /template/ Path#CheckMarkPath">
+        <Setter Property="Fill" Value="{DynamicResource SystemColors.ControlDarkBrush}" />
+      </Style>
+    </Style>
+    <Style Selector="^:pressed /template/ wpf|ClassicBorderDecorator#CheckMark">
+      <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+      <Style Selector="^ /template/ wpf|ClassicBorderDecorator#CheckMark">
+        <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+      </Style>
+      <Style Selector="^ /template/ Path#CheckMarkPath">
+        <Setter Property="Fill" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+      </Style>
+    </Style>
+    <!-- .toolbar: WPF ToolBar.CheckBoxStyleKey, the flat toolbar toggle. -->
+    <Style Selector="^.toolbar">
+      <Setter Property="FocusAdorner" Value="{DynamicResource Classic.FocusVisualStyle}" />
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+      <Setter Property="Padding" Value="2" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderBrush" Value="Transparent" />
+      <Setter Property="HorizontalAlignment" Value="Center" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+      <Setter Property="HorizontalContentAlignment" Value="Center" />
+      <Setter Property="VerticalContentAlignment" Value="Center" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Border Name="Bd"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  Padding="{TemplateBinding Padding}"
+                  UseLayoutRounding="True">
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              RecognizesAccessKey="True" />
+          </Border>
+        </ControlTemplate>
+      </Setter>
+      <Style Selector="^:checked /template/ Border#Bd">
+        <Setter Property="BorderBrush" Value="{DynamicResource Classic.ToolBarButtonHoverBorder}" />
+        <Setter Property="Background" Value="{DynamicResource Classic.ToolBarButtonChecked}" />
+      </Style>
+      <Style Selector="^:pointerover /template/ Border#Bd">
+        <Setter Property="BorderBrush" Value="{DynamicResource Classic.ToolBarButtonHoverBorder}" />
+        <Setter Property="Background" Value="{DynamicResource Classic.ToolBarButtonHover}" />
+      </Style>
+      <Style Selector="^:focus /template/ Border#Bd">
+        <Setter Property="BorderBrush" Value="{DynamicResource Classic.ToolBarButtonHoverBorder}" />
+        <Setter Property="Background" Value="{DynamicResource Classic.ToolBarButtonHover}" />
+      </Style>
+      <Style Selector="^:pointerover:checked /template/ Border#Bd">
+        <Setter Property="BorderBrush" Value="{DynamicResource Classic.ToolBarButtonPressedBorder}" />
+        <Setter Property="Background" Value="{DynamicResource Classic.ToolBarButtonPressed}" />
+      </Style>
+      <Style Selector="^:focus:checked /template/ Border#Bd">
+        <Setter Property="BorderBrush" Value="{DynamicResource Classic.ToolBarButtonPressedBorder}" />
+        <Setter Property="Background" Value="{DynamicResource Classic.ToolBarButtonPressed}" />
+      </Style>
+      <Style Selector="^:pressed /template/ Border#Bd">
+        <Setter Property="BorderBrush" Value="{DynamicResource Classic.ToolBarButtonPressedBorder}" />
+        <Setter Property="Background" Value="{DynamicResource Classic.ToolBarButtonPressed}" />
+      </Style>
+      <Style Selector="^:disabled">
+        <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

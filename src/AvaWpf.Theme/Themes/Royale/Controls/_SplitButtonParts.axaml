@@ -1,0 +1,12 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:royale="using:AvaWpf.Chrome.Royale">
+  <!-- Royale.SplitButtonPart: one half of a split button. The SplitButton sets its Tag; "flyout-open", "checked" and
+       "checked-flyout-open" draw the pressed face. -->
+  <ControlTheme x:Key="Royale.SplitButtonPart" TargetType="Button" BasedOn="{StaticResource Royale.BaseButtonStyle}">
+    <Setter Property="Focusable" Value="False" />
+    <Style Selector="^[Tag=flyout-open] /template/ royale|ButtonChrome#Chrome, ^[Tag=checked] /template/ royale|ButtonChrome#Chrome, ^[Tag=checked-flyout-open] /template/ royale|ButtonChrome#Chrome">
+      <Setter Property="RenderPressed" Value="True" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,91 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!--
+    NotificationCard as a Windows 11 toast, with a status glyph in the InfoBar colors.
+    SolidBackgroundFillColorQuarternary is the opaque stand-in for the toast acrylic.
+  -->
+  <ControlTheme x:Key="{x:Type NotificationCard}" TargetType="NotificationCard">
+    <Setter Property="UseLayoutRounding" Value="True" />
+    <Setter Property="Width" Value="364" />
+    <Setter Property="Foreground" Value="{DynamicResource Fluent.TextFillColorPrimaryBrush}" />
+    <Setter Property="Background" Value="{DynamicResource Fluent.SolidBackgroundFillColorQuarternaryBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Fluent.SurfaceStrokeColorFlyoutBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="{DynamicResource Fluent.OverlayCornerRadius}" />
+    <Setter Property="FontSize" Value="{DynamicResource Fluent.ControlContentThemeFontSize}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <LayoutTransformControl Name="PART_LayoutTransformControl" UseRenderTransform="True">
+          <Border Margin="12,8,12,16"
+                  CornerRadius="{TemplateBinding CornerRadius}"
+                  BoxShadow="{DynamicResource Fluent.Invented.NotificationCard.Shadow}">
+            <Border Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="{TemplateBinding CornerRadius}"
+                    ClipToBounds="True">
+              <Grid ColumnDefinitions="Auto,*">
+                <TextBlock Name="PART_Icon"
+                           Margin="16,15,0,0"
+                           VerticalAlignment="Top"
+                           FontFamily="{DynamicResource Fluent.SymbolThemeFontFamily}"
+                           FontSize="16"
+                           Foreground="{DynamicResource Fluent.SystemFillColorAttentionBrush}"
+                           Text="{x:Static wpf:FluentGlyph.Info}" />
+                <ContentPresenter Name="PART_ContentPresenter"
+                                  Grid.Column="1"
+                                  MinHeight="48"
+                                  Content="{TemplateBinding Content}"
+                                  ContentTemplate="{TemplateBinding ContentTemplate}" />
+              </Grid>
+            </Border>
+          </Border>
+        </LayoutTransformControl>
+      </ControlTemplate>
+    </Setter>
+    <ControlTheme.Animations>
+      <Animation Duration="{x:Static wpf:FluentTimings.Normal}" Easing="0,0,0,1" FillMode="Forward">
+        <KeyFrame Cue="0%">
+          <Setter Property="Opacity" Value="0" />
+          <Setter Property="TranslateTransform.X" Value="40" />
+        </KeyFrame>
+        <KeyFrame Cue="100%">
+          <Setter Property="Opacity" Value="1" />
+          <Setter Property="TranslateTransform.X" Value="0" />
+        </KeyFrame>
+      </Animation>
+    </ControlTheme.Animations>
+    <Style Selector="^[IsClosing=true]">
+      <Style.Animations>
+        <Animation Duration="{x:Static wpf:FluentTimings.Fast}" Easing="0,0,0,1" FillMode="Forward">
+          <KeyFrame Cue="0%">
+            <Setter Property="Opacity" Value="1" />
+            <Setter Property="TranslateTransform.X" Value="0" />
+          </KeyFrame>
+          <KeyFrame Cue="100%">
+            <Setter Property="Opacity" Value="0" />
+            <Setter Property="TranslateTransform.X" Value="40" />
+            <Setter Property="IsClosed" Value="True" />
+          </KeyFrame>
+        </Animation>
+      </Style.Animations>
+    </Style>
+    <Style Selector="^:information /template/ TextBlock#PART_Icon">
+      <Setter Property="Foreground" Value="{DynamicResource Fluent.SystemFillColorAttentionBrush}" />
+      <Setter Property="Text" Value="{x:Static wpf:FluentGlyph.Info}" />
+    </Style>
+    <Style Selector="^:success /template/ TextBlock#PART_Icon">
+      <Setter Property="Foreground" Value="{DynamicResource Fluent.SystemFillColorSuccessBrush}" />
+      <Setter Property="Text" Value="{x:Static wpf:FluentGlyph.CheckMark}" />
+    </Style>
+    <Style Selector="^:warning /template/ TextBlock#PART_Icon">
+      <Setter Property="Foreground" Value="{DynamicResource Fluent.SystemFillColorCautionBrush}" />
+      <Setter Property="Text" Value="{x:Static wpf:FluentGlyph.Warning}" />
+    </Style>
+    <Style Selector="^:error /template/ TextBlock#PART_Icon">
+      <Setter Property="Foreground" Value="{DynamicResource Fluent.SystemFillColorCriticalBrush}" />
+      <Setter Property="Text" Value="{x:Static wpf:FluentGlyph.ErrorBadge}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

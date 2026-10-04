@@ -1,0 +1,230 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    WPF Expander.xaml header parts: ExpanderHeaderFocusVisual and the Down/Up/Left/Right header styles.
+    Up, Left and Right turn the Down glyph by a layout transform.
+  -->
+  <FocusAdornerTemplate x:Key="$F.ExpanderHeaderFocusVisual">
+    <Border>
+      <Rectangle Margin="0"
+                 StrokeThickness="1"
+                 Stroke="{DynamicResource $F.Expander.ExpanderHeaderFocusVisual.Rectangle#1.Stroke}"
+                 StrokeDashArray="1,2"
+                 UseLayoutRounding="True" />
+    </Border>
+  </FocusAdornerTemplate>
+
+  <ControlTheme x:Key="$F.ExpanderToggleButton" TargetType="ToggleButton">
+    <Setter Property="FocusAdorner" Value="{DynamicResource $F.ExpanderHeaderFocusVisual}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Padding="{TemplateBinding Padding}">
+          <Grid Background="Transparent" UseLayoutRounding="False" ColumnDefinitions="19,*">
+            <Ellipse Name="circle"
+                     Width="19"
+                     Height="19"
+                     StrokeThickness="1"
+                     Stroke="{DynamicResource $F.Expander.Static.Circle.Stroke}"
+                     Fill="{DynamicResource $F.Expander.Static.Circle.Fill}"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center" />
+            <Path Name="arrow"
+                Width="8.71"
+                Height="6.41"
+                UseLayoutRounding="False"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  Stroke="{DynamicResource $F.Expander.Static.Arrow.Stroke}"
+                  StrokeThickness="2"
+                  Data="{DynamicResource $F.Expander.ExpanderDownHeaderStyle.arrow.Data}" />
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Grid.Column="1"
+                              Margin="4,0,0,0"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Center"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              UseLayoutRounding="True"
+                              RecognizesAccessKey="True" />
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:checked /template/ Path#arrow">
+      <Setter Property="Data" Value="{DynamicResource $F.Expander.ExpanderDownHeaderStyle.arrow.Data.IsChecked_true}" />
+      <Setter Property="Height" Value="5.21" />
+    </Style>
+    <Style Selector="^:pointerover">
+      <Style Selector="^ /template/ Ellipse#circle">
+        <Setter Property="Stroke" Value="{DynamicResource $F.Expander.MouseOver.Circle.Stroke}" />
+        <Setter Property="Fill" Value="{DynamicResource $F.Expander.MouseOver.Circle.Fill}" />
+      </Style>
+      <Style Selector="^ /template/ Path#arrow">
+        <Setter Property="Stroke" Value="{DynamicResource $F.Expander.MouseOver.Arrow.Stroke}" />
+      </Style>
+    </Style>
+    <Style Selector="^:pressed">
+      <Style Selector="^ /template/ Ellipse#circle">
+        <Setter Property="Stroke" Value="{DynamicResource $F.Expander.Pressed.Circle.Stroke}" />
+        <Setter Property="StrokeThickness" Value="1.5" />
+        <Setter Property="Fill" Value="{DynamicResource $F.Expander.Pressed.Circle.Fill}" />
+      </Style>
+      <Style Selector="^ /template/ Path#arrow">
+        <Setter Property="Stroke" Value="{DynamicResource $F.Expander.Pressed.Arrow.Stroke}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Style Selector="^ /template/ Ellipse#circle">
+        <Setter Property="Stroke" Value="{DynamicResource $F.Expander.Disabled.Circle.Stroke}" />
+        <Setter Property="Fill" Value="{DynamicResource $F.Expander.Disabled.Circle.Fill}" />
+      </Style>
+      <Style Selector="^ /template/ Path#arrow">
+        <Setter Property="Stroke" Value="{DynamicResource $F.Expander.Disabled.Arrow.Stroke}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="$F.ExpanderToggleButton.Up" TargetType="ToggleButton" BasedOn="{StaticResource $F.ExpanderToggleButton}">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Padding="{TemplateBinding Padding}">
+          <Grid Background="Transparent" UseLayoutRounding="False" ColumnDefinitions="19,*">
+            <LayoutTransformControl>
+              <LayoutTransformControl.LayoutTransform>
+                <RotateTransform Angle="180" />
+              </LayoutTransformControl.LayoutTransform>
+              <Grid>
+                <Ellipse Name="circle"
+                         Width="19"
+                         Height="19"
+                         StrokeThickness="1"
+                         Stroke="{DynamicResource $F.Expander.Static.Circle.Stroke}"
+                         Fill="{DynamicResource $F.Expander.Static.Circle.Fill}"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center" />
+                <Path Name="arrow"
+                Width="8.71"
+                Height="6.41"
+                UseLayoutRounding="False"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      Stroke="{DynamicResource $F.Expander.Static.Arrow.Stroke}"
+                      StrokeThickness="2"
+                      Data="{DynamicResource $F.Expander.ExpanderUpHeaderStyle.arrow.Data}" />
+              </Grid>
+            </LayoutTransformControl>
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Grid.Column="1"
+                              Margin="4,0,0,0"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Center"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              UseLayoutRounding="True"
+                              RecognizesAccessKey="True" />
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:checked /template/ Path#arrow">
+      <Setter Property="Data" Value="{DynamicResource $F.Expander.ExpanderUpHeaderStyle.arrow.Data.IsChecked_true}" />
+      <Setter Property="Height" Value="5.21" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="$F.ExpanderToggleButton.Left" TargetType="ToggleButton" BasedOn="{StaticResource $F.ExpanderToggleButton}">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Padding="{TemplateBinding Padding}">
+          <Grid Background="Transparent" UseLayoutRounding="False" RowDefinitions="19,*">
+            <LayoutTransformControl>
+              <LayoutTransformControl.LayoutTransform>
+                <RotateTransform Angle="90" />
+              </LayoutTransformControl.LayoutTransform>
+              <Grid>
+                <Ellipse Name="circle"
+                         Width="19"
+                         Height="19"
+                         StrokeThickness="1"
+                         Stroke="{DynamicResource $F.Expander.Static.Circle.Stroke}"
+                         Fill="{DynamicResource $F.Expander.Static.Circle.Fill}"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center" />
+                <Path Name="arrow"
+                Width="8.71"
+                Height="6.41"
+                UseLayoutRounding="False"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      Stroke="{DynamicResource $F.Expander.Static.Arrow.Stroke}"
+                      StrokeThickness="2"
+                      Data="{DynamicResource $F.Expander.ExpanderLeftHeaderStyle.arrow.Data}" />
+              </Grid>
+            </LayoutTransformControl>
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Grid.Row="1"
+                              Margin="0,4,0,0"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Top"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              UseLayoutRounding="True"
+                              RecognizesAccessKey="True" />
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:checked /template/ Path#arrow">
+      <Setter Property="Data" Value="{DynamicResource $F.Expander.ExpanderLeftHeaderStyle.arrow.Data.IsChecked_true}" />
+      <Setter Property="Height" Value="5.21" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="$F.ExpanderToggleButton.Right" TargetType="ToggleButton" BasedOn="{StaticResource $F.ExpanderToggleButton}">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Padding="{TemplateBinding Padding}">
+          <Grid Background="Transparent" UseLayoutRounding="False" RowDefinitions="19,*">
+            <LayoutTransformControl>
+              <LayoutTransformControl.LayoutTransform>
+                <RotateTransform Angle="-90" />
+              </LayoutTransformControl.LayoutTransform>
+              <Grid>
+                <Ellipse Name="circle"
+                         Width="19"
+                         Height="19"
+                         StrokeThickness="1"
+                         Stroke="{DynamicResource $F.Expander.Static.Circle.Stroke}"
+                         Fill="{DynamicResource $F.Expander.Static.Circle.Fill}"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center" />
+                <Path Name="arrow"
+                Width="8.71"
+                Height="6.41"
+                UseLayoutRounding="False"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      Stroke="{DynamicResource $F.Expander.Static.Arrow.Stroke}"
+                      StrokeThickness="2"
+                      Data="{DynamicResource $F.Expander.ExpanderRightHeaderStyle.arrow.Data}" />
+              </Grid>
+            </LayoutTransformControl>
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Grid.Row="1"
+                              Margin="0,4,0,0"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Top"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              UseLayoutRounding="True"
+                              RecognizesAccessKey="True" />
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:checked /template/ Path#arrow">
+      <Setter Property="Data" Value="{DynamicResource $F.Expander.ExpanderRightHeaderStyle.arrow.Data.IsChecked_true}" />
+      <Setter Property="Height" Value="5.21" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

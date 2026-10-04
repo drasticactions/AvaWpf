@@ -1,0 +1,31 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/StatusBarItem.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!-- WPF Fluent DefaultStatusBarItemStyle. -->
+  <ControlTheme x:Key="{x:Type wpf:StatusBarItem}" TargetType="wpf:StatusBarItem">
+    <Setter Property="Padding" Value="{DynamicResource Fluent.StatusBarItemPadding}" />
+    <Setter Property="Background" Value="{DynamicResource Fluent.StatusBarItemBackground}" />
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Padding="{TemplateBinding Padding}"
+                UseLayoutRounding="True">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource Fluent.StatusBarItemForegroundDisabled}" />
+      <Setter Property="Background" Value="{DynamicResource Fluent.StatusBarItemBackgroundDisabled}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

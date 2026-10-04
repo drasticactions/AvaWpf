@@ -1,0 +1,45 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- The Windows 8 caption button of the AeroLite window frame; the close class is the wide red button. -->
+  <ControlTheme x:Key="AeroLite.WindowFrame.CaptionButton" TargetType="Button">
+    <Setter Property="Width" Value="{DynamicResource AeroLite.Invented.WindowFrame.ButtonWidth}" />
+    <Setter Property="Height" Value="{DynamicResource AeroLite.Invented.WindowFrame.ButtonHeight}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource AeroLite.Invented.WindowFrame.Button.Glyph}" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="VerticalAlignment" Value="Top" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="border" Background="{TemplateBinding Background}">
+          <Path Name="glyph"
+                Data="{TemplateBinding Content}"
+                Fill="{TemplateBinding Foreground}"
+                Stretch="None"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover">
+      <Setter Property="Background" Value="{DynamicResource AeroLite.Invented.WindowFrame.Button.Hover.Background}" />
+    </Style>
+    <Style Selector="^:pressed">
+      <Setter Property="Background" Value="{DynamicResource AeroLite.Invented.WindowFrame.Button.Pressed.Background}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource AeroLite.Invented.WindowFrame.Button.Disabled.Glyph}" />
+    </Style>
+    <Style Selector="^.close">
+      <Setter Property="Width" Value="{DynamicResource AeroLite.Invented.WindowFrame.CloseButtonWidth}" />
+      <Setter Property="Background" Value="{DynamicResource AeroLite.Invented.WindowFrame.Close.Background}" />
+      <Setter Property="Foreground" Value="{DynamicResource AeroLite.Invented.WindowFrame.Close.Glyph}" />
+    </Style>
+    <Style Selector="^.close:pointerover">
+      <Setter Property="Background" Value="{DynamicResource AeroLite.Invented.WindowFrame.Close.Hover.Background}" />
+    </Style>
+    <Style Selector="^.close:pressed">
+      <Setter Property="Background" Value="{DynamicResource AeroLite.Invented.WindowFrame.Close.Pressed.Background}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

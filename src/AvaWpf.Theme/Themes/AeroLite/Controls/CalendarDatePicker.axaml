@@ -1,0 +1,75 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!--
+    WPF DatePicker.xaml, AeroLite.NormalColor (Avalonia's CalendarDatePicker); parts in _CalendarDatePickerParts.axaml.
+  -->
+  <ControlTheme x:Key="{x:Type CalendarDatePicker}" TargetType="CalendarDatePicker">
+    <Setter Property="Foreground" Value="{DynamicResource AeroLite.DatePicker.DatePicker.Setter.Self.Foreground}" />
+    <Setter Property="IsTodayHighlighted" Value="True" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Padding" Value="2" />
+    <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.ComboBox.Static.Border}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DataValidationErrors>
+          <Border BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  Background="{TemplateBinding Background}"
+                  Padding="{TemplateBinding Padding}">
+            <Grid Name="PART_Root"
+                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                  ColumnDefinitions="*,Auto">
+              <Button Name="PART_Button"
+                      Grid.Column="1"
+                      Theme="{StaticResource AeroLite.DatePickerDropDownButton}"
+                      Foreground="{TemplateBinding Foreground}"
+                      Width="20"
+                      Margin="3,0,3,0"
+                      VerticalAlignment="Top"
+                      HorizontalAlignment="Left" />
+              <TextBox Name="PART_TextBox"
+                       Grid.Column="0"
+                       Theme="{StaticResource AeroLite.DatePickerTextBox}"
+                       Foreground="{TemplateBinding Foreground}"
+                       PlaceholderText="{TemplateBinding PlaceholderText}"
+                       HorizontalContentAlignment="Stretch"
+                       VerticalContentAlignment="Stretch" />
+              <Grid Name="PART_DisabledVisual"
+                    IsVisible="False"
+                    IsHitTestVisible="False"
+                    Grid.ColumnSpan="2"
+                    ColumnDefinitions="*,Auto">
+                <Rectangle Grid.Column="0" RadiusX="1" RadiusY="1" Fill="{DynamicResource AeroLite.DatePicker.DatePicker.Rectangle#2.Fill}" />
+                <Rectangle Grid.Column="1" RadiusX="1" RadiusY="1" Fill="{DynamicResource AeroLite.DatePicker.DatePicker.Rectangle#3.Fill}" Height="18" Width="19" Margin="3,0,3,0" />
+              </Grid>
+              <Popup Name="PART_Popup"
+                     PlacementTarget="PART_TextBox"
+                     Placement="Bottom"
+                     IsLightDismissEnabled="True"
+                     WindowManagerAddShadowHint="False"
+                     wpf:PopupAnimation.Kind="{DynamicResource SystemParameters.ComboBoxPopupAnimation}">
+                <Calendar Name="PART_Calendar"
+                          FirstDayOfWeek="{TemplateBinding FirstDayOfWeek}"
+                          IsTodayHighlighted="{TemplateBinding IsTodayHighlighted}"
+                          SelectedDate="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SelectedDate, Mode=TwoWay}"
+                          DisplayDate="{TemplateBinding DisplayDate}"
+                          DisplayDateStart="{TemplateBinding DisplayDateStart}"
+                          DisplayDateEnd="{TemplateBinding DisplayDateEnd}" />
+              </Popup>
+            </Grid>
+          </Border>
+        </DataValidationErrors>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:disabled /template/ Grid#PART_DisabledVisual">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

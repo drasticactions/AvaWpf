@@ -1,0 +1,82 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- DatePicker/TimePicker parts from WPF ComboBox.xaml [[Classic]]: the closed picker button and the drop-down
+       selector row. -->
+  <ControlTheme x:Key="Classic.DateTimePickerFlyoutButton" TargetType="Button">
+    <Setter Property="Background" Value="{DynamicResource SystemColors.WindowBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.WindowTextBrush}" />
+    <Setter Property="BorderBrush" Value="{x:Static wpf:ClassicBorderDecorator.ClassicBorderBrush}" />
+    <Setter Property="BorderThickness" Value="2" />
+    <Setter Property="FocusAdorner" Value="{DynamicResource Classic.ComboBoxFocusVisual}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <wpf:ClassicBorderDecorator Name="Border"
+                                    BorderStyle="Sunken"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    UseLayoutRounding="True">
+          <DockPanel>
+            <wpf:ClassicBorderDecorator Name="DropButton"
+                                        DockPanel.Dock="Right"
+                                        BorderStyle="AltRaised"
+                                        Width="{DynamicResource SystemParameters.VerticalScrollBarWidth}"
+                                        Background="{DynamicResource SystemColors.ControlBrush}"
+                                        BorderBrush="{x:Static wpf:ClassicBorderDecorator.ClassicBorderBrush}"
+                                        BorderThickness="2">
+              <Path Name="Arrow"
+                    Fill="{DynamicResource SystemColors.ControlTextBrush}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Data="{DynamicResource Classic.DownArrowGeometry}" />
+            </wpf:ClassicBorderDecorator>
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Content="{TemplateBinding Content}"
+                              Foreground="{TemplateBinding Foreground}"
+                              Margin="2,1"
+                              HorizontalContentAlignment="Stretch"
+                              VerticalContentAlignment="Stretch" />
+          </DockPanel>
+        </wpf:ClassicBorderDecorator>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pressed /template/ wpf|ClassicBorderDecorator#DropButton">
+      <Setter Property="BorderStyle" Value="AltPressed" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+      <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+      <Style Selector="^ /template/ Path#Arrow">
+        <Setter Property="Fill" Value="{DynamicResource SystemColors.ControlDarkBrush}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Classic.DateTimePickerItem" TargetType="ListBoxItem">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.WindowTextBrush}" />
+    <Setter Property="Padding" Value="4,0" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ContentPresenter Name="PART_ContentPresenter"
+                          Background="{TemplateBinding Background}"
+                          Foreground="{TemplateBinding Foreground}"
+                          Content="{TemplateBinding Content}"
+                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                          Padding="{TemplateBinding Padding}"
+                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:selected">
+      <Setter Property="IsHitTestVisible" Value="False" />
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.HighlightTextBrush}" />
+    </Style>
+    <Style Selector="^.MonthItem">
+      <Setter Property="HorizontalContentAlignment" Value="Left" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

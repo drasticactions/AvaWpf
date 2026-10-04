@@ -1,0 +1,31 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/MenuItem.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!--
+    WPF DefaultMenuItemStyle for submenu items (Role SubmenuItem / SubmenuHeader; templates in _MenuTemplates.axaml).
+  -->
+  <ControlTheme x:Key="{x:Type MenuItem}" TargetType="MenuItem" BasedOn="{StaticResource Fluent.MenuItem.SubmenuItem}">
+    <Style Selector="^:not(:empty)">
+      <Setter Property="Template" Value="{StaticResource Fluent.MenuItem.SubmenuHeaderTemplateKey}" />
+      <Style Selector="^:disabled">
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.MenuItem.MenuItem.SubmenuHeaderTemplateKey.Self.Foreground.IsEnabled_false}" />
+        <Style Selector="^ /template/ TextBlock#Chevron">
+          <Setter Property="Foreground" Value="{DynamicResource Fluent.MenuItem.MenuItem.SubmenuHeaderTemplateKey.Chevron.Foreground.IsEnabled_false}" />
+        </Style>
+      </Style>
+      <Style Selector="^:open /template/ Border#SubmenuBorder">
+        <Style.Animations>
+          <Animation Duration="{x:Static wpf:FluentTimings.Fast}" Easing="CircularEaseOut" FillMode="Forward">
+            <KeyFrame Cue="0%">
+              <Setter Property="TranslateTransform.Y" Value="-90" />
+            </KeyFrame>
+            <KeyFrame Cue="100%">
+              <Setter Property="TranslateTransform.Y" Value="0" />
+            </KeyFrame>
+          </Animation>
+        </Style.Animations>
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

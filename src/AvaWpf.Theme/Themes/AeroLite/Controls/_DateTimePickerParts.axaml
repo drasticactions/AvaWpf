@@ -1,0 +1,149 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    Parts shared by the AeroLite DatePicker and TimePicker: AeroLite.DateTimePickerItem, AeroLite.DateTimePickerButton
+    and the column scroll buttons. The selected cell is drawn by the presenter's highlight band.
+  -->
+  <ControlTheme x:Key="AeroLite.DateTimePickerItem" TargetType="ListBoxItem">
+    <Setter Property="Padding" Value="0,3,0,3" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="Bd"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Padding="{TemplateBinding Padding}">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#Bd">
+      <Setter Property="Background" Value="{DynamicResource AeroLite.Item.MouseOver.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.Item.MouseOver.Border}" />
+    </Style>
+    <Style Selector="^:selected">
+      <Setter Property="IsHitTestVisible" Value="False" />
+      <Style Selector="^ /template/ Border#Bd">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+      </Style>
+    </Style>
+    <Style Selector="^.MonthItem">
+      <Setter Property="Padding" Value="9,3,0,3" />
+      <Setter Property="HorizontalContentAlignment" Value="Left" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="AeroLite.DateTimePickerButton" TargetType="Button">
+    <Setter Property="Background" Value="{DynamicResource AeroLite.Button.Static.Background}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.Button.Static.Border}" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Height" Value="22" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ContentPresenter Name="PART_ContentPresenter"
+                          Background="{TemplateBinding Background}"
+                          BorderBrush="{TemplateBinding BorderBrush}"
+                          BorderThickness="{TemplateBinding BorderThickness}"
+                          Content="{TemplateBinding Content}"
+                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                          Padding="{TemplateBinding Padding}"
+                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource AeroLite.Button.MouseOver.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.Button.MouseOver.Border}" />
+    </Style>
+    <Style Selector="^:pressed /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource AeroLite.Button.Pressed.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.Button.Pressed.Border}" />
+    </Style>
+    <Style Selector="^:disabled /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource AeroLite.Button.Disabled.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.Button.Disabled.Border}" />
+      <Setter Property="Foreground" Value="{DynamicResource AeroLite.Button.Disabled.Foreground}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="AeroLite.DateTimePickerUpButton" TargetType="RepeatButton">
+    <Setter Property="VerticalAlignment" Value="Top" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="Height" Value="17" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="IsVisible" Value="False" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="border"
+                BorderThickness="1"
+                Background="{DynamicResource AeroLite.ScrollBar.Static.Background}"
+                BorderBrush="{DynamicResource AeroLite.ScrollBar.Static.Border}">
+          <Path Name="glyph"
+                Width="7"
+                Height="5"
+                Stretch="Uniform"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Data="{DynamicResource AeroLite.ScrollBar.ScrollBar.Path#1.Data}"
+                Fill="{TemplateBinding Foreground}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#border">
+      <Setter Property="Background" Value="{DynamicResource AeroLite.ScrollBar.MouseOver.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.ScrollBar.MouseOver.Border}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Border#border">
+      <Setter Property="Background" Value="{DynamicResource AeroLite.ScrollBar.Pressed.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.ScrollBar.Pressed.Border}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="AeroLite.DateTimePickerDownButton" TargetType="RepeatButton">
+    <Setter Property="VerticalAlignment" Value="Bottom" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="Height" Value="17" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="IsVisible" Value="False" />
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="border"
+                BorderThickness="1"
+                Background="{DynamicResource AeroLite.ScrollBar.Static.Background}"
+                BorderBrush="{DynamicResource AeroLite.ScrollBar.Static.Border}">
+          <Path Name="glyph"
+                Width="7"
+                Height="5"
+                Stretch="Uniform"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Data="{DynamicResource AeroLite.ScrollBar.ScrollBar.Path#2.Data}"
+                Fill="{TemplateBinding Foreground}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#border">
+      <Setter Property="Background" Value="{DynamicResource AeroLite.ScrollBar.MouseOver.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.ScrollBar.MouseOver.Border}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Border#border">
+      <Setter Property="Background" Value="{DynamicResource AeroLite.ScrollBar.Pressed.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.ScrollBar.Pressed.Border}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

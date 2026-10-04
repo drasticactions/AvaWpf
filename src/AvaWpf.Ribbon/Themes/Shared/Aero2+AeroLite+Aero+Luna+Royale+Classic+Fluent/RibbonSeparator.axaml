@@ -1,0 +1,33 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF RibbonSeparator.xaml, [[Generic]]: a line, or with a label a menu section header. -->
+  <ControlTheme x:Key="{x:Type wpf:RibbonSeparator}" TargetType="wpf:RibbonSeparator">
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Background" Value="{DynamicResource $F.Invented.Ribbon.Background}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource $F.Invented.Ribbon.BorderBrush}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <StackPanel>
+          <Rectangle Name="Line" Height="1" Fill="{TemplateBinding BorderBrush}" />
+          <Rectangle Name="HighlightLine" Height="1" Fill="{DynamicResource $F.Invented.Ribbon.Separator.Highlight}" />
+        </StackPanel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:haslabel">
+      <Setter Property="FontWeight" Value="Bold" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Border Name="MainBorder"
+                  BorderThickness="0,1,0,1"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  Background="{TemplateBinding Background}">
+            <Border Name="Overlay" Background="{DynamicResource $F.Invented.Ribbon.MenuItem.Overlay}">
+              <TextBlock Name="Text" Margin="2,1,2,1" Text="{TemplateBinding Label}" />
+            </Border>
+          </Border>
+        </ControlTemplate>
+      </Setter>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

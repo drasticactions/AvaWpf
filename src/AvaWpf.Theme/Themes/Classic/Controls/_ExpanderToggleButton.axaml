@@ -1,0 +1,213 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- WPF Expander.xaml Expander{Down,Up,Left,Right}HeaderStyle [[Classic]]. WPF draws the Up box in WindowText, which
+       hides the chevron; the face color is used here as for the other directions. -->
+
+  <!-- ExpanderDownHeaderStyle. -->
+  <ControlTheme x:Key="Classic.ExpanderToggleButton" TargetType="ToggleButton">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Padding="{TemplateBinding Padding}">
+          <Grid Background="Transparent" ColumnDefinitions="19,*">
+            <wpf:ClassicBorderDecorator Name="Bd"
+                                        Width="19"
+                                        Height="19"
+                                        BorderStyle="None"
+                                        Background="{DynamicResource SystemColors.ControlBrush}"
+                                        BorderThickness="1"
+                                        BorderBrush="{x:Static wpf:ClassicBorderDecorator.ClassicBorderBrush}"
+                                        UseLayoutRounding="True">
+              <Path Name="arrow"
+                Width="8.53"
+                Height="6.06"
+                UseLayoutRounding="False"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Stroke="{TemplateBinding Foreground}"
+                    StrokeThickness="1.5"
+                    Data="{DynamicResource Classic.Expander.ExpanderDownHeaderStyle.arrow.Data}" />
+            </wpf:ClassicBorderDecorator>
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Grid.Column="1"
+                              Margin="4,0,0,0"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Center"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              RecognizesAccessKey="True" />
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:checked /template/ Path#arrow">
+      <Setter Property="Data" Value="{DynamicResource Classic.Expander.ExpanderDownHeaderStyle.arrow.Data.IsChecked_true}" />
+      <Setter Property="Height" Value="5.03" />
+    </Style>
+    <Style Selector="^:pointerover /template/ wpf|ClassicBorderDecorator#Bd">
+      <Setter Property="BorderStyle" Value="ThinRaised" />
+    </Style>
+    <Style Selector="^:pressed /template/ wpf|ClassicBorderDecorator#Bd">
+      <Setter Property="BorderStyle" Value="ThinPressed" />
+    </Style>
+  </ControlTheme>
+
+  <!-- ExpanderUpHeaderStyle. -->
+  <ControlTheme x:Key="Classic.ExpanderUpHeaderStyle" TargetType="ToggleButton">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Padding="{TemplateBinding Padding}">
+          <Grid Background="Transparent" ColumnDefinitions="19,*">
+            <wpf:ClassicBorderDecorator Name="Bd"
+                                        Width="19"
+                                        Height="19"
+                                        BorderStyle="None"
+                                        Background="{DynamicResource SystemColors.ControlBrush}"
+                                        BorderThickness="1"
+                                        BorderBrush="{x:Static wpf:ClassicBorderDecorator.ClassicBorderBrush}"
+                                        UseLayoutRounding="True">
+              <LayoutTransformControl HorizontalAlignment="Center" VerticalAlignment="Center">
+                <LayoutTransformControl.LayoutTransform>
+                  <RotateTransform Angle="180" />
+                </LayoutTransformControl.LayoutTransform>
+                <Path Name="arrow"
+                Width="8.53"
+                Height="6.06"
+                UseLayoutRounding="False"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Stroke="{TemplateBinding Foreground}"
+                    StrokeThickness="1.5"
+                    Data="{DynamicResource Classic.Expander.ExpanderUpHeaderStyle.arrow.Data}" />
+              </LayoutTransformControl>
+            </wpf:ClassicBorderDecorator>
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Grid.Column="1"
+                              Margin="4,0,0,0"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Center"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              RecognizesAccessKey="True" />
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:checked /template/ Path#arrow">
+      <Setter Property="Data" Value="{DynamicResource Classic.Expander.ExpanderUpHeaderStyle.arrow.Data.IsChecked_true}" />
+      <Setter Property="Height" Value="5.03" />
+    </Style>
+    <Style Selector="^:pointerover /template/ wpf|ClassicBorderDecorator#Bd">
+      <Setter Property="BorderStyle" Value="ThinRaised" />
+    </Style>
+    <Style Selector="^:pressed /template/ wpf|ClassicBorderDecorator#Bd">
+      <Setter Property="BorderStyle" Value="ThinPressed" />
+    </Style>
+  </ControlTheme>
+
+  <!-- ExpanderLeftHeaderStyle. -->
+  <ControlTheme x:Key="Classic.ExpanderLeftHeaderStyle" TargetType="ToggleButton">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Padding="{TemplateBinding Padding}">
+          <Grid Background="Transparent" RowDefinitions="19,*">
+            <wpf:ClassicBorderDecorator Name="Bd"
+                                        Width="19"
+                                        Height="19"
+                                        BorderStyle="None"
+                                        Background="{DynamicResource SystemColors.ControlBrush}"
+                                        BorderThickness="1"
+                                        BorderBrush="{x:Static wpf:ClassicBorderDecorator.ClassicBorderBrush}"
+                                        UseLayoutRounding="True">
+              <LayoutTransformControl HorizontalAlignment="Center" VerticalAlignment="Center">
+                <LayoutTransformControl.LayoutTransform>
+                  <RotateTransform Angle="90" />
+                </LayoutTransformControl.LayoutTransform>
+                <Path Name="arrow"
+                Width="8.53"
+                Height="6.06"
+                UseLayoutRounding="False"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Stroke="{TemplateBinding Foreground}"
+                    StrokeThickness="1.5"
+                    Data="{DynamicResource Classic.Expander.ExpanderLeftHeaderStyle.arrow.Data}" />
+              </LayoutTransformControl>
+            </wpf:ClassicBorderDecorator>
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Grid.Row="1"
+                              Margin="0,4,0,0"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Top"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              RecognizesAccessKey="True" />
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:checked /template/ Path#arrow">
+      <Setter Property="Data" Value="{DynamicResource Classic.Expander.ExpanderLeftHeaderStyle.arrow.Data.IsChecked_true}" />
+      <Setter Property="Height" Value="5.03" />
+    </Style>
+    <Style Selector="^:pointerover /template/ wpf|ClassicBorderDecorator#Bd">
+      <Setter Property="BorderStyle" Value="ThinRaised" />
+    </Style>
+    <Style Selector="^:pressed /template/ wpf|ClassicBorderDecorator#Bd">
+      <Setter Property="BorderStyle" Value="ThinPressed" />
+    </Style>
+  </ControlTheme>
+
+  <!-- ExpanderRightHeaderStyle. -->
+  <ControlTheme x:Key="Classic.ExpanderRightHeaderStyle" TargetType="ToggleButton">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Padding="{TemplateBinding Padding}">
+          <Grid Background="Transparent" RowDefinitions="19,*">
+            <wpf:ClassicBorderDecorator Name="Bd"
+                                        Width="19"
+                                        Height="19"
+                                        BorderStyle="None"
+                                        Background="{DynamicResource SystemColors.ControlBrush}"
+                                        BorderThickness="1"
+                                        BorderBrush="{x:Static wpf:ClassicBorderDecorator.ClassicBorderBrush}"
+                                        UseLayoutRounding="True">
+              <LayoutTransformControl HorizontalAlignment="Center" VerticalAlignment="Center">
+                <LayoutTransformControl.LayoutTransform>
+                  <RotateTransform Angle="-90" />
+                </LayoutTransformControl.LayoutTransform>
+                <Path Name="arrow"
+                Width="8.53"
+                Height="6.06"
+                UseLayoutRounding="False"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Stroke="{TemplateBinding Foreground}"
+                    StrokeThickness="1.5"
+                    Data="{DynamicResource Classic.Expander.ExpanderRightHeaderStyle.arrow.Data}" />
+              </LayoutTransformControl>
+            </wpf:ClassicBorderDecorator>
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Grid.Row="1"
+                              Margin="0,4,0,0"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Top"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              RecognizesAccessKey="True" />
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:checked /template/ Path#arrow">
+      <Setter Property="Data" Value="{DynamicResource Classic.Expander.ExpanderRightHeaderStyle.arrow.Data.IsChecked_true}" />
+      <Setter Property="Height" Value="5.03" />
+    </Style>
+    <Style Selector="^:pointerover /template/ wpf|ClassicBorderDecorator#Bd">
+      <Setter Property="BorderStyle" Value="ThinRaised" />
+    </Style>
+    <Style Selector="^:pressed /template/ wpf|ClassicBorderDecorator#Bd">
+      <Setter Property="BorderStyle" Value="ThinPressed" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

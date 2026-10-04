@@ -1,0 +1,106 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="https://github.com/avawpf">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/ToolBar.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!--
+    WPF Fluent ToolBar style, plus a header presenter and a vertical layout that WPF Fluent does not have. The popup
+    frame uses the menu flyout stroke because WPF names MenuBorderColorDefaultBrush, which no Fluent dictionary
+    defines.
+  -->
+  <ControlTheme x:Key="{x:Type wpf:ToolBar}" TargetType="wpf:ToolBar">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="Border"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Padding="{TemplateBinding Padding}"
+                CornerRadius="4"
+                UseLayoutRounding="True">
+          <DockPanel>
+            <Panel Name="OverflowHost"
+                   DockPanel.Dock="Right">
+              <ToggleButton Name="PART_OverflowButton"
+                            Theme="{StaticResource Fluent.ToolBarOverflowButtonStyle}"
+                            ClickMode="Press"
+                            IsChecked="{TemplateBinding IsOverflowOpen, Mode=TwoWay}"
+                            IsEnabled="{TemplateBinding HasOverflowItems}" />
+              <Popup Name="OverflowPopup"
+                     Placement="Bottom"
+                     PlacementTarget="{Binding #PART_OverflowButton}"
+                     IsOpen="{TemplateBinding IsOverflowOpen, Mode=TwoWay}"
+                     IsLightDismissEnabled="True"
+                     OverlayDismissEventPassThrough="False"
+                     Focusable="False"
+                     wpf:PopupAnimation.Kind="Slide">
+                <Border Name="DropDownBorder"
+                        Margin="12,0,12,18"
+                        Padding="0,3,0,3"
+                        BorderBrush="{DynamicResource Fluent.ContextMenuBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="8"
+                        Background="{DynamicResource Fluent.ToolBar.ToolBar.DropDownBorder.Background}"
+                        UseLayoutRounding="True">
+                  <wpf:ToolBarOverflowPanel Name="PART_ToolBarOverflowPanel"
+                                            Margin="0"
+                                            WrapWidth="200"
+                                            Focusable="True"
+                                            FocusAdorner="{x:Null}"
+                                            KeyboardNavigation.TabNavigation="Cycle" />
+                </Border>
+              </Popup>
+            </Panel>
+            <Thumb Name="PART_Gripper"
+                   Theme="{StaticResource Fluent.ToolBarThumbStyle}"
+                   DockPanel.Dock="Left"
+                   Width="10" />
+            <ContentPresenter Name="PART_HeaderPresenter"
+                              DockPanel.Dock="Left"
+                              Content="{TemplateBinding Header}"
+                              ContentTemplate="{TemplateBinding HeaderTemplate}"
+                              IsVisible="{TemplateBinding Header, Converter={x:Static ObjectConverters.IsNotNull}}"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Margin="4,0,4,0" />
+            <ItemsPresenter Name="PART_ItemsPresenter"
+                            ItemsPanel="{TemplateBinding ItemsPanel}"
+                            Margin="0,1,2,2" />
+          </DockPanel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^:overflowopen /template/ Thumb#PART_Gripper">
+      <Setter Property="IsEnabled" Value="False" />
+    </Style>
+    <Style Selector="^:locked /template/ Thumb#PART_Gripper">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:vertical">
+      <Style Selector="^ /template/ Panel#OverflowHost">
+        <Setter Property="DockPanel.Dock" Value="Bottom" />
+      </Style>
+      <Style Selector="^ /template/ ToggleButton#PART_OverflowButton">
+        <Setter Property="Theme" Value="{StaticResource Fluent.ToolBarVerticalOverflowButtonStyle}" />
+      </Style>
+      <Style Selector="^ /template/ Popup#OverflowPopup">
+        <Setter Property="Placement" Value="Right" />
+      </Style>
+      <Style Selector="^ /template/ Thumb#PART_Gripper">
+        <Setter Property="Width" Value="NaN" />
+        <Setter Property="Height" Value="10" />
+        <Setter Property="DockPanel.Dock" Value="Top" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#PART_HeaderPresenter">
+        <Setter Property="Margin" Value="0,0,0,4" />
+        <Setter Property="DockPanel.Dock" Value="Top" />
+      </Style>
+      <Style Selector="^ /template/ ItemsPresenter#PART_ItemsPresenter">
+        <Setter Property="Margin" Value="1,0,2,2" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

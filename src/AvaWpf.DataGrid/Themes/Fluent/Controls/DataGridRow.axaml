@@ -1,0 +1,25 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Ported from WPF PresentationFramework.Fluent/Styles/DataGrid.xaml (MIT, WPF UI contributors; see NOTICE.md). -->
+  <!-- WPF Fluent DefaultDataGridRowStyle. The row draws no hover or selection look; the cells do. -->
+  <ControlTheme x:Key="{x:Type DataGridRow}" TargetType="DataGridRow">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border x:Name="DGR_Border"
+                Background="Transparent"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                UseLayoutRounding="True">
+          <DataGridFrozenGrid Name="PART_Root" ColumnDefinitions="Auto,*" RowDefinitions="*,Auto,Auto">
+            <DataGridRowHeader Name="PART_RowHeader" Grid.RowSpan="3" DataGridFrozenGrid.IsFrozen="True" />
+            <DataGridCellsPresenter Name="PART_CellsPresenter" Grid.Column="1" DataGridFrozenGrid.IsFrozen="True" />
+            <DataGridDetailsPresenter Name="PART_DetailsPresenter" Grid.Row="1" Grid.Column="1" />
+            <Rectangle Name="PART_BottomGridLine" Grid.Row="2" Grid.Column="1" Height="1" HorizontalAlignment="Stretch" />
+          </DataGridFrozenGrid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

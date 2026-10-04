@@ -1,0 +1,54 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:collections="using:System.Collections">
+  <!--
+    DataValidationErrors as WPF's default Validation.ErrorTemplate: a red border over the control.
+    WPF shows no text; a red "!" to the right carries the messages in a ToolTip.
+  -->
+  <ControlTheme x:Key="{x:Type DataValidationErrors}" TargetType="DataValidationErrors">
+    <Setter Property="Template">
+      <ControlTemplate TargetType="DataValidationErrors">
+        <DockPanel LastChildFill="True">
+          <ContentControl Name="InlineDataValidationContentControl"
+                          Content="{Binding (DataValidationErrors.Errors)}"
+                          ContentTemplate="{TemplateBinding ErrorTemplate}"
+                          DataContext="{TemplateBinding Owner}"
+                          DockPanel.Dock="Right"
+                          IsVisible="{Binding (DataValidationErrors.HasErrors)}" />
+          <Panel>
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Padding="{TemplateBinding Padding}"
+                              Background="{TemplateBinding Background}"
+                              BorderBrush="{TemplateBinding BorderBrush}"
+                              BorderThickness="{TemplateBinding BorderThickness}"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              CornerRadius="{TemplateBinding CornerRadius}" />
+            <Border Name="ErrorBorder"
+                    DataContext="{TemplateBinding Owner}"
+                    BorderThickness="1"
+                    BorderBrush="{DynamicResource Aero.Invented.DataValidationErrors.Border}"
+                    IsHitTestVisible="False"
+                    UseLayoutRounding="True"
+                    IsVisible="{Binding (DataValidationErrors.HasErrors)}" />
+          </Panel>
+        </DockPanel>
+      </ControlTemplate>
+    </Setter>
+    <Setter Property="ErrorTemplate">
+      <DataTemplate>
+        <Panel Name="PART_InlineErrorTemplatePanel" Background="Transparent" Margin="4,0,0,0">
+          <ToolTip.Tip>
+            <ItemsControl ItemsSource="{Binding}" x:DataType="collections:IEnumerable" />
+          </ToolTip.Tip>
+          <Path Width="14"
+                Height="14"
+                VerticalAlignment="Center"
+                Data="M14,7 A7,7 0 0,0 0,7 M0,7 A7,7 0 1,0 14,7 M7,3l0,5 M7,9l0,2"
+                Stroke="{DynamicResource Aero.Invented.DataValidationErrors.Foreground}"
+                StrokeThickness="2" />
+        </Panel>
+      </DataTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

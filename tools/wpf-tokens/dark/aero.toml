@@ -1,0 +1,72 @@
+# Hand-tuned Dark overrides of the Aero family (spec 7.6). A value is one color for every stop, or the stop colors in
+# order. The derivation turns Aero's light grey borders into near-black lines and keeps the white glass highlights, so
+# the glass button, the list and text borders and the button chrome highlights are set here to a dark glass look.
+
+# Button glass (Button.xaml ButtonNormalBackground / ButtonNormalBorder; ComboBox and TabItem use them too).
+"ButtonNormalBackground" = "#FF4B5057 #FF41454B #FF363A3F #FF2D3034"
+"ButtonNormalBorder" = "#FF7A7F86"
+"Button.BaseButtonStyle.Self.Foreground.IsEnabled_false" = "#FF6E6E6E"
+
+# ButtonChrome code-built brushes (chrome/aero.toml).
+"Chrome.ButtonChrome.InnerBorder" = "#38FFFFFF #0CFFFFFF"
+"Chrome.ButtonChrome.Hover.Fill" = "#FF3B6888 #FF305D7D #FF245070 #FF2D6088"
+"Chrome.ButtonChrome.Hover.Border" = "#FF62A8DE"
+"Chrome.ButtonChrome.Pressed.Fill" = "#FF1D4766 #FF183D59 #FF235A82"
+"Chrome.ButtonChrome.Pressed.Fill0Color" = "#FF1D4766"
+"Chrome.ButtonChrome.Pressed.Fill2Color" = "#FF183D59"
+"Chrome.ButtonChrome.Pressed.Fill3Color" = "#FF235A82"
+"Chrome.ButtonChrome.Pressed.Border" = "#FF4A92CA"
+"Chrome.ButtonChrome.Pressed.BorderColor" = "#FF4A92CA"
+"Chrome.ButtonChrome.Pressed.LeftShadow" = "#80000000 #00000000"
+"Chrome.ButtonChrome.Pressed.TopShadow" = "#80000000 #00000000"
+"Chrome.ButtonChrome.Disabled.Fill" = "#FF2B2B2B"
+"Chrome.ButtonChrome.Disabled.Border" = "#FF4A4D50"
+
+# Check and radio boxes.
+"CheckBoxFillNormal" = "#FF2B2B2B"
+"CheckBoxStroke" = "#FF8A8B8B"
+"RadioButton.RadioButton.Setter.Self.Background" = "#FF2B2B2B"
+
+# Text box, list and tab borders (the light greys the derivation would turn black).
+"TextBoxBorder" = "#FF8A8C92 #FF66686E #FF5E6268"
+"ListBorder" = "#FF6E727A"
+"TabControlNormalBorderBrush" = "#FF6E7076"
+"TabItemDisabledBorderBrush" = "#FF4E4D46"
+"TabItemHotBackground" = "#FF3B6888 #FF305D7D #FF245070 #FF2D6088"
+"ProgressBarBorderBrush" = "#FF7A7A7A #FF5E5E5E"
+"HorizontalSliderTrackNormalBorder" = "#FF6E716F #FF3A3A3A"
+"VerticalSliderTrackNormalBorder" = "#FF6E716F #FF3A3A3A"
+"HorizontalSliderTrackNormalBackground" = "#FF3A3C3C"
+"Slider.HorizontalSliderThumbStyle.OuterBorder.Stroke" = "#FF8A8A8A"
+"Slider.HorizontalSliderUpThumbStyle.OuterBorder.Stroke" = "#FF8A8A8A"
+"Slider.HorizontalSliderDownThumbStyle.OuterBorder.Stroke" = "#FF8A8A8A"
+"Slider.VerticalSliderThumbStyle.OuterBorder.Stroke" = "#FF8A8A8A"
+"Slider.VerticalSliderLeftThumbStyle.OuterBorder.Stroke" = "#FF8A8A8A"
+"Slider.VerticalSliderRightThumbStyle.OuterBorder.Stroke" = "#FF8A8A8A"
+"Slider.HorizontalSliderThumbStyle.InnerBorder.Stroke" = "#40FFFFFF"
+"Slider.HorizontalSliderUpThumbStyle.InnerBorder.Stroke" = "#40FFFFFF"
+"Slider.HorizontalSliderDownThumbStyle.InnerBorder.Stroke" = "#40FFFFFF"
+"Slider.VerticalSliderThumbStyle.InnerBorder.Stroke" = "#40FFFFFF"
+"Slider.VerticalSliderLeftThumbStyle.InnerBorder.Stroke" = "#40FFFFFF"
+"Slider.VerticalSliderRightThumbStyle.InnerBorder.Stroke" = "#40FFFFFF"
+
+# Menus and popups.
+"MenuBackground" = "#FF353535 #FF2E2E2E #FF262626 #FF3A3A3A"
+"SubMenuBackgroundBrush" = "#FF2B2B2B"
+"MenuItem.SubmenuHeaderTemplateKey.SubMenuBorder.BorderBrush" = "#FF6A6A6A"
+"MenuItem.TopLevelHeaderTemplateKey.SubMenuBorder.BorderBrush" = "#FF6A6A6A"
+"ContextMenu.ContextMenu.Setter.Self.BorderBrush" = "#FF6A6A6A"
+"ContextMenu.ContextMenu.Setter.Self.Background" = "#FF2B2B2B"
+"ToolTipBackground" = "#FF3A3A3A #FF2C2D33"
+"ToolTip.ToolTip.Setter.Self.Foreground" = "#FFE0E0E0"
+"ToolTip.ToolTip.Setter.Self.BorderBrush" = "#FF8A8A8A"
+
+# Tab and progress bar surfaces.
+"TabControl.TabControl.Setter.Self.Background" = "#FF2B2B2B"
+"TabItemSelectedBackground" = "#FF2B2B2B"
+"ProgressBarBackground" = "#FF3A3A3A #FF444444 #FF3A3A3A"
+"ProgressBarGlassyHighlight" = "#20FFFFFF #00FFFFFF"
+"ProgressBarTopHighlight" = "#30FFFFFF #00FFFFFF"
+
+# GridView text (ListView.xaml GridViewStyleKey #042271) on the dark list background.
+"ListView.GridView.GridViewStyleKey.Setter.Self.Foreground" = "#FFE0E6F0"

@@ -1,0 +1,43 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:wpf="https://github.com/avawpf"
+             x:Class="AvaWpf.Gallery.Pages.ButtonsPage">
+  <StackPanel Spacing="12">
+    <TextBlock Classes="Subtitle" Text="Buttons" />
+    <WrapPanel ItemSpacing="8" LineSpacing="8">
+      <Button Content="_Normal" />
+      <Button Content="Default" IsDefault="True" />
+      <Button Content="Accent" Classes="accent" />
+      <Button Content="Disabled" IsEnabled="False" />
+      <RepeatButton Content="_Repeat" />
+      <ToggleButton Content="_Toggle" />
+      <ToggleButton Content="Checked" IsChecked="True" />
+      <HyperlinkButton Content="Hyperlink" NavigateUri="https://github.com/dotnet/wpf" />
+    </WrapPanel>
+    <TextBlock Classes="Subtitle" Text="Drop-down and split buttons" />
+    <WrapPanel ItemSpacing="8" LineSpacing="8">
+      <DropDownButton Content="Drop-down">
+        <DropDownButton.Flyout>
+          <MenuFlyout>
+            <MenuItem Header="First" />
+            <MenuItem Header="Second" />
+          </MenuFlyout>
+        </DropDownButton.Flyout>
+      </DropDownButton>
+      <SplitButton Content="Split">
+        <SplitButton.Flyout>
+          <MenuFlyout>
+            <MenuItem Header="Alternative" />
+          </MenuFlyout>
+        </SplitButton.Flyout>
+      </SplitButton>
+      <ToggleSplitButton Content="Toggle split" />
+    </WrapPanel>
+    <TextBlock Classes="Subtitle" Text="Button sizes" />
+    <WrapPanel ItemSpacing="8" LineSpacing="8">
+      <Button Content="OK" MinWidth="75" MinHeight="23" />
+      <Button Content="Cancel" MinWidth="75" MinHeight="23" />
+      <Button Content="Apply" MinWidth="75" MinHeight="23" IsEnabled="False" />
+    </WrapPanel>
+  </StackPanel>
+</UserControl>

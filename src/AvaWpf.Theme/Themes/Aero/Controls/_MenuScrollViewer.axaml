@@ -1,0 +1,85 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="using:Avalonia.Controls.Converters">
+  <!--
+    WPF MenuItem.xaml MenuScrollViewer, [[Aero.NormalColor]]: no scroll bars, hover-repeat scroll buttons above and below.
+  -->
+  <ControlTheme x:Key="Aero.MenuScrollButton" TargetType="RepeatButton">
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DockPanel Background="Transparent" UseLayoutRounding="True">
+          <Rectangle Name="R1" DockPanel.Dock="Right" Width="1" Fill="Transparent" />
+          <Rectangle Name="B1" DockPanel.Dock="Bottom" Height="1" Fill="Transparent" />
+          <Rectangle Name="L1" DockPanel.Dock="Left" Width="1" Fill="Transparent" />
+          <Rectangle Name="T1" DockPanel.Dock="Top" Height="1" Fill="Transparent" />
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            Margin="2,2,2,2"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center" />
+        </DockPanel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pressed">
+      <Style Selector="^ /template/ Rectangle#R1">
+        <Setter Property="Fill" Value="{DynamicResource SystemColors.ControlLightLightBrush}" />
+      </Style>
+      <Style Selector="^ /template/ Rectangle#B1">
+        <Setter Property="Fill" Value="{DynamicResource SystemColors.ControlLightLightBrush}" />
+      </Style>
+      <Style Selector="^ /template/ Rectangle#L1">
+        <Setter Property="Fill" Value="{DynamicResource SystemColors.ControlDarkDarkBrush}" />
+      </Style>
+      <Style Selector="^ /template/ Rectangle#T1">
+        <Setter Property="Fill" Value="{DynamicResource SystemColors.ControlDarkDarkBrush}" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Margin" Value="3,3,1,1" />
+      </Style>
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Aero.MenuScrollViewer" TargetType="ScrollViewer">
+    <Setter Property="HorizontalScrollBarVisibility" Value="Hidden" />
+    <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+    <Setter Property="IsScrollChainingEnabled" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid RowDefinitions="Auto,*,Auto" UseLayoutRounding="True">
+          <Border Grid.Row="1">
+            <ScrollContentPresenter Name="PART_ContentPresenter" Margin="{TemplateBinding Padding}" />
+          </Border>
+          <RepeatButton Grid.Row="0"
+                        Theme="{StaticResource Aero.MenuScrollButton}"
+                        Command="{Binding LineUp, RelativeSource={RelativeSource TemplatedParent}}">
+            <RepeatButton.IsVisible>
+              <MultiBinding Converter="{x:Static converters:MenuScrollingVisibilityConverter.Instance}" ConverterParameter="0">
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="VerticalScrollBarVisibility" />
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Offset.Y" />
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Extent.Height" />
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Viewport.Height" />
+              </MultiBinding>
+            </RepeatButton.IsVisible>
+            <Path Fill="{DynamicResource SystemColors.MenuTextBrush}" Data="{DynamicResource Aero.UpArrow}" />
+          </RepeatButton>
+          <RepeatButton Grid.Row="2"
+                        Theme="{StaticResource Aero.MenuScrollButton}"
+                        Command="{Binding LineDown, RelativeSource={RelativeSource TemplatedParent}}">
+            <RepeatButton.IsVisible>
+              <MultiBinding Converter="{x:Static converters:MenuScrollingVisibilityConverter.Instance}" ConverterParameter="100">
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="VerticalScrollBarVisibility" />
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Offset.Y" />
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Extent.Height" />
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Viewport.Height" />
+              </MultiBinding>
+            </RepeatButton.IsVisible>
+            <Path Fill="{DynamicResource SystemColors.MenuTextBrush}" Data="{DynamicResource Aero.DownArrow}" />
+          </RepeatButton>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

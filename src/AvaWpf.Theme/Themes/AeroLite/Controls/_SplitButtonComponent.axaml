@@ -1,0 +1,48 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    Half of an AeroLite SplitButton: WPF BaseButtonStyle without a focus rectangle. The SplitButton sets Tag to flyout-
+    open, checked or checked-flyout-open.
+  -->
+  <ControlTheme x:Key="AeroLite.SplitButtonComponent" TargetType="Button">
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="border"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                UseLayoutRounding="True">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Margin="{TemplateBinding Padding}"
+                            RecognizesAccessKey="True"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#border">
+      <Setter Property="Background" Value="{DynamicResource AeroLite.Button.MouseOver.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.Button.MouseOver.Border}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Border#border, ^[Tag=flyout-open] /template/ Border#border">
+      <Setter Property="Background" Value="{DynamicResource AeroLite.Button.Pressed.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.Button.Pressed.Border}" />
+    </Style>
+    <Style Selector="^[Tag=checked] /template/ Border#border, ^[Tag=checked-flyout-open] /template/ Border#border">
+      <Setter Property="Background" Value="{DynamicResource AeroLite.Button.Checked.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.Button.Checked.Border}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Style Selector="^ /template/ Border#border">
+        <Setter Property="Background" Value="{DynamicResource AeroLite.Button.Disabled.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource AeroLite.Button.Disabled.Border}" />
+      </Style>
+      <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource AeroLite.Button.Disabled.Foreground}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,10 @@
+# DynamicResource/StaticResource keys a family references without defining them.
+# Each is a key that WPF itself references but never defines (WPF falls back to the property default).
+Fluent.CheckBoxBackground
+Fluent.CheckBoxBorderBrush
+Fluent.GridViewColumnHeaderForegroundDisabled
+Fluent.GridViewItemContainerMinHeight
+Fluent.ListViewItemBackgroundSelectedPointerOver
+Fluent.ListViewItemDisabledThemeOpacity
+Fluent.MenuBorderColorDefaultBrush
+Fluent.SystemAccentColorSecondary

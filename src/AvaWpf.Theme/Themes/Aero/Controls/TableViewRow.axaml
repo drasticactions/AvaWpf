@@ -1,0 +1,85 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!--
+    TableViewRow as WPF GridView.GridViewItemContainerStyleKey, [[Aero.NormalColor]].
+    The "active" class follows the TableView's keyboard focus (WPF IsSelectionActive).
+  -->
+  <FocusAdornerTemplate x:Key="Aero.ListViewItemFocusVisual">
+    <Rectangle StrokeThickness="1"
+               RadiusX="2"
+               RadiusY="2"
+               Stroke="{DynamicResource Aero.ListViewItem.ListViewItemFocusVisual.Rectangle#1.Stroke}" />
+  </FocusAdornerTemplate>
+
+  <ControlTheme x:Key="{x:Type TableViewRow}" TargetType="TableViewRow">
+    <Setter Property="FocusAdorner" Value="{StaticResource Aero.ListViewItemFocusVisual}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Margin" Value="0,0,0,1" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="Bd"
+                Classes.active="{Binding $parent[TableView].IsKeyboardFocusWithin, FallbackValue=True}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                Background="{TemplateBinding Background}"
+                Padding="{TemplateBinding Padding}"
+                CornerRadius="2"
+                UseLayoutRounding="True">
+          <Border Name="InnerBorder" CornerRadius="1" BorderThickness="1">
+            <Grid>
+              <Grid.RowDefinitions>
+                <RowDefinition MaxHeight="11" />
+                <RowDefinition />
+              </Grid.RowDefinitions>
+              <Rectangle Name="UpperHighlight"
+                         IsVisible="False"
+                         Fill="{DynamicResource Aero.ListViewItem.GridView.GridViewItemContainerStyleKey.UpperHighlight.Fill}" />
+              <TableViewCellsPresenter Name="PART_CellsPresenter"
+                                       Grid.RowSpan="2"
+                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+              <!-- The ListBoxItem presenter; the cells presenter draws the row, so it stays empty and hidden. -->
+              <ContentPresenter Name="PART_ContentPresenter" IsVisible="False" />
+            </Grid>
+          </Border>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover">
+      <Setter Property="Background" Value="{DynamicResource Aero.ListItemHoverFill}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero.ListViewItem.GridView.GridViewItemContainerStyleKey.Self.BorderBrush.IsMouseOver_true}" />
+      <Style Selector="^ /template/ Rectangle#UpperHighlight">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+    </Style>
+    <Style Selector="^:selected">
+      <Setter Property="Background" Value="{DynamicResource Aero.ListItemSelectedFill}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero.ListViewItem.GridView.GridViewItemContainerStyleKey.Self.BorderBrush.IsSelected_true}" />
+      <Style Selector="^ /template/ Border#InnerBorder">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.ListViewItem.GridView.GridViewItemContainerStyleKey.InnerBorder.BorderBrush.IsSelected_true}" />
+      </Style>
+      <Style Selector="^ /template/ Rectangle#UpperHighlight">
+        <Setter Property="IsVisible" Value="True" />
+        <Setter Property="Fill" Value="{DynamicResource Aero.ListViewItem.GridView.GridViewItemContainerStyleKey.UpperHighlight.Fill.IsSelected_true}" />
+      </Style>
+      <Style Selector="^ /template/ Border#Bd:not(.active)">
+        <Setter Property="Background" Value="{DynamicResource Aero.ListItemSelectedInactiveFill}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.ListViewItem.GridView.GridViewItemContainerStyleKey.Self.BorderBrush.IsSelected_true_IsSelectionActive_false}" />
+      </Style>
+    </Style>
+    <Style Selector="^:selected:pointerover">
+      <Setter Property="Background" Value="{DynamicResource Aero.ListItemSelectedHoverFill}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero.ListViewItem.GridView.GridViewItemContainerStyleKey.Self.BorderBrush.IsSelected_true_IsMouseOver_true}" />
+      <Style Selector="^ /template/ Border#Bd:not(.active)">
+        <Setter Property="Background" Value="{DynamicResource Aero.ListItemSelectedHoverFill}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.ListViewItem.GridView.GridViewItemContainerStyleKey.Self.BorderBrush.IsSelected_true_IsMouseOver_true}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>
