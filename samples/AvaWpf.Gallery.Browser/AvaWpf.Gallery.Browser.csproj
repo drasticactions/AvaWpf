@@ -5,8 +5,9 @@
     <TargetFramework>net10.0-browser</TargetFramework>
     <RootNamespace>AvaWpf.Gallery.Browser</RootNamespace>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <!-- IL2026/IL2045/IL2072/IL2075: linker warnings inside Avalonia.DesignerSupport (Avalonia's code); IL2121 follows from hiding them. -->
-    <NoWarn>$(NoWarn);IL2026;IL2045;IL2072;IL2075;IL2121</NoWarn>
+    <!-- IL2026/IL2045/IL2072/IL2075: linker warnings inside Avalonia.DesignerSupport (Avalonia's code); IL2121 follows from hiding them.
+         IL2104: summary warning from the Avalonia.Controls.DataGrid package. -->
+    <NoWarn>$(NoWarn);IL2026;IL2045;IL2072;IL2075;IL2121;IL2104</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
