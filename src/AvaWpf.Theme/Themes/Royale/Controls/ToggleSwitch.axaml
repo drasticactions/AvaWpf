@@ -1,8 +1,8 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:royale="using:AvaWpf.Chrome.Royale"
-                    xmlns:luna="using:AvaWpf.Chrome.Luna">
-  <!-- ToggleSwitch from Royale parts: a ButtonChrome track and a BulletChrome thumb that slides in 200 ms. -->
+                    xmlns:royale="using:AvaWpf.Chrome.Royale">
+  <!-- ToggleSwitch from Royale parts: a TextBox track that fills with the progress bar color when on, and a
+       scroll bar thumb knob. -->
   <ControlTheme x:Key="{x:Type ToggleSwitch}" TargetType="ToggleSwitch">
     <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
     <Setter Property="HorizontalAlignment" Value="Left" />
@@ -38,25 +38,22 @@
                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                               Content="{TemplateBinding OnContent}"
                               ContentTemplate="{TemplateBinding OnContentTemplate}" />
-            <royale:ButtonChrome Name="Track"
-                               Width="40"
-                               Height="20"
-                               Fill="{DynamicResource Royale.ButtonNormalBackgroundFill}"
-                               BorderBrush="{DynamicResource Royale.ButtonBorder}"
-                               RenderMouseOver="{TemplateBinding IsPointerOver}"
-                               UseLayoutRounding="True" />
-            <Canvas Name="PART_SwitchKnob" Width="20" Height="20" HorizontalAlignment="Left">
-              <Grid Name="PART_MovingKnobs" Width="20" Height="20" Background="Transparent">
-                <luna:BulletChrome Name="Thumb"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   Background="{DynamicResource Royale.CheckRadioFillNormal}"
-                                   BorderBrush="{DynamicResource Royale.CheckRadioStrokeNormal}"
-                                   BorderThickness="1"
-                                   IsChecked="False"
-                                   RenderMouseOver="{TemplateBinding IsPointerOver}"
-                                   RenderPressed="{TemplateBinding IsPressed}" />
-              </Grid>
+            <Border Name="Track"
+                    Width="48"
+                    Height="20"
+                    Background="{DynamicResource SystemColors.WindowBrush}"
+                    BorderBrush="{DynamicResource Royale.ListBorder}"
+                    BorderThickness="1"
+                    CornerRadius="3"
+                    UseLayoutRounding="True" />
+            <!-- The knob travels the width of PART_SwitchKnob. -->
+            <Canvas Name="PART_SwitchKnob" Width="18" Height="16" Margin="2" HorizontalAlignment="Left">
+              <Panel Name="PART_MovingKnobs" Width="26" Height="16">
+                <royale:ScrollChrome Name="Knob"
+                                     RenderMouseOver="{TemplateBinding IsPointerOver}"
+                                     RenderPressed="{TemplateBinding IsPressed}"
+                                     UseLayoutRounding="True" />
+              </Panel>
             </Canvas>
           </Grid>
         </Grid>
@@ -65,8 +62,11 @@
     <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter:empty">
       <Setter Property="Margin" Value="0" />
     </Style>
-    <Style Selector="^:checked /template/ royale|ButtonChrome#Track">
-      <Setter Property="RenderPressed" Value="True" />
+    <Style Selector="^ /template/ royale|ScrollChrome#Knob">
+      <Setter Property="royale:ScrollChrome.ScrollGlyph" Value="HorizontalGripper" />
+    </Style>
+    <Style Selector="^:checked /template/ Border#Track">
+      <Setter Property="Background" Value="{DynamicResource Royale.ProgressBarFill}" />
     </Style>
     <Style Selector="^:checked /template/ ContentPresenter#PART_OffContentPresenter">
       <Setter Property="Opacity" Value="0" />
@@ -76,6 +76,9 @@
     </Style>
     <Style Selector="^:disabled">
       <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+      <Style Selector="^ /template/ Border#Track">
+        <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+      </Style>
     </Style>
   </ControlTheme>
 </ResourceDictionary>

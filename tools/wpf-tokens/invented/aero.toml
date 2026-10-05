@@ -169,15 +169,19 @@
 "WindowFrame.CaptionHeight" = 27
 "WindowFrame.ToolCaptionHeight" = 21
 
-# ToggleSwitch (no WPF control): a CheckBox-colored pill (#F4F4F4, #8E8F8F) that turns into the Windows 7 selection
-# glass (the blue list-item highlight) when on, with an Aero ButtonChrome knob.
-"ToggleSwitch.Track.Off.Background" = "linear 0,0 0,1 #FFE6E6E6@0 #FFF4F4F4@0.5 #FFFFFFFF@1"
-"ToggleSwitch.Track.Off.Border" = "#FF8E8F8F"
-"ToggleSwitch.Track.On.Background" = "linear 0,0 0,1 #FFA7D9F5@0 #FF6FC0EF@0.5 #FF3D9BDB@0.5 #FF62B4E8@1"
-"ToggleSwitch.Track.On.Border" = "#FF3C7FB1"
-"ToggleSwitch.Track.Disabled.Background" = "#FFF4F4F4"
+# ToggleSwitch (no WPF control): a TextBox-like pill track that turns light blue when on, with a capsule knob
+# drawn in the ButtonChrome colors.
+"ToggleSwitch.Track.Off.Background" = "#FFF9F9F9"
+"ToggleSwitch.Track.Off.Border" = "linear 0,0 0,1 #FF707070@0 #FFC9C9C9@1"
+"ToggleSwitch.Track.Hover.Background" = "#FFFFFFFF"
+"ToggleSwitch.Track.Hover.Border" = "linear 0,0 0,1 #FF3C7FB1@0 #FF56B8FF@1"
+"ToggleSwitch.Track.On.Background" = "#FFC1DFF6"
+"ToggleSwitch.Track.On.Border" = "linear 0,0 0,1 #FF2C628B@0 #FF49A4E5@1"
+"ToggleSwitch.Track.Disabled.Background" = "#FFE9E9E9"
 "ToggleSwitch.Track.Disabled.Border" = "#FFADB2B5"
-"ToggleSwitch.TrackCornerRadius" = "radius 9"
+"ToggleSwitch.TrackCornerRadius" = "radius 11"
+"ToggleSwitch.KnobCornerRadius" = "radius 8"
+"ToggleSwitch.KnobInnerCornerRadius" = "radius 7"
 
 # DataValidationErrors: WPF's Validation.ErrorTemplate, a 1 px red border around the adorned element.
 "DataValidationErrors.Border" = "#FFFF0000"
@@ -432,13 +436,17 @@
 "WindowFrame.CaptionHeight" = 27
 "WindowFrame.ToolCaptionHeight" = 21
 
-"ToggleSwitch.Track.Off.Background" = "linear 0,0 0,1 #FF2A2A2A@0 #FF333333@0.5 #FF3C3C3C@1"
-"ToggleSwitch.Track.Off.Border" = "#FF8A8A8A"
-"ToggleSwitch.Track.On.Background" = "linear 0,0 0,1 #FF2C6E9E@0 #FF235C88@0.5 #FF184A72@0.5 #FF22608E@1"
-"ToggleSwitch.Track.On.Border" = "#FF5AA0D6"
-"ToggleSwitch.Track.Disabled.Background" = "#FF2B2B2B"
-"ToggleSwitch.Track.Disabled.Border" = "#FF555555"
-"ToggleSwitch.TrackCornerRadius" = "radius 9"
+"ToggleSwitch.Track.Off.Background" = "#FF575757"
+"ToggleSwitch.Track.Off.Border" = "linear 0,0 0,1 #FF000000@0 #FF3D3D3D@1"
+"ToggleSwitch.Track.Hover.Background" = "#FF5D5D5D"
+"ToggleSwitch.Track.Hover.Border" = "linear 0,0 0,1 #FF001729@0 #FF003966@1"
+"ToggleSwitch.Track.On.Background" = "#FF3D505F"
+"ToggleSwitch.Track.On.Border" = "linear 0,0 0,1 #FF001729@0 #FF003966@1"
+"ToggleSwitch.Track.Disabled.Background" = "#FF3C3C3C"
+"ToggleSwitch.Track.Disabled.Border" = "#FF565656"
+"ToggleSwitch.TrackCornerRadius" = "radius 11"
+"ToggleSwitch.KnobCornerRadius" = "radius 8"
+"ToggleSwitch.KnobInnerCornerRadius" = "radius 7"
 
 "DataValidationErrors.Border" = "#FFFF4B4B"
 "DataValidationErrors.Foreground" = "#FFFF6B6B"

@@ -1,7 +1,6 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:aero="using:AvaWpf.Chrome.Aero">
-  <!-- ToggleSwitch from Aero parts: a pill track (CheckBox colors off, selection glass on) with a ButtonChrome knob. -->
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- ToggleSwitch from Aero parts: a TextBox-like pill track and a capsule knob in the ButtonChrome colors. -->
   <ControlTheme x:Key="{x:Type ToggleSwitch}" TargetType="ToggleSwitch">
     <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
     <Setter Property="HorizontalAlignment" Value="Left" />
@@ -28,7 +27,7 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 ColumnDefinitions="Auto,8,Auto"
-                RowDefinitions="3,Auto,3">
+                RowDefinitions="2,Auto,2">
             <Grid Name="SwitchAreaGrid"
                   Grid.RowSpan="3"
                   Grid.ColumnSpan="3"
@@ -48,39 +47,35 @@
                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                               Content="{TemplateBinding OnContent}"
                               ContentTemplate="{TemplateBinding OnContentTemplate}" />
-            <Border Name="OuterBorder"
+            <Border Name="Track"
                     Grid.Row="1"
-                    Width="36"
-                    Height="18"
+                    Width="56"
+                    Height="22"
                     Background="{DynamicResource Aero.Invented.ToggleSwitch.Track.Off.Background}"
                     BorderBrush="{DynamicResource Aero.Invented.ToggleSwitch.Track.Off.Border}"
                     BorderThickness="1"
                     CornerRadius="{DynamicResource Aero.Invented.ToggleSwitch.TrackCornerRadius}"
                     UseLayoutRounding="True" />
-            <Border Name="SwitchKnobBounds"
-                    Grid.Row="1"
-                    Width="36"
-                    Height="18"
-                    Background="{DynamicResource Aero.Invented.ToggleSwitch.Track.On.Background}"
-                    BorderBrush="{DynamicResource Aero.Invented.ToggleSwitch.Track.On.Border}"
-                    BorderThickness="1"
-                    CornerRadius="{DynamicResource Aero.Invented.ToggleSwitch.TrackCornerRadius}"
-                    UseLayoutRounding="True" />
+            <!-- The knob travels the width of PART_SwitchKnob. -->
             <Canvas Name="PART_SwitchKnob"
                     Grid.Row="1"
                     Width="18"
-                    Height="18"
+                    Height="16"
+                    Margin="3"
                     HorizontalAlignment="Left">
-              <Grid Name="PART_MovingKnobs" Width="18" Height="18" Background="Transparent">
-                <aero:ButtonChrome Name="Knob"
-                                   Width="14"
-                                   Height="14"
-                                   Background="{DynamicResource Aero.ButtonNormalBackground}"
-                                   BorderBrush="{DynamicResource Aero.ButtonNormalBorder}"
-                                   RenderMouseOver="{TemplateBinding IsPointerOver}"
-                                   RenderPressed="{TemplateBinding IsPressed}"
-                                   UseLayoutRounding="True" />
-              </Grid>
+              <Panel Name="PART_MovingKnobs" Width="32" Height="16">
+                <Border Name="Knob"
+                        Background="{DynamicResource Aero.ButtonNormalBackground}"
+                        BorderBrush="{DynamicResource Aero.ButtonNormalBorder}"
+                        BorderThickness="1"
+                        CornerRadius="{DynamicResource Aero.Invented.ToggleSwitch.KnobCornerRadius}"
+                        UseLayoutRounding="True">
+                  <Border Name="KnobInner"
+                          BorderBrush="{DynamicResource Aero.Chrome.ButtonChrome.InnerBorder}"
+                          BorderThickness="1"
+                          CornerRadius="{DynamicResource Aero.Invented.ToggleSwitch.KnobInnerCornerRadius}" />
+                </Border>
+              </Panel>
             </Canvas>
           </Grid>
         </Grid>
@@ -89,44 +84,45 @@
     <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter:empty">
       <Setter Property="Margin" Value="0" />
     </Style>
+    <Style Selector="^:pointerover">
+      <Style Selector="^ /template/ Border#Track">
+        <Setter Property="Background" Value="{DynamicResource Aero.Invented.ToggleSwitch.Track.Hover.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.ToggleSwitch.Track.Hover.Border}" />
+      </Style>
+      <Style Selector="^ /template/ Border#Knob">
+        <Setter Property="Background" Value="{DynamicResource Aero.Chrome.ButtonChrome.Hover.Fill}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.Chrome.ButtonChrome.Hover.Border}" />
+      </Style>
+    </Style>
+    <Style Selector="^:checked /template/ Border#Track">
+      <Setter Property="Background" Value="{DynamicResource Aero.Invented.ToggleSwitch.Track.On.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.ToggleSwitch.Track.On.Border}" />
+    </Style>
+    <Style Selector="^:pressed">
+      <Style Selector="^ /template/ Border#Knob">
+        <Setter Property="Background" Value="{DynamicResource Aero.Chrome.ButtonChrome.Pressed.Fill}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.Chrome.ButtonChrome.Pressed.Border}" />
+      </Style>
+      <Style Selector="^ /template/ Border#KnobInner">
+        <Setter Property="BorderBrush" Value="{x:Null}" />
+      </Style>
+    </Style>
     <Style Selector="^:disabled">
       <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
-      <Style Selector="^ /template/ Border#OuterBorder">
+      <Style Selector="^ /template/ Border#Track">
         <Setter Property="Background" Value="{DynamicResource Aero.Invented.ToggleSwitch.Track.Disabled.Background}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.ToggleSwitch.Track.Disabled.Border}" />
       </Style>
-      <Style Selector="^ /template/ Border#SwitchKnobBounds">
-        <Setter Property="Background" Value="{DynamicResource Aero.Invented.ToggleSwitch.Track.Disabled.Background}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.ToggleSwitch.Track.Disabled.Border}" />
+      <Style Selector="^ /template/ Border#Knob">
+        <Setter Property="Background" Value="{DynamicResource Aero.Chrome.ButtonChrome.Disabled.Fill}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.Chrome.ButtonChrome.Disabled.Border}" />
       </Style>
     </Style>
-    <Style Selector="^:checked">
-      <Style Selector="^ /template/ Border#OuterBorder">
-        <Setter Property="Opacity" Value="0" />
-      </Style>
-      <Style Selector="^ /template/ Border#SwitchKnobBounds">
-        <Setter Property="Opacity" Value="1" />
-      </Style>
-      <Style Selector="^ /template/ ContentPresenter#PART_OffContentPresenter">
-        <Setter Property="Opacity" Value="0" />
-      </Style>
-      <Style Selector="^ /template/ ContentPresenter#PART_OnContentPresenter">
-        <Setter Property="Opacity" Value="1" />
-      </Style>
+    <Style Selector="^:checked /template/ ContentPresenter#PART_OffContentPresenter">
+      <Setter Property="Opacity" Value="0" />
     </Style>
-    <Style Selector="^:unchecked">
-      <Style Selector="^ /template/ Border#OuterBorder">
-        <Setter Property="Opacity" Value="1" />
-      </Style>
-      <Style Selector="^ /template/ Border#SwitchKnobBounds">
-        <Setter Property="Opacity" Value="0" />
-      </Style>
-      <Style Selector="^ /template/ ContentPresenter#PART_OffContentPresenter">
-        <Setter Property="Opacity" Value="1" />
-      </Style>
-      <Style Selector="^ /template/ ContentPresenter#PART_OnContentPresenter">
-        <Setter Property="Opacity" Value="0" />
-      </Style>
+    <Style Selector="^:unchecked /template/ ContentPresenter#PART_OnContentPresenter">
+      <Setter Property="Opacity" Value="0" />
     </Style>
   </ControlTheme>
 </ResourceDictionary>

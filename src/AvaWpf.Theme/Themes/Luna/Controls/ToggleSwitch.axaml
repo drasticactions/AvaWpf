@@ -1,7 +1,8 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:luna="using:AvaWpf.Chrome.Luna">
-  <!-- ToggleSwitch from Luna parts: a ButtonChrome track and a BulletChrome thumb that slides in 200 ms. -->
+  <!-- ToggleSwitch from Luna parts: a TextBox track that fills with the progress bar color when on, and a
+       scroll bar thumb knob. -->
   <ControlTheme x:Key="{x:Type ToggleSwitch}" TargetType="ToggleSwitch">
     <Setter Property="Foreground" Value="{DynamicResource SystemColors.ControlTextBrush}" />
     <Setter Property="HorizontalAlignment" Value="Left" />
@@ -37,26 +38,23 @@
                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                               Content="{TemplateBinding OnContent}"
                               ContentTemplate="{TemplateBinding OnContentTemplate}" />
-            <luna:ButtonChrome Name="Track"
-                               Width="40"
-                               Height="20"
-                               ThemeColor="{DynamicResource Luna.ThemeColor}"
-                               Fill="{DynamicResource Luna.ButtonNormalBackgroundFill}"
-                               BorderBrush="{DynamicResource Luna.ButtonBorder}"
-                               RenderMouseOver="{TemplateBinding IsPointerOver}"
-                               UseLayoutRounding="True" />
-            <Canvas Name="PART_SwitchKnob" Width="20" Height="20" HorizontalAlignment="Left">
-              <Grid Name="PART_MovingKnobs" Width="20" Height="20" Background="Transparent">
-                <luna:BulletChrome Name="Thumb"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   Background="{DynamicResource Luna.CheckRadioFillNormal}"
-                                   BorderBrush="{DynamicResource Luna.CheckRadioStrokeNormal}"
-                                   BorderThickness="1"
-                                   IsChecked="False"
+            <Border Name="Track"
+                    Width="48"
+                    Height="20"
+                    Background="{DynamicResource SystemColors.WindowBrush}"
+                    BorderBrush="{DynamicResource Luna.ListBorder}"
+                    BorderThickness="1"
+                    CornerRadius="3"
+                    UseLayoutRounding="True" />
+            <!-- The knob travels the width of PART_SwitchKnob. -->
+            <Canvas Name="PART_SwitchKnob" Width="18" Height="16" Margin="2" HorizontalAlignment="Left">
+              <Panel Name="PART_MovingKnobs" Width="26" Height="16">
+                <luna:ScrollChrome Name="Knob"
+                                   ThemeColor="{DynamicResource Luna.ThemeColor}"
                                    RenderMouseOver="{TemplateBinding IsPointerOver}"
-                                   RenderPressed="{TemplateBinding IsPressed}" />
-              </Grid>
+                                   RenderPressed="{TemplateBinding IsPressed}"
+                                   UseLayoutRounding="True" />
+              </Panel>
             </Canvas>
           </Grid>
         </Grid>
@@ -65,8 +63,11 @@
     <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter:empty">
       <Setter Property="Margin" Value="0" />
     </Style>
-    <Style Selector="^:checked /template/ luna|ButtonChrome#Track">
-      <Setter Property="RenderPressed" Value="True" />
+    <Style Selector="^ /template/ luna|ScrollChrome#Knob">
+      <Setter Property="luna:ScrollChrome.ScrollGlyph" Value="HorizontalGripper" />
+    </Style>
+    <Style Selector="^:checked /template/ Border#Track">
+      <Setter Property="Background" Value="{DynamicResource Luna.ProgressBarFill}" />
     </Style>
     <Style Selector="^:checked /template/ ContentPresenter#PART_OffContentPresenter">
       <Setter Property="Opacity" Value="0" />
@@ -76,6 +77,9 @@
     </Style>
     <Style Selector="^:disabled">
       <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+      <Style Selector="^ /template/ Border#Track">
+        <Setter Property="Background" Value="{DynamicResource SystemColors.ControlBrush}" />
+      </Style>
     </Style>
   </ControlTheme>
 </ResourceDictionary>
