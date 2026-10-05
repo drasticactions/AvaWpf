@@ -45,6 +45,10 @@ public class ThemeWindow : Window
     public static readonly StyledProperty<bool> ShowFrameIconProperty =
         AvaloniaProperty.Register<ThemeWindow, bool>(nameof(ShowFrameIcon), true);
 
+    /// <summary>Defines the <see cref="ShowFrameTitle"/> property.</summary>
+    public static readonly StyledProperty<bool> ShowFrameTitleProperty =
+        AvaloniaProperty.Register<ThemeWindow, bool>(nameof(ShowFrameTitle), true);
+
     /// <summary>Defines the <see cref="IsBackdropVisible"/> property.</summary>
     public static readonly DirectProperty<ThemeWindow, bool> IsBackdropVisibleProperty =
         AvaloniaProperty.RegisterDirect<ThemeWindow, bool>(nameof(IsBackdropVisible), o => o.IsBackdropVisible);
@@ -107,6 +111,13 @@ public class ThemeWindow : Window
     {
         get => GetValue(ShowFrameIconProperty);
         set => SetValue(ShowFrameIconProperty, value);
+    }
+
+    /// <summary>Whether the frame's caption shows <see cref="Window.Title"/> (see <see cref="WindowFrame.ShowTitle"/>).</summary>
+    public bool ShowFrameTitle
+    {
+        get => GetValue(ShowFrameTitleProperty);
+        set => SetValue(ShowFrameTitleProperty, value);
     }
 
     /// <summary>Content in the frame's caption, after the icon (see <see cref="WindowFrame.CaptionContent"/>).</summary>

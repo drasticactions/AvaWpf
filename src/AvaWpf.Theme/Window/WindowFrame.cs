@@ -86,6 +86,10 @@ public class WindowFrame : ContentControl
     public static readonly StyledProperty<bool> ShowIconProperty =
         AvaloniaProperty.Register<WindowFrame, bool>(nameof(ShowIcon), true);
 
+    /// <summary>Defines the <see cref="ShowTitle"/> property.</summary>
+    public static readonly StyledProperty<bool> ShowTitleProperty =
+        AvaloniaProperty.Register<WindowFrame, bool>(nameof(ShowTitle), true);
+
     /// <summary>Defines the <see cref="MenuBar"/> property.</summary>
     public static readonly StyledProperty<object?> MenuBarProperty =
         AvaloniaProperty.Register<WindowFrame, object?>(nameof(MenuBar));
@@ -132,6 +136,7 @@ public class WindowFrame : ContentControl
 
     private Control? _caption;
     private Control? _captionContent;
+    private TextBlock? _title;
     private Control? _captionOverlay;
     private Button? _minimize;
     private Button? _maximize;
@@ -237,6 +242,17 @@ public class WindowFrame : ContentControl
         set => SetValue(ShowIconProperty, value);
     }
 
+    /// <summary>
+    /// Whether the caption shows the title text. An Aero wizard (Vista's Publish Movie, Add Hardware) hides it and
+    /// shows its title beside a back button under the caption instead; the window keeps its title for the taskbar
+    /// and accessibility. Sets the <c>:notitle</c> pseudo-class.
+    /// </summary>
+    public bool ShowTitle
+    {
+        get => GetValue(ShowTitleProperty);
+        set => SetValue(ShowTitleProperty, value);
+    }
+
     /// <summary>Optional content of the menu-bar slot under the caption.</summary>
     public object? MenuBar
     {
@@ -339,7 +355,8 @@ public class WindowFrame : ContentControl
         _captionOverlay = e.NameScope.Find<Control>(CaptionOverlayPartName);
 
         // The caption slots follow the title's Foreground, which the family styles change when inactive.
-        if (e.NameScope.Find<TextBlock>(TitleElementName) is { } title)
+        _title = e.NameScope.Find<TextBlock>(TitleElementName);
+        if (_title is { } title)
         {
             foreach (var slot in new[] { _captionContent, _captionOverlay })
             {
@@ -368,6 +385,8 @@ public class WindowFrame : ContentControl
         _namesMaximize = _maximize is not null && !_maximize.IsSet(AutomationProperties.NameProperty);
         _namesClose = _close is not null && !_close.IsSet(AutomationProperties.NameProperty);
         UpdateCaptionButtonNames();
+
+        UpdatePseudoClasses();
     }
 
     /// <inheritdoc/>
@@ -379,6 +398,7 @@ public class WindowFrame : ContentControl
         base.OnPropertyChanged(change);
         if (change.Property == IsActiveProperty || change.Property == WindowStateProperty || change.Property == KindProperty ||
             change.Property == IsShadowVisibleProperty || change.Property == ShowIconProperty || change.Property == IconProperty ||
+            change.Property == ShowTitleProperty ||
             change.Property == CanMinimizeProperty || change.Property == CanMaximizeProperty || change.Property == IsBackdropVisibleProperty)
         {
             UpdatePseudoClasses();
@@ -418,6 +438,13 @@ public class WindowFrame : ContentControl
         PseudoClasses.Set(":dialog", Kind == WindowFrameKind.Dialog);
         PseudoClasses.Set(":shadow", IsShadowVisible && WindowState == WindowState.Normal);
         PseudoClasses.Set(":noicon", !ShowIcon || Icon is null);
+        PseudoClasses.Set(":notitle", !ShowTitle);
+
+        // Every family names its caption text "title"; hiding it here covers them all without a style per family.
+        if (_title is not null)
+        {
+            _title.Opacity = ShowTitle ? 1 : 0;
+        }
         PseudoClasses.Set(":backdrop", IsBackdropVisible);
         IsMinimizeButtonVisible = CanMinimize && Kind != WindowFrameKind.Dialog;
         IsMaximizeButtonVisible = CanMaximize && Kind != WindowFrameKind.Dialog;

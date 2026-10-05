@@ -6,6 +6,7 @@ using Avalonia.Controls.Shapes;
 using Avalonia.Headless.XUnit;
 using Avalonia.Media;
 using Avalonia.Media.Transformation;
+using Avalonia.Threading;
 using Xunit;
 
 namespace AvaWpf.Animations.Tests;
@@ -238,6 +239,43 @@ public class AnimationTests
 
         bar.IsIndeterminate = false;
         Assert.Same(Avalonia.Media.Brushes.White, glow.Fill);
+        window.Close();
+    }
+
+    [AvaloniaFact]
+    public void Glow_Restarts_Mid_Pass_Without_A_Negative_Delay()
+    {
+        // A relayout while the glow is part way across used to start the new cycle with a negative Delay, which
+        // Avalonia rejects ("Delay value cannot be negative") on the UI thread (a publish progress page crashed).
+        WpfAnimations.TimeScale = 1;
+        Rectangle? glow = null;
+        var bar = new Avalonia.Controls.ProgressBar
+        {
+            Width = 200,
+            Height = 16,
+            Value = 50,
+            Template = new Avalonia.Controls.Templates.FuncControlTemplate<Avalonia.Controls.ProgressBar>((_, scope) =>
+            {
+                glow = new Rectangle { Name = ProgressBarGlow.GlowPartName, Width = 50, HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Left };
+                var indicator = new Border { Name = ProgressBarGlow.IndicatorPartName, Child = glow };
+                scope.Register(glow.Name, glow);
+                scope.Register(indicator.Name, indicator);
+                return indicator;
+            }),
+        };
+        ProgressBarGlow.SetIsEnabled(bar, true);
+        var window = new Window { Content = bar };
+        window.Show();
+        Dispatcher.UIThread.RunJobs();
+
+        // Put the glow mid-pass, then change the indicator size so the cycle is rebuilt from that phase.
+        glow!.Margin = new Thickness(40, 0, 0, 0);
+        bar.Width = 260;
+        window.UpdateLayout();
+        Dispatcher.UIThread.RunJobs();
+        bar.Width = 300;
+        window.UpdateLayout();
+        Dispatcher.UIThread.RunJobs();
         window.Close();
     }
 }

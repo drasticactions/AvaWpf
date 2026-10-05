@@ -19,6 +19,7 @@
                              Title="{TemplateBinding Title}"
                              Icon="{TemplateBinding FrameIcon}"
                              ShowIcon="{TemplateBinding ShowFrameIcon}"
+                             ShowTitle="{TemplateBinding ShowFrameTitle}"
                              IsActive="{TemplateBinding IsActive}"
                              WindowState="{TemplateBinding WindowState}"
                              Kind="{TemplateBinding FrameKind}"

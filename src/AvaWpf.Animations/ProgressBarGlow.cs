@@ -159,21 +159,38 @@ public static class ProgressBarGlow
             }
 
             var scale = WpfAnimations.TimeScale;
+
+            // WPF resumes a pass with a negative BeginTime; Avalonia rejects a negative Delay, so the cycle is
+            // rotated instead: it starts at the glow's current phase, holds at the end, and wraps back to the start.
+            var phase = period.Ticks > 0 ? Math.Clamp(offset.Ticks / (double)period.Ticks, 0, 1) : 0;
+            var travelCue = period.Ticks > 0 ? travel.Ticks / (double)period.Ticks : 1;
             var animation = new Animation
             {
                 Duration = TimeSpan.FromTicks((long)(period.Ticks * scale)),
                 IterationCount = IterationCount.Infinite,
-                Delay = -TimeSpan.FromTicks((long)(offset.Ticks * scale)),
-                Children =
-                {
-                    new KeyFrame { KeyTime = TimeSpan.Zero, Setters = { new Setter(Layoutable.MarginProperty, new Thickness(start, 0, 0, 0)) } },
-                    new KeyFrame { KeyTime = TimeSpan.FromTicks((long)(travel.Ticks * scale)), Setters = { new Setter(Layoutable.MarginProperty, new Thickness(end, 0, 0, 0)) } },
-                    new KeyFrame { Cue = new Cue(1), Setters = { new Setter(Layoutable.MarginProperty, new Thickness(end, 0, 0, 0)) } },
-                },
             };
+            if (phase <= 0)
+            {
+                animation.Children.Add(Frame(0, start));
+                animation.Children.Add(Frame(travelCue, end));
+                animation.Children.Add(Frame(1, end));
+            }
+            else
+            {
+                var restart = 1 - phase;
+                animation.Children.Add(Frame(0, left));
+                animation.Children.Add(Frame(Math.Max(0, travelCue - phase), end));
+                animation.Children.Add(Frame(restart, end));
+                animation.Children.Add(Frame(Math.Min(1, restart + 1e-4), start));
+                animation.Children.Add(Frame(1, left));
+            }
+
             _run = new CancellationTokenSource();
             _ = animation.RunAsync(_glow, _run.Token);
         }
+
+        private static KeyFrame Frame(double cue, double margin) =>
+            new() { Cue = new Cue(cue), Setters = { new Setter(Layoutable.MarginProperty, new Thickness(margin, 0, 0, 0)) } };
 
         // WPF ProgressBar.SetProgressBarGlowElementBrush. Clearing the local values restores the template's glow.
         private void UpdateBrush()

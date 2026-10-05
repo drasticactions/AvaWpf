@@ -49,6 +49,29 @@ public class WindowFrameTests
         Assert.Equal(CaptionButton.Close, invoked);
     }
 
+    [AvaloniaTheory]
+    [InlineData(ThemeFamily.Aero)]
+    [InlineData(ThemeFamily.Aero2)]
+    [InlineData(ThemeFamily.Luna)]
+    [InlineData(ThemeFamily.Classic)]
+    [InlineData(ThemeFamily.Fluent)]
+    public void ShowTitle_False_Hides_The_Caption_Text(ThemeFamily family)
+    {
+        var frame = new WindowFrame { Title = "Publish Movie", ShowTitle = false, Kind = WindowFrameKind.Dialog };
+        var scope = new ThemeScope { Theme = family, Child = frame };
+        var window = new Window { Content = scope, Width = 300, Height = 200 };
+        window.Show();
+        window.UpdateLayout();
+        Assert.Contains(":notitle", frame.Classes);
+        var title = frame.GetVisualDescendants().OfType<TextBlock>().First(t => t.Name == "title");
+        Assert.Equal(0, title.Opacity);
+        Assert.Equal("Publish Movie", title.Text);
+        frame.ShowTitle = true;
+        Assert.Equal(1, title.Opacity);
+        Assert.DoesNotContain(":notitle", frame.Classes);
+        window.Close();
+    }
+
     [AvaloniaFact]
     public void Dialog_Hides_Minimize_And_Maximize()
     {
