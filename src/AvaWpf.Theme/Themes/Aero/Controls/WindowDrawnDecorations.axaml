@@ -31,40 +31,35 @@
           </WindowDrawnDecorationsContent.Underlay>
           <WindowDrawnDecorationsContent.Overlay>
             <Panel Name="PART_OverlayWrapper">
-              <Border Name="PART_OverlayPanel"
-                      HorizontalAlignment="Right"
-                      VerticalAlignment="Top"
-                      Margin="0,1,6,0"
-                      IsVisible="{TemplateBinding HasTitleBar}"
-                      BorderBrush="{DynamicResource Aero.Invented.WindowFrame.Button.Border}"
-                      BorderThickness="1,0,1,1"
-                      CornerRadius="{DynamicResource Aero.Invented.WindowFrame.ButtonGroupCornerRadius}"
-                      ClipToBounds="True">
-                <StackPanel Orientation="Horizontal">
-                  <Button Name="PART_FullScreenButton"
-                          Theme="{StaticResource Aero.WindowFrame.CaptionButton}"
-                          IsVisible="False"
-                          Content="{DynamicResource Aero.Invented.WindowFrame.MaximizeGlyph}"
-                          WindowDecorationProperties.ElementRole="FullScreenButton" />
-                  <Button Name="PART_MinimizeButton"
-                          Theme="{StaticResource Aero.WindowFrame.CaptionButton}"
-                          CornerRadius="0,0,0,3"
-                          Content="{DynamicResource Aero.Invented.WindowFrame.MinimizeGlyph}"
-                          WindowDecorationProperties.ElementRole="MinimizeButton" />
-                  <Rectangle Name="separator1" Width="1" Fill="{DynamicResource Aero.Invented.WindowFrame.Button.Separator}" />
-                  <Button Name="PART_MaximizeButton"
-                          Theme="{StaticResource Aero.WindowFrame.CaptionButton}"
-                          Content="{DynamicResource Aero.Invented.WindowFrame.MaximizeGlyph}"
-                          WindowDecorationProperties.ElementRole="MaximizeButton" />
-                  <Rectangle Name="separator2" Width="1" Fill="{DynamicResource Aero.Invented.WindowFrame.Button.Separator}" />
-                  <Button Name="PART_CloseButton"
-                          Theme="{StaticResource Aero.WindowFrame.CaptionButton}"
-                          Classes="close"
-                          CornerRadius="0,0,3,0"
-                          Content="{DynamicResource Aero.Invented.WindowFrame.CloseGlyph}"
-                          WindowDecorationProperties.ElementRole="CloseButton" />
-                </StackPanel>
-              </Border>
+              <StackPanel Name="PART_OverlayPanel"
+                          HorizontalAlignment="Right"
+                          VerticalAlignment="Top"
+                          Margin="0,10,10,0"
+                          Orientation="Horizontal"
+                          Spacing="{DynamicResource Aero.Invented.WindowFrame.ButtonSpacing}"
+                          IsVisible="{TemplateBinding HasTitleBar}">
+                <Button Name="PART_FullScreenButton"
+                        Theme="{StaticResource Aero.WindowFrame.CaptionButton}"
+                        IsVisible="False"
+                        Content="{DynamicResource Aero.Invented.WindowFrame.MaximizeGlyph}"
+                        WindowDecorationProperties.ElementRole="FullScreenButton" />
+                <Button Name="PART_MinimizeButton"
+                        Theme="{StaticResource Aero.WindowFrame.CaptionButton}"
+                        Classes="minimize"
+                        Classes.inactive="{Binding !$parent[Window].IsActive, FallbackValue=False}"
+                        Content="{DynamicResource Aero.Invented.WindowFrame.MinimizeGlyph}"
+                        WindowDecorationProperties.ElementRole="MinimizeButton" />
+                <Button Name="PART_MaximizeButton"
+                        Theme="{StaticResource Aero.WindowFrame.CaptionButton}"
+                        Classes.inactive="{Binding !$parent[Window].IsActive, FallbackValue=False}"
+                        Content="{DynamicResource Aero.Invented.WindowFrame.MaximizeGlyph}"
+                        WindowDecorationProperties.ElementRole="MaximizeButton" />
+                <Button Name="PART_CloseButton"
+                        Theme="{StaticResource Aero.WindowFrame.CloseButton}"
+                        Classes.inactive="{Binding !$parent[Window].IsActive, FallbackValue=False}"
+                        Content="{DynamicResource Aero.Invented.WindowFrame.CloseGlyph}"
+                        WindowDecorationProperties.ElementRole="CloseButton" />
+              </StackPanel>
             </Panel>
           </WindowDrawnDecorationsContent.Overlay>
           <WindowDrawnDecorationsContent.FullscreenPopover>
@@ -78,15 +73,14 @@
                          FontFamily="{DynamicResource SystemFonts.CaptionFontFamily}"
                          FontSize="{DynamicResource SystemFonts.CaptionFontSize}"
                          Foreground="{DynamicResource SystemColors.ActiveCaptionTextBrush}" />
-              <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Horizontal" Margin="0,0,6,0">
+              <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Horizontal" Margin="0,7,2,0"
+                          Spacing="{DynamicResource Aero.Invented.WindowFrame.ButtonSpacing}">
                 <Button Name="PART_PopoverFullScreenButton"
                         Theme="{StaticResource Aero.WindowFrame.CaptionButton}"
                         Content="{DynamicResource Aero.Invented.WindowFrame.RestoreGlyph}"
                         WindowDecorationProperties.ElementRole="FullScreenButton" />
                 <Button Name="PART_PopoverCloseButton"
-                        Theme="{StaticResource Aero.WindowFrame.CaptionButton}"
-                        Classes="close"
-                        CornerRadius="0,0,3,3"
+                        Theme="{StaticResource Aero.WindowFrame.CloseButton}"
                         Content="{DynamicResource Aero.Invented.WindowFrame.CloseGlyph}"
                         WindowDecorationProperties.ElementRole="CloseButton" />
               </StackPanel>
@@ -105,22 +99,22 @@
     <Style Selector="^:has-shadow /template/ Panel#PART_OverlayWrapper">
       <Setter Property="Margin" Value="{TemplateBinding ShadowThickness}" />
     </Style>
-    <Style Selector="^:maximized /template/ Border#PART_OverlayPanel">
-      <Setter Property="Margin" Value="0,0,2,0" />
+    <Style Selector="^:maximized /template/ StackPanel#PART_OverlayPanel">
+      <Setter Property="Margin" Value="0,6,2,0" />
     </Style>
     <Style Selector="^:maximized /template/ Button#PART_MaximizeButton">
       <Setter Property="Content" Value="{DynamicResource Aero.Invented.WindowFrame.RestoreGlyph}" />
     </Style>
-    <Style Selector="^:not(:has-minimize) /template/ Button#PART_MinimizeButton, ^:not(:has-minimize) /template/ Rectangle#separator1">
+    <Style Selector="^:not(:has-minimize) /template/ Button#PART_MinimizeButton">
       <Setter Property="IsVisible" Value="False" />
     </Style>
-    <Style Selector="^:not(:has-maximize) /template/ Button#PART_MaximizeButton, ^:not(:has-maximize) /template/ Rectangle#separator2">
+    <Style Selector="^:not(:has-maximize) /template/ Button#PART_MaximizeButton">
       <Setter Property="IsVisible" Value="False" />
     </Style>
     <Style Selector="^:not(:has-fullscreen) /template/ Button#PART_PopoverFullScreenButton">
       <Setter Property="IsVisible" Value="False" />
     </Style>
-    <Style Selector="^:fullscreen /template/ Border#PART_OverlayPanel">
+    <Style Selector="^:fullscreen /template/ StackPanel#PART_OverlayPanel">
       <Setter Property="IsVisible" Value="False" />
     </Style>
     <Style Selector="^:fullscreen /template/ Panel#PART_TitleBar">

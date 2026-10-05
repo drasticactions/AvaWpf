@@ -5,52 +5,289 @@
     The Windows 7 Basic window frame: opaque, no glass or blur.
     Colors and sizes: tools/wpf-tokens/invented/aero.toml (Aero.Invented.WindowFrame.*).
   -->
-  <ControlTheme x:Key="Aero.WindowFrame.CaptionButton" TargetType="Button">
+  <!--
+    The Basic caption buttons: separate rounded buttons, each with a 1 px outline, an inner ring and an outlined glyph
+    in a 13 x 13 box. The .inactive class (bound to the window's activation) selects the pale inactive art.
+  -->
+  <ControlTheme x:Key="Aero.WindowFrame.CaptionButtonBase" TargetType="Button">
     <Setter Property="Width" Value="{DynamicResource Aero.Invented.WindowFrame.ButtonWidth}" />
     <Setter Property="Height" Value="{DynamicResource Aero.Invented.WindowFrame.ButtonHeight}" />
-    <Setter Property="Background" Value="{DynamicResource Aero.Invented.WindowFrame.Button.Background}" />
-    <Setter Property="Foreground" Value="{DynamicResource Aero.Invented.WindowFrame.Glyph}" />
-    <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Glyph.Outline}" />
+    <Setter Property="BorderThickness" Value="1" />
     <Setter Property="Focusable" Value="False" />
     <Setter Property="VerticalAlignment" Value="Top" />
     <Setter Property="Template">
       <ControlTemplate>
-        <Border Name="border" Background="{TemplateBinding Background}" CornerRadius="{TemplateBinding CornerRadius}">
-          <Border Name="highlight"
-                  BorderBrush="{DynamicResource Aero.Invented.WindowFrame.Button.InnerHighlight}"
-                  BorderThickness="1"
-                  CornerRadius="{TemplateBinding CornerRadius}">
-            <Path Name="glyph"
-                  Data="{TemplateBinding Content}"
-                  Fill="{TemplateBinding Foreground}"
-                  Stroke="{TemplateBinding BorderBrush}"
-                  StrokeThickness="1"
-                  Stretch="None"
-                  HorizontalAlignment="Center"
-                  VerticalAlignment="Center" />
-          </Border>
+        <Border Name="border"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}">
+          <Panel>
+            <Border Name="ring" />
+            <Viewbox Name="glyph" Width="13" Height="13" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center">
+              <Canvas Width="13" Height="13">
+                <Path Name="outline" Data="{TemplateBinding Content}" StrokeThickness="2" StrokeJoin="Miter" />
+                <Path Name="fill" Data="{TemplateBinding Content}" Fill="{TemplateBinding Foreground}" />
+              </Canvas>
+            </Viewbox>
+          </Panel>
         </Border>
       </ControlTemplate>
     </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Aero.WindowFrame.CaptionButton" TargetType="Button" BasedOn="{StaticResource Aero.WindowFrame.CaptionButtonBase}">
+    <Setter Property="CornerRadius" Value="{DynamicResource Aero.Invented.WindowFrame.Button.CornerRadius}" />
+    <Setter Property="Foreground" Value="{DynamicResource Aero.Invented.WindowFrame.Button.Glyph}" />
+    <Style Selector="^ /template/ Border#ring">
+      <Setter Property="CornerRadius" Value="{DynamicResource Aero.Invented.WindowFrame.Button.InnerCornerRadius}" />
+    </Style>
+    <Style Selector="^ /template/ Path#outline">
+      <Setter Property="Stroke" Value="{DynamicResource Aero.Invented.WindowFrame.Button.Glyph.Outline}" />
+    </Style>
+    <Style Selector="^">
+      <Setter Property="Background" Value="{DynamicResource Aero.Invented.WindowFrame.Button.Normal.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Button.Normal.Border}" />
+      <Style Selector="^ /template/ Border#ring">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Button.Normal.InnerBorder}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource Aero.Invented.WindowFrame.Button.Normal.InnerBorderThickness}" />
+      </Style>
+    </Style>
     <Style Selector="^:pointerover">
-      <Setter Property="Background" Value="{DynamicResource Aero.Invented.WindowFrame.Button.Hover.Background}" />
+      <Setter Property="Background" Value="{DynamicResource Aero.Invented.WindowFrame.Button.Hot.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Button.Hot.Border}" />
+      <Style Selector="^ /template/ Border#ring">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Button.Hot.InnerBorder}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource Aero.Invented.WindowFrame.Button.Hot.InnerBorderThickness}" />
+      </Style>
     </Style>
     <Style Selector="^:pressed">
-      <Setter Property="Background" Value="{DynamicResource Aero.Invented.WindowFrame.Button.Pressed.Background}" />
+      <Setter Property="Background" Value="{DynamicResource Aero.Invented.WindowFrame.Button.Pushed.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Button.Pushed.Border}" />
+      <Style Selector="^ /template/ Border#ring">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Button.Pushed.InnerBorder}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource Aero.Invented.WindowFrame.Button.Pushed.InnerBorderThickness}" />
+      </Style>
     </Style>
     <Style Selector="^:disabled">
-      <Setter Property="Foreground" Value="{DynamicResource Aero.Invented.WindowFrame.Glyph.Disabled}" />
+      <Setter Property="Background" Value="{DynamicResource Aero.Invented.WindowFrame.Button.Disabled.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Button.Disabled.Border}" />
+      <Style Selector="^ /template/ Border#ring">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Button.Disabled.InnerBorder}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource Aero.Invented.WindowFrame.Button.Disabled.InnerBorderThickness}" />
+      </Style>
     </Style>
-    <Style Selector="^.close">
-      <Setter Property="Width" Value="{DynamicResource Aero.Invented.WindowFrame.CloseButtonWidth}" />
-      <Setter Property="Background" Value="{DynamicResource Aero.Invented.WindowFrame.Close.Background}" />
-      <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Close.Glyph.Outline}" />
+    <Style Selector="^.inactive">
+      <Setter Property="Background" Value="{DynamicResource Aero.Invented.WindowFrame.Button.InactiveNormal.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Button.InactiveNormal.Border}" />
+      <Style Selector="^ /template/ Border#ring">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Button.InactiveNormal.InnerBorder}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource Aero.Invented.WindowFrame.Button.InactiveNormal.InnerBorderThickness}" />
+      </Style>
     </Style>
-    <Style Selector="^.close:pointerover">
-      <Setter Property="Background" Value="{DynamicResource Aero.Invented.WindowFrame.Close.Hover.Background}" />
+    <Style Selector="^.inactive:pointerover">
+      <Setter Property="Background" Value="{DynamicResource Aero.Invented.WindowFrame.Button.InactiveHot.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Button.InactiveHot.Border}" />
+      <Style Selector="^ /template/ Border#ring">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Button.InactiveHot.InnerBorder}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource Aero.Invented.WindowFrame.Button.InactiveHot.InnerBorderThickness}" />
+      </Style>
     </Style>
-    <Style Selector="^.close:pressed">
-      <Setter Property="Background" Value="{DynamicResource Aero.Invented.WindowFrame.Close.Pressed.Background}" />
+    <Style Selector="^.inactive:pressed">
+      <Setter Property="Background" Value="{DynamicResource Aero.Invented.WindowFrame.Button.InactivePushed.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Button.InactivePushed.Border}" />
+      <Style Selector="^ /template/ Border#ring">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Button.InactivePushed.InnerBorder}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource Aero.Invented.WindowFrame.Button.InactivePushed.InnerBorderThickness}" />
+      </Style>
+    </Style>
+    <Style Selector="^.inactive:disabled">
+      <Setter Property="Background" Value="{DynamicResource Aero.Invented.WindowFrame.Button.InactiveDisabled.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Button.InactiveDisabled.Border}" />
+      <Style Selector="^ /template/ Border#ring">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Button.InactiveDisabled.InnerBorder}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource Aero.Invented.WindowFrame.Button.InactiveDisabled.InnerBorderThickness}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource Aero.Invented.WindowFrame.Button.Disabled.Glyph}" />
+      <Style Selector="^ /template/ Path#outline">
+        <Setter Property="Stroke" Value="{DynamicResource Aero.Invented.WindowFrame.Button.Disabled.Glyph.Outline}" />
+      </Style>
+    </Style>
+    <Style Selector="^.minimize:not(:disabled)">
+      <Setter Property="Foreground" Value="{DynamicResource Aero.Invented.WindowFrame.Minimize.Glyph}" />
+    </Style>
+    <Style Selector="^.minimize:disabled /template/ Path#outline">
+      <Setter Property="Stroke" Value="{DynamicResource Aero.Invented.WindowFrame.Minimize.Disabled.Glyph.Outline}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Aero.WindowFrame.CloseButton" TargetType="Button" BasedOn="{StaticResource Aero.WindowFrame.CaptionButtonBase}">
+    <Setter Property="CornerRadius" Value="{DynamicResource Aero.Invented.WindowFrame.Close.CornerRadius}" />
+    <Setter Property="Foreground" Value="{DynamicResource Aero.Invented.WindowFrame.Close.Glyph}" />
+    <Style Selector="^ /template/ Border#ring">
+      <Setter Property="CornerRadius" Value="{DynamicResource Aero.Invented.WindowFrame.Close.InnerCornerRadius}" />
+    </Style>
+    <Style Selector="^ /template/ Path#outline">
+      <Setter Property="Stroke" Value="{DynamicResource Aero.Invented.WindowFrame.Close.Glyph.Outline}" />
+    </Style>
+    <Style Selector="^">
+      <Setter Property="Background" Value="{DynamicResource Aero.Invented.WindowFrame.Close.Normal.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Close.Normal.Border}" />
+      <Style Selector="^ /template/ Border#ring">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Close.Normal.InnerBorder}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource Aero.Invented.WindowFrame.Close.Normal.InnerBorderThickness}" />
+      </Style>
+    </Style>
+    <Style Selector="^:pointerover">
+      <Setter Property="Background" Value="{DynamicResource Aero.Invented.WindowFrame.Close.Hot.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Close.Hot.Border}" />
+      <Style Selector="^ /template/ Border#ring">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Close.Hot.InnerBorder}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource Aero.Invented.WindowFrame.Close.Hot.InnerBorderThickness}" />
+      </Style>
+    </Style>
+    <Style Selector="^:pressed">
+      <Setter Property="Background" Value="{DynamicResource Aero.Invented.WindowFrame.Close.Pushed.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Close.Pushed.Border}" />
+      <Style Selector="^ /template/ Border#ring">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Close.Pushed.InnerBorder}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource Aero.Invented.WindowFrame.Close.Pushed.InnerBorderThickness}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Background" Value="{DynamicResource Aero.Invented.WindowFrame.Close.Disabled.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Close.Disabled.Border}" />
+      <Style Selector="^ /template/ Border#ring">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Close.Disabled.InnerBorder}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource Aero.Invented.WindowFrame.Close.Disabled.InnerBorderThickness}" />
+      </Style>
+    </Style>
+    <Style Selector="^.inactive">
+      <Setter Property="Background" Value="{DynamicResource Aero.Invented.WindowFrame.Close.InactiveNormal.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Close.InactiveNormal.Border}" />
+      <Style Selector="^ /template/ Border#ring">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Close.InactiveNormal.InnerBorder}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource Aero.Invented.WindowFrame.Close.InactiveNormal.InnerBorderThickness}" />
+      </Style>
+    </Style>
+    <Style Selector="^.inactive:pointerover">
+      <Setter Property="Background" Value="{DynamicResource Aero.Invented.WindowFrame.Close.InactiveHot.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Close.InactiveHot.Border}" />
+      <Style Selector="^ /template/ Border#ring">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Close.InactiveHot.InnerBorder}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource Aero.Invented.WindowFrame.Close.InactiveHot.InnerBorderThickness}" />
+      </Style>
+    </Style>
+    <Style Selector="^.inactive:pressed">
+      <Setter Property="Background" Value="{DynamicResource Aero.Invented.WindowFrame.Close.InactivePushed.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Close.InactivePushed.Border}" />
+      <Style Selector="^ /template/ Border#ring">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Close.InactivePushed.InnerBorder}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource Aero.Invented.WindowFrame.Close.InactivePushed.InnerBorderThickness}" />
+      </Style>
+    </Style>
+    <Style Selector="^.inactive:disabled">
+      <Setter Property="Background" Value="{DynamicResource Aero.Invented.WindowFrame.Close.InactiveDisabled.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Close.InactiveDisabled.Border}" />
+      <Style Selector="^ /template/ Border#ring">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Close.InactiveDisabled.InnerBorder}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource Aero.Invented.WindowFrame.Close.InactiveDisabled.InnerBorderThickness}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource Aero.Invented.WindowFrame.Close.Disabled.Glyph}" />
+      <Style Selector="^ /template/ Path#outline">
+        <Setter Property="Stroke" Value="{DynamicResource Aero.Invented.WindowFrame.Close.Disabled.Glyph.Outline}" />
+      </Style>
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="Aero.WindowFrame.SmallCloseButton" TargetType="Button" BasedOn="{StaticResource Aero.WindowFrame.CaptionButtonBase}">
+    <Setter Property="CornerRadius" Value="{DynamicResource Aero.Invented.WindowFrame.Close.CornerRadius}" />
+    <Setter Property="Foreground" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.Glyph}" />
+    <Setter Property="Width" Value="{DynamicResource Aero.Invented.WindowFrame.ToolCloseButtonSize}" />
+    <Setter Property="Height" Value="{DynamicResource Aero.Invented.WindowFrame.ToolCloseButtonSize}" />
+    <Style Selector="^ /template/ Viewbox#glyph">
+      <Setter Property="Width" Value="7" />
+      <Setter Property="Height" Value="7" />
+    </Style>
+    <Style Selector="^ /template/ Border#ring">
+      <Setter Property="CornerRadius" Value="{DynamicResource Aero.Invented.WindowFrame.Close.InnerCornerRadius}" />
+    </Style>
+    <Style Selector="^ /template/ Path#outline">
+      <Setter Property="Stroke" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.Glyph.Outline}" />
+    </Style>
+    <Style Selector="^">
+      <Setter Property="Background" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.Normal.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.Normal.Border}" />
+      <Style Selector="^ /template/ Border#ring">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.Normal.InnerBorder}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.Normal.InnerBorderThickness}" />
+      </Style>
+    </Style>
+    <Style Selector="^:pointerover">
+      <Setter Property="Background" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.Hot.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.Hot.Border}" />
+      <Style Selector="^ /template/ Border#ring">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.Hot.InnerBorder}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.Hot.InnerBorderThickness}" />
+      </Style>
+    </Style>
+    <Style Selector="^:pressed">
+      <Setter Property="Background" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.Pushed.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.Pushed.Border}" />
+      <Style Selector="^ /template/ Border#ring">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.Pushed.InnerBorder}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.Pushed.InnerBorderThickness}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Background" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.Disabled.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.Disabled.Border}" />
+      <Style Selector="^ /template/ Border#ring">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.Disabled.InnerBorder}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.Disabled.InnerBorderThickness}" />
+      </Style>
+    </Style>
+    <Style Selector="^.inactive">
+      <Setter Property="Background" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.InactiveNormal.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.InactiveNormal.Border}" />
+      <Style Selector="^ /template/ Border#ring">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.InactiveNormal.InnerBorder}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.InactiveNormal.InnerBorderThickness}" />
+      </Style>
+    </Style>
+    <Style Selector="^.inactive:pointerover">
+      <Setter Property="Background" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.InactiveHot.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.InactiveHot.Border}" />
+      <Style Selector="^ /template/ Border#ring">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.InactiveHot.InnerBorder}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.InactiveHot.InnerBorderThickness}" />
+      </Style>
+    </Style>
+    <Style Selector="^.inactive:pressed">
+      <Setter Property="Background" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.InactivePushed.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.InactivePushed.Border}" />
+      <Style Selector="^ /template/ Border#ring">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.InactivePushed.InnerBorder}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.InactivePushed.InnerBorderThickness}" />
+      </Style>
+    </Style>
+    <Style Selector="^.inactive:disabled">
+      <Setter Property="Background" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.InactiveDisabled.Background}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.InactiveDisabled.Border}" />
+      <Style Selector="^ /template/ Border#ring">
+        <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.InactiveDisabled.InnerBorder}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.InactiveDisabled.InnerBorderThickness}" />
+      </Style>
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.Disabled.Glyph}" />
+      <Style Selector="^ /template/ Path#outline">
+        <Setter Property="Stroke" Value="{DynamicResource Aero.Invented.WindowFrame.SmallClose.Disabled.Glyph.Outline}" />
+      </Style>
     </Style>
   </ControlTheme>
 
@@ -102,40 +339,29 @@
                                FontWeight="{DynamicResource SystemFonts.CaptionFontWeight}"
                                FontStyle="{DynamicResource SystemFonts.CaptionFontStyle}"
                                Foreground="{DynamicResource SystemColors.ActiveCaptionTextBrush}" />
-                    <!-- The caption button group hangs from the top outline, 4 px in from the right edge. -->
-                    <Border Name="buttons"
-                            Grid.Column="4"
-                            Margin="0,-1,4,0"
-                            VerticalAlignment="Top"
-                            BorderBrush="{DynamicResource Aero.Invented.WindowFrame.Button.Border}"
-                            BorderThickness="1,0,1,1"
-                            CornerRadius="{DynamicResource Aero.Invented.WindowFrame.ButtonGroupCornerRadius}"
-                            ClipToBounds="True">
-                      <StackPanel Orientation="Horizontal">
-                        <Button Name="PART_MinimizeButton"
-                                Theme="{StaticResource Aero.WindowFrame.CaptionButton}"
-                                CornerRadius="0,0,0,3"
-                                Content="{DynamicResource Aero.Invented.WindowFrame.MinimizeGlyph}"
-                                IsVisible="{TemplateBinding IsMinimizeButtonVisible}" />
-                        <Rectangle Name="separator1"
-                                   Width="1"
-                                   Fill="{DynamicResource Aero.Invented.WindowFrame.Button.Separator}"
-                                   IsVisible="{TemplateBinding IsMinimizeButtonVisible}" />
-                        <Button Name="PART_MaximizeButton"
-                                Theme="{StaticResource Aero.WindowFrame.CaptionButton}"
-                                Content="{DynamicResource Aero.Invented.WindowFrame.MaximizeGlyph}"
-                                IsVisible="{TemplateBinding IsMaximizeButtonVisible}" />
-                        <Rectangle Name="separator2"
-                                   Width="1"
-                                   Fill="{DynamicResource Aero.Invented.WindowFrame.Button.Separator}"
-                                   IsVisible="{TemplateBinding IsMaximizeButtonVisible}" />
-                        <Button Name="PART_CloseButton"
-                                Theme="{StaticResource Aero.WindowFrame.CaptionButton}"
-                                Classes="close"
-                                CornerRadius="0,0,3,0"
-                                Content="{DynamicResource Aero.Invented.WindowFrame.CloseGlyph}" />
-                      </StackPanel>
-                    </Border>
+                    <!-- Separate caption buttons, 10 px from the top and right edges of the window. -->
+                    <StackPanel Name="buttons"
+                                Grid.Column="4"
+                                Margin="0,8,8,0"
+                                VerticalAlignment="Top"
+                                Orientation="Horizontal"
+                                Spacing="{DynamicResource Aero.Invented.WindowFrame.ButtonSpacing}">
+                      <Button Name="PART_MinimizeButton"
+                              Theme="{StaticResource Aero.WindowFrame.CaptionButton}"
+                              Classes="minimize"
+                              Classes.inactive="{Binding !$parent[wpf:WindowFrame].IsActive}"
+                              Content="{DynamicResource Aero.Invented.WindowFrame.MinimizeGlyph}"
+                              IsVisible="{TemplateBinding IsMinimizeButtonVisible}" />
+                      <Button Name="PART_MaximizeButton"
+                              Theme="{StaticResource Aero.WindowFrame.CaptionButton}"
+                              Classes.inactive="{Binding !$parent[wpf:WindowFrame].IsActive}"
+                              Content="{DynamicResource Aero.Invented.WindowFrame.MaximizeGlyph}"
+                              IsVisible="{TemplateBinding IsMaximizeButtonVisible}" />
+                      <Button Name="PART_CloseButton"
+                              Theme="{StaticResource Aero.WindowFrame.CloseButton}"
+                              Classes.inactive="{Binding !$parent[wpf:WindowFrame].IsActive}"
+                              Content="{DynamicResource Aero.Invented.WindowFrame.CloseGlyph}" />
+                    </StackPanel>
                   </Grid>
                 </Panel>
                 <Border Name="clientEdge"
@@ -190,15 +416,6 @@
       <Style Selector="^ /template/ TextBlock#title">
         <Setter Property="Foreground" Value="{DynamicResource SystemColors.InactiveCaptionTextBrush}" />
       </Style>
-      <Style Selector="^ /template/ Border#buttons">
-        <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Button.Border.Inactive}" />
-      </Style>
-      <Style Selector="^ /template/ Button:not(:pointerover):not(:pressed)">
-        <Setter Property="Background" Value="{DynamicResource Aero.Invented.WindowFrame.Button.Inactive.Background}" />
-      </Style>
-      <Style Selector="^ /template/ Button">
-        <Setter Property="BorderBrush" Value="{DynamicResource Aero.Invented.WindowFrame.Glyph.Outline.Inactive}" />
-      </Style>
     </Style>
     <Style Selector="^:noicon /template/ Image#icon">
       <Setter Property="IsVisible" Value="False" />
@@ -226,8 +443,8 @@
         <Setter Property="Margin" Value="0" />
         <Setter Property="BorderThickness" Value="0,1,0,0" />
       </Style>
-      <Style Selector="^ /template/ Border#buttons">
-        <Setter Property="Margin" Value="0,0,2,0" />
+      <Style Selector="^ /template/ StackPanel#buttons">
+        <Setter Property="Margin" Value="0,6,2,0" />
       </Style>
       <Style Selector="^ /template/ Panel#resize">
         <Setter Property="IsVisible" Value="False" />
@@ -245,19 +462,18 @@
         <Setter Property="FontSize" Value="{DynamicResource SystemFonts.SmallCaptionFontSize}" />
         <Setter Property="FontWeight" Value="{DynamicResource SystemFonts.SmallCaptionFontWeight}" />
       </Style>
-      <Style Selector="^ /template/ Button#PART_MinimizeButton, ^ /template/ Button#PART_MaximizeButton, ^ /template/ Rectangle#separator1, ^ /template/ Rectangle#separator2">
+      <Style Selector="^ /template/ Button#PART_MinimizeButton, ^ /template/ Button#PART_MaximizeButton">
         <Setter Property="IsVisible" Value="False" />
       </Style>
+      <Style Selector="^ /template/ StackPanel#buttons">
+        <Setter Property="Margin" Value="0,4,8,0" />
+      </Style>
       <Style Selector="^ /template/ Button#PART_CloseButton">
-        <Setter Property="Width" Value="{DynamicResource Aero.Invented.WindowFrame.ToolCloseButtonWidth}" />
-        <Setter Property="CornerRadius" Value="0,0,3,3" />
+        <Setter Property="Theme" Value="{StaticResource Aero.WindowFrame.SmallCloseButton}" />
       </Style>
     </Style>
-    <Style Selector="^:dialog /template/ Button#PART_CloseButton">
-      <Setter Property="CornerRadius" Value="0,0,3,3" />
-    </Style>
     <!-- Used by WindowDrawnDecorations, which draws its own caption buttons above the frame. -->
-    <Style Selector="^.decorations /template/ Border#buttons">
+    <Style Selector="^.decorations /template/ StackPanel#buttons">
       <Setter Property="IsVisible" Value="False" />
     </Style>
     <Style Selector="^.decorations /template/ Panel#resize">
