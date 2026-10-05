@@ -155,6 +155,52 @@ public class SwitchingTests
     }
 
     [AvaloniaTheory]
+    [InlineData(ThemeFamily.Aero2, ThemeFamily.Luna)]
+    [InlineData(ThemeFamily.Aero, ThemeFamily.Classic)]
+    [InlineData(ThemeFamily.Royale, ThemeFamily.Fluent)]
+    [InlineData(ThemeFamily.Fluent, ThemeFamily.AeroLite)]
+    public void TabControl_Keeps_Its_Tab_And_Switches_After_A_Family_Switch(ThemeFamily from, ThemeFamily to)
+    {
+        Theme.Theme = from;
+        var a = new TextBlock { Text = "a" };
+        var b = new TextBlock { Text = "b" };
+        var tab = new TabControl
+        {
+            Items = { new TabItem { Header = "A", Content = a }, new TabItem { Header = "B", Content = b } },
+        };
+        var window = Show(tab);
+        tab.SelectedIndex = 1;
+        window.UpdateLayout();
+
+        Theme.Theme = to;
+        window.UpdateLayout();
+        Assert.Equal(1, tab.SelectedIndex);
+        Assert.True(b.IsEffectivelyVisible && b.IsAttachedToVisualTree());
+
+        // The discarded template's presenter must let go of the content, or showing it again throws.
+        tab.SelectedIndex = 0;
+        window.UpdateLayout();
+        tab.SelectedIndex = 1;
+        window.UpdateLayout();
+        Assert.True(b.IsEffectivelyVisible && b.IsAttachedToVisualTree());
+        Assert.False(a.IsAttachedToVisualTree() && a.IsEffectivelyVisible);
+
+        // The new template shows the selected content during the re-attach layout, before the old one is released.
+        tab.SelectedIndex = 0;
+        window.UpdateLayout();
+        Theme.Theme = from;
+        window.UpdateLayout();
+        Assert.Equal(0, tab.SelectedIndex);
+        Assert.True(a.IsEffectivelyVisible && a.IsAttachedToVisualTree());
+        tab.SelectedIndex = 1;
+        window.UpdateLayout();
+        Assert.True(b.IsEffectivelyVisible && b.IsAttachedToVisualTree());
+
+        Theme.Theme = ThemeFamily.Aero2;
+        window.Close();
+    }
+
+    [AvaloniaTheory]
     [InlineData(typeof(ComboBox))]
     [InlineData(typeof(ListBox))]
     [InlineData(typeof(NumericUpDown))]

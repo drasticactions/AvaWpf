@@ -24,8 +24,9 @@ namespace AvaWpf;
 /// <item>Clears the templated parent of closed popup content in the template, which the visual teardown misses. A
 /// control that is not measured during the re-attach (on a hidden tab) is re-templated later, so its parts are
 /// released when it applies its new template.</item>
-/// <item>Removes the data-template child a discarded <see cref="ContentPresenter"/> left in its owner's logical
-/// children.</item>
+/// <item>Empties a discarded <see cref="ContentPresenter"/> as soon as its owner applies the new template, because it
+/// keeps its content as its visual child (TabControl's selected content), and removes the data-template child it left
+/// in its owner's logical children.</item>
 /// <item>Removes the containers of a replaced <see cref="VirtualizingPanel"/> from the <see cref="ItemsControl"/>'s
 /// logical children.</item>
 /// <item>Disposes the bindings that controls set on template parts in code (NumericUpDown, DatePicker, TimePicker,
@@ -41,6 +42,7 @@ internal static class TemplateFrameCleanup
     private static readonly Action<ScrollBar>? s_reattachScrollBar = FindMethod<Action<ScrollBar>>(typeof(ScrollBar), "AttachToScrollViewer");
     private static readonly Func<StyledElement, IAvaloniaList<ILogical>>? s_logicalChildren = FindLogicalChildren();
     private static readonly ConditionalWeakTable<TemplatedControl, HashSet<StyledElement>> s_pending = new();
+    private static readonly ConditionalWeakTable<TemplatedControl, List<ContentPresenter>> s_filled = new();
 
     /// <summary>Captures the template parts under <paramref name="root"/> and the containers of its virtualizing panels.</summary>
     public static Snapshot Capture(Visual root)
@@ -80,12 +82,25 @@ internal static class TemplateFrameCleanup
 
         void Add(Visual node)
         {
+            if (node is SelectingItemsControl selector)
+            {
+                snapshot.Selections.Add((selector, selector.SelectedIndex));
+            }
+
             if (node is StyledElement { TemplatedParent: { } owner } e)
             {
                 snapshot.Parts.Add((e, owner));
-                if (e is ContentPresenter { Child: { } presented } && presented.Parent == owner)
+                if (e is ContentPresenter { Child: { } presented } presenter)
                 {
-                    snapshot.Presented.Add((e, owner, presented));
+                    if (owner is TemplatedControl control)
+                    {
+                        snapshot.Filled.Add((presenter, control));
+                    }
+
+                    if (presented.Parent == owner)
+                    {
+                        snapshot.Presented.Add((e, owner, presented));
+                    }
                 }
 
                 if (e is ItemsPresenter { Panel: VirtualizingPanel panel } && owner is ItemsControl items)
@@ -95,6 +110,59 @@ internal static class TemplateFrameCleanup
                         snapshot.Containers.Add((items, container));
                     }
                 }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Empties each captured content presenter when its owner applies its next template. A presenter keeps its content
+    /// as its visual child, and the new template's presenter adds the same content during the first layout pass, so it
+    /// must let go before that pass.
+    /// </summary>
+    public static void EmptyOnNextTemplate(Snapshot snapshot)
+    {
+        foreach (var (presenter, owner) in snapshot.Filled)
+        {
+            if (!s_filled.TryGetValue(owner, out var presenters))
+            {
+                presenters = new List<ContentPresenter>();
+                s_filled.Add(owner, presenters);
+                owner.TemplateApplied += OnFilledTemplateApplied;
+            }
+
+            presenters.Add(presenter);
+        }
+    }
+
+    private static void OnFilledTemplateApplied(object? sender, TemplateAppliedEventArgs e)
+    {
+        if (sender is not TemplatedControl control || !s_filled.TryGetValue(control, out var presenters))
+        {
+            return;
+        }
+
+        control.TemplateApplied -= OnFilledTemplateApplied;
+        s_filled.Remove(control);
+        foreach (var presenter in presenters)
+        {
+            if (presenter.Child is not null && !IsInTemplate(presenter, control))
+            {
+                presenter.Content = null;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Selects again what each captured selector had selected: an item that is its own container (a TabItem) loses its
+    /// selection when the old panel lets it go, and the new panel then selects the first item.
+    /// </summary>
+    public static void RestoreSelection(Snapshot snapshot)
+    {
+        foreach (var (selector, index) in snapshot.Selections)
+        {
+            if (selector.SelectedIndex != index && index < selector.ItemCount)
+            {
+                selector.SelectedIndex = index;
             }
         }
     }
@@ -306,5 +374,11 @@ internal static class TemplateFrameCleanup
 
         /// <summary>The containers of the virtualizing items panels, with their items control.</summary>
         public List<(ItemsControl Owner, Control Container)> Containers { get; } = new();
+
+        /// <summary>The content presenters that show content, with their templated parent.</summary>
+        public List<(ContentPresenter Presenter, TemplatedControl Owner)> Filled { get; } = new();
+
+        /// <summary>The selectors with their selected index at capture time.</summary>
+        public List<(SelectingItemsControl Selector, int Index)> Selections { get; } = new();
     }
 }

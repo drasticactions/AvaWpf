@@ -17,7 +17,8 @@ namespace AvaWpf;
 /// Avalonia resolves an implicit ControlTheme only when a control attaches to the logical tree.
 /// </summary>
 /// <remarks>
-/// <c>Loaded</c>/<c>Unloaded</c> fire again and scroll offsets and open popups reset; focus is restored. The content is
+/// <c>Loaded</c>/<c>Unloaded</c> fire again and scroll offsets and open popups reset; focus and the selected index of
+/// each selector are restored. The content is
 /// detached before the resources change, so the change notifications reach only the bare roots.
 /// </remarks>
 internal static class ThemeReattach
@@ -111,6 +112,7 @@ internal static class ThemeReattach
     {
         var focus = CaptureFocus(root);
         var snapshot = TemplateFrameCleanup.Capture(root);
+        TemplateFrameCleanup.EmptyOnNextTemplate(snapshot);
         object? content = null;
         switch (root)
         {
@@ -146,6 +148,7 @@ internal static class ThemeReattach
 
         d.Root.UpdateLayout();
         TemplateFrameCleanup.ClearDiscarded(d.Snapshot);
+        TemplateFrameCleanup.RestoreSelection(d.Snapshot);
         RestoreFocus(d.Focus);
     }
 
