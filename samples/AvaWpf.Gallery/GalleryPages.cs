@@ -47,6 +47,7 @@ public static class GalleryPages
             new("Ribbon", "Controls", () => new RibbonPage()),
             new("Avalonia only", "Controls", () => new AvaloniaOnlyPage()),
             new("Windows", "Theme", () => new WindowsPage()),
+            new("Dialogs", "Theme", () => new DialogsPage()),
             new("Popups", "Theme", () => new PopupsPage()),
             new("Motion", "Theme", () => new MotionPage()),
             new("Typography", "Theme", () => new TypographyPage()),

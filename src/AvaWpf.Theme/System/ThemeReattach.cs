@@ -51,6 +51,22 @@ internal static class ThemeReattach
     }
 
     /// <summary>
+    /// The main view, or null while there is none. The browser lifetime throws from MainView until its view exists,
+    /// and a theme set in App.axaml applies before that.
+    /// </summary>
+    private static Control? MainViewOf(ISingleViewApplicationLifetime single)
+    {
+        try
+        {
+            return single.MainView;
+        }
+        catch (InvalidOperationException)
+        {
+            return null;
+        }
+    }
+
+    /// <summary>
     /// Re-attaches every root of the app, running <paramref name="swap"/> while the content is detached so its changes
     /// never walk the old trees.
     /// </summary>
@@ -62,7 +78,7 @@ internal static class ThemeReattach
             case IClassicDesktopStyleApplicationLifetime desktop:
                 roots.AddRange(desktop.Windows);
                 break;
-            case ISingleViewApplicationLifetime { MainView: { } view }:
+            case ISingleViewApplicationLifetime single when MainViewOf(single) is { } view:
                 roots.Add(TopLevel.GetTopLevel(view) is { } top ? top : view);
                 break;
         }
