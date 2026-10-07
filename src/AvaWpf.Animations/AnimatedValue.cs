@@ -16,6 +16,7 @@ public abstract class AnimatedValue<T> : IChromeChannel
     private T _start;
     private TimeSpan _beginTime;
     private bool _repeat;
+    private long _frameTicks;
     private TimeSpan? _startedAt;
 
     /// <summary>Initializes the value.</summary>
@@ -56,9 +57,11 @@ public abstract class AnimatedValue<T> : IChromeChannel
     /// <summary>
     /// Runs key frames from the current value. <paramref name="beginTime"/> starts the timeline at that offset: a
     /// negative value starts it part way through, as WPF's <c>BeginTime</c> does. With <paramref name="repeatForever"/>,
-    /// the timeline restarts from its first frame at the end of the last one.
+    /// the timeline restarts from its first frame at the end of the last one. A positive <paramref name="frameRate"/>
+    /// moves the value only that many times a second, as WPF's <c>Timeline.DesiredFrameRate</c> does; 0 follows the
+    /// display.
     /// </summary>
-    public void Animate(IReadOnlyList<ChromeKeyFrame<T>> frames, TimeSpan beginTime = default, bool repeatForever = false)
+    public void Animate(IReadOnlyList<ChromeKeyFrame<T>> frames, TimeSpan beginTime = default, bool repeatForever = false, int frameRate = 0)
     {
         if (frames.Count == 0)
         {
@@ -75,6 +78,7 @@ public abstract class AnimatedValue<T> : IChromeChannel
         _start = Value;
         _beginTime = beginTime;
         _repeat = repeatForever;
+        _frameTicks = frameRate > 0 ? TimeSpan.TicksPerSecond / frameRate : 0;
         _startedAt = null;
 
         if (!_animator.CanAnimate)
@@ -105,11 +109,25 @@ public abstract class AnimatedValue<T> : IChromeChannel
         IsAnimating = false;
     }
 
-    bool IChromeChannel.Tick(TimeSpan now)
+    bool IChromeChannel.Tick(TimeSpan now, out bool changed)
+    {
+        var before = Value;
+        var running = Advance(now);
+        changed = !EqualityComparer<T>.Default.Equals(before, Value);
+        return running;
+    }
+
+    private bool Advance(TimeSpan now)
     {
         _startedAt ??= now;
+        var clock = (now - _startedAt.Value).Ticks;
+        if (_frameTicks > 0)
+        {
+            clock -= clock % _frameTicks;
+        }
+
         var scale = WpfAnimations.TimeScale <= 0 ? 1 : WpfAnimations.TimeScale;
-        var elapsed = TimeSpan.FromTicks((long)((now - _startedAt.Value).Ticks / scale)) + _beginTime;
+        var elapsed = TimeSpan.FromTicks((long)(clock / scale)) + _beginTime;
         if (elapsed < TimeSpan.Zero)
         {
             return true;

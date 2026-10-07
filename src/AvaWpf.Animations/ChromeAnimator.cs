@@ -8,7 +8,7 @@ namespace AvaWpf.Animations;
 
 /// <summary>
 /// Advances the <see cref="AnimatedDouble"/> and <see cref="AnimatedColor"/> values of code-drawn chrome on the owner's
-/// <see cref="TopLevel.RequestAnimationFrame"/>, invalidating the owner each frame.
+/// <see cref="TopLevel.RequestAnimationFrame"/>, invalidating the owner on each frame that changes a value.
 /// </summary>
 /// <remarks>
 /// When motion is off (<see cref="WpfAnimations.IsMotionEnabled"/>) or the owner is not in a visual tree, an animation
@@ -68,15 +68,28 @@ public sealed class ChromeAnimator
     private void OnFrame(TimeSpan now)
     {
         _frameRequested = false;
+        var changed = false;
         for (var i = _running.Count - 1; i >= 0; i--)
         {
-            if (i < _running.Count && !_running[i].Tick(now))
+            if (i >= _running.Count)
+            {
+                continue;
+            }
+
+            var running = _running[i].Tick(now, out var channelChanged);
+            changed |= channelChanged;
+            if (!running)
             {
                 _running.RemoveAt(i);
             }
         }
 
-        _owner.InvalidateVisual();
+        // A hold between key frames, or a lowered frame rate, leaves the values as drawn; skip the render.
+        if (changed)
+        {
+            _owner.InvalidateVisual();
+        }
+
         if (_running.Count > 0)
         {
             if (!_owner.IsAttachedToVisualTree())

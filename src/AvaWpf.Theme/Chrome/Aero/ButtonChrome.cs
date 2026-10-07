@@ -151,7 +151,7 @@ public sealed class ButtonChrome : Decorator
     protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
     {
         base.OnAttachedToVisualTree(e);
-        ResumeDefaultPulse();
+        RestoreLocalResources();
     }
 
     /// <inheritdoc/>
@@ -469,7 +469,8 @@ public sealed class ButtonChrome : Decorator
                             new ChromeKeyFrame<double>(0.0, to1 + ChromeTimings.DefaultPulseResumeFall),
                             new ChromeKeyFrame<double>(currentOpacity, ChromeTimings.DefaultPulsePeriod),
                         ],
-                        repeatForever: true);
+                        repeatForever: true,
+                        frameRate: ChromeTimings.DefaultPulseFrameRate);
                 }
                 else
                 {
@@ -532,7 +533,7 @@ public sealed class ButtonChrome : Decorator
         }
     }
 
-    // WPF: __/ \__/ \__/ \__... WPF's frame rate hint of 10 is ignored; the animator runs at the TopLevel frame rate.
+    // WPF: __/ \__/ \__/ \__...
     private static void StartDefaultPulse(LocalResources local) =>
         local.OverlayOpacity.Animate(
             [
@@ -540,21 +541,25 @@ public sealed class ButtonChrome : Decorator
                 new ChromeKeyFrame<double>(1.0, ChromeTimings.DefaultPulseHold, IsDiscrete: true),
                 new ChromeKeyFrame<double>(0.0, ChromeTimings.DefaultPulsePeriod),
             ],
-            repeatForever: true);
+            repeatForever: true,
+            frameRate: ChromeTimings.DefaultPulseFrameRate);
 
-    // A default pulse set up outside a visual tree jumps to its end, so restart it once the chrome can animate.
-    private void ResumeDefaultPulse()
+    // The animation state is dropped on a theme or tree change. Make it again from the look drawn without it, so a
+    // later hover or press animates from what is on screen; a default pulse set up outside a visual tree jumps to its
+    // end, so restart it once the chrome can animate.
+    private void RestoreLocalResources()
     {
-        if (!RenderDefaulted || RenderPressed || RenderMouseOver || !Animates || TopLevel.GetTopLevel(this) is null)
+        if (!(RenderDefaulted || RenderPressed || RenderMouseOver) || !Animates || TopLevel.GetTopLevel(this) is null)
         {
             return;
         }
 
         var local = EnsureLocalResources();
-        var color = _tokens.Color(DefaultedInnerBorderColor);
-        local.Inner0.Set(color);
-        local.Inner1.Set(color);
-        StartDefaultPulse(local);
+        StartFromCurrentLook(local);
+        if (RenderDefaulted && !RenderPressed && !RenderMouseOver)
+        {
+            StartDefaultPulse(local);
+        }
     }
 
     private void OnThemeResourcesChanged()
@@ -563,7 +568,7 @@ public sealed class ButtonChrome : Decorator
         DropLocalResources();
         _tokens.Clear();
         InvalidateVisual();
-        ResumeDefaultPulse();
+        RestoreLocalResources();
     }
 
     private LocalResources EnsureLocalResources()
@@ -575,6 +580,33 @@ public sealed class ButtonChrome : Decorator
         }
 
         return _localResources;
+    }
+
+    // Sets the animation state to the look drawn without it.
+    private void StartFromCurrentLook(LocalResources local)
+    {
+        if (RenderDefaulted)
+        {
+            var color = _tokens.Color(DefaultedInnerBorderColor);
+            local.Inner0.Set(color);
+            local.Inner1.Set(color);
+        }
+
+        if (RenderPressed)
+        {
+            local.OverlayOpacity.Set(1);
+            local.ShadowOpacity.Set(1);
+            local.InnerOpacity.Set(0);
+            var top = _tokens.Color(PressedFill0Color);
+            local.Fill[0].Set(top);
+            local.Fill[1].Set(top);
+            local.Fill[2].Set(_tokens.Color(PressedFill2Color));
+            local.Fill[3].Set(_tokens.Color(PressedFill3Color));
+            local.BorderColor.Set(_tokens.Color(PressedBorderColor));
+            return;
+        }
+
+        local.OverlayOpacity.Set(RenderMouseOver ? 1 : 0);
     }
 
     private void DropLocalResources()

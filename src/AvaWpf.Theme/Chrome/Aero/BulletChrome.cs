@@ -206,6 +206,13 @@ public sealed class BulletChrome : Control
         DropLocalResources();
     }
 
+    /// <inheritdoc/>
+    protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        base.OnAttachedToVisualTree(e);
+        RestoreLocalResources();
+    }
+
     /// <summary>Returns 12 × 12 for a radio button and 13 × 13 for a check box.</summary>
     protected override Size MeasureOverride(Size availableSize) => IsRound ? new Size(12.0, 12.0) : new Size(13.0, 13.0);
 
@@ -789,6 +796,7 @@ public sealed class BulletChrome : Control
         DropLocalResources();
         _tokens.Clear();
         InvalidateVisual();
+        RestoreLocalResources();
     }
 
     private LocalResources EnsureLocalResources()
@@ -807,6 +815,65 @@ public sealed class BulletChrome : Control
         }
 
         return _localResources;
+    }
+
+    // The animation state is dropped on a theme or tree change. Make it again from the look drawn without it, so a
+    // later hover or press animates from what is on screen and a checked or indeterminate glyph does not vanish.
+    private void RestoreLocalResources()
+    {
+        if ((IsChecked == false && !RenderMouseOver && !RenderPressed) || !Animates || _localResources != null)
+        {
+            return;
+        }
+
+        var local = EnsureLocalResources();
+        var indeterminate = IsChecked == null;
+        local.OverlayOpacity.Set(RenderMouseOver || RenderPressed ? 1 : 0);
+        local.GlyphOpacity.Set(IsChecked == true || (IsChecked == false && RenderPressed) ? 1 : 0);
+        local.HighlightOpacity.Set(indeterminate ? 1 : 0);
+        if (RenderPressed)
+        {
+            local.BorderColor.Set(_tokens.Color(PressedBorderColor));
+            local.BackgroundColor.Set(_tokens.Color(PressedBackgroundColor));
+            SetTo(local.InnerBorder, indeterminate ? s_pressedIndeterminateInnerBorder : s_pressedCheckBoxInnerBorder);
+            SetTo(local.InnerFill, indeterminate ? s_pressedIndeterminateInnerFill : s_pressedCheckBoxInnerFill);
+            SetHighlightTo(local, s_pressedIndeterminateHighlight);
+            if (IsRound)
+            {
+                SetTo(local.GlyphFill, s_pressedRadioGlyphFill);
+            }
+        }
+        else if (RenderMouseOver)
+        {
+            SetTo(local.InnerBorder, indeterminate ? s_hoverIndeterminateInnerBorder : s_hoverCheckBoxInnerBorder);
+            SetTo(local.InnerFill, indeterminate ? s_hoverIndeterminateInnerFill : s_hoverCheckBoxInnerFill);
+            SetHighlightTo(local, s_hoverIndeterminateHighlight);
+            if (IsRound && IsChecked == true)
+            {
+                SetTo(local.GlyphFill, s_hoverRadioGlyphFill);
+            }
+        }
+        else if (indeterminate)
+        {
+            SetTo(local.InnerBorder, s_indeterminateInnerBorder);
+            SetTo(local.InnerFill, s_indeterminateInnerFill);
+        }
+    }
+
+    private void SetHighlightTo(LocalResources local, string[] tokens)
+    {
+        for (var i = 0; i < tokens.Length; i++)
+        {
+            local.Highlight[s_highlightStops[i]].Set(_tokens.Color(tokens[i]));
+        }
+    }
+
+    private void SetTo(AnimatedColor[] values, string[] tokens)
+    {
+        for (var i = 0; i < tokens.Length; i++)
+        {
+            values[i].Set(_tokens.Color(tokens[i]));
+        }
     }
 
     private void DropLocalResources()

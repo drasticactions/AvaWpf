@@ -43,4 +43,7 @@ public static class ChromeTimings
 
     /// <summary>Aero <c>ButtonChrome</c> resumed default pulse: the fade-out after the overlay is back at full opacity.</summary>
     public static readonly TimeSpan DefaultPulseResumeFall = TimeSpan.FromSeconds(1.5);
+
+    /// <summary>Aero <c>ButtonChrome</c> default pulse: the <c>DesiredFrameRate</c> of WPF's pulse storyboard.</summary>
+    public const int DefaultPulseFrameRate = 10;
 }

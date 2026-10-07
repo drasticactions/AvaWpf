@@ -168,6 +168,48 @@ public class AnimationTests
         Assert.False(animator.IsAnimating);
     }
 
+    [AvaloniaFact]
+    public void ChromeAnimator_Frame_Rate_Steps_The_Value_And_Holds_Report_No_Change()
+    {
+        WpfAnimations.TimeScale = 1;
+        try
+        {
+            var root = new Border();
+            Host(root);
+            var animator = new ChromeAnimator(root);
+            var value = animator.CreateDouble(0);
+            value.Animate(
+                [
+                    new ChromeKeyFrame<double>(1.0, TimeSpan.FromSeconds(0.5)),
+                    new ChromeKeyFrame<double>(1.0, TimeSpan.FromSeconds(0.75), IsDiscrete: true),
+                    new ChromeKeyFrame<double>(0.0, TimeSpan.FromSeconds(2.0)),
+                ],
+                repeatForever: true,
+                frameRate: 10);
+            IChromeChannel channel = value;
+
+            Assert.True(channel.Tick(TimeSpan.FromSeconds(1), out _));
+
+            // 10 frames a second: the value moves at 0.1 s and holds until 0.2 s.
+            Assert.True(channel.Tick(TimeSpan.FromSeconds(1.15), out var changed));
+            Assert.True(changed);
+            Assert.Equal(0.2, value.Value, 6);
+            channel.Tick(TimeSpan.FromSeconds(1.19), out changed);
+            Assert.False(changed);
+            Assert.Equal(0.2, value.Value, 6);
+
+            // The hold at full opacity changes nothing, so the owner is not drawn again.
+            channel.Tick(TimeSpan.FromSeconds(1.6), out _);
+            channel.Tick(TimeSpan.FromSeconds(1.7), out changed);
+            Assert.False(changed);
+            Assert.Equal(1.0, value.Value);
+        }
+        finally
+        {
+            WpfAnimations.TimeScale = 0;
+        }
+    }
+
     [Theory]
     [InlineData(PlacementMode.Bottom, false)]
     [InlineData(PlacementMode.BottomEdgeAlignedLeft, false)]

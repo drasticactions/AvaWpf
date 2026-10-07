@@ -122,5 +122,9 @@
     <Style Selector="^:fullscreen /template/ wpf|WindowFrame#PART_Frame">
       <Setter Property="IsVisible" Value="False" />
     </Style>
+    <!-- An undecorated window (a ThemeWindow draws its own frame) keeps the decorations with no parts enabled. -->
+    <Style Selector="^:not(:has-border):not(:has-titlebar) /template/ wpf|WindowFrame#PART_Frame">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
   </ControlTheme>
 </ResourceDictionary>
